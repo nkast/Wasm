@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.Dom", "Wasm.Dom\Wasm.Dom.csproj", "{91D886B5-8FA5-4550-8DFF-9C768F4E4222}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.XHR", "Wasm.XHR\Wasm.XHR.csproj", "{0BE3D70C-A8E1-4EB6-8BEB-20E144534260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BE3D70C-A8E1-4EB6-8BEB-20E144534260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BE3D70C-A8E1-4EB6-8BEB-20E144534260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BE3D70C-A8E1-4EB6-8BEB-20E144534260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BE3D70C-A8E1-4EB6-8BEB-20E144534260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
