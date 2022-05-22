@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <AssemblyName>nkast.Wasm.Audio</AssemblyName>
+    <RootNamespace>nkast.Wasm.Audio</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>nkast.Wasm.Audio</PackageId>
+    <PackageVersion>6.0.0</PackageVersion>
+    <Authors>Nick Kastellanos</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.4" />
+    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>
