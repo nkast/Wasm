@@ -248,7 +248,8 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public void BindTexture(WebGLTextureTarget target, WebGLTexture texture)
         {
-            Invoke("nkCanvasGLContext.BindTexture", (int)target, texture.Uid);
+            int uid = (texture != null) ? texture.Uid : -1;
+            Invoke("nkCanvasGLContext.BindTexture", (int)target, uid);
         }
 
         public void BindBuffer(WebGLBufferType type, WebGLBuffer buffer)

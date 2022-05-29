@@ -685,7 +685,7 @@ window.nkCanvasGLContext =
         var gc = nkJSObject.GetObject(uid);
         var tg = Blazor.platform.readInt32Field(d, 0);
         var txuid = Blazor.platform.readInt32Field(d, 4);
-        var tx = nkJSObject.GetObject(txuid);
+        var tx = (txuid != -1) ? nkJSObject.GetObject(txuid) : null;
         gc.bindTexture(tg, tx);
     },
 
