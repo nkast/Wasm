@@ -9,14 +9,11 @@
 
   <PropertyGroup>
     <PackageId>nkast.Wasm.Dom</PackageId>
-    <PackageVersion>6.0.0</PackageVersion>
+    <PackageVersion>6.0.1</PackageVersion>
     <Authors>Nick Kastellanos</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-  </ItemGroup>
 
 
   <ItemGroup>
