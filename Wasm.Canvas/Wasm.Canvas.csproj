@@ -15,14 +15,11 @@
     <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
   </PropertyGroup>
 
-  <ItemGroup>
-  </ItemGroup>
-
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.4" />
+    <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
     <PackageReference Include="nkast.Wasm.Dom" Version="6.0.0" />
   </ItemGroup>
 
