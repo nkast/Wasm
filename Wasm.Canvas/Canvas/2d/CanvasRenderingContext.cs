@@ -341,11 +341,13 @@ namespace nkast.Wasm.Canvas
 
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed)
+            if (disposing)
             {
-                Invoke("nkJSObject.DisposeObject");
-                base.Dispose(disposing);
+
             }
+           
+            Invoke("nkJSObject.DisposeObject");
+            base.Dispose(disposing);
         }
 
 

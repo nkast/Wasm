@@ -92,9 +92,6 @@ namespace nkast.Wasm.Audio
 
         protected override void Dispose(bool disposing)
         {
-            if (IsDisposed)
-                return;
-
             if (disposing)
             {
 

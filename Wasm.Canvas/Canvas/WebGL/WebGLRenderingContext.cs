@@ -512,15 +512,12 @@ namespace nkast.Wasm.Canvas.WebGL
 
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    
-                }
 
-                //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext
             }
+
+            //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext
         }
 
     }

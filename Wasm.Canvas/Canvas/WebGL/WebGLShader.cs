@@ -14,16 +14,13 @@ namespace nkast.Wasm.Canvas.WebGL
 
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed)
+            if (disposing)
             {
-                if (disposing)
-                {
 
-                }
-
-                _glContext.DeleteShader(this);
-                _glContext = null;
             }
+
+            _glContext.DeleteShader(this);
+            _glContext = null;
 
             base.Dispose(disposing);
         }
