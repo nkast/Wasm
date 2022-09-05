@@ -26,7 +26,7 @@ namespace nkast.Wasm.Dom
 
         private bool _isDisposed;
 
-        protected bool IsDisposed { get; private set; }
+        protected bool IsDisposed { get { return _isDisposed; } }
 
 
         ~JSObject()

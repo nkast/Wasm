@@ -6,7 +6,7 @@ namespace nkast.Wasm.Canvas
 {
     public partial class RenderingContext : JSObject, IRenderingContext
     {
-        internal bool IsDisposed { get { return base.IsDisposed; } }
+        new internal bool IsDisposed { get { return base.IsDisposed; } }
 
         public Canvas Canvas { get; private set; }
 
