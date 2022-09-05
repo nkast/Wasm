@@ -6,7 +6,9 @@ namespace nkast.Wasm.Canvas
 {
     public partial class RenderingContext : JSObject, IRenderingContext
     {
-        new internal bool IsDisposed { get { return base.IsDisposed; } }
+        private bool _isDisposed;
+
+        internal bool IsDisposed { get { return IsDisposed; } }
 
         public Canvas Canvas { get; private set; }
 
@@ -18,6 +20,8 @@ namespace nkast.Wasm.Canvas
 
         protected override void Dispose(bool disposing)
         {
+            _isDisposed = true;
+
             Canvas = null;
             base.Dispose(disposing);
         }

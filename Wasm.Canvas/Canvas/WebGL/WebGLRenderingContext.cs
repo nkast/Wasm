@@ -518,6 +518,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
 
             //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext
+            base.Dispose(disposing);
         }
 
     }

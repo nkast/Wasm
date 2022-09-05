@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace nkast.Wasm.Dom
 {
@@ -25,8 +26,6 @@ namespace nkast.Wasm.Dom
         #region implement IDisposable
 
         private bool _isDisposed;
-
-        protected bool IsDisposed { get { return _isDisposed; } }
 
 
         ~JSObject()
@@ -54,6 +53,19 @@ namespace nkast.Wasm.Dom
 
                 _isDisposed = true;
             }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("JSObject is allready disposed.");
+            }
+        }
+
+        [Conditional("DEBUG")]
+        protected void ThrowIfDisposed()
+        {
+            if (!_isDisposed)
+                return;
+
+            throw new ObjectDisposedException("Object is Disposed.");
         }
 
         #endregion

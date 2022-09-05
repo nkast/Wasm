@@ -37,22 +37,30 @@ namespace nkast.Wasm.Canvas
         {
             if (typeof(TContext) == typeof(ICanvasRenderingContext))
             {
-                if (_canvasRenderingContext == null || _canvasRenderingContext.IsDisposed)
-                {
-                    int uid = InvokeRet<int>("nkCanvas.Create2DContext");
-                    _canvasRenderingContext = new CanvasRenderingContext(this, uid);
-                }
+                //TODO: implement a Disposed event in IRenderingContext
+                if (_canvasRenderingContext.IsDisposed)
+                    _canvasRenderingContext = null;
+
+                if (_canvasRenderingContext != null)
+                    return (TContext)(IRenderingContext)_canvasRenderingContext;
+
+                int uid = InvokeRet<int>("nkCanvas.Create2DContext");
+                _canvasRenderingContext = new CanvasRenderingContext(this, uid);
 
                 return (TContext)(IRenderingContext)_canvasRenderingContext;
             }
 
             if (typeof(TContext) == typeof(WebGL.IWebGLRenderingContext))
             {
-                if (_webglRenderingContext == null || _webglRenderingContext.IsDisposed)
-                {
-                    int uid = InvokeRet<int>("nkCanvas.CreateWebGLContext");
-                    _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
-                }
+                //TODO: implement a Disposed event in IRenderingContext
+                if (_webglRenderingContext.IsDisposed)
+                    _webglRenderingContext = null;
+                
+                if (_webglRenderingContext != null)
+                    return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
+
+                int uid = InvokeRet<int>("nkCanvas.CreateWebGLContext");
+                _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
 
                 return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
             }
