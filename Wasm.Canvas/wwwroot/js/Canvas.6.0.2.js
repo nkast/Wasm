@@ -5,20 +5,20 @@
         var c = nkJSObject.GetObject(uid);
         return c.width;
     },
-    SetWidth: function(uid,d)
+    SetWidth: function(uid, width)
     {
         var c = nkJSObject.GetObject(uid);
-        c.width = Blazor.platform.readInt32Field(d, 0);
+        c.width = width;
     },
     GetHeight: function (uid)
     {
         var c = nkJSObject.GetObject(uid);
         return c.height;
     },
-    SetHeight: function(uid,d)
+    SetHeight: function(uid, height)
     {
         var c = nkJSObject.GetObject(uid);
-        c.height = Blazor.platform.readInt32Field(d, 0);
+        c.height = height;
     },
     Create2DContext: function (uid)
     {

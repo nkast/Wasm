@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using System.Runtime.InteropServices.JavaScript;
+using System.Runtime.Versioning;
 using Microsoft.JSInterop.WebAssembly;
 
 namespace nkast.Wasm.Dom
@@ -15,8 +17,8 @@ namespace nkast.Wasm.Dom
 
         public string Title
         {
-            get { return InvokeRet<string>("nkDocument.GetTitle"); }
-            set { Invoke("nkDocument.SetTitle", value); }
+            get { return JSInterop_NkDocument.GetTitle(Uid); }
+            set { JSInterop_NkDocument.SetTitle(Uid, value); }
         }
 
         internal Document(Window window, int uid) : base(uid)
@@ -34,10 +36,10 @@ namespace nkast.Wasm.Dom
                 if (!refElement.TryGetTarget(out element))
                     _elementsCache.Remove(id);
             }
-            
+
             if (element == null)
             {
-                int uid = InvokeRet<string, int>("nkDocument.GetElementById", id);
+                int uid = JSInterop_NkDocument.GetElementById(Uid, id);
                 if (uid != -1)
                 {
                     element = CreateInstance<TElement>(uid);
@@ -50,7 +52,7 @@ namespace nkast.Wasm.Dom
 
         protected static JSObject CreateInstance<TElement>(int uid)
             where TElement : JSObject
-        {   
+        {
             return (TElement)Activator.CreateInstance(
                 typeof(TElement),
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,

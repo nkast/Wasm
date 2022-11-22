@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.InteropServices.JavaScript;
+using System.Runtime.Versioning;
 using Microsoft.JSInterop;
 using Microsoft.JSInterop.WebAssembly;
 
@@ -44,7 +46,7 @@ namespace nkast.Wasm.Dom
                 if (_current == null)
                 {
                     WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-                    int uid = runtime.InvokeUnmarshalled<int>("nkJSObject.GetWindow");
+                    int uid = JSInterop_NKJSObject.GetWindow();
                     _current = new Window(uid);
                 }
 
@@ -58,7 +60,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_document == null)
                 {
-                    int uid = InvokeRet<int>("nkWindow.GetDocument");
+                    int uid = JSInterop_NKWindow.GetDocument(Uid);
                     _document = new Document(this, uid);
                 }
 
@@ -68,17 +70,17 @@ namespace nkast.Wasm.Dom
 
         public int InnerWidth
         {
-            get { return InvokeRet<int>("nkWindow.GetInnerWidth"); }
+            get { return JSInterop_NKWindow.GetInnerWidth(Uid); }
         }
 
         public int InnerHeight
         {
-            get { return InvokeRet<int>("nkWindow.GetInnerHeight"); }
+            get { return JSInterop_NKWindow.GetInnerHeight(Uid); }
         }
 
         private Window(int uid) : base(uid)
         {
-            Invoke("nkWindow.RegisterEvents");
+            JSInterop_NKWindow.RegisterEvents();
         }
         
         private static Window WindowFromUid(int uid)

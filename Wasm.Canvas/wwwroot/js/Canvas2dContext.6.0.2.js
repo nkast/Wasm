@@ -5,10 +5,10 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return BINDING.js_to_mono_obj(dc.fillStyle);
     },
-    SetFillStyle: function(uid,d)
+    SetFillStyle: function(uid, fillstyle)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.fillStyle = Blazor.platform.readStringField(d, 0);
+        dc.fillStyle = fillstyle;
     },
 
     GetStrokeStyle: function(uid)
@@ -16,16 +16,16 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return BINDING.js_to_mono_obj(dc.strokeStyle);
     },
-    SetStrokeStyle: function(uid,d)
+    SetStrokeStyle: function(uid, strokeStyle)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.strokeStyle = Blazor.platform.readStringField(d, 0);
+        dc.strokeStyle = strokeStyle;
     },
 
     GetFont: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.font);
+        return dc.font;
     },
     SetFont: function (uid,d)
     {

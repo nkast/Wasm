@@ -3,19 +3,17 @@
     GetTitle: function (uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.title);
+        return dc.title;
     },
-    SetTitle: function (uid, d)
+    SetTitle: function (uid, title)
     {
         var dc = nkJSObject.GetObject(uid);
-        var tl = Blazor.platform.readStringField(d, 0);
-        dc.title = tl;
+        dc.title = title;
     },
-    GetElementById: function (uid, d)
+    GetElementById: function (uid, elementId)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = Blazor.platform.readStringField(d, 0);
-        var el = dc.getElementById(id);
+        var el = dc.getElementById(elementId);
         return nkJSObject.RegisterObject(el);
     }
 };
