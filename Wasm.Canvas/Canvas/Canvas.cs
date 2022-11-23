@@ -38,7 +38,7 @@ namespace nkast.Wasm.Canvas
             if (typeof(TContext) == typeof(ICanvasRenderingContext))
             {
                 //TODO: implement a Disposed event in IRenderingContext
-                if (_canvasRenderingContext.IsDisposed)
+                if (_canvasRenderingContext != null && _canvasRenderingContext.IsDisposed)
                     _canvasRenderingContext = null;
 
                 if (_canvasRenderingContext != null)
@@ -53,7 +53,7 @@ namespace nkast.Wasm.Canvas
             if (typeof(TContext) == typeof(WebGL.IWebGLRenderingContext))
             {
                 //TODO: implement a Disposed event in IRenderingContext
-                if (_webglRenderingContext.IsDisposed)
+                if (_webglRenderingContext != null && _webglRenderingContext.IsDisposed)
                     _webglRenderingContext = null;
                 
                 if (_webglRenderingContext != null)
