@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.JSInterop;
 using Microsoft.JSInterop.WebAssembly;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace nkast.Wasm.Dom
 {
@@ -14,7 +15,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke(string identifier)
         {
-            InvokeRet<object>(identifier);
+            InvokeRet<IJSVoidResult>(identifier);
         }
 
         protected TRes InvokeRet<TRes>(string identifier)
@@ -24,7 +25,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1>(string identifier, T1 arg1)
         {
-            InvokeRet<T1, object>(identifier, arg1);
+            InvokeRet<T1, IJSVoidResult>(identifier, arg1);
         }
 
         protected TRes InvokeRet<T1, TRes>(string identifier, T1 arg1)
@@ -35,7 +36,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2>(string identifier, T1 arg1, T2 arg2)
         {
-            InvokeRet<T1, T2, object>(identifier, arg1, arg2);
+            InvokeRet<T1, T2, IJSVoidResult>(identifier, arg1, arg2);
         }
 
         protected TRes InvokeRet<T1, T2, TRes>(string identifier, T1 arg1, T2 arg2)
@@ -46,7 +47,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3>(string identifier, T1 arg1, T2 arg2, T3 arg3)
         {
-            InvokeRet<T1, T2, T3, object>(identifier, arg1, arg2, arg3);
+            InvokeRet<T1, T2, T3, IJSVoidResult>(identifier, arg1, arg2, arg3);
         }
 
         protected TRes InvokeRet<T1, T2, T3, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3)
@@ -57,7 +58,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            InvokeRet<T1, T2, T3, T4, object>(identifier, arg1, arg2, arg3, arg4);
+            InvokeRet<T1, T2, T3, T4, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
@@ -68,7 +69,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            InvokeRet<T1, T2, T3, T4, T5, object>(identifier, arg1, arg2, arg3, arg4, arg5);
+            InvokeRet<T1, T2, T3, T4, T5, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, T5, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
@@ -79,7 +80,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            InvokeRet<T1, T2, T3, T4, T5, T6, object>(identifier, arg1, arg2, arg3, arg4, arg5, arg6);
+            InvokeRet<T1, T2, T3, T4, T5, T6, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5, arg6);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
@@ -90,7 +91,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            InvokeRet<T1, T2, T3, T4, T5, T6, T7, object>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+            InvokeRet<T1, T2, T3, T4, T5, T6, T7, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
@@ -101,7 +102,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
-            InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, object>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+            InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
@@ -121,7 +122,7 @@ namespace nkast.Wasm.Dom
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
-            InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, object>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+            InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
         }
 
         protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
