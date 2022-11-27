@@ -5,10 +5,6 @@ namespace nkast.Wasm.Canvas
 {
     public class Canvas : JSObject
     {
-        private readonly string _id;
-
-        public string Id { get { return _id; } }
-
         //get or set the width of the canvas
         public int Width
         { 
