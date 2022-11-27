@@ -8,7 +8,7 @@ namespace nkast.Wasm.Canvas
     {
         private bool _isDisposed;
 
-        internal bool IsDisposed { get { return IsDisposed; } }
+        internal bool IsDisposed { get { return _isDisposed; } }
 
         public Canvas Canvas { get; private set; }
 
