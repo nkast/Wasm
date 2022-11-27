@@ -28,10 +28,11 @@ namespace nkast.Wasm.Dom
             InvokeRet<T1, IJSVoidResult>(identifier, arg1);
         }
 
+        const int Net7Padding = 0;
         protected TRes InvokeRet<T1, TRes>(string identifier, T1 arg1)
         {
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1>, TRes>(identifier, Uid,
-                ValueTuple.Create(arg1));
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, int>, TRes>(identifier, Uid,
+                ValueTuple.Create(arg1, Net7Padding));
         }
 
         protected void Invoke<T1, T2>(string identifier, T1 arg1, T2 arg2)
