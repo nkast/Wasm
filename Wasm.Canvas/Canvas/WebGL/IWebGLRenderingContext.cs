@@ -45,6 +45,8 @@ namespace nkast.Wasm.Canvas.WebGL
         void TexSubImage2D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels) where TData : struct;
         void CompressedTexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, TData[] pixels) where TData : struct;
         void CompressedTexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, TData[] pixels, int index, int count) where TData : struct;
+        void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels) where TData : struct;
+        void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count) where TData : struct;
         void TexParameter(WebGLTextureTarget target, WebGLTexParamName pname, WebGLTexParam param);
         void PixelStore(WebGLPixelParameter pname, int param);
         void BindTexture(WebGLTextureTarget target, WebGLTexture texture);

@@ -236,6 +236,20 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.CompressedTexImage2D1", (int)target, level, (int)internalFormat, width, height, stride, pixels, index, count);
         }
 
+        public void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGLContext.ReadPixels", x, y, width, height, format, type, stride, pixels);
+        }
+
+        public void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGLContext.ReadPixels1", x, y, width, height, format, type, stride, pixels, index, count);
+        }
+
         public void TexParameter(WebGLTextureTarget target, WebGLTexParamName pname, WebGLTexParam param)
         {
             Invoke("nkCanvasGLContext.TexParameteri", (int)target, (int)pname, (int)param);

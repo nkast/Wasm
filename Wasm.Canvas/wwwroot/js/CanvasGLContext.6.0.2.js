@@ -663,6 +663,46 @@ window.nkCanvasGLContext =
         gc.compressedTexImage2D(tg, lv, it, wh, ht, 0, dt);
     },
 
+    ReadPixels: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var x  = Blazor.platform.readInt32Field(d,  0);
+        var y  = Blazor.platform.readInt32Field(d,  4);
+        var w  = Blazor.platform.readInt32Field(d,  8);
+        var h  = Blazor.platform.readInt32Field(d, 12);
+        var ft = Blazor.platform.readInt32Field(d, 16);
+        var tp = Blazor.platform.readInt32Field(d, 20);
+        var st = Blazor.platform.readInt32Field(d, 24);
+        var arr = Blazor.platform.readInt32Field(d, 28);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+
+        gc.readPixels(x, y, w, h, ft, tp, dt);
+    },
+
+    ReadPixels1: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var x = Blazor.platform.readInt32Field(d, 0);
+        var y = Blazor.platform.readInt32Field(d, 4);
+        var w = Blazor.platform.readInt32Field(d, 8);
+        var h = Blazor.platform.readInt32Field(d, 12);
+        var ft = Blazor.platform.readInt32Field(d, 16);
+        var tp = Blazor.platform.readInt32Field(d, 20);
+        var st = Blazor.platform.readInt32Field(d, 24);
+        var arr = Blazor.platform.readInt32Field(d, 28);
+        var ix = Blazor.platform.readInt32Field(d, 32);
+        var ot = Blazor.platform.readInt32Field(d, 36);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        //var arrLen = Blazor.platform.getArrayLength(arr);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+
+        gc.readPixels(x, y, w, h, ft, tp, dt);
+    },
+
     TexParameteri: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
