@@ -131,5 +131,16 @@ namespace nkast.Wasm.Dom
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
             return Runtime.InvokeUnmarshalled<int, FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>, TRes>(identifier, Uid, args);
         }
+
+        protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        {
+            InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, IJSVoidResult>(identifier, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
+        }
+
+        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        {
+            var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
+            return Runtime.InvokeUnmarshalled<int, FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>, TRes>(identifier, Uid, args);
+        }
     }
 }
