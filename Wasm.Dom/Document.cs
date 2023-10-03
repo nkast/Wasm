@@ -59,12 +59,4 @@ namespace nkast.Wasm.Dom
                 null);
         }
     }
-
-    public class Div : JSObject
-    {
-        internal Div(int uid) : base(uid)
-        {
-        }
-    }
-
 }
