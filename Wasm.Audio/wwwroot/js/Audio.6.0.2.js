@@ -179,8 +179,8 @@ window.nkAudioBufferSourceNode =
     SetBuffer: function (uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
-        var uid= Blazor.platform.readInt32Field(d, 0);
-        var ab = nkJSObject.GetObject(uid);
+        var bid= Blazor.platform.readInt32Field(d, 0);
+        var ab = nkJSObject.GetObject(bid);
         bs.buffer = ab;
     },
 
@@ -240,15 +240,15 @@ window.nkAudioNode =
     Connect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var uid= Blazor.platform.readInt32Field(d, 0);
-        var ds = nkJSObject.GetObject(uid);
+        var did= Blazor.platform.readInt32Field(d, 0);
+        var ds = nkJSObject.GetObject(did);
         an.connect(ds);
     },
     Disconnect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var uid = Blazor.platform.readInt32Field(d, 0);
-        var ds = nkJSObject.GetObject(uid);
+        var did = Blazor.platform.readInt32Field(d, 0);
+        var ds = nkJSObject.GetObject(did);
         an.disconnect(ds);
     },
 };
