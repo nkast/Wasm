@@ -77,6 +77,14 @@ window.nkAudioBaseContext =
         var ac = nkJSObject.GetObject(uid);
         var sp = ac.createStereoPanner();
         return nkJSObject.RegisterObject(sp);
+    },
+    CreateMediaElementSource: function (uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var mid= Blazor.platform.readInt32Field(d, 0);
+        var me = nkJSObject.GetObject(mid);
+        var ms = ac.createMediaElementSource(me);
+        return nkJSObject.RegisterObject(ms);
     }
 };
 

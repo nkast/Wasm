@@ -77,6 +77,12 @@ namespace nkast.Wasm.Audio
             return new OscillatorNode(uid, this);
         }        
 
+        public MediaElementAudioSourceNode CreateMediaElementSource(IHTMLMediaElement media)
+        {
+            int uid = InvokeRet<int, int>("nkAudioBaseContext.CreateMediaElementSource", ((JSObject)media).Uid);
+            return new MediaElementAudioSourceNode(uid, this, media);
+        }
+
         public GainNode CreateGain()
         {
             int uid = InvokeRet<int>("nkAudioBaseContext.CreateGain");
