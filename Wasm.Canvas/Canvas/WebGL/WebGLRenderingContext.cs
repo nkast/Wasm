@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas.WebGL
 {
@@ -212,6 +213,11 @@ namespace nkast.Wasm.Canvas.WebGL
         {
             var stride = Marshal.SizeOf<TData>();
             Invoke("nkCanvasGLContext.TexImage2D1", (int)target, level, (int)internalFormat, width, height, (int)format, (int)type, stride, pixels);
+        }
+
+        public void TexImage2D(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, WebGLFormat format, WebGLTexelType type, Video video)
+        {
+            Invoke("nkCanvasGLContext.TexImage2D2", (int)target, level, (int)internalFormat,  (int)format, (int)type, video.Uid);
         }
 
         public void TexSubImage2D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels) 

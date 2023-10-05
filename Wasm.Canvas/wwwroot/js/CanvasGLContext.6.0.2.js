@@ -604,6 +604,21 @@ window.nkCanvasGLContext =
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, dt);
     },
 
+    TexImage2D2: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var tg = Blazor.platform.readInt32Field(d, 0);
+        var lv = Blazor.platform.readInt32Field(d, 4);
+        var it = Blazor.platform.readInt32Field(d, 8);
+        var ft = Blazor.platform.readInt32Field(d, 12);
+        var tp = Blazor.platform.readInt32Field(d, 16);
+
+        var vid= Blazor.platform.readInt32Field(d, 20);
+        var vi = nkJSObject.GetObject(vid);
+
+        gc.texImage2D(tg, lv, it, ft, tp, vi);
+    },
+
     TexSubImage2D1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
