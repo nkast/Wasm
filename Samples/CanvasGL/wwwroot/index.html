@@ -27,12 +27,9 @@
     <script type="module">
         import { BrotliDecode } from './js/decode.min.js';
         Blazor.start({
-            loadBootResource: function (type, name, defaultUri, integrity)
-            {
-                if (type !== 'dotnetjs' && location.hostname !== 'localhost')
-                {
-                    return (async function()
-                    {
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+                    return (async function () {
                         const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
                         if (!response.ok)
                             throw new Error(response.statusText);
@@ -40,27 +37,29 @@
                         const originalResponseArray = new Int8Array(originalResponseBuffer);
                         const decompressedResponseArray = BrotliDecode(originalResponseArray);
                         const contentType = type === 'dotnetwasm'
-                                          ? 'application/wasm' 
-                                          : 'application/octet-stream';
+                            ? 'application/wasm'
+                            : 'application/octet-stream';
                         return new Response(decompressedResponseArray,
-                                            { headers: { 'content-type': contentType } 
-                                   });
+                            {
+                                headers: { 'content-type': contentType }
+                            });
                     })();
                 }
             }
         });
     </script>
 
-    <script src="_content/nkast.Wasm.Dom/js/JSObject.6.0.2.js"></script>
-    <script src="_content/nkast.Wasm.Dom/js/Window.6.0.2.js"></script>
-    <script src="_content/nkast.Wasm.Dom/js/Document.6.0.2.js"></script>
-    <script src="_content/nkast.Wasm.XHR/js/XHR.6.0.2.js"></script>
-    <script src="_content/nkast.Wasm.Canvas/js/Canvas.6.0.2.js"></script>
-    <script src="_content/nkast.Wasm.Canvas/js/CanvasGLContext.6.0.2.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/JSObject.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Window.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Document.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Dom/js/Media.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.XHR/js/XHR.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Audio/js/Audio.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Canvas/js/Canvas.6.0.4.js"></script>
+    <script src="_content/nkast.Wasm.Canvas/js/CanvasGLContext.6.0.4.js"></script>
 
     <script>
-        function tickJS()
-        {
+        function tickJS() {
             // resize the canvas to fit its parent
             var canvas = document.getElementById('theCanvas');
 
@@ -72,8 +71,7 @@
             window.requestAnimationFrame(tickJS);
         }
 
-        window.initRenderJS = (instance) =>
-        {
+        window.initRenderJS = (instance) => {
             window.theInstance = instance;
 
             // begin game loop
