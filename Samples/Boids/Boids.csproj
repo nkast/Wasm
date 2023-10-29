@@ -11,12 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.22" PrivateAssets="all" />
     <PackageReference Include="nkast.Wasm.Canvas" Version="6.0.4" />
     <PackageReference Include="nkast.Wasm.XHR" Version="6.0.4" />
     <PackageReference Include="nkast.Wasm.Dom" Version="6.0.4" />
-    <PackageReference Include="Aether.Physics2D" Version="1.6.1.1-alpha" />
+    <PackageReference Include="Aether.Physics2D" Version="1.7.0" />
   </ItemGroup>
 
 </Project>
