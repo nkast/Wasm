@@ -24,6 +24,8 @@ namespace nkast.Wasm.Dom
 
 
         public OnResizeDelegate OnResize;
+        public OnResizeDelegate OnFocus;
+        public OnResizeDelegate OnBlur;
         public OnMouseMoveDelegate OnMouseMove;
         public OnMouseDownDelegate OnMouseDown;
         public OnMouseUpDelegate OnMouseUp;
@@ -93,6 +95,24 @@ namespace nkast.Wasm.Dom
         {
             Window wnd = WindowFromUid(uid);
             var handler = wnd.OnResize;
+            if (handler != null)
+                handler(wnd);
+        }
+
+        [JSInvokable]
+        public static void JsWindowOnFocus(int uid)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnFocus;
+            if (handler != null)
+                handler(wnd);
+        }
+
+        [JSInvokable]
+        public static void JsWindowOnBlur(int uid)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnBlur;
             if (handler != null)
                 handler(wnd);
         }

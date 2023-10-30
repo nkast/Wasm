@@ -24,6 +24,14 @@
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnResize', uid);
         };
+        window.onfocus = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnFocus', uid);
+        };
+        window.onblur = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnBlur', uid);
+        };
         window.onmousemove = function(event)
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseMove', uid,
