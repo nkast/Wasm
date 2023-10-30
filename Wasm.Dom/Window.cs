@@ -78,6 +78,11 @@ namespace nkast.Wasm.Dom
             get { return InvokeRet<int>("nkWindow.GetInnerHeight"); }
         }
 
+        public bool IsSecureContext
+        {
+            get { return InvokeRet<bool>("nkWindow.GetIsSecureContext"); }
+        }
+
         private Window(int uid) : base(uid)
         {
             Invoke("nkWindow.RegisterEvents");

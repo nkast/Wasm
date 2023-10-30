@@ -16,6 +16,11 @@
         var w = nkJSObject.GetObject(uid);
         return w.innerHeight;
     },
+    GetIsSecureContext: function (uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        return w.isSecureContext;
+    },
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
