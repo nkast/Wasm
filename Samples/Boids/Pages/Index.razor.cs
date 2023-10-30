@@ -59,7 +59,10 @@ namespace Boids.Pages
             if (cs == null)
             {
                 cs = Window.Current.Document.GetElementById<Canvas>("theCanvas");
-                cx = cs.GetContext<ICanvasRenderingContext>();
+                ContextAttributes attribs = new ContextAttributes();
+                attribs.Alpha = true;
+                attribs.Desynchronized = null;
+                cx = cs.GetContext<ICanvasRenderingContext>(attribs);
 
                 Window.Current.OnResize += this.OnResize;
                 Window.Current.OnMouseMove += this.OnMouseMove;

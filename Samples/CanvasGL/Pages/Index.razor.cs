@@ -53,16 +53,19 @@ namespace CanvasGL.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
-
         [JSInvokable]
         public void TickDotNet()
         {
             if (cs == null)
             {
                 cs = Window.Current.Document.GetElementById<Canvas>("theCanvas");
-                gl = cs.GetContext<IWebGLRenderingContext>();
+                ContextAttributes attribs = new ContextAttributes();
+                attribs.Depth = true;
+                gl = cs.GetContext<IWebGLRenderingContext>(attribs);
 
                 Window.Current.OnResize += this.OnResize;
+                Window.Current.OnFocus += this.OnFocus;
+                Window.Current.OnBlur += this.OnBlur;
                 Window.Current.OnMouseMove += this.OnMouseMove;
                 Window.Current.OnMouseDown += this.OnMouseDown;
                 Window.Current.OnMouseUp += this.OnMouseUp;
@@ -80,6 +83,7 @@ namespace CanvasGL.Pages
 
             // reset canvas
             gl.ClearColor(.39f, .58f, 0.92f, 1f);
+
             gl.Clear(WebGLBufferBits.COLOR| WebGLBufferBits.DEPTH| WebGLBufferBits.STENCIL);
             
             // scale to virtual resolution
@@ -118,6 +122,18 @@ namespace CanvasGL.Pages
             var wnd = (Window)sender;
             var w = wnd.InnerWidth;
             var h = wnd.InnerHeight;
+        }
+
+        private void OnFocus(object sender)
+        {
+            var wnd = (Window)sender;
+            var hasFocus = true;
+        }
+
+        private void OnBlur(object sender)
+        {
+            var wnd = (Window)sender;
+            var hasFocus = false;
         }
 
         private void OnMouseMove(object sender, int x, int y)

@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <PackageId>nkast.Wasm.XHR</PackageId>
-    <PackageVersion>6.0.4</PackageVersion>
+    <PackageVersion>6.0.5</PackageVersion>
     <Authors>Nick Kastellanos</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.JSInterop.WebAssembly" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.24" />
-    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.4" />
+    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.5" />
   </ItemGroup>
 
 </Project>
