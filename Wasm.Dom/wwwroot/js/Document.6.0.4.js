@@ -17,5 +17,10 @@
         var id = Blazor.platform.readStringField(d, 0);
         var el = dc.getElementById(id);
         return nkJSObject.RegisterObject(el);
+    },
+    HasFocus: function (uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        return dc.hasFocus();
     }
 };

@@ -58,5 +58,10 @@ namespace nkast.Wasm.Dom
                 new object[] { uid },
                 null);
         }
+
+        public bool HasFocus()
+        {
+            return InvokeRet<bool>("nkDocument.HasFocus");
+        }
     }
 }
