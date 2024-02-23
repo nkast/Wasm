@@ -5,7 +5,7 @@ dotnet pack Wasm.Audio\Wasm.Audio.csproj /p:Configuration=Release -o bin\publish
 
 set username=username
 
-"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Dom.6.0.5.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
-"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.XHR.6.0.5.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
-"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Canvas.6.0.5.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
-"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Audio.6.0.5.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
+"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Dom.6.0.6.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
+"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.XHR.6.0.6.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
+"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Canvas.6.0.6.nupkg -Source "C:\Users\%username%\.nuget\localPackages"
+"C:\Program Files (x86)\nuget\nuget.exe" add bin\publish\nkast.Wasm.Audio.6.0.6.nupkg -Source "C:\Users\%username%\.nuget\localPackages"

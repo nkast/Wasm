@@ -20,10 +20,10 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <PackageReference Include="nkast.Wasm.Audio" Version="6.0.5" />
-    <PackageReference Include="nkast.Wasm.Canvas" Version="6.0.5" />
-    <PackageReference Include="nkast.Wasm.XHR" Version="6.0.5" />
-    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.5" />
+    <PackageReference Include="nkast.Wasm.Audio" Version="6.0.6" />
+    <PackageReference Include="nkast.Wasm.Canvas" Version="6.0.6" />
+    <PackageReference Include="nkast.Wasm.XHR" Version="6.0.6" />
+    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.6" />
     <PackageReference Include="Aether.Physics2D" Version="1.7.0" />
   </ItemGroup>
 
