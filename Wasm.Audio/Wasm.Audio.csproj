@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.5" />
+    <ProjectReference Include="..\Wasm.Dom\Wasm.Dom.csproj" />
   </ItemGroup>
 
 </Project>

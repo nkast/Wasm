@@ -26,9 +26,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
   </ItemGroup>
-	
   <ItemGroup>
-    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.5" />
+    <ProjectReference Include="..\Wasm.Dom\Wasm.Dom.csproj" />
   </ItemGroup>
 
 </Project>
