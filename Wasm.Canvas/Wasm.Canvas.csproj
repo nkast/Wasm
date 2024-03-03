@@ -28,6 +28,12 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <EmbeddedResource Include="ILLink.Descriptors.xml">
+      <LogicalName>ILLink.Descriptors.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+	
+  <ItemGroup>
     <ProjectReference Include="..\Wasm.Dom\Wasm.Dom.csproj" />
   </ItemGroup>
 

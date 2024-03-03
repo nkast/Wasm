@@ -27,4 +27,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="ILLink.Descriptors.xml">
+      <LogicalName>ILLink.Descriptors.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+	
 </Project>
