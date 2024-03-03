@@ -21,10 +21,13 @@
 	
   <ItemGroup>
     <PackageReference Include="nkast.Wasm.Audio" Version="8.0.1" />
-    <PackageReference Include="nkast.Wasm.Canvas" Version="8.0.1" />
     <PackageReference Include="nkast.Wasm.XHR" Version="8.0.1" />
     <PackageReference Include="nkast.Wasm.Dom" Version="8.0.1" />
     <PackageReference Include="Aether.Physics2D" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Wasm.Canvas\Wasm.Canvas.csproj" />
   </ItemGroup>
 
 </Project>
