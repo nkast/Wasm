@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AssemblyName>nkast.Wasm.XHR</AssemblyName>
     <RootNamespace>nkast.Wasm.XHR</RootNamespace>
