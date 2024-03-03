@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Boids", "Boids\Boids.csproj", "{94D687B4-4DFA-48FC-980B-EB5D26473422}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.Canvas", "..\Wasm.Canvas\Wasm.Canvas.csproj", "{9357BE26-FE75-43DB-AC99-78EF74351963}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{94D687B4-4DFA-48FC-980B-EB5D26473422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94D687B4-4DFA-48FC-980B-EB5D26473422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94D687B4-4DFA-48FC-980B-EB5D26473422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9357BE26-FE75-43DB-AC99-78EF74351963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9357BE26-FE75-43DB-AC99-78EF74351963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9357BE26-FE75-43DB-AC99-78EF74351963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9357BE26-FE75-43DB-AC99-78EF74351963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
