@@ -22,18 +22,18 @@ namespace nkast.Wasm.Dom
 
         public FixedStruct8(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7, T8 value8) : this()
         {
-            this.Value1 = value1;
-            this.Value2 = value2;
-            this.Value3 = value3;
-            this.Value4 = value4;
-            this.Value5 = value5;
-            this.Value6 = value6;
-            this.Value7 = value7;
-            this.Value8 = value8;
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Value4 = value4;
+            Value5 = value5;
+            Value6 = value6;
+            Value7 = value7;
+            Value8 = value8;
         }
     }
 
-    internal struct FixedStruct9< T1, T2, T3, T4, T5, T6, T7, T8, T9>
+    internal struct FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
     {
         public readonly T1 Value1;
         public readonly T2 Value2;
@@ -47,15 +47,15 @@ namespace nkast.Wasm.Dom
 
         public FixedStruct9(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7, T8 value8, T9 value9) : this()
         {
-            this.Value1 = value1;
-            this.Value2 = value2;
-            this.Value3 = value3;
-            this.Value4 = value4;
-            this.Value5 = value5;
-            this.Value6 = value6;
-            this.Value7 = value7;
-            this.Value8 = value8;
-            this.Value9 = value9;
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Value4 = value4;
+            Value5 = value5;
+            Value6 = value6;
+            Value7 = value7;
+            Value8 = value8;
+            Value9 = value9;
         }
     }
 
@@ -74,16 +74,16 @@ namespace nkast.Wasm.Dom
 
         public FixedStructA(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7, T8 value8, T9 value9, TA valueA) : this()
         {
-            this.Value1 = value1;
-            this.Value2 = value2;
-            this.Value3 = value3;
-            this.Value4 = value4;
-            this.Value5 = value5;
-            this.Value6 = value6;
-            this.Value7 = value7;
-            this.Value8 = value8;
-            this.Value9 = value9;
-            this.ValueA = valueA;
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Value4 = value4;
+            Value5 = value5;
+            Value6 = value6;
+            Value7 = value7;
+            Value8 = value8;
+            Value9 = value9;
+            ValueA = valueA;
         }
     }
 }
