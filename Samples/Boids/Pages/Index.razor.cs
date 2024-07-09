@@ -70,6 +70,10 @@ namespace Boids.Pages
                 Window.Current.OnMouseUp += this.OnMouseUp;
                 Window.Current.OnMouseWheel += this.OnMouseWheel;
 
+                Window.Current.OnTouchStart += this.OnTouchStart;
+                Window.Current.OnTouchMove += this.OnTouchMove;
+                Window.Current.OnTouchEnd += this.OnTouchEnd;
+
                 _sw.Start();
                 _prevt = _sw.Elapsed;
             }
@@ -145,24 +149,24 @@ namespace Boids.Pages
             currMouseState.Wheel += (float)deltaY;
         }
 
-        public void OnTouchStart(TouchEventArgs e)
+        private void OnTouchStart(object sender, float x, float y, int identifier)
         {
-            currTouchState.Position.X = (float)e.ChangedTouches[0].ClientX;
-            currTouchState.Position.Y = (float)e.ChangedTouches[0].ClientY;
+            currTouchState.Position.X = x;
+            currTouchState.Position.Y = y;
             currTouchState.IsPressed = true;
             prevTouchState = currTouchState;
         }
 
-        public void OnTouchMove(TouchEventArgs e)
+        private void OnTouchMove(object sender, float x, float y, int identifier)
         {
-            currTouchState.Position.X = (float)e.ChangedTouches[0].ClientX;
-            currTouchState.Position.Y = (float)e.ChangedTouches[0].ClientY;
+            currTouchState.Position.X = x;
+            currTouchState.Position.Y = y;
         }
 
-        public void OnTouchEnd(TouchEventArgs e)
+        private void OnTouchEnd(object sender, float x, float y, int identifier)
         {
-            currTouchState.Position.X = (float)e.ChangedTouches[0].ClientX;
-            currTouchState.Position.Y = (float)e.ChangedTouches[0].ClientY;
+            currTouchState.Position.X = x;
+            currTouchState.Position.Y = y;
             currTouchState.IsPressed = false;
         }
 
