@@ -150,12 +150,12 @@ namespace nkast.Wasm.Dom
         }
 
         [JSInvokable]
-        public static void JsWindowOnMouseWheel(int uid, int deltaX, int deltaY, int deltaZ, int deltaMode)
+        public static void JsWindowOnMouseWheel(int uid, float deltaX, float deltaY, float deltaZ, int deltaMode)
         {
             Window wnd = WindowFromUid(uid);
             var handler = wnd.OnMouseWheel;
             if (handler != null)
-                handler(wnd, deltaX, deltaY, deltaZ, deltaMode);
+                handler(wnd, (int)deltaX, (int)deltaY, (int)deltaZ, deltaMode);
         }
 
         [JSInvokable]
