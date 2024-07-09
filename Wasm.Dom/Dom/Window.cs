@@ -8,6 +8,7 @@ namespace nkast.Wasm.Dom
     {
         static Window _current;
         private Document _document;
+        private Navigator _navigator;
 
         public delegate void OnResizeDelegate(object sender);
         public delegate void OnMouseMoveDelegate(object sender, int x, int y);
@@ -65,6 +66,20 @@ namespace nkast.Wasm.Dom
                 }
 
                 return _document;
+            }
+        }
+
+        public Navigator Navigator
+        {
+            get
+            {
+                if (_navigator == null)
+                {
+                    int uid = InvokeRet<int>("nkWindow.GetNavigator");
+                    _navigator = new Navigator(this, uid);
+                }
+
+                return _navigator;
             }
         }
 

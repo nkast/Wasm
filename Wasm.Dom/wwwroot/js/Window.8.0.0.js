@@ -6,6 +6,12 @@
         var d = w.document;
         return nkJSObject.RegisterObject(d);
     },
+    GetNavigator: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        var n = w.navigator;
+        return nkJSObject.RegisterObject(n);
+    },
     GetInnerWidth: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
