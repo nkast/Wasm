@@ -70,5 +70,10 @@ namespace nkast.Wasm.Dom
 
         #endregion
 
+        public override string ToString()
+        {
+            return String.Format("{{Uid:{0} }}", Uid);
+        }
+
     }
 }
