@@ -1,6 +1,7 @@
 using System;
 using Microsoft.JSInterop;
 using Microsoft.JSInterop.WebAssembly;
+using nkast.Wasm.Input;
 
 namespace nkast.Wasm.Dom
 {
@@ -23,6 +24,9 @@ namespace nkast.Wasm.Dom
         public delegate void OnTouchEndDelegate(object sender, float x, float y, int identifier);
         public delegate void OnTouchCancelDelegate(object sender);
 
+        public delegate void OnGamepadConnectedDelegate(object sender, int index);
+        public delegate void OnGamepadDisconnectedDelegate(object sender, int index);
+
 
         public OnResizeDelegate OnResize;
         public OnResizeDelegate OnFocus;
@@ -38,6 +42,9 @@ namespace nkast.Wasm.Dom
         public OnTouchMoveDelegate OnTouchMove;
         public OnTouchEndDelegate OnTouchEnd;
         public OnTouchCancelDelegate OnTouchCancel;
+
+        public OnGamepadConnectedDelegate OnGamepadConnected;
+        public OnGamepadDisconnectedDelegate OnGamepadDisconnected;
 
 
         public static Window Current
@@ -225,6 +232,24 @@ namespace nkast.Wasm.Dom
             var handler = wnd.OnKeyUp;
             if (handler != null)
                 handler(wnd, (char)key, keyCode);
+        }
+
+        [JSInvokable]
+        public static void JsWindowGamepadConnected(int uid, int index)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnGamepadConnected;
+            if (handler != null)
+                handler(wnd, index);
+        }
+
+        [JSInvokable]
+        public static void JsWindowGamepadDisconnected(int uid, int index)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnGamepadDisconnected;
+            if (handler != null)
+                handler(wnd, index);
         }
     }
 }

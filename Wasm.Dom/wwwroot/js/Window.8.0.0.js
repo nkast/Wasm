@@ -112,5 +112,16 @@
             };
         }
 
+        window.addEventListener("gamepadconnected", (event) =>
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowGamepadConnected', uid,
+                event.gamepad.index);
+        });
+        window.addEventListener("gamepaddisconnected", (event) =>
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowGamepadDisconnected', uid,
+                event.gamepad.index);
+        });
+        
     }
 };
