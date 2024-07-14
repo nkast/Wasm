@@ -475,6 +475,13 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.BufferSubData", (int)target, offset, length, stride, srcData);
         }
 
+        public void BufferSubData<TData>(WebGLBufferType target, int offset, TData[] srcData, int startIndex, int length)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGLContext.BufferSubData1", (int)target, offset, startIndex, length, stride, srcData);
+        }
+
         public void VertexAttribPointer(int index, int size, WebGLDataType type, bool normalized, int stride, int offset)
         {
             Invoke("nkCanvasGLContext.VertexAttribPointer", index, size, (int)type, normalized?1:0, stride, offset);

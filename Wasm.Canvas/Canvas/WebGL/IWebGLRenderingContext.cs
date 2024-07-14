@@ -90,6 +90,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void BufferData(WebGLBufferType type, int size, WebGLBufferUsageHint usage);
         void BufferData<TData>(WebGLBufferType type, TData[] data, WebGLBufferUsageHint usage) where TData : struct;
         void BufferSubData<TData>(WebGLBufferType target, int offset, TData[] srcData, int length) where TData : struct;
+        void BufferSubData<TData>(WebGLBufferType target, int offset, TData[] srcData, int startIndex, int length) where TData : struct;
         void VertexAttribPointer(int index, int size, WebGLDataType type, bool normalized, int stride, int offset);
         void EnableVertexAttribArray(int index);
         void DisableVertexAttribArray(int index);
