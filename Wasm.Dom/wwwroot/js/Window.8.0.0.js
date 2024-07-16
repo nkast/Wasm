@@ -66,12 +66,12 @@
         window.onkeydown = function(event)
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnKeyDown', uid,
-                event.key.charCodeAt(0), event.keyCode);
+                event.key.charCodeAt(0), event.keyCode, event.location);
         };
         window.onkeyup = function(event)
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnKeyUp', uid,
-                event.key.charCodeAt(0), event.keyCode);
+                event.key.charCodeAt(0), event.keyCode, event.location);
         };
 
         if ('ontouchstart' in window)

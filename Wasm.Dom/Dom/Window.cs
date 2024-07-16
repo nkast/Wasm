@@ -16,8 +16,8 @@ namespace nkast.Wasm.Dom
         public delegate void OnMouseDownDelegate(object sender, int x, int y, int buttons);
         public delegate void OnMouseUpDelegate(object sender, int x, int y, int buttons);
         public delegate void OnMouseWheelDelegate(object sender, int deltaX, int deltaY, int deltaZ, int deltaMode);
-        public delegate void OnKeyDownDelegate(object sender, char key, int keyCode);
-        public delegate void OnKeyUpDelegate(object sender, char key, int keyCode);
+        public delegate void OnKeyDownDelegate(object sender, char key, int keyCode, int location);
+        public delegate void OnKeyUpDelegate(object sender, char key, int keyCode, int location);
 
         public delegate void OnTouchStartDelegate(object sender, float x, float y, int identifier);
         public delegate void OnTouchMoveDelegate(object sender, float x, float y, int identifier);
@@ -217,21 +217,21 @@ namespace nkast.Wasm.Dom
         }
 
         [JSInvokable]
-        public static void JsWindowOnKeyDown(int uid, int key, int keyCode)
+        public static void JsWindowOnKeyDown(int uid, int key, int keyCode, int location)
         {
             Window wnd = WindowFromUid(uid);
             var handler = wnd.OnKeyDown;
             if (handler != null)
-                handler(wnd, (char)key, keyCode);
+                handler(wnd, (char)key, keyCode, location);
         }
 
         [JSInvokable]
-        public static void JsWindowOnKeyUp(int uid, int key, int keyCode)
+        public static void JsWindowOnKeyUp(int uid, int key, int keyCode, int location)
         {
             Window wnd = WindowFromUid(uid);
             var handler = wnd.OnKeyUp;
             if (handler != null)
-                handler(wnd, (char)key, keyCode);
+                handler(wnd, (char)key, keyCode, location);
         }
 
         [JSInvokable]
