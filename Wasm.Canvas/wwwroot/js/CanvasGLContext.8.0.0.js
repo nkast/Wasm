@@ -1000,3 +1000,19 @@ window.nkCanvasGLContext =
     },
 
 };
+
+window.nkCanvasGL2Context =
+{
+    DrawRangeElements: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = Blazor.platform.readInt32Field(d, 0);
+        var st = Blazor.platform.readInt32Field(d, 4);
+        var en = Blazor.platform.readInt32Field(d, 8);
+        var ct = Blazor.platform.readInt32Field(d, 12);
+        var tp = Blazor.platform.readInt32Field(d, 16);
+        var of = Blazor.platform.readInt32Field(d, 20);
+
+        gc.drawRangeElements(md, st, en, ct, tp, of);
+    },
+};

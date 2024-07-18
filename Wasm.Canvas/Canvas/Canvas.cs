@@ -21,7 +21,7 @@ namespace nkast.Wasm.Canvas
 
         CanvasRenderingContext _canvasRenderingContext;
         WebGL.WebGLRenderingContext _webglRenderingContext;
-
+        WebGL.WebGL2RenderingContext _webgl2RenderingContext;
 
 
         private Canvas(int uid) : base(uid)
@@ -61,6 +61,22 @@ namespace nkast.Wasm.Canvas
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
 
                 return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
+            }
+
+            if (typeof(TContext) == typeof(WebGL.IWebGL2RenderingContext))
+            {
+                //TODO: implement a Disposed event in IRenderingContext
+                if (_webgl2RenderingContext != null && _webgl2RenderingContext.IsDisposed)
+                    _webgl2RenderingContext = null;
+
+                if (_webgl2RenderingContext != null)
+                    return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
+
+                int uid = InvokeRet<int>("nkCanvas.CreateWebGL2Context");
+                if (uid > 0)
+                    _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(this, uid);
+
+                return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
             }
 
             throw new NotSupportedException();
@@ -111,6 +127,22 @@ namespace nkast.Wasm.Canvas
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
 
                 return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
+            }
+
+            if (typeof(TContext) == typeof(WebGL.IWebGL2RenderingContext))
+            {
+                //TODO: implement a Disposed event in IRenderingContext
+                if (_webgl2RenderingContext != null && _webgl2RenderingContext.IsDisposed)
+                    _webgl2RenderingContext = null;
+
+                if (_webgl2RenderingContext != null)
+                    return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
+
+                int uid = InvokeRet<int, int>("nkCanvas.CreateWebGL2Context1", attributes.ToBit());
+                if (uid > 0)
+                    _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(this, uid);
+
+                return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
             }
 
             throw new NotSupportedException();
