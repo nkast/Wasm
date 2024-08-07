@@ -69,6 +69,18 @@ namespace CanvasGL.Pages
                 };
                 gl.BufferData(WebGLBufferType.ARRAY, vertices, WebGLBufferUsageHint.STATIC_DRAW);
 
+                var data0 = new float[vertices.Length];
+                ((IWebGL2RenderingContext)gl).GetBufferSubData(WebGLBufferType.ARRAY, 0, data0);
+
+                var data0b = new float[vertices.Length];
+                ((IWebGL2RenderingContext)gl).GetBufferSubData(WebGLBufferType.ARRAY, 3*sizeof(float), data0b);
+
+                var data1 = new float[vertices.Length];
+                ((IWebGL2RenderingContext)gl).GetBufferSubData(WebGLBufferType.ARRAY, 3 * sizeof(float), data1, startIndex:3);
+
+                var data2 = new float[vertices.Length];
+                ((IWebGL2RenderingContext)gl).GetBufferSubData(WebGLBufferType.ARRAY, 3 * sizeof(float), data2, startIndex: 3, 3);
+
                 gl.VertexAttribPointer(0, 3, WebGLDataType.FLOAT, false, 6 * sizeof(float), 0);
                 gl.VertexAttribPointer(1, 3, WebGLDataType.FLOAT, false, 6 * sizeof(float), 3 * sizeof(float));
                 gl.EnableVertexAttribArray(0);

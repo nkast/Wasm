@@ -61,7 +61,7 @@ namespace CanvasGL.Pages
                 cs = Window.Current.Document.GetElementById<Canvas>("theCanvas");
                 ContextAttributes attribs = new ContextAttributes();
                 attribs.Depth = true;
-                gl = cs.GetContext<IWebGLRenderingContext>(attribs);
+                gl = cs.GetContext<IWebGL2RenderingContext>(attribs);
 
                 Window.Current.OnResize += this.OnResize;
                 Window.Current.OnFocus += this.OnFocus;
