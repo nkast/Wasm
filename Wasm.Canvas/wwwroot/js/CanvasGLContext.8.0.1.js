@@ -1015,4 +1015,49 @@ window.nkCanvasGL2Context =
 
         gc.drawRangeElements(md, st, en, ct, tp, of);
     },
+    GetBufferSubData: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var bt = Blazor.platform.readInt32Field(d, 0);
+        var of = Blazor.platform.readInt32Field(d, 4);
+        var st = Blazor.platform.readInt32Field(d, 8);
+        var arr = Blazor.platform.readInt32Field(d, 12);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+
+        gc.getBufferSubData(bt, of, dt);
+    },
+    GetBufferSubData1: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var bt = Blazor.platform.readInt32Field(d, 0);
+        var of = Blazor.platform.readInt32Field(d, 4);
+        var si = Blazor.platform.readInt32Field(d, 8);
+        var st = Blazor.platform.readInt32Field(d, 12);
+        var arr = Blazor.platform.readInt32Field(d, 16);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+
+        gc.getBufferSubData(bt, of, dt, si*st);
+    },
+    GetBufferSubData2: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var bt = Blazor.platform.readInt32Field(d, 0);
+        var of = Blazor.platform.readInt32Field(d, 4);
+        var si = Blazor.platform.readInt32Field(d, 8);
+        var ln = Blazor.platform.readInt32Field(d, 12);
+        var st = Blazor.platform.readInt32Field(d, 16);
+        var arr = Blazor.platform.readInt32Field(d, 20);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+
+        gc.getBufferSubData(bt, of, dt, si*st, ln*st);
+    },
 };
