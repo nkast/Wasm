@@ -1003,6 +1003,31 @@ window.nkCanvasGLContext =
 
 window.nkCanvasGL2Context =
 {
+    DrawBuffer: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var ap = Blazor.platform.readInt32Field(d, 0);
+
+        gc.drawBuffers([ap]);
+
+    },
+    DrawBuffers: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var si = Blazor.platform.readInt32Field(d, 0);
+        var ln = Blazor.platform.readInt32Field(d, 4);
+        var arr = Blazor.platform.readInt32Field(d, 8);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+
+        //debugger;
+        var db = new Uint32Array(Module.HEAPU8.buffer, arrPtr, ln);
+        var ar = Array.prototype.slice.call(db);
+
+        gc.drawBuffers(ar);
+
+    },
     DrawRangeElements: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);

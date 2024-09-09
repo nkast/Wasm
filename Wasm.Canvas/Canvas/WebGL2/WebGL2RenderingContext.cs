@@ -11,6 +11,21 @@ namespace nkast.Wasm.Canvas.WebGL
         {
         }
 
+        public void DrawBuffer(WebGL2DrawBufferAttachmentPoint buffer)
+        {
+            Invoke("nkCanvasGL2Context.DrawBuffer", (int)buffer);
+        }
+
+        public void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers)
+        {
+            Invoke("nkCanvasGL2Context.DrawBuffers", 0, buffers.Length, buffers);
+        }
+
+        public void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers, int startIndex, int length)
+        {
+            Invoke("nkCanvasGL2Context.DrawBuffers", startIndex, length, buffers);
+        }
+
         public void DrawRangeElements(WebGLPrimitiveType mode, int start, int end, int count, WebGLDataType type, int offset)
         {
             //Invoke("nkCanvasGLContext.DrawElements", (int)mode, count, (int)type, offset);
