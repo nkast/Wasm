@@ -9,5 +9,10 @@ namespace nkast.Wasm.Canvas.WebGL
         RGBA                = 0x1908,
         LUMINANCE           = 0x1909,
         LUMINANCE_ALPHA     = 0x190A,
+
+
+        // WebGL2
+        RED = 0x1903,
+        RG  = 0x8227,
     }
 }

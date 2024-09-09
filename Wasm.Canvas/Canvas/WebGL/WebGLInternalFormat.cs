@@ -22,5 +22,10 @@ namespace nkast.Wasm.Canvas.WebGL
         COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT = 0x8C4E,
         COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT = 0x8C4F,
 
+
+        // WebGL2
+        R32F    = 0x822E,
+        RG32F   = 0x8230,
+        RGBA32F = 0x8814,
     }
 }
