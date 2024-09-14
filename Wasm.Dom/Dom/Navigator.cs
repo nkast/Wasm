@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Input;
@@ -11,8 +12,7 @@ namespace nkast.Wasm.Dom
     {
         private readonly Window _window;
         static Gamepad[] _emptyGamepadArray = new Gamepad[0];
-
-        private Dictionary<int,Gamepad> _gamepadMap = new Dictionary<int, Gamepad>();
+        Dictionary<int,Gamepad> _prevGamepads = new Dictionary<int,Gamepad>();
 
         public string UserAgent
         {
@@ -41,36 +41,30 @@ namespace nkast.Wasm.Dom
 
             for (int index = 0; index < strs.Length; index++)
             {
-                int gpuid = int.Parse(strs[index]);
-                if (gpuid == 0)
+                int uid = int.Parse(strs[index]);
+                if (Gamepad._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
                 {
-                    gamepads[index] = null;
-                }
-                else
-                {
-                    if (!_gamepadMap.ContainsKey(gpuid))
-                        _gamepadMap[gpuid] = new Gamepad(gpuid);
-
-                    gamepads[index] = _gamepadMap[gpuid];
-                }
-            }
-
-            List<int> keys = new List<int>(_gamepadMap.Keys);
-            for (int index = 0; index < keys.Count; index++)
-            {
-                bool found = false;
-                for (int k = 0; k < strs.Length; k++)
-                {
-                    int gpuid = int.Parse(strs[k]);
-                    if (keys[index] == gpuid)
+                    if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     {
-                        found = true;
-                        break;
+                        gamepads[index] = (Gamepad)jsObj;
+                        continue;
                     }
+                    else
+                        Gamepad._uidMap.Remove(uid);
                 }
-                if (!found)
-                    _gamepadMap.Remove(keys[index]);
+
+                if (uid != 0)
+                    gamepads[index] = new Gamepad(uid);
             }
+
+            foreach(int key in _prevGamepads.Keys)
+            {
+                if (!gamepads.Contains(_prevGamepads[key]))
+                    _prevGamepads[key].Dispose();
+            }
+            _prevGamepads.Clear();
+            for (int index = 0; index < gamepads.Length; index++)
+                _prevGamepads.Add(index, gamepads[index]);
 
             return gamepads;
         }

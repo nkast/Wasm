@@ -10,6 +10,8 @@ namespace nkast.Wasm.Input
 {
     public class Gamepad : JSObject
     {
+        static internal Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
         public bool Connected
         {
             get { return InvokeRet<bool>("nkGamepad.GetConnected"); }
@@ -99,8 +101,20 @@ namespace nkast.Wasm.Input
 
         internal Gamepad(int uid) : base(uid)
         {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            _uidMap.Remove(Uid);
+
+            base.Dispose(disposing);
+        }
     }
 
     public struct GamepadButton
