@@ -10,6 +10,7 @@ namespace nkast.Wasm.Dom
     public class Navigator : JSObject
     {
         private readonly Window _window;
+        static Gamepad[] _emptyGamepadArray = new Gamepad[0];
 
         private Dictionary<int,Gamepad> _gamepadMap = new Dictionary<int, Gamepad>();
 
@@ -31,6 +32,9 @@ namespace nkast.Wasm.Dom
         public Gamepad[] GetGamepads()
         {
             string str = InvokeRet<string>("nkNavigator.GetGamepads");
+
+            if (str == String.Empty)
+                return _emptyGamepadArray;
 
             string[] strs = str.Split(',');
             Gamepad[] gamepads = new Gamepad[strs.Length];
