@@ -10,7 +10,6 @@ namespace nkast.Wasm.Input
 {
     public class Gamepad : JSObject
     {
-
         public bool Connected
         {
             get { return InvokeRet<bool>("nkGamepad.GetConnected"); }
@@ -75,6 +74,26 @@ namespace nkast.Wasm.Input
                 }
 
                 return ret;
+            }
+        }
+
+        public GamepadHapticActuator VibrationActuator
+        {
+            get
+            {
+                int uid = InvokeRet<int>("nkGamepad.GetVibrationActuator");
+                if (GamepadHapticActuator._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                {
+                    if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                        return (GamepadHapticActuator)jsObj;
+                    else
+                        GamepadHapticActuator._uidMap.Remove(uid);
+                }
+
+                if (uid != 0)
+                    return new GamepadHapticActuator(this, uid);
+
+                return null;
             }
         }
 
