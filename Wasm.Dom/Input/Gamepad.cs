@@ -10,6 +10,7 @@ namespace nkast.Wasm.Input
 {
     public class Gamepad : JSObject
     {
+
         public bool Connected
         {
             get { return InvokeRet<bool>("nkGamepad.GetConnected"); }
@@ -41,6 +42,9 @@ namespace nkast.Wasm.Input
             {
                 string str = InvokeRet<string>("nkGamepad.GetButtons");
 
+                if (str == String.Empty)
+                    return new GamepadButton[0];
+
                 string[] strs = str.Split(',');
                 GamepadButton[] ret = new GamepadButton[strs.Length/3];
                 for (int cnt = 0; cnt < ret.Length; cnt++)
@@ -59,6 +63,9 @@ namespace nkast.Wasm.Input
             get
             {
                 string str = InvokeRet<string>("nkGamepad.GetAxes");
+
+                if (str == String.Empty)
+                    return new float[0];
 
                 string[] strs = str.Split(',');
                 float[] ret = new float[strs.Length];
