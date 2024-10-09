@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.JSInterop;
+using Microsoft.JSInterop.WebAssembly;
+
+namespace nkast.Wasm.Dom
+{
+    public abstract class Promise : JSObject
+    {
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
+        internal Promise(int uid) : base(uid)
+        {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+
+        }
+
+        [JSInvokable]
+        public static void JsPromiseOnCompleted(int uid)
+        {
+            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                return;
+            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
+                return;
+
+            Promise promise = (Promise)jsObj;
+            promise.OnCompleted();
+        }
+
+        [JSInvokable]
+        public static void JsPromiseOnError(int uid)
+        {
+            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                return;
+            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
+                return;
+
+            Promise promise = (Promise)jsObj;
+            promise.OnError();
+        }
+
+        protected abstract void OnCompleted();
+        protected abstract void OnError();
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            _uidMap.Remove(Uid);
+
+            base.Dispose(disposing);
+        }
+
+    }
+
+    public abstract class Promise<TResult> : Promise
+    {
+        protected readonly TaskCompletionSource<TResult> _tcs;
+
+        internal Promise(int uid) : base(uid)
+        {
+            _tcs = new TaskCompletionSource<TResult>();
+        }
+
+        protected override void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnError()
+        {
+            _tcs.SetException(new Exception());
+        }
+
+        public Task<TResult> GetTask()
+        {
+            return _tcs.Task;
+        }
+    }
+
+
+    public class PromiseBoolean : Promise<bool>
+    {
+        public PromiseBoolean(int uid) : base(uid)
+        {
+        }
+
+        protected override void OnCompleted()
+        {
+            bool value = InvokeRet<bool>("nkPromise.GetValueBoolean");
+
+            _tcs.SetResult(value);
+        }
+
+    }
+
+    public class PromiseJSObject<TResult> : Promise<TResult>
+        where TResult : JSObject
+    {
+        Func<int, JSObject> _objectFactory;
+
+        public PromiseJSObject(int uid, Func<int,JSObject> objectFactory) : base(uid)
+        {
+            _objectFactory = objectFactory;
+        }
+
+        protected override void OnCompleted()
+        {
+            int uid = InvokeRet<int>("nkPromise.GetValueJSObject");
+
+            TResult result = (TResult)_objectFactory(uid);
+
+            _tcs.SetResult(result);
+        }
+
+    }
+}

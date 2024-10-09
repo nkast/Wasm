@@ -10,6 +10,7 @@ using nkast.Wasm.Canvas;
 using nkast.Wasm.Canvas.WebGL;
 using CanvasGL;
 using CanvasGL.Engine;
+using nkast.Wasm.XR;
 
 namespace CanvasGL.Pages
 {
@@ -53,6 +54,16 @@ namespace CanvasGL.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
+        XRSystem xr;
+        XRSession xrsession;
+        XRReferenceSpace localspace;
+        Task<bool> isSessionSupportedPromise;
+        Task<XRSession> sessionPromize;
+        Task<XRReferenceSpace> localspacePromise;
+        bool framerequested;
+
+        bool doupdateRenderState;
+
         [JSInvokable]
         public void TickDotNet()
         {
@@ -75,9 +86,62 @@ namespace CanvasGL.Pages
                 Window.Current.OnTouchMove += this.OnTouchMove;
                 Window.Current.OnTouchEnd += this.OnTouchEnd;
 
+                xr = XRSystem.FromNavigator(Window.Current.Navigator);
+
+                if (xr != null)
+                {
+                    //isSessionSupportedPromise = xr.IsSessionSupportedAsync("immersive-vr");
+                    isSessionSupportedPromise = xr.IsSessionSupportedAsync("immersive-vr");
+
+                }
+
                 _sw.Start();
                 _prevt = _sw.Elapsed;
             }
+
+            if (isSessionSupportedPromise != null && isSessionSupportedPromise.IsCompletedSuccessfully)
+            {
+                bool isSessionSupported = isSessionSupportedPromise.Result;
+
+                if (isSessionSupported == true)
+                {
+                    if (sessionPromize == null)
+                    {
+                        sessionPromize = xr.RequestSessionAsync("immersive-vr");
+                        //sessionPromize = xr.RequestSessionAsync("inline");
+                    }
+
+                    if (sessionPromize != null && sessionPromize.IsCompletedSuccessfully)
+                    {
+                        xrsession = sessionPromize.Result;
+
+                        if (!doupdateRenderState)
+                        {
+                            //xrsession.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) });
+                            //xrsession.UpdateRenderState();
+                            doupdateRenderState = true;
+                        }
+
+                        if (localspacePromise == null)
+                        {
+                            localspacePromise = xrsession.RequestReferenceSpace("local");
+                        }
+
+                        if (localspacePromise != null && localspacePromise.IsCompletedSuccessfully)
+                        {
+                            localspace = localspacePromise.Result;
+
+                            if (!framerequested)
+                            {
+                                int handle = xrsession.RequestAnimationFrame(OnAnimationFrame);
+                                framerequested = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+
 
             // run gameloop tick
 
@@ -121,6 +185,12 @@ namespace CanvasGL.Pages
 
         }
 
+        void OnAnimationFrame(float time, XRFrame xrFrame)
+        {
+            var viewer = xrFrame.GetViewerPose(this.localspace);
+
+        }
+
         private void OnResize(object sender)
         {
             var wnd = (Window)sender;
@@ -149,6 +219,11 @@ namespace CanvasGL.Pages
         {
             currMouseState.Position = new Vector2(x, y);
             currMouseState.LeftButton = (buttons & 1) != 0;
+
+            if (x < 20 && y < 20)
+            {
+                xrsession.RequestAnimationFrame(OnAnimationFrame);
+            }
         }
 
         private void OnMouseUp(object sender, int x, int y, int buttons)

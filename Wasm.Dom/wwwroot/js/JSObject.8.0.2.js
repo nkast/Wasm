@@ -40,3 +40,30 @@
         return nkJSObject.RegisterObject(window);
     }
 }
+
+window.nkPromise =
+{
+    RegisterEvents: function (pr, uid)
+    {
+        pr.then((value) =>
+        {
+            pr.AsyncValue = value;
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsPromiseOnCompleted', uid);
+        }
+        ).catch((error) =>
+        {
+            pr.Error = error;
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsPromiseOnError', uid);
+        });
+    },
+    GetValueBoolean: function (uid)
+    {
+        var pr = nkJSObject.GetObject(uid);
+        return pr.AsyncValue;
+    },
+    GetValueJSObject: function (uid)
+    {
+        var pr = nkJSObject.GetObject(uid);
+        return nkJSObject.RegisterObject(pr.AsyncValue);
+    },
+};
