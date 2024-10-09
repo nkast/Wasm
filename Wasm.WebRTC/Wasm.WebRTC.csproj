@@ -38,4 +38,8 @@
     <ProjectReference Include="..\Wasm.Dom\Wasm.Dom.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WebRTC\" />
+  </ItemGroup>
+
 </Project>
