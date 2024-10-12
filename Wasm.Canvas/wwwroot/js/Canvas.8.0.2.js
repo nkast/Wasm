@@ -8,7 +8,7 @@
     SetWidth: function(uid,d)
     {
         var c = nkJSObject.GetObject(uid);
-        c.width = Blazor.platform.readInt32Field(d, 0);
+        c.width = Blazor.platform.readInt32Field(d+ 0);
     },
     GetHeight: function (uid)
     {
@@ -18,7 +18,7 @@
     SetHeight: function(uid,d)
     {
         var c = nkJSObject.GetObject(uid);
-        c.height = Blazor.platform.readInt32Field(d, 0);
+        c.height = Blazor.platform.readInt32Field(d+ 0);
     },
     Create2DContext: function (uid)
     {
@@ -29,7 +29,7 @@
     Create2DContext1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -52,7 +52,7 @@
     CreateWebGLContext1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -101,7 +101,7 @@
     CreateWebGL2Context1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -159,7 +159,7 @@ window.nkOffscreenCanvas =
     SetWidth: function(uid,d)
     {
         var c = nkJSObject.GetObject(uid);
-        c.width = Blazor.platform.readInt32Field(d, 0);
+        c.width = Blazor.platform.readInt32Field(d+ 0);
     },
     GetHeight: function (uid)
     {
@@ -169,7 +169,7 @@ window.nkOffscreenCanvas =
     SetHeight: function(uid,d)
     {
         var c = nkJSObject.GetObject(uid);
-        c.height = Blazor.platform.readInt32Field(d, 0);
+        c.height = Blazor.platform.readInt32Field(d+ 0);
     },
     Create2DContext: function (uid)
     {
@@ -180,7 +180,7 @@ window.nkOffscreenCanvas =
     Create2DContext1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -203,7 +203,7 @@ window.nkOffscreenCanvas =
     CreateWebGLContext1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -252,7 +252,7 @@ window.nkOffscreenCanvas =
     CreateWebGL2Context1: function (uid, d)
     {
         var c = nkJSObject.GetObject(uid);
-        var bi = Blazor.platform.readInt32Field(d, 0);
+        var bi = Blazor.platform.readInt32Field(d+ 0);
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;

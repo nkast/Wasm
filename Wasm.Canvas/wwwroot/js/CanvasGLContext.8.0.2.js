@@ -3,104 +3,104 @@ window.nkCanvasGLContext =
     Enable: function (uid, d)
     {
         var gc  = nkJSObject.GetObject(uid);
-        var cp = Blazor.platform.readInt32Field(d, 0);
+        var cp = Blazor.platform.readInt32Field(d+ 0);
         gc.enable(cp);
     },
 
     Disable: function (uid, d)
     {
         var gc  = nkJSObject.GetObject(uid);
-        var cp = Blazor.platform.readInt32Field(d, 0);
+        var cp = Blazor.platform.readInt32Field(d+ 0);
         gc.disable(cp);
     },
 
     BlendEquationSeparate: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var cr = Blazor.platform.readInt32Field(d, 0);
-        var aa = Blazor.platform.readInt32Field(d, 4);
+        var cr = Blazor.platform.readInt32Field(d+ 0);
+        var aa = Blazor.platform.readInt32Field(d+ 4);
         gc.blendEquationSeparate(cr, aa);
     },
 
     BlendFuncSeparate: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var sc = Blazor.platform.readInt32Field(d, 0);
-        var dc = Blazor.platform.readInt32Field(d, 4);
-        var sa = Blazor.platform.readInt32Field(d, 8);
-        var da = Blazor.platform.readInt32Field(d, 12);
+        var sc = Blazor.platform.readInt32Field(d+ 0);
+        var dc = Blazor.platform.readInt32Field(d+ 4);
+        var sa = Blazor.platform.readInt32Field(d+ 8);
+        var da = Blazor.platform.readInt32Field(d+12);
         gc.blendFuncSeparate(sc, dc, sa, da);
     },
 
     BlendColor: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var r = Blazor.platform.readFloatField(d,  0);
-        var g = Blazor.platform.readFloatField(d,  4);
-        var b = Blazor.platform.readFloatField(d,  8);
-        var a = Blazor.platform.readFloatField(d, 12);
+        var r = Blazor.platform.readFloatField(d+ 0);
+        var g = Blazor.platform.readFloatField(d+ 4);
+        var b = Blazor.platform.readFloatField(d+ 8);
+        var a = Blazor.platform.readFloatField(d+12);
         gc.blendColor(r, g, b, a);
     },
 
     ColorMask: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var r = Blazor.platform.readInt32Field(d,  0) !== 0;
-        var g = Blazor.platform.readInt32Field(d,  4) !== 0;
-        var b = Blazor.platform.readInt32Field(d,  8) !== 0;
-        var a = Blazor.platform.readInt32Field(d, 12) !== 0;
+        var r = Blazor.platform.readInt32Field(d+ 0) !== 0;
+        var g = Blazor.platform.readInt32Field(d+ 4) !== 0;
+        var b = Blazor.platform.readInt32Field(d+ 8) !== 0;
+        var a = Blazor.platform.readInt32Field(d+12) !== 0;
         gc.colorMask(r, g, b, a);
     },
 
     CullFace: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var cm = Blazor.platform.readInt32Field(d, 0);
+        var cm = Blazor.platform.readInt32Field(d+ 0);
         gc.cullFace(cm);
     },
 
     FrontFace: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var wd = Blazor.platform.readInt32Field(d, 0);
+        var wd = Blazor.platform.readInt32Field(d+ 0);
         gc.frontFace(wd);
     },
 
     PolygonOffset: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var fr = Blazor.platform.readFloatField(d, 0);
-        var us = Blazor.platform.readFloatField(d, 4);
+        var fr = Blazor.platform.readFloatField(d+ 0);
+        var us = Blazor.platform.readFloatField(d+ 4);
         gc.polygonOffset(fr, us);
     },
 
     DepthMask: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var en = Blazor.platform.readInt32Field(d, 0) !== 0;
+        var en = Blazor.platform.readInt32Field(d+ 0) !== 0;
         gc.depthMask(en);
     },
 
     StencilMask: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ms = Blazor.platform.readInt32Field(d, 0);
+        var ms = Blazor.platform.readInt32Field(d+ 0);
         gc.stencilMask(ms);
     },
 
     DepthFunc: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var fc = Blazor.platform.readInt32Field(d, 0);
+        var fc = Blazor.platform.readInt32Field(d+ 0);
         gc.depthFunc(fc);
     },
 
     StencilFunc: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var fc = Blazor.platform.readInt32Field(d, 0);
-        var rf = Blazor.platform.readInt32Field(d, 4);
-        var mk = Blazor.platform.readInt32Field(d, 8);
+        var fc = Blazor.platform.readInt32Field(d+ 0);
+        var rf = Blazor.platform.readInt32Field(d+ 4);
+        var mk = Blazor.platform.readInt32Field(d+ 8);
 
         gc.stencilFunc(fc, rf, mk);
     },
@@ -108,9 +108,9 @@ window.nkCanvasGLContext =
     StencilOp: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var fl = Blazor.platform.readInt32Field(d, 0);
-        var zf = Blazor.platform.readInt32Field(d, 4);
-        var zp = Blazor.platform.readInt32Field(d, 8);
+        var fl = Blazor.platform.readInt32Field(d+ 0);
+        var zf = Blazor.platform.readInt32Field(d+ 4);
+        var zp = Blazor.platform.readInt32Field(d+ 8);
 
         gc.stencilOp(fl, zf, zp);
     },
@@ -118,56 +118,56 @@ window.nkCanvasGLContext =
     Viewport: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var x = Blazor.platform.readInt32Field(d, 0);
-        var y = Blazor.platform.readInt32Field(d, 4);
-        var w = Blazor.platform.readInt32Field(d, 8);
-        var h = Blazor.platform.readInt32Field(d, 12);
+        var x = Blazor.platform.readInt32Field(d+ 0);
+        var y = Blazor.platform.readInt32Field(d+ 4);
+        var w = Blazor.platform.readInt32Field(d+ 8);
+        var h = Blazor.platform.readInt32Field(d+12);
         gc.viewport(x, y, w, h);
     },
     
     DepthRange: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var zn = Blazor.platform.readFloatField(d, 0);
-        var zf = Blazor.platform.readFloatField(d, 4);
+        var zn = Blazor.platform.readFloatField(d+ 0);
+        var zf = Blazor.platform.readFloatField(d+ 4);
         gc.depthRange(zn, zf);
     },
 
     Scissor: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var x = Blazor.platform.readInt32Field(d, 0);
-        var y = Blazor.platform.readInt32Field(d, 4);
-        var w = Blazor.platform.readInt32Field(d, 8);
-        var h = Blazor.platform.readInt32Field(d, 12);
+        var x = Blazor.platform.readInt32Field(d+ 0);
+        var y = Blazor.platform.readInt32Field(d+ 4);
+        var w = Blazor.platform.readInt32Field(d+ 8);
+        var h = Blazor.platform.readInt32Field(d+12);
         gc.scissor(x, y, w, h);
     },
 
     ClearColor: function(uid,d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var r = Blazor.platform.readFloatField(d,  0);
-        var g = Blazor.platform.readFloatField(d,  4);
-        var b = Blazor.platform.readFloatField(d,  8);
-        var a = Blazor.platform.readFloatField(d, 12);
+        var r = Blazor.platform.readFloatField(d+ 0);
+        var g = Blazor.platform.readFloatField(d+ 4);
+        var b = Blazor.platform.readFloatField(d+ 8);
+        var a = Blazor.platform.readFloatField(d+12);
         gc.clearColor(r, g, b, a);
     },
     ClearDepth: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var d = Blazor.platform.readFloatField(d, 0);
+        var d = Blazor.platform.readFloatField(d+ 0);
         gc.clearDepth(d);
     },
     ClearStencil: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var s = Blazor.platform.readInt32Field(d, 0);
+        var s = Blazor.platform.readInt32Field(d+ 0);
         gc.clearStencil(s);
     },
     Clear: function(uid,d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bb = Blazor.platform.readInt32Field(d,  0);
+        var bb = Blazor.platform.readInt32Field(d+ 0);
         gc.clear(bb);
     },
 
@@ -181,7 +181,7 @@ window.nkCanvasGLContext =
     DeleteTexture: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var txuid = Blazor.platform.readInt32Field(d, 0);
+        var txuid = Blazor.platform.readInt32Field(d+ 0);
         var tx = nkJSObject.GetObject(txuid);
         gc.deleteTexture(tx);
     },
@@ -189,7 +189,7 @@ window.nkCanvasGLContext =
     CreateShader: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var st = Blazor.platform.readInt32Field(d, 0);
+        var st = Blazor.platform.readInt32Field(d+ 0);
         var sh = gc.createShader(st);
         return nkJSObject.RegisterObject(sh);
     },
@@ -197,7 +197,7 @@ window.nkCanvasGLContext =
     DeleteShader: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bfuid = Blazor.platform.readInt32Field(d, 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 0);
         var bf = nkJSObject.GetObject(bfuid);
         gc.deleteShader(bf);
     },
@@ -212,7 +212,7 @@ window.nkCanvasGLContext =
     DeleteProgram: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
         var pg = nkJSObject.GetObject(pguid);
         gc.deleteProgram(pg);
     },
@@ -227,7 +227,7 @@ window.nkCanvasGLContext =
     DeleteBuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bfuid = Blazor.platform.readInt32Field(d, 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 0);
         var bf = nkJSObject.GetObject(bfuid);
         gc.deleteBuffer(bf);
     },
@@ -242,7 +242,7 @@ window.nkCanvasGLContext =
     DeleteFramebuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bfuid = Blazor.platform.readInt32Field(d, 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 0);
         var bf = nkJSObject.GetObject(bfuid);
         gc.deleteFramebuffer(bf);
     },
@@ -257,7 +257,7 @@ window.nkCanvasGLContext =
     DeleteRenderbuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bfuid = Blazor.platform.readInt32Field(d, 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 0);
         var bf = nkJSObject.GetObject(bfuid);
         gc.deleteRenderbuffer(bf);
     },
@@ -265,8 +265,8 @@ window.nkCanvasGLContext =
     ShaderSource: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var shuid = Blazor.platform.readInt32Field(d, 0);
-        var sr = Blazor.platform.readStringField(d, 4);
+        var shuid = Blazor.platform.readInt32Field(d+ 0);
+        var sr = Blazor.platform.readStringField(d+ 4);
 
         var sh = nkJSObject.GetObject(shuid);
         gc.shaderSource(sh, sr);
@@ -275,8 +275,8 @@ window.nkCanvasGLContext =
     GetAttribLocation: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
-        var nm = Blazor.platform.readStringField(d, 4);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
+        var nm = Blazor.platform.readStringField(d+ 4);
 
         var pg = nkJSObject.GetObject(pguid);
         return gc.getAttribLocation(pg, nm);
@@ -285,8 +285,8 @@ window.nkCanvasGLContext =
     GetUniformLocation: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
-        var nm = Blazor.platform.readStringField(d, 4);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
+        var nm = Blazor.platform.readStringField(d+ 4);
 
         var pg = nkJSObject.GetObject(pguid);
         var ul = gc.getUniformLocation(pg, nm);
@@ -296,8 +296,8 @@ window.nkCanvasGLContext =
     Uniform1i: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readInt32Field(d,  4);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readInt32Field(d+ 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1i(ul, v0);
@@ -306,9 +306,9 @@ window.nkCanvasGLContext =
     Uniform2i: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readInt32Field(d,  4);
-        var v1 = Blazor.platform.readInt32Field(d,  8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readInt32Field(d+ 4);
+        var v1 = Blazor.platform.readInt32Field(d+ 8);
         
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2i(ul, v0, v1);
@@ -317,10 +317,10 @@ window.nkCanvasGLContext =
     Uniform3i: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readInt32Field(d,  4);
-        var v1 = Blazor.platform.readInt32Field(d,  8);
-        var v2 = Blazor.platform.readInt32Field(d, 12);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readInt32Field(d+ 4);
+        var v1 = Blazor.platform.readInt32Field(d+ 8);
+        var v2 = Blazor.platform.readInt32Field(d+12);
         
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3i(ul, v0, v1, v2);
@@ -329,11 +329,11 @@ window.nkCanvasGLContext =
     Uniform4i: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readInt32Field(d,  4);
-        var v1 = Blazor.platform.readInt32Field(d,  8);
-        var v2 = Blazor.platform.readInt32Field(d, 12);
-        var v3 = Blazor.platform.readInt32Field(d, 16);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readInt32Field(d+ 4);
+        var v1 = Blazor.platform.readInt32Field(d+ 8);
+        var v2 = Blazor.platform.readInt32Field(d+12);
+        var v3 = Blazor.platform.readInt32Field(d+16);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform4i(ul, v0, v1, v2, v3);
@@ -342,8 +342,8 @@ window.nkCanvasGLContext =
     Uniform1f: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readFloatField(d,  4);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readFloatField(d+ 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1f(ul, v0);
@@ -352,9 +352,9 @@ window.nkCanvasGLContext =
     Uniform2f: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readFloatField(d,  4);
-        var v1 = Blazor.platform.readFloatField(d,  8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readFloatField(d+ 4);
+        var v1 = Blazor.platform.readFloatField(d+ 8);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2f(ul, v0, v1);
@@ -363,10 +363,10 @@ window.nkCanvasGLContext =
     Uniform3f: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readFloatField(d,  4);
-        var v1 = Blazor.platform.readFloatField(d,  8);
-        var v2 = Blazor.platform.readFloatField(d, 12);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readFloatField(d+ 4);
+        var v1 = Blazor.platform.readFloatField(d+ 8);
+        var v2 = Blazor.platform.readFloatField(d+12);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3f(ul, v0, v1, v2);
@@ -375,11 +375,11 @@ window.nkCanvasGLContext =
     Uniform4f: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var v0 = Blazor.platform.readFloatField(d,  4);
-        var v1 = Blazor.platform.readFloatField(d,  8);
-        var v2 = Blazor.platform.readFloatField(d, 12);
-        var v3 = Blazor.platform.readFloatField(d, 16);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var v0 = Blazor.platform.readFloatField(d+ 4);
+        var v1 = Blazor.platform.readFloatField(d+ 8);
+        var v2 = Blazor.platform.readFloatField(d+12);
+        var v3 = Blazor.platform.readFloatField(d+16);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform4f(ul, v0, v1, v2, v3);
@@ -388,9 +388,9 @@ window.nkCanvasGLContext =
     Uniform1iv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -402,9 +402,9 @@ window.nkCanvasGLContext =
     Uniform2iv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -416,9 +416,9 @@ window.nkCanvasGLContext =
     Uniform3iv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -430,9 +430,9 @@ window.nkCanvasGLContext =
     Uniform4iv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -445,9 +445,9 @@ window.nkCanvasGLContext =
     Uniform1fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -459,9 +459,9 @@ window.nkCanvasGLContext =
     Uniform2fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -473,9 +473,9 @@ window.nkCanvasGLContext =
     Uniform3fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -487,9 +487,9 @@ window.nkCanvasGLContext =
     Uniform4fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st    = Blazor.platform.readInt32Field(d, 4);
-        var arr   = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st    = Blazor.platform.readInt32Field(d+ 4);
+        var arr   = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -502,9 +502,9 @@ window.nkCanvasGLContext =
     UniformMatrix2fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st = Blazor.platform.readInt32Field(d, 4);
-        var arr = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st = Blazor.platform.readInt32Field(d+ 4);
+        var arr = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -516,9 +516,9 @@ window.nkCanvasGLContext =
     UniformMatrix3fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st = Blazor.platform.readInt32Field(d, 4);
-        var arr = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st = Blazor.platform.readInt32Field(d+ 4);
+        var arr = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -530,9 +530,9 @@ window.nkCanvasGLContext =
     UniformMatrix4fv: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var uluid = Blazor.platform.readInt32Field(d, 0);
-        var st = Blazor.platform.readInt32Field(d, 4);
-        var arr = Blazor.platform.readInt32Field(d, 8);
+        var uluid = Blazor.platform.readInt32Field(d+ 0);
+        var st = Blazor.platform.readInt32Field(d+ 4);
+        var arr = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -545,7 +545,7 @@ window.nkCanvasGLContext =
     CompileShader: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var shuid = Blazor.platform.readInt32Field(d, 0);
+        var shuid = Blazor.platform.readInt32Field(d+ 0);
         var sh = nkJSObject.GetObject(shuid);
         gc.compileShader(sh);
     },
@@ -553,8 +553,8 @@ window.nkCanvasGLContext =
     GetShaderParameter: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var shuid = Blazor.platform.readInt32Field(d, 0);
-        var pn = Blazor.platform.readInt32Field(d, 4);
+        var shuid = Blazor.platform.readInt32Field(d+ 0);
+        var pn = Blazor.platform.readInt32Field(d+ 4);
 
         var sh = nkJSObject.GetObject(shuid);
         return gc.getShaderParameter(sh, pn);
@@ -563,8 +563,8 @@ window.nkCanvasGLContext =
     GetProgramParameter: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
-        var pn = Blazor.platform.readInt32Field(d, 4);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
+        var pn = Blazor.platform.readInt32Field(d+ 4);
 
         var pg = nkJSObject.GetObject(pguid);
         return gc.getProgramParameter(pg, pn);
@@ -573,13 +573,13 @@ window.nkCanvasGLContext =
     TexImage2D: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d,  0);
-        var lv = Blazor.platform.readInt32Field(d,  4);
-        var it = Blazor.platform.readInt32Field(d,  8);
-        var wh = Blazor.platform.readInt32Field(d, 12);
-        var ht = Blazor.platform.readInt32Field(d, 16);
-        var ft = Blazor.platform.readInt32Field(d, 20);
-        var tp = Blazor.platform.readInt32Field(d, 24);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var it = Blazor.platform.readInt32Field(d+ 8);
+        var wh = Blazor.platform.readInt32Field(d+12);
+        var ht = Blazor.platform.readInt32Field(d+16);
+        var ft = Blazor.platform.readInt32Field(d+20);
+        var tp = Blazor.platform.readInt32Field(d+24);
 
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, null);
     },
@@ -587,15 +587,15 @@ window.nkCanvasGLContext =
     TexImage2D1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var lv = Blazor.platform.readInt32Field(d, 4);
-        var it = Blazor.platform.readInt32Field(d, 8);
-        var wh = Blazor.platform.readInt32Field(d, 12);
-        var ht = Blazor.platform.readInt32Field(d, 16);
-        var ft = Blazor.platform.readInt32Field(d, 20);
-        var tp = Blazor.platform.readInt32Field(d, 24);
-        var st = Blazor.platform.readInt32Field(d, 28);
-        var arr = Blazor.platform.readInt32Field(d, 32);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var it = Blazor.platform.readInt32Field(d+ 8);
+        var wh = Blazor.platform.readInt32Field(d+12);
+        var ht = Blazor.platform.readInt32Field(d+16);
+        var ft = Blazor.platform.readInt32Field(d+20);
+        var tp = Blazor.platform.readInt32Field(d+24);
+        var st = Blazor.platform.readInt32Field(d+28);
+        var arr = Blazor.platform.readInt32Field(d+32);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -607,13 +607,13 @@ window.nkCanvasGLContext =
     TexImage2D2: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var lv = Blazor.platform.readInt32Field(d, 4);
-        var it = Blazor.platform.readInt32Field(d, 8);
-        var ft = Blazor.platform.readInt32Field(d, 12);
-        var tp = Blazor.platform.readInt32Field(d, 16);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var it = Blazor.platform.readInt32Field(d+ 8);
+        var ft = Blazor.platform.readInt32Field(d+12);
+        var tp = Blazor.platform.readInt32Field(d+16);
 
-        var vid= Blazor.platform.readInt32Field(d, 20);
+        var vid= Blazor.platform.readInt32Field(d+20);
         var vi = nkJSObject.GetObject(vid);
 
         gc.texImage2D(tg, lv, it, ft, tp, vi);
@@ -622,16 +622,16 @@ window.nkCanvasGLContext =
     TexSubImage2D1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d,  0);
-        var lv = Blazor.platform.readInt32Field(d,  4);
-        var xo = Blazor.platform.readInt32Field(d,  8);
-        var yo = Blazor.platform.readInt32Field(d, 12);
-        var wh = Blazor.platform.readInt32Field(d, 16);
-        var ht = Blazor.platform.readInt32Field(d, 20);
-        var ft = Blazor.platform.readInt32Field(d, 24);
-        var tp = Blazor.platform.readInt32Field(d, 28);
-        var st = Blazor.platform.readInt32Field(d, 32);
-        var arr = Blazor.platform.readInt32Field(d,36);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var xo = Blazor.platform.readInt32Field(d+ 8);
+        var yo = Blazor.platform.readInt32Field(d+12);
+        var wh = Blazor.platform.readInt32Field(d+16);
+        var ht = Blazor.platform.readInt32Field(d+20);
+        var ft = Blazor.platform.readInt32Field(d+24);
+        var tp = Blazor.platform.readInt32Field(d+28);
+        var st = Blazor.platform.readInt32Field(d+32);
+        var arr = Blazor.platform.readInt32Field(d+36);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -643,13 +643,13 @@ window.nkCanvasGLContext =
     CompressedTexImage2D: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var lv = Blazor.platform.readInt32Field(d, 4);
-        var it = Blazor.platform.readInt32Field(d, 8);
-        var wh = Blazor.platform.readInt32Field(d, 12);
-        var ht = Blazor.platform.readInt32Field(d, 16);
-        var st = Blazor.platform.readInt32Field(d, 20);
-        var arr = Blazor.platform.readInt32Field(d, 24);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var it = Blazor.platform.readInt32Field(d+ 8);
+        var wh = Blazor.platform.readInt32Field(d+12);
+        var ht = Blazor.platform.readInt32Field(d+16);
+        var st = Blazor.platform.readInt32Field(d+20);
+        var arr = Blazor.platform.readInt32Field(d+24);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -661,15 +661,15 @@ window.nkCanvasGLContext =
     CompressedTexImage2D1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var lv = Blazor.platform.readInt32Field(d, 4);
-        var it = Blazor.platform.readInt32Field(d, 8);
-        var wh = Blazor.platform.readInt32Field(d, 12);
-        var ht = Blazor.platform.readInt32Field(d, 16);
-        var st = Blazor.platform.readInt32Field(d, 20);
-        var arr = Blazor.platform.readInt32Field(d, 24);
-        var ix = Blazor.platform.readInt32Field(d, 28);
-        var ot = Blazor.platform.readInt32Field(d, 32);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var lv = Blazor.platform.readInt32Field(d+ 4);
+        var it = Blazor.platform.readInt32Field(d+ 8);
+        var wh = Blazor.platform.readInt32Field(d+12);
+        var ht = Blazor.platform.readInt32Field(d+16);
+        var st = Blazor.platform.readInt32Field(d+20);
+        var arr = Blazor.platform.readInt32Field(d+24);
+        var ix = Blazor.platform.readInt32Field(d+28);
+        var ot = Blazor.platform.readInt32Field(d+32);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         //var arrLen = Blazor.platform.getArrayLength(arr);
@@ -681,14 +681,14 @@ window.nkCanvasGLContext =
     ReadPixels: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var x  = Blazor.platform.readInt32Field(d,  0);
-        var y  = Blazor.platform.readInt32Field(d,  4);
-        var w  = Blazor.platform.readInt32Field(d,  8);
-        var h  = Blazor.platform.readInt32Field(d, 12);
-        var ft = Blazor.platform.readInt32Field(d, 16);
-        var tp = Blazor.platform.readInt32Field(d, 20);
-        var st = Blazor.platform.readInt32Field(d, 24);
-        var arr = Blazor.platform.readInt32Field(d, 28);
+        var x  = Blazor.platform.readInt32Field(d+ 0);
+        var y  = Blazor.platform.readInt32Field(d+ 4);
+        var w  = Blazor.platform.readInt32Field(d+ 8);
+        var h  = Blazor.platform.readInt32Field(d+12);
+        var ft = Blazor.platform.readInt32Field(d+16);
+        var tp = Blazor.platform.readInt32Field(d+20);
+        var st = Blazor.platform.readInt32Field(d+24);
+        var arr = Blazor.platform.readInt32Field(d+28);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -700,16 +700,16 @@ window.nkCanvasGLContext =
     ReadPixels1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var x = Blazor.platform.readInt32Field(d, 0);
-        var y = Blazor.platform.readInt32Field(d, 4);
-        var w = Blazor.platform.readInt32Field(d, 8);
-        var h = Blazor.platform.readInt32Field(d, 12);
-        var ft = Blazor.platform.readInt32Field(d, 16);
-        var tp = Blazor.platform.readInt32Field(d, 20);
-        var st = Blazor.platform.readInt32Field(d, 24);
-        var arr = Blazor.platform.readInt32Field(d, 28);
-        var ix = Blazor.platform.readInt32Field(d, 32);
-        var ot = Blazor.platform.readInt32Field(d, 36);
+        var x = Blazor.platform.readInt32Field(d+ 0);
+        var y = Blazor.platform.readInt32Field(d+ 4);
+        var w = Blazor.platform.readInt32Field(d+ 8);
+        var h = Blazor.platform.readInt32Field(d+12);
+        var ft = Blazor.platform.readInt32Field(d+16);
+        var tp = Blazor.platform.readInt32Field(d+20);
+        var st = Blazor.platform.readInt32Field(d+24);
+        var arr = Blazor.platform.readInt32Field(d+28);
+        var ix = Blazor.platform.readInt32Field(d+32);
+        var ot = Blazor.platform.readInt32Field(d+36);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         //var arrLen = Blazor.platform.getArrayLength(arr);
@@ -721,25 +721,25 @@ window.nkCanvasGLContext =
     TexParameteri: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var pn = Blazor.platform.readInt32Field(d, 4);
-        var pm = Blazor.platform.readInt32Field(d, 8);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var pn = Blazor.platform.readInt32Field(d+ 4);
+        var pm = Blazor.platform.readInt32Field(d+ 8);
         gc.texParameteri(tg, pn, pm);
     },
 
     PixelStorei: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pn = Blazor.platform.readInt32Field(d, 0);
-        var pm = Blazor.platform.readInt32Field(d, 4);
+        var pn = Blazor.platform.readInt32Field(d+ 0);
+        var pm = Blazor.platform.readInt32Field(d+ 4);
         gc.pixelStorei(pn, pm);
     },
 
     BindTexture: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
-        var txuid = Blazor.platform.readInt32Field(d, 4);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
+        var txuid = Blazor.platform.readInt32Field(d+ 4);
         var tx = (txuid != -1) ? nkJSObject.GetObject(txuid) : null;
         gc.bindTexture(tg, tx);
     },
@@ -747,8 +747,8 @@ window.nkCanvasGLContext =
     BindBuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var bfuid = Blazor.platform.readInt32Field(d, 4);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 4);
         var bf = nkJSObject.GetObject(bfuid);
         gc.bindBuffer(bt, bf);
     },
@@ -756,8 +756,8 @@ window.nkCanvasGLContext =
     BindFramebuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var bfuid = Blazor.platform.readInt32Field(d, 4);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 4);
         var bf = (bfuid != -1) ? nkJSObject.GetObject(bfuid) : null;
         gc.bindFramebuffer(bt, bf);
     },
@@ -765,8 +765,8 @@ window.nkCanvasGLContext =
     BindRenderbuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var bfuid = Blazor.platform.readInt32Field(d, 4);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var bfuid = Blazor.platform.readInt32Field(d+ 4);
         var bf = nkJSObject.GetObject(bfuid);
         gc.bindRenderbuffer(bt, bf);
     },
@@ -774,10 +774,10 @@ window.nkCanvasGLContext =
     FramebufferRenderbuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ft = Blazor.platform.readInt32Field(d, 0);
-        var ap = Blazor.platform.readInt32Field(d, 4);
-        var rt = Blazor.platform.readInt32Field(d, 8);
-        var rbuid = Blazor.platform.readInt32Field(d, 12);
+        var ft = Blazor.platform.readInt32Field(d+ 0);
+        var ap = Blazor.platform.readInt32Field(d+ 4);
+        var rt = Blazor.platform.readInt32Field(d+ 8);
+        var rbuid = Blazor.platform.readInt32Field(d+12);
         var rb =  (rbuid != -1) ? nkJSObject.GetObject(rbuid) : null;
         gc.framebufferRenderbuffer(ft, ap, rt, rb);
     },
@@ -785,10 +785,10 @@ window.nkCanvasGLContext =
     FramebufferTexture2D: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ft = Blazor.platform.readInt32Field(d, 0);
-        var ap = Blazor.platform.readInt32Field(d, 4);
-        var tt = Blazor.platform.readInt32Field(d, 8);
-        var tbuid = Blazor.platform.readInt32Field(d, 12);
+        var ft = Blazor.platform.readInt32Field(d+ 0);
+        var ap = Blazor.platform.readInt32Field(d+ 4);
+        var tt = Blazor.platform.readInt32Field(d+ 8);
+        var tbuid = Blazor.platform.readInt32Field(d+12);
         var tb = nkJSObject.GetObject(tbuid);
         var lv = 0;
         gc.framebufferTexture2D(ft, ap, tt, tb, lv);
@@ -797,32 +797,32 @@ window.nkCanvasGLContext =
     RenderbufferStorage: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d,  0);
-        var fm = Blazor.platform.readInt32Field(d,  4);
-        var w  = Blazor.platform.readInt32Field(d,  8);
-        var h  = Blazor.platform.readInt32Field(d, 12);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var fm = Blazor.platform.readInt32Field(d+ 4);
+        var w  = Blazor.platform.readInt32Field(d+ 8);
+        var h  = Blazor.platform.readInt32Field(d+12);
         gc.renderbufferStorage(bt, fm, w, h);
     },
 
     CheckFramebufferStatus: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ft = Blazor.platform.readInt32Field(d, 0);
+        var ft = Blazor.platform.readInt32Field(d+ 0);
         return gc.checkFramebufferStatus(ft);
     },
 
     GenerateMipmap: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readInt32Field(d, 0);
+        var tg = Blazor.platform.readInt32Field(d+ 0);
         gc.generateMipmap(tg);
     },
 
     AttachShader: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
-        var shuid = Blazor.platform.readInt32Field(d, 4);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
+        var shuid = Blazor.platform.readInt32Field(d+ 4);
         var pg = nkJSObject.GetObject(pguid);
         var sh = nkJSObject.GetObject(shuid);
         gc.attachShader(pg, sh);
@@ -831,7 +831,7 @@ window.nkCanvasGLContext =
     GetProgramInfoLog: function (uid, d)
     {        
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
         var pg = nkJSObject.GetObject(pguid);
         var nf = gc.getProgramInfoLog(pg);
         return BINDING.js_to_mono_obj(nf);
@@ -840,7 +840,7 @@ window.nkCanvasGLContext =
     GetShaderInfoLog: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var shuid = Blazor.platform.readInt32Field(d, 0);
+        var shuid = Blazor.platform.readInt32Field(d+ 0);
         var sh = nkJSObject.GetObject(shuid);
         var nf = gc.getShaderInfoLog(sh);
         return BINDING.js_to_mono_obj(nf);
@@ -849,7 +849,7 @@ window.nkCanvasGLContext =
     LinkProgram: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
         var pg = nkJSObject.GetObject(pguid);
         gc.linkProgram(pg);
     },
@@ -857,19 +857,19 @@ window.nkCanvasGLContext =
     BufferData: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var sz = Blazor.platform.readInt32Field(d, 4);
-        var us = Blazor.platform.readInt32Field(d, 8);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var sz = Blazor.platform.readInt32Field(d+ 4);
+        var us = Blazor.platform.readInt32Field(d+ 8);
         gc.bufferData(bt, sz, us);
     },
 
     BufferData1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var us = Blazor.platform.readInt32Field(d, 4);
-        var st = Blazor.platform.readInt32Field(d, 8);
-        var arr = Blazor.platform.readInt32Field(d, 12);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var us = Blazor.platform.readInt32Field(d+ 4);
+        var st = Blazor.platform.readInt32Field(d+ 8);
+        var arr = Blazor.platform.readInt32Field(d+12);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -881,11 +881,11 @@ window.nkCanvasGLContext =
     BufferSubData: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var of = Blazor.platform.readInt32Field(d, 4);
-        var ln = Blazor.platform.readInt32Field(d, 8);
-        var st = Blazor.platform.readInt32Field(d, 12);
-        var arr = Blazor.platform.readInt32Field(d, 16);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var ln = Blazor.platform.readInt32Field(d+ 8);
+        var st = Blazor.platform.readInt32Field(d+12);
+        var arr = Blazor.platform.readInt32Field(d+16);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         //var arrLen = Blazor.platform.getArrayLength(arr);
@@ -897,12 +897,12 @@ window.nkCanvasGLContext =
     BufferSubData1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var of = Blazor.platform.readInt32Field(d, 4);
-        var si = Blazor.platform.readInt32Field(d, 8);
-        var ln = Blazor.platform.readInt32Field(d, 12);
-        var st = Blazor.platform.readInt32Field(d, 16);
-        var arr = Blazor.platform.readInt32Field(d, 20);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var si = Blazor.platform.readInt32Field(d+ 8);
+        var ln = Blazor.platform.readInt32Field(d+12);
+        var st = Blazor.platform.readInt32Field(d+16);
+        var arr = Blazor.platform.readInt32Field(d+20);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         //var arrLen = Blazor.platform.getArrayLength(arr);
@@ -914,33 +914,33 @@ window.nkCanvasGLContext =
     VertexAttribPointer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ix = Blazor.platform.readInt32Field(d, 0);
-        var sz = Blazor.platform.readInt32Field(d, 4);
-        var tp = Blazor.platform.readInt32Field(d, 8);
-        var nr = Blazor.platform.readInt32Field(d, 12) !== 0;
-        var st = Blazor.platform.readInt32Field(d, 16);
-        var of = Blazor.platform.readInt32Field(d, 20);
+        var ix = Blazor.platform.readInt32Field(d+ 0);
+        var sz = Blazor.platform.readInt32Field(d+ 4);
+        var tp = Blazor.platform.readInt32Field(d+ 8);
+        var nr = Blazor.platform.readInt32Field(d+12) !== 0;
+        var st = Blazor.platform.readInt32Field(d+16);
+        var of = Blazor.platform.readInt32Field(d+20);
         gc.vertexAttribPointer(ix, sz, tp, nr, st, of);
     },
 
     EnableVertexAttribArray: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ix = Blazor.platform.readInt32Field(d, 0);
+        var ix = Blazor.platform.readInt32Field(d+ 0);
         gc.enableVertexAttribArray(ix);
     },
 
     DisableVertexAttribArray: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ix = Blazor.platform.readInt32Field(d, 0);
+        var ix = Blazor.platform.readInt32Field(d+ 0);
         gc.disableVertexAttribArray(ix);
     },
 
     UseProgram: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var pguid = Blazor.platform.readInt32Field(d, 0);
+        var pguid = Blazor.platform.readInt32Field(d+ 0);
         var pg = nkJSObject.GetObject(pguid);
         gc.useProgram(pg);
     },
@@ -948,9 +948,9 @@ window.nkCanvasGLContext =
     DrawArrays: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readInt32Field(d,  0);
-        var of = Blazor.platform.readInt32Field(d,  4);
-        var ct = Blazor.platform.readInt32Field(d,  8);
+        var md = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var ct = Blazor.platform.readInt32Field(d+ 8);
 
         gc.drawArrays(md, of, ct);
     },
@@ -958,10 +958,10 @@ window.nkCanvasGLContext =
     DrawElements: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readInt32Field(d,  0);
-        var ct = Blazor.platform.readInt32Field(d,  4);
-        var tp = Blazor.platform.readInt32Field(d,  8);
-        var of = Blazor.platform.readInt32Field(d, 12);
+        var md = Blazor.platform.readInt32Field(d+ 0);
+        var ct = Blazor.platform.readInt32Field(d+ 4);
+        var tp = Blazor.platform.readInt32Field(d+ 8);
+        var of = Blazor.platform.readInt32Field(d+12);
 
         gc.drawElements(md, ct, tp, of);
     },
@@ -969,7 +969,7 @@ window.nkCanvasGLContext =
     ActiveTexture: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var tu = Blazor.platform.readInt32Field(d, 0);
+        var tu = Blazor.platform.readInt32Field(d+ 0);
         
         gc.activeTexture(tu);
     },
@@ -988,7 +988,7 @@ window.nkCanvasGLContext =
     GetExtension: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var nm = Blazor.platform.readStringField(d, 0);
+        var nm = Blazor.platform.readStringField(d+ 0);
 
         return gc.getExtension(nm) !== null;
     },
@@ -1006,7 +1006,7 @@ window.nkCanvasGL2Context =
     DrawBuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var ap = Blazor.platform.readInt32Field(d, 0);
+        var ap = Blazor.platform.readInt32Field(d+ 0);
 
         gc.drawBuffers([ap]);
 
@@ -1014,9 +1014,9 @@ window.nkCanvasGL2Context =
     DrawBuffers: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var si = Blazor.platform.readInt32Field(d, 0);
-        var ln = Blazor.platform.readInt32Field(d, 4);
-        var arr = Blazor.platform.readInt32Field(d, 8);
+        var si = Blazor.platform.readInt32Field(d+ 0);
+        var ln = Blazor.platform.readInt32Field(d+ 4);
+        var arr = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -1031,22 +1031,22 @@ window.nkCanvasGL2Context =
     DrawRangeElements: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readInt32Field(d, 0);
-        var st = Blazor.platform.readInt32Field(d, 4);
-        var en = Blazor.platform.readInt32Field(d, 8);
-        var ct = Blazor.platform.readInt32Field(d, 12);
-        var tp = Blazor.platform.readInt32Field(d, 16);
-        var of = Blazor.platform.readInt32Field(d, 20);
+        var md = Blazor.platform.readInt32Field(d+ 0);
+        var st = Blazor.platform.readInt32Field(d+ 4);
+        var en = Blazor.platform.readInt32Field(d+ 8);
+        var ct = Blazor.platform.readInt32Field(d+12);
+        var tp = Blazor.platform.readInt32Field(d+16);
+        var of = Blazor.platform.readInt32Field(d+20);
 
         gc.drawRangeElements(md, st, en, ct, tp, of);
     },
     GetBufferSubData: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var of = Blazor.platform.readInt32Field(d, 4);
-        var st = Blazor.platform.readInt32Field(d, 8);
-        var arr = Blazor.platform.readInt32Field(d, 12);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var st = Blazor.platform.readInt32Field(d+ 8);
+        var arr = Blazor.platform.readInt32Field(d+12);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -1057,11 +1057,11 @@ window.nkCanvasGL2Context =
     GetBufferSubData1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var of = Blazor.platform.readInt32Field(d, 4);
-        var si = Blazor.platform.readInt32Field(d, 8);
-        var st = Blazor.platform.readInt32Field(d, 12);
-        var arr = Blazor.platform.readInt32Field(d, 16);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var si = Blazor.platform.readInt32Field(d+ 8);
+        var st = Blazor.platform.readInt32Field(d+12);
+        var arr = Blazor.platform.readInt32Field(d+16);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -1072,12 +1072,12 @@ window.nkCanvasGL2Context =
     GetBufferSubData2: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var bt = Blazor.platform.readInt32Field(d, 0);
-        var of = Blazor.platform.readInt32Field(d, 4);
-        var si = Blazor.platform.readInt32Field(d, 8);
-        var ln = Blazor.platform.readInt32Field(d, 12);
-        var st = Blazor.platform.readInt32Field(d, 16);
-        var arr = Blazor.platform.readInt32Field(d, 20);
+        var bt = Blazor.platform.readInt32Field(d+ 0);
+        var of = Blazor.platform.readInt32Field(d+ 4);
+        var si = Blazor.platform.readInt32Field(d+ 8);
+        var ln = Blazor.platform.readInt32Field(d+12);
+        var st = Blazor.platform.readInt32Field(d+16);
+        var arr = Blazor.platform.readInt32Field(d+20);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);

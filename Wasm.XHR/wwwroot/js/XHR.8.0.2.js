@@ -9,15 +9,15 @@
     Open: function(uid,d)
     {
         var xhr = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readStringField(d, 0);
-        var ul = Blazor.platform.readStringField(d, 4);
-        var ac = Blazor.platform.readInt32Field(d, 8) !== 0;
+        var md = Blazor.platform.readStringField(d+ 0);
+        var ul = Blazor.platform.readStringField(d+ 4);
+        var ac = Blazor.platform.readInt32Field(d+ 8) !== 0;
         xhr.open(md,ul,ac);
     },
     OverrideMimeType: function(uid,d)
     {
         var xhr = nkJSObject.GetObject(uid);
-        var mt = Blazor.platform.readStringField(d, 0);
+        var mt = Blazor.platform.readStringField(d+ 0);
         xhr.overrideMimeType(mt);
     },
     Send: function (uid, d)

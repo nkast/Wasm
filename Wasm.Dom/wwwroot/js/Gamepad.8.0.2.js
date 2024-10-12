@@ -69,12 +69,12 @@ window.nkGamepadHapticActuator =
     PlayEffect: function (uid, d)
     {
         var ha = nkJSObject.GetObject(uid);
-        var sd = Blazor.platform.readFloatField(d, 0);
-        var du = Blazor.platform.readFloatField(d, 4);
-        var sm = Blazor.platform.readFloatField(d, 8);
-        var wm = Blazor.platform.readFloatField(d,12);
-        var lt = Blazor.platform.readFloatField(d,16);
-        var rt = Blazor.platform.readFloatField(d,20);
+        var sd = Blazor.platform.readFloatField(d+ 0);
+        var du = Blazor.platform.readFloatField(d+ 4);
+        var sm = Blazor.platform.readFloatField(d+ 8);
+        var wm = Blazor.platform.readFloatField(d+12);
+        var lt = Blazor.platform.readFloatField(d+16);
+        var rt = Blazor.platform.readFloatField(d+20);
 
         if ('playEffect' in ha)
         {
@@ -94,8 +94,8 @@ window.nkGamepadHapticActuator =
     Pulse: function (uid, d)
     {
         var ha = nkJSObject.GetObject(uid);
-        var va = Blazor.platform.readFloatField(d, 0);
-        var du = Blazor.platform.readFloatField(d, 4);
+        var va = Blazor.platform.readFloatField(d+ 0);
+        var du = Blazor.platform.readFloatField(d+ 4);
 
         if ('pulse' in ha)
         {

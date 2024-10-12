@@ -42,15 +42,15 @@ window.nkAudioBaseContext =
     SetState: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        ac.state = Blazor.platform.readStringField(d, 0);
+        ac.state = Blazor.platform.readStringField(d+ 0);
     },
 
     CreateBuffer: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var nc = Blazor.platform.readInt32Field(d, 0);
-        var le = Blazor.platform.readInt32Field(d, 4);
-        var sr = Blazor.platform.readInt32Field(d, 8);
+        var nc = Blazor.platform.readInt32Field(d+ 0);
+        var le = Blazor.platform.readInt32Field(d+ 4);
+        var sr = Blazor.platform.readInt32Field(d+ 8);
         var ab = ac.createBuffer(nc, le, sr);
         return  nkJSObject.RegisterObject(ab);
     },
@@ -81,7 +81,7 @@ window.nkAudioBaseContext =
     CreateMediaElementSource: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var mid= Blazor.platform.readInt32Field(d, 0);
+        var mid= Blazor.platform.readInt32Field(d+ 0);
         var me = nkJSObject.GetObject(mid);
         var ms = ac.createMediaElementSource(me);
         return nkJSObject.RegisterObject(ms);
@@ -93,8 +93,8 @@ window.nkAudioBuffer =
     CopyToChannel: function (uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
-        var cn = Blazor.platform.readInt32Field(d, 0);
-        var arr = Blazor.platform.readInt32Field(d, 4);
+        var cn = Blazor.platform.readInt32Field(d+ 0);
+        var arr = Blazor.platform.readInt32Field(d+ 4);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -127,57 +127,57 @@ window.nkAudioListener =
     SetPositionX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var px = Blazor.platform.readInt32Field(d, 0);
+        var px = Blazor.platform.readInt32Field(d+ 0);
         lr.positionX = px;
     },
     SetPositionY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var py = Blazor.platform.readInt32Field(d, 0);
+        var py = Blazor.platform.readInt32Field(d+ 0);
         lr.positionY = py;
     },
     SetPositionZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var pz = Blazor.platform.readInt32Field(d, 0);
+        var pz = Blazor.platform.readInt32Field(d+ 0);
         lr.positionZ = pz;
     },
 
     SetForwardX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fx = Blazor.platform.readInt32Field(d, 0);
+        var fx = Blazor.platform.readInt32Field(d+ 0);
         lr.forwardX = fx;
     },
     SetForwardY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fy = Blazor.platform.readInt32Field(d, 0);
+        var fy = Blazor.platform.readInt32Field(d+ 0);
         lr.forwardY = fy;
     },
     SetForwardZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fz = Blazor.platform.readInt32Field(d, 0);
+        var fz = Blazor.platform.readInt32Field(d+ 0);
         lr.forwardZ = fz;
     },
 
     SetUpX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var ux = Blazor.platform.readInt32Field(d, 0);
+        var ux = Blazor.platform.readInt32Field(d+ 0);
         lr.upX = ux;
     },
     SetUpY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var uy = Blazor.platform.readInt32Field(d, 0);
+        var uy = Blazor.platform.readInt32Field(d+ 0);
         lr.upY = uy;
     },
     SetUpZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var uz = Blazor.platform.readInt32Field(d, 0);
+        var uz = Blazor.platform.readInt32Field(d+ 0);
         lr.upZ = uz;
     }
 };
@@ -187,7 +187,7 @@ window.nkAudioBufferSourceNode =
     SetBuffer: function (uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
-        var bid= Blazor.platform.readInt32Field(d, 0);
+        var bid= Blazor.platform.readInt32Field(d+ 0);
         var ab = nkJSObject.GetObject(bid);
         bs.buffer = ab;
     },
@@ -200,7 +200,7 @@ window.nkAudioBufferSourceNode =
     SetLoop: function (uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
-        var lp = Blazor.platform.readInt32Field(d, 0);
+        var lp = Blazor.platform.readInt32Field(d+ 0);
         bs.loop = lp !== 0;
     }
 };
@@ -248,14 +248,14 @@ window.nkAudioNode =
     Connect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var did= Blazor.platform.readInt32Field(d, 0);
+        var did= Blazor.platform.readInt32Field(d+ 0);
         var ds = nkJSObject.GetObject(did);
         an.connect(ds);
     },
     Disconnect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var did = Blazor.platform.readInt32Field(d, 0);
+        var did = Blazor.platform.readInt32Field(d+ 0);
         var ds = nkJSObject.GetObject(did);
         an.disconnect(ds);
     },
@@ -278,7 +278,7 @@ window.nkAudioOscillatorNode =
     SetType: function (uid, d)
     {
         var os = nkJSObject.GetObject(uid);
-        os.type = Blazor.platform.readStringField(d, 0);
+        os.type = Blazor.platform.readStringField(d+ 0);
     }
 };
 
@@ -307,45 +307,45 @@ window.nkAudioParam =
     SetValue: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d, 0);
+        var vl = Blazor.platform.readFloatField(d+ 0);
         ap.value = vl;
     },
     
     SetValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d, 0);
-        var st = Blazor.platform.readFloatField(d, 4);
+        var vl = Blazor.platform.readFloatField(d+ 0);
+        var st = Blazor.platform.readFloatField(d+ 4);
         ap.setValueAtTime(vl, st);
     },
     LinearRampToValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d, 0);
-        var et = Blazor.platform.readFloatField(d, 4);
+        var vl = Blazor.platform.readFloatField(d+ 0);
+        var et = Blazor.platform.readFloatField(d+ 4);
         ap.linearRampToValueAtTime(vl, et);
     },
     ExponentialRampToValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d, 0);
-        var et = Blazor.platform.readFloatField(d, 4);
+        var vl = Blazor.platform.readFloatField(d+ 0);
+        var et = Blazor.platform.readFloatField(d+ 4);
         ap.exponentialRampToValueAtTime(vl, et);
     },
     SetTargetAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readFloatField(d, 0);
-        var st = Blazor.platform.readFloatField(d, 4);
-        var tc = Blazor.platform.readFloatField(d, 8);
+        var tg = Blazor.platform.readFloatField(d+ 0);
+        var st = Blazor.platform.readFloatField(d+ 4);
+        var tc = Blazor.platform.readFloatField(d+ 8);
         ap.setTargetAtTime(tg, st, tc);
     },
     SetValueCurveAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var st = Blazor.platform.readFloatField(d, 0);
-        var dt = Blazor.platform.readFloatField(d, 4);
-        var arr = Blazor.platform.readInt32Field(d, 8);
+        var st = Blazor.platform.readFloatField(d+ 0);
+        var dt = Blazor.platform.readFloatField(d+ 4);
+        var arr = Blazor.platform.readInt32Field(d+ 8);
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -357,7 +357,7 @@ window.nkAudioParam =
     CancelScheduledValues: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var st = Blazor.platform.readFloatField(d, 0);
+        var st = Blazor.platform.readFloatField(d+ 0);
         ap.cancelScheduledValues(st);
     }
 };

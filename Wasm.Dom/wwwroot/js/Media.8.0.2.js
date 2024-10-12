@@ -26,7 +26,7 @@
     SetSrc: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var sr = Blazor.platform.readStringField(d, 0);
+        var sr = Blazor.platform.readStringField(d+ 0);
         me.src = sr;
     },
     
@@ -38,7 +38,7 @@
     SetMuted: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var mu = Blazor.platform.readInt32Field(d, 0);
+        var mu = Blazor.platform.readInt32Field(d+ 0);
         me.muted = mu !== 0;
     },
     
@@ -50,7 +50,7 @@
     SetLoop: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var lo = Blazor.platform.readInt32Field(d, 0);
+        var lo = Blazor.platform.readInt32Field(d+ 0);
         me.loop = lo !== 0;
     },
     
@@ -62,7 +62,7 @@
     SetVolume: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var vo = Blazor.platform.readFloatField(d, 0);
+        var vo = Blazor.platform.readFloatField(d+ 0);
         me.volume = vo;
     },
     
