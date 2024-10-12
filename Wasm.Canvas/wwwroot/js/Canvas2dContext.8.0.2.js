@@ -118,7 +118,7 @@ window.nkCanvas2dContext =
     SetImageSmoothingEnabled: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var s = Blazor.platform.readInt32Field(d+ 0);
+        var s = Module.HEAP32[(d+ 0)>>2];
         dc.imageSmoothingEnabled = s !== 0;
     },
 
@@ -311,7 +311,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         var x = Blazor.platform.readFloatField(d+ 0);
         var y = Blazor.platform.readFloatField(d+ 4);
-        var e = Blazor.platform.readInt32Field(d+ 8);
+        var e = Module.HEAP32[(d+ 8)>>2];
         return dc.isPointInPath(x, y, e === 0 ? "nonzero" : "evenodd");
     },
     IsPointInStroke: function(uid,d)
@@ -364,7 +364,7 @@ window.nkCanvas2dContext =
         var r = Blazor.platform.readFloatField(d+ 8);
         var s = Blazor.platform.readFloatField(d+12);
         var e = Blazor.platform.readFloatField(d+16);
-        var a = Blazor.platform.readInt32Field(d+20);
+        var a = Module.HEAP32[(d+20)>>2];
         dc.arc(x, y, r, s, e, a !== 0);
     },
     ArcTo: function(uid,d)
@@ -396,7 +396,7 @@ window.nkCanvas2dContext =
         var ro = Blazor.platform.readFloatField(d+16);
         var s  = Blazor.platform.readFloatField(d+20);
         var e  = Blazor.platform.readFloatField(d+24);
-        var a  = Blazor.platform.readInt32Field(d+28);
+        var a  = Module.HEAP32[(d+28)>>2];
         dc.ellipse(x, y, rx, ry, ro, s, e, a !== 0);
     },
 

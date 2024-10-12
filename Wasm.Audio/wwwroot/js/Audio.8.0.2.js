@@ -48,9 +48,9 @@ window.nkAudioBaseContext =
     CreateBuffer: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var nc = Blazor.platform.readInt32Field(d+ 0);
-        var le = Blazor.platform.readInt32Field(d+ 4);
-        var sr = Blazor.platform.readInt32Field(d+ 8);
+        var nc = Module.HEAP32[(d+ 0)>>2];
+        var le = Module.HEAP32[(d+ 4)>>2];
+        var sr = Module.HEAP32[(d+ 8)>>2];
         var ab = ac.createBuffer(nc, le, sr);
         return  nkJSObject.RegisterObject(ab);
     },
@@ -81,7 +81,7 @@ window.nkAudioBaseContext =
     CreateMediaElementSource: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var mid= Blazor.platform.readInt32Field(d+ 0);
+        var mid= Module.HEAP32[(d+ 0)>>2];
         var me = nkJSObject.GetObject(mid);
         var ms = ac.createMediaElementSource(me);
         return nkJSObject.RegisterObject(ms);
@@ -93,8 +93,8 @@ window.nkAudioBuffer =
     CopyToChannel: function (uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
-        var cn = Blazor.platform.readInt32Field(d+ 0);
-        var arr = Blazor.platform.readInt32Field(d+ 4);
+        var cn = Module.HEAP32[(d+ 0)>>2];
+        var arr = Module.HEAP32[(d+ 4)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
@@ -127,57 +127,57 @@ window.nkAudioListener =
     SetPositionX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var px = Blazor.platform.readInt32Field(d+ 0);
+        var px = Module.HEAP32[(d+ 0)>>2];
         lr.positionX = px;
     },
     SetPositionY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var py = Blazor.platform.readInt32Field(d+ 0);
+        var py = Module.HEAP32[(d+ 0)>>2];
         lr.positionY = py;
     },
     SetPositionZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var pz = Blazor.platform.readInt32Field(d+ 0);
+        var pz = Module.HEAP32[(d+ 0)>>2];
         lr.positionZ = pz;
     },
 
     SetForwardX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fx = Blazor.platform.readInt32Field(d+ 0);
+        var fx = Module.HEAP32[(d+ 0)>>2];
         lr.forwardX = fx;
     },
     SetForwardY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fy = Blazor.platform.readInt32Field(d+ 0);
+        var fy = Module.HEAP32[(d+ 0)>>2];
         lr.forwardY = fy;
     },
     SetForwardZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var fz = Blazor.platform.readInt32Field(d+ 0);
+        var fz = Module.HEAP32[(d+ 0)>>2];
         lr.forwardZ = fz;
     },
 
     SetUpX: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var ux = Blazor.platform.readInt32Field(d+ 0);
+        var ux = Module.HEAP32[(d+ 0)>>2];
         lr.upX = ux;
     },
     SetUpY: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var uy = Blazor.platform.readInt32Field(d+ 0);
+        var uy = Module.HEAP32[(d+ 0)>>2];
         lr.upY = uy;
     },
     SetUpZ: function (uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
-        var uz = Blazor.platform.readInt32Field(d+ 0);
+        var uz = Module.HEAP32[(d+ 0)>>2];
         lr.upZ = uz;
     }
 };
@@ -187,7 +187,7 @@ window.nkAudioBufferSourceNode =
     SetBuffer: function (uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
-        var bid= Blazor.platform.readInt32Field(d+ 0);
+        var bid= Module.HEAP32[(d+ 0)>>2];
         var ab = nkJSObject.GetObject(bid);
         bs.buffer = ab;
     },
@@ -200,7 +200,7 @@ window.nkAudioBufferSourceNode =
     SetLoop: function (uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
-        var lp = Blazor.platform.readInt32Field(d+ 0);
+        var lp = Module.HEAP32[(d+ 0)>>2];
         bs.loop = lp !== 0;
     }
 };
@@ -248,14 +248,14 @@ window.nkAudioNode =
     Connect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var did= Blazor.platform.readInt32Field(d+ 0);
+        var did= Module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.connect(ds);
     },
     Disconnect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
-        var did = Blazor.platform.readInt32Field(d+ 0);
+        var did = Module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.disconnect(ds);
     },
@@ -345,7 +345,7 @@ window.nkAudioParam =
         var ap = nkJSObject.GetObject(uid);
         var st = Blazor.platform.readFloatField(d+ 0);
         var dt = Blazor.platform.readFloatField(d+ 4);
-        var arr = Blazor.platform.readInt32Field(d+ 8);
+        var arr = Module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);

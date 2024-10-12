@@ -38,7 +38,7 @@
     SetMuted: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var mu = Blazor.platform.readInt32Field(d+ 0);
+        var mu = Module.HEAP32[(d+ 0)>>2];
         me.muted = mu !== 0;
     },
     
@@ -50,7 +50,7 @@
     SetLoop: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var lo = Blazor.platform.readInt32Field(d+ 0);
+        var lo = Module.HEAP32[(d+ 0)>>2];
         me.loop = lo !== 0;
     },
     
