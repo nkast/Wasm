@@ -307,44 +307,44 @@ window.nkAudioParam =
     SetValue: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d+ 0);
+        var vl = Module.HEAPF32[(d+ 0)>>2];
         ap.value = vl;
     },
     
     SetValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d+ 0);
-        var st = Blazor.platform.readFloatField(d+ 4);
+        var vl = Module.HEAPF32[(d+ 0)>>2];
+        var st = Module.HEAPF32[(d+ 4)>>2];
         ap.setValueAtTime(vl, st);
     },
     LinearRampToValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d+ 0);
-        var et = Blazor.platform.readFloatField(d+ 4);
+        var vl = Module.HEAPF32[(d+ 0)>>2];
+        var et = Module.HEAPF32[(d+ 4)>>2];
         ap.linearRampToValueAtTime(vl, et);
     },
     ExponentialRampToValueAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var vl = Blazor.platform.readFloatField(d+ 0);
-        var et = Blazor.platform.readFloatField(d+ 4);
+        var vl = Module.HEAPF32[(d+ 0)>>2];
+        var et = Module.HEAPF32[(d+ 4)>>2];
         ap.exponentialRampToValueAtTime(vl, et);
     },
     SetTargetAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var tg = Blazor.platform.readFloatField(d+ 0);
-        var st = Blazor.platform.readFloatField(d+ 4);
-        var tc = Blazor.platform.readFloatField(d+ 8);
+        var tg = Module.HEAPF32[(d+ 0)>>2];
+        var st = Module.HEAPF32[(d+ 4)>>2];
+        var tc = Module.HEAPF32[(d+ 8)>>2];
         ap.setTargetAtTime(tg, st, tc);
     },
     SetValueCurveAtTime: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var st = Blazor.platform.readFloatField(d+ 0);
-        var dt = Blazor.platform.readFloatField(d+ 4);
+        var st = Module.HEAPF32[(d+ 0)>>2];
+        var dt = Module.HEAPF32[(d+ 4)>>2];
         var arr = Module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
@@ -357,7 +357,7 @@ window.nkAudioParam =
     CancelScheduledValues: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
-        var st = Blazor.platform.readFloatField(d+ 0);
+        var st = Module.HEAPF32[(d+ 0)>>2];
         ap.cancelScheduledValues(st);
     }
 };

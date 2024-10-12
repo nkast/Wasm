@@ -35,10 +35,10 @@ window.nkCanvasGLContext =
     BlendColor: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var r = Blazor.platform.readFloatField(d+ 0);
-        var g = Blazor.platform.readFloatField(d+ 4);
-        var b = Blazor.platform.readFloatField(d+ 8);
-        var a = Blazor.platform.readFloatField(d+12);
+        var r = Module.HEAPF32[(d+ 0)>>2];
+        var g = Module.HEAPF32[(d+ 4)>>2];
+        var b = Module.HEAPF32[(d+ 8)>>2];
+        var a = Module.HEAPF32[(d+12)>>2];
         gc.blendColor(r, g, b, a);
     },
 
@@ -69,8 +69,8 @@ window.nkCanvasGLContext =
     PolygonOffset: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var fr = Blazor.platform.readFloatField(d+ 0);
-        var us = Blazor.platform.readFloatField(d+ 4);
+        var fr = Module.HEAPF32[(d+ 0)>>2];
+        var us = Module.HEAPF32[(d+ 4)>>2];
         gc.polygonOffset(fr, us);
     },
 
@@ -128,8 +128,8 @@ window.nkCanvasGLContext =
     DepthRange: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var zn = Blazor.platform.readFloatField(d+ 0);
-        var zf = Blazor.platform.readFloatField(d+ 4);
+        var zn = Module.HEAPF32[(d+ 0)>>2];
+        var zf = Module.HEAPF32[(d+ 4)>>2];
         gc.depthRange(zn, zf);
     },
 
@@ -146,16 +146,16 @@ window.nkCanvasGLContext =
     ClearColor: function(uid,d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var r = Blazor.platform.readFloatField(d+ 0);
-        var g = Blazor.platform.readFloatField(d+ 4);
-        var b = Blazor.platform.readFloatField(d+ 8);
-        var a = Blazor.platform.readFloatField(d+12);
+        var r = Module.HEAPF32[(d+ 0)>>2];
+        var g = Module.HEAPF32[(d+ 4)>>2];
+        var b = Module.HEAPF32[(d+ 8)>>2];
+        var a = Module.HEAPF32[(d+12)>>2];
         gc.clearColor(r, g, b, a);
     },
     ClearDepth: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var d = Blazor.platform.readFloatField(d+ 0);
+        var d = Module.HEAPF32[(d+ 0)>>2];
         gc.clearDepth(d);
     },
     ClearStencil: function (uid, d)
@@ -343,7 +343,7 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
-        var v0 = Blazor.platform.readFloatField(d+ 4);
+        var v0 = Module.HEAPF32[(d+ 4)>>2];
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1f(ul, v0);
@@ -353,8 +353,8 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
-        var v0 = Blazor.platform.readFloatField(d+ 4);
-        var v1 = Blazor.platform.readFloatField(d+ 8);
+        var v0 = Module.HEAPF32[(d+ 4)>>2];
+        var v1 = Module.HEAPF32[(d+ 8)>>2];
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2f(ul, v0, v1);
@@ -364,9 +364,9 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
-        var v0 = Blazor.platform.readFloatField(d+ 4);
-        var v1 = Blazor.platform.readFloatField(d+ 8);
-        var v2 = Blazor.platform.readFloatField(d+12);
+        var v0 = Module.HEAPF32[(d+ 4)>>2];
+        var v1 = Module.HEAPF32[(d+ 8)>>2];
+        var v2 = Module.HEAPF32[(d+12)>>2];
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3f(ul, v0, v1, v2);
@@ -376,10 +376,10 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
-        var v0 = Blazor.platform.readFloatField(d+ 4);
-        var v1 = Blazor.platform.readFloatField(d+ 8);
-        var v2 = Blazor.platform.readFloatField(d+12);
-        var v3 = Blazor.platform.readFloatField(d+16);
+        var v0 = Module.HEAPF32[(d+ 4)>>2];
+        var v1 = Module.HEAPF32[(d+ 8)>>2];
+        var v2 = Module.HEAPF32[(d+12)>>2];
+        var v3 = Module.HEAPF32[(d+16)>>2];
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform4f(ul, v0, v1, v2, v3);

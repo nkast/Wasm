@@ -62,7 +62,7 @@
     SetVolume: function (uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var vo = Blazor.platform.readFloatField(d+ 0);
+        var vo = Module.HEAPF32[(d+ 0)>>2];
         me.volume = vo;
     },
     
