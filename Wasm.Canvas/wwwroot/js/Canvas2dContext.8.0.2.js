@@ -457,13 +457,34 @@ window.nkCanvas2dContext =
         var dy  = Module.HEAPF32[(d+20)>>2];
         dc.setTransform(m11, m12, m21, m22, dx, dy);
     },
-    GetTransform: function(uid)
+    GetTransform: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0>>2)];
+
         var mx = dc.getTransform();
-        var mxf32arr = mx.toFloat32Array();
-        var mxf32str = mxf32arr.toString();
-        return BINDING.js_to_mono_obj(mxf32str);
+
+        Module.HEAPF32[(pt+ 0)>>2] = mx.m11;
+        Module.HEAPF32[(pt+ 4)>>2] = mx.m12;
+        Module.HEAPF32[(pt+ 8)>>2] = 0;
+        Module.HEAPF32[(pt+12)>>2] = 0;
+
+        Module.HEAPF32[(pt+16)>>2] = mx.m21;
+        Module.HEAPF32[(pt+20)>>2] = mx.m22;
+        Module.HEAPF32[(pt+24)>>2] = 0;
+        Module.HEAPF32[(pt+28)>>2] = 0;
+
+        Module.HEAPF32[(pt+32)>>2] = 0;
+        Module.HEAPF32[(pt+36)>>2] = 0;
+        Module.HEAPF32[(pt+40)>>2] = 1;
+        Module.HEAPF32[(pt+44)>>2] = 0;
+
+        Module.HEAPF32[(pt+48)>>2] = mx.m41;
+        Module.HEAPF32[(pt+52)>>2] = mx.m42;
+        Module.HEAPF32[(pt+56)>>2] = 0;
+        Module.HEAPF32[(pt+60)>>2] = 1;
+
+        return;
     },
 
     Save: function(uid)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace nkast.Wasm.Canvas
@@ -317,16 +318,19 @@ namespace nkast.Wasm.Canvas
             Invoke("nkCanvas2dContext.SetTransform", m11, m12, m21, m22, dx, dy);
         }
 
-        public void GetTransform(ref float m11, ref float m12, ref float m21, ref float m22, ref float dx, ref float dy)
+        public unsafe void GetTransform(ref float m11, ref float m12, ref float m21, ref float m22, ref float dx, ref float dy)
         {
-            var mxf32str = InvokeRet<string>("nkCanvas2dContext.GetTransform");
-            var mxs = mxf32str.Split(',');
-            m11 = float.Parse(mxs[0]);
-            m12 = float.Parse(mxs[1]);
-            m21 = float.Parse(mxs[4]);
-            m22 = float.Parse(mxs[5]);
-            dx = float.Parse(mxs[12]);
-            dy = float.Parse(mxs[13]);
+            Matrix4x4 result = default;
+            Invoke<IntPtr>("nkCanvas2dContext.GetTransform", new IntPtr(&result));
+
+            m11 = result.M11;
+            m12 = result.M12;
+            m21 = result.M21;
+            m22 = result.M22;
+            dx  = result.M31;
+            dy  = result.M32;
+
+            return;
         }
 
         public void Save()
