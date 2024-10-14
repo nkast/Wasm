@@ -104,6 +104,8 @@
     {
         var me = nkJSObject.GetObject(uid);
         me.onended = null;
+        me.onplaying = null;
+        me.ontimeupdate = null;
     }
 };
 
