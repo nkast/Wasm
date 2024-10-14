@@ -999,6 +999,26 @@ window.nkCanvasGLContext =
         return gc.getError();
     },
 
+
+    RegisterEvents: function (uid)
+    {
+        var gl = nkJSObject.GetObject(uid);
+
+        gl.webglcontextlost = function (event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsWebGLRenderingContextOnContextLost', uid);
+        };
+        gl.webglcontextrestored = function (event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsWebGLRenderingContextOnContextRestored', uid);
+        };
+    },
+    UnregisterEvents: function (uid)
+    {
+        var me = nkJSObject.GetObject(uid);
+        me.webglcontextlost = null;
+        me.webglcontextrestored = null;
+    }
 };
 
 window.nkCanvasGL2Context =

@@ -1,14 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas.WebGL
 {
     internal class WebGLRenderingContext : RenderingContext, IWebGLRenderingContext, IDisposable
     {
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
+        public event EventHandler ContextLost;
+        public event EventHandler ContextRestored;
+
         internal WebGLRenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            Invoke("nkCanvasGLContext.RegisterEvents");
+        }
+
+        [JSInvokable]
+        public static void JsWebGLRenderingContextOnContextLost(int uid)
+        {
+            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                return;
+            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
+                return;
+
+            WebGLRenderingContext glContext = (WebGLRenderingContext)jsObj;
+
+            var handler = glContext.ContextLost;
+            if (handler != null)
+                handler(glContext, EventArgs.Empty);
+        }
+
+        [JSInvokable]
+        public static void JsWebGLRenderingContextOnContextRestored(int uid)
+        {
+            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                return;
+            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
+                return;
+
+            WebGLRenderingContext glContext = (WebGLRenderingContext)jsObj;
+
+            var handler = glContext.ContextRestored;
+            if (handler != null)
+                handler(glContext, EventArgs.Empty);
         }
 
         public void Enable(WebGLCapability cap)
@@ -543,6 +581,9 @@ namespace nkast.Wasm.Canvas.WebGL
             {
 
             }
+
+            Invoke("nkCanvasGLContext.UnregisterEvents");
+            _uidMap.Remove(Uid);
 
             //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext
             base.Dispose(disposing);

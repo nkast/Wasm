@@ -6,6 +6,9 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     public interface IWebGLRenderingContext : IRenderingContext
     {
+        event EventHandler ContextLost;
+        event EventHandler ContextRestored;
+
         void Enable(WebGLCapability cap);
         void Disable(WebGLCapability cap);
 
