@@ -511,7 +511,7 @@ window.nkCanvasGLContext =
         var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
-        gc.uniformMatrix2fv(ul, dt);
+        gc.uniformMatrix2fv(ul, false, dt);
     },
     UniformMatrix3fv: function (uid, d)
     {
@@ -525,7 +525,7 @@ window.nkCanvasGLContext =
         var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
-        gc.uniformMatrix3fv(ul, dt);
+        gc.uniformMatrix3fv(ul, false, dt);
     },
     UniformMatrix4fv: function (uid, d)
     {
@@ -539,7 +539,7 @@ window.nkCanvasGLContext =
         var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
-        gc.uniformMatrix4fv(ul, dt);
+        gc.uniformMatrix4fv(ul, false, dt);
     },
     
     CompileShader: function (uid, d)
