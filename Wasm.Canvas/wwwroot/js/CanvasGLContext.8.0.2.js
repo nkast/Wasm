@@ -1015,9 +1015,9 @@ window.nkCanvasGLContext =
     },
     UnregisterEvents: function (uid)
     {
-        var me = nkJSObject.GetObject(uid);
-        me.webglcontextlost = null;
-        me.webglcontextrestored = null;
+        var gl = nkJSObject.GetObject(uid);
+        gl.webglcontextlost = null;
+        gl.webglcontextrestored = null;
     }
 };
 
