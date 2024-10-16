@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Numerics;
-using tainicom.Aether.Physics2D.Collision;
+using nkast.Aether.Physics2D.Collision;
 using nkast.Wasm.Canvas;
 using Boids.Engine;
-using aeVector2 = tainicom.Aether.Physics2D.Common.Vector2;
+using aeVector2 = nkast.Aether.Physics2D.Common.Vector2;
 
 namespace Boids.Pages
 {
@@ -54,9 +54,9 @@ namespace Boids.Pages
                     Rand.NextSingle() - 0.5f,
                     Rand.NextSingle() - 0.5f);
 
-                var boidPosition = new aeVector2(_pos[i].X, _pos[i].Y);
+                aeVector2 boidPosition = new aeVector2(_pos[i].X, _pos[i].Y);
 
-                var aabb = new AABB(boidPosition, maxDistanceFlock * 2, maxDistanceFlock * 2);
+                AABB aabb = new AABB(boidPosition, maxDistanceFlock * 2, maxDistanceFlock * 2);
                 _pidfl[i] = bpfl.AddProxy(ref aabb);
                 bpfl.SetProxy(_pidfl[i], ref i);
 
@@ -91,11 +91,11 @@ namespace Boids.Pages
 
             for (int i = 0; i < BoidCount; i++)
             {
-                var boidPosition = new aeVector2(_pos[i].X, _pos[i].Y);
-                var boidVelocity = new aeVector2(_vel[i].X, _vel[i].Y);
+                aeVector2 boidPosition = new aeVector2(_pos[i].X, _pos[i].Y);
+                aeVector2 boidVelocity = new aeVector2(_vel[i].X, _vel[i].Y);
 
                 //update aabb
-                var aabb = new AABB(boidPosition, maxDistanceFlock * 2, maxDistanceFlock * 2);
+                AABB aabb = new AABB(boidPosition, maxDistanceFlock * 2, maxDistanceFlock * 2);
                 bpfl.MoveProxy(_pidfl[i], ref aabb, boidVelocity);
 
                 aabb = new AABB(boidPosition, maxDistanceAlign * 2, maxDistanceAlign * 2);
@@ -153,7 +153,7 @@ namespace Boids.Pages
                 int i = bpfl.GetProxy(pid);
                 int otheri = bpfl.GetProxy(otherpid);
                 Vector2 d = _pos[otheri] - _pos[i];
-                var distancesq = d.X * d.X + d.Y * d.Y;
+                float distancesq = d.X * d.X + d.Y * d.Y;
                 if (distancesq < maxDistancesq)
                 {
                     _acc[i] += d * frc;
@@ -172,7 +172,7 @@ namespace Boids.Pages
                 int i = bpfl.GetProxy(pid);
                 int otheri = bpal.GetProxy(otherpid);
                 Vector2 dp = _pos[otheri] - _pos[i];
-                var distancesq = dp.X * dp.X + dp.Y * dp.Y;
+                float distancesq = dp.X * dp.X + dp.Y * dp.Y;
                 if (distancesq < maxDistancesq)
                 {
                     Vector2 dv = _vel[otheri] - _vel[i];
@@ -193,7 +193,7 @@ namespace Boids.Pages
                 int i = bpfl.GetProxy(pid);
                 int otheri = bpav.GetProxy(otherpid);
                 Vector2 d = _pos[otheri] - _pos[i];
-                var distancesq = d.X * d.X + d.Y * d.Y;
+                float distancesq = d.X * d.X + d.Y * d.Y;
                 if (distancesq < maxDistancesq)
                 {
                     float distance = (float)Math.Sqrt(distancesq);
@@ -252,7 +252,7 @@ namespace Boids.Pages
 
         public void SpeedLimit(int i, float minSpeed, float maxSpeed, float minSpeedsq, float maxSpeedsq)
         {
-            var speedsq = _vel[i].LengthSquared();
+            float speedsq = _vel[i].LengthSquared();
 
             if (speedsq > 0 && speedsq < minSpeedsq)
             {
@@ -301,7 +301,7 @@ namespace Boids.Pages
                 new Vector2(0, 0)
             };
 
-            var lensq = _vel[i].LengthSquared();
+            float lensq = _vel[i].LengthSquared();
             if (lensq > 0)
             {
                 Vector2 orientation = _vel[i] / (float)Math.Sqrt(lensq);

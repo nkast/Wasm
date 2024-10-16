@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Numerics;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 using nkast.Wasm.Canvas;
@@ -80,8 +78,8 @@ namespace Boids.Pages
 
             // run gameloop tick
 
-            var t = _sw.Elapsed;
-            var dt = t - _prevt;
+            TimeSpan  t = _sw.Elapsed;
+            TimeSpan dt = t - _prevt;
             _prevt = t;
 
             // reset canvas
@@ -89,11 +87,11 @@ namespace Boids.Pages
             cx.ClearRect(0, 0, cs.Width, cs.Height);
             
             // scale to virtual resolution
-            var bbscalew = cs.Width / RootClip.vres.w;
-            var bbscaleh = cs.Height / RootClip.vres.h;
+            float bbscalew = cs.Width / RootClip.vres.w;
+            float bbscaleh = cs.Height / RootClip.vres.h;
             cx.Scale(bbscalew, bbscalew);
 
-            var uc = new UpdateContext(
+            UpdateContext uc = new UpdateContext(
                 t, dt,
                 currMouseState, prevMouseState,
                 currTouchState, prevTouchState
@@ -104,7 +102,7 @@ namespace Boids.Pages
 
             _root.Update(uc);
 
-            var dc = new DrawContext()
+            DrawContext dc = new DrawContext()
             {
                 CanvasContext = cx,
                 Layer = 0,
@@ -122,9 +120,9 @@ namespace Boids.Pages
 
         private void OnResize(object sender)
         {
-            var wnd = (Window)sender;
-            var w = wnd.InnerWidth;
-            var h = wnd.InnerHeight;
+            Window wnd = (Window)sender;
+            int w = wnd.InnerWidth;
+            int h = wnd.InnerHeight;
         }
 
         private void OnMouseMove(object sender, int x, int y)

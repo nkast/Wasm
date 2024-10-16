@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Numerics;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 using nkast.Wasm.Canvas;
@@ -81,20 +79,19 @@ namespace CanvasGL.Pages
 
             // run gameloop tick
 
-            var t = _sw.Elapsed;
-            var dt = t - _prevt;
+            TimeSpan t  = _sw.Elapsed;
+            TimeSpan dt = t - _prevt;
             _prevt = t;
 
             // reset canvas
             gl.ClearColor(.39f, .58f, 0.92f, 1f);
+            gl.Clear(WebGLBufferBits.COLOR | WebGLBufferBits.DEPTH | WebGLBufferBits.STENCIL);
 
-            gl.Clear(WebGLBufferBits.COLOR| WebGLBufferBits.DEPTH| WebGLBufferBits.STENCIL);
-            
             // scale to virtual resolution
-            var bbscalew = cs.Width / RootClip.vres.w;
-            var bbscaleh = cs.Height / RootClip.vres.h;
+            float bbscalew = cs.Width / RootClip.vres.w;
+            float bbscaleh = cs.Height / RootClip.vres.h;
 
-            var uc = new UpdateContext(
+            UpdateContext uc = new UpdateContext(
                 t, dt,
                 currMouseState, prevMouseState,
                 currTouchState, prevTouchState
@@ -105,12 +102,20 @@ namespace CanvasGL.Pages
 
             _root.Update(uc);
 
-            var dc = new DrawContext()
+            float aspect = (float)cs.Width / (float)cs.Height;
+            Matrix4x4 world = Matrix4x4.CreateTranslation(new Vector3(0, 0, -5));
+            Matrix4x4 view = Matrix4x4.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0));
+            Matrix4x4 proj = Matrix4x4.CreatePerspectiveFieldOfView(MathF.PI / 4, aspect, 0.1f, 100.0f);
+
+            DrawContext dc = new DrawContext()
             {
                 GLContext = gl,
                 Layer = 0,
                 t  = t,
-                dt = dt
+                dt = dt,
+                world = world,
+                view = view,
+                proj = proj,
             };
 
             for (int l = 0; l < 3; l++)
@@ -123,21 +128,21 @@ namespace CanvasGL.Pages
 
         private void OnResize(object sender)
         {
-            var wnd = (Window)sender;
-            var w = wnd.InnerWidth;
-            var h = wnd.InnerHeight;
+            Window wnd = (Window)sender;
+            int w = wnd.InnerWidth;
+            int h = wnd.InnerHeight;
         }
 
         private void OnFocus(object sender)
         {
-            var wnd = (Window)sender;
-            var hasFocus = true;
+            Window wnd = (Window)sender;
+            bool hasFocus = true;
         }
 
         private void OnBlur(object sender)
         {
-            var wnd = (Window)sender;
-            var hasFocus = false;
+            Window wnd = (Window)sender;
+            bool hasFocus = false;
         }
 
         private void OnMouseMove(object sender, int x, int y)
