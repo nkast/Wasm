@@ -460,7 +460,7 @@ window.nkCanvas2dContext =
     GetTransform: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0>>2)];
+        var pt = Module.HEAP32[(d+ 0)>>2];
 
         var mx = dc.getTransform();
 
