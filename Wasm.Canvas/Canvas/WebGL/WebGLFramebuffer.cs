@@ -1,4 +1,5 @@
-﻿using nkast.Wasm.Dom;
+﻿using System;
+using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas.WebGL
 {
@@ -9,6 +10,11 @@ namespace nkast.Wasm.Canvas.WebGL
         internal WebGLFramebuffer(int uid, WebGLRenderingContext glContext) : base(uid)
         {
             _glContext = glContext;
+        }
+
+        public static WebGLFramebuffer FromUid(int uid, IWebGLRenderingContext glContext)
+        {
+            return new WebGLFramebuffer(uid, (WebGLRenderingContext)glContext);
         }
 
         protected override void Dispose(bool disposing)

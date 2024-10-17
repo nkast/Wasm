@@ -42,8 +42,7 @@ namespace CanvasGL.Pages
                                          "uniform mat4 uWorldViewProj; "+
 
                                          "void main() {" +
-                                            //"gl_Position =  uWorldViewProj * vec4(aPos, 1.0);" +
-                                            "gl_Position = vec4(aPos, 1.0);" +
+                                            "gl_Position =  uWorldViewProj * vec4(aPos, 1.0);" +
                                             "vColor = aColor;" +
                                          "}";
 
@@ -82,7 +81,7 @@ namespace CanvasGL.Pages
                 Matrix4x4 worldViewProj = dc.world * dc.view * dc.proj;
                 float[] wvparray = MatrixToArray(worldViewProj);
                 var wvplocation = gl.GetUniformLocation(program, "uWorldViewProj");
-                //gl.UniformMatrix4fv<float>(wvplocation, wvparray);
+                gl.UniformMatrix4fv<float>(wvplocation, wvparray);
 
                 gl.DrawArrays(WebGLPrimitiveType.TRIANGLES, 0, 3);
             }
