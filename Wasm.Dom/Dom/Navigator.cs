@@ -68,5 +68,15 @@ namespace nkast.Wasm.Dom
 
             return gamepads;
         }
+
+        public void Vibrate(int duration)
+        {
+            Invoke<int>("nkNavigator.Vibrate", duration);
+        }
+
+        public void Vibrate(TimeSpan duration)
+        {
+            Invoke<int>("nkNavigator.Vibrate", (int)duration.TotalMilliseconds);
+        }
     }
 }
