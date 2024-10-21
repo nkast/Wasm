@@ -8,7 +8,7 @@ namespace CanvasGL.Pages
 
         public static Size vres = new Size(1920, 960);
 
-        TriangleClip _tri;
+        internal TriangleClip _tri;
 
 
         public RootClip() : base()

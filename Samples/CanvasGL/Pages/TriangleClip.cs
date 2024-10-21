@@ -14,6 +14,15 @@ namespace CanvasGL.Pages
 
         }
 
+        ~TriangleClip()
+        {
+            if (_program != null)
+            {
+                _program.Dispose();
+                _program = null;
+            }
+        }
+
 
         public override void Update(UpdateContext uc)
         {
@@ -42,8 +51,7 @@ namespace CanvasGL.Pages
                                          "uniform mat4 uWorldViewProj; "+
 
                                          "void main() {" +
-                                            //"gl_Position =  uWorldViewProj * vec4(aPos, 1.0);" +
-                                            "gl_Position = vec4(aPos, 1.0);" +
+                                            "gl_Position =  uWorldViewProj * vec4(aPos, 1.0);" +
                                             "vColor = aColor;" +
                                          "}";
 
@@ -55,12 +63,21 @@ namespace CanvasGL.Pages
                                          "}";
 
 
+        WebGLProgram _program;
+
+
         private void DrawTriangle(DrawContext dc)
         {
             var gl = dc.GLContext;
 
-            using (var program = InitProgram(gl, VS_SOURCE, FS_SOURCE))
-            using (var vertexBuffer = gl.CreateBuffer())
+            if (_program == null)
+            {
+                _program = InitProgram(gl, VS_SOURCE, FS_SOURCE);
+
+            }
+
+            
+            using (WebGLBuffer vertexBuffer = gl.CreateBuffer())
             {                
                 gl.BindBuffer(WebGLBufferType.ARRAY, vertexBuffer);
 
@@ -77,12 +94,13 @@ namespace CanvasGL.Pages
                 gl.EnableVertexAttribArray(0);
                 gl.EnableVertexAttribArray(1);
 
-                gl.UseProgram(program);
+                gl.UseProgram(_program);
+
 
                 Matrix4x4 worldViewProj = dc.world * dc.view * dc.proj;
                 float[] wvparray = MatrixToArray(worldViewProj);
-                var wvplocation = gl.GetUniformLocation(program, "uWorldViewProj");
-                //gl.UniformMatrix4fv<float>(wvplocation, wvparray);
+                var wvplocation = gl.GetUniformLocation(_program, "uWorldViewProj");
+                gl.UniformMatrix4fv<float>(wvplocation, wvparray);
 
                 gl.DrawArrays(WebGLPrimitiveType.TRIANGLES, 0, 3);
             }
@@ -102,10 +120,10 @@ namespace CanvasGL.Pages
 
         private WebGLProgram InitProgram(IWebGLRenderingContext gl, string vsSource, string fsSource)
         {
-            var vertexShader = LoadShader(gl, WebGLShaderType.VERTEX, vsSource);
+            WebGLShader vertexShader = LoadShader(gl, WebGLShaderType.VERTEX, vsSource);
             var fragmentShader = LoadShader(gl, WebGLShaderType.FRAGMENT, fsSource);
 
-            var program = gl.CreateProgram();
+            WebGLProgram program = gl.CreateProgram();
             gl.AttachShader(program, vertexShader);
             gl.AttachShader(program, fragmentShader);
             gl.LinkProgram(program);
