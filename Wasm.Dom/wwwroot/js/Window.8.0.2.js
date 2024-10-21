@@ -27,6 +27,31 @@
         var w = nkJSObject.GetObject(uid);
         return w.isSecureContext;
     },
+    RequestAnimationFrame: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var ci = Module.HEAP32[(d + 0) >> 2];
+
+        var callback = nkWindow.RequestAnimationFrameCallback;
+        var handle = w.requestAnimationFrame((time) =>
+        {
+            callback(time, ci);
+        });
+
+        return handle;
+    },
+    RequestAnimationFrameCallback: function (time, ci)
+    {
+        DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnAnimationFrame', uid, ci, time);
+    },
+    CancelAnimationFrame: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var rq = Module.HEAP32[(d + 0) >> 2];
+
+        w.cancelAnimationFrame(rq);
+    },
+
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);

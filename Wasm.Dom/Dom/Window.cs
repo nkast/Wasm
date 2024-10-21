@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.JSInterop;
 using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Input;
@@ -10,6 +11,12 @@ namespace nkast.Wasm.Dom
         static Window _current;
         private Document _document;
         private Navigator _navigator;
+
+        public delegate void AnimationFrameCallback(float time);
+
+        int _animationFrameCallbackId;
+        Dictionary<int, AnimationFrameCallback> _animationFrameCallbacks = new Dictionary<int, AnimationFrameCallback>();
+        Dictionary<int, int> _animationFrameRequestHandles = new Dictionary<int, int>();
 
         public delegate void OnResizeDelegate(object sender);
         public delegate void OnMouseMoveDelegate(object sender, int x, int y);
@@ -115,6 +122,48 @@ namespace nkast.Wasm.Dom
             if (_current.Uid != uid)
                 throw new InvalidOperationException("Invalid uid");
             return _current;
+        }
+
+        [JSInvokable]
+        public static void JsWindowOnAnimationFrame(int uid, int callbackId, float time)
+        {
+            Window wnd = WindowFromUid(uid);
+            wnd.OnAnimationFrame(callbackId, time);
+        }
+
+        private void OnAnimationFrame(int callbackId, float time)
+        {
+            AnimationFrameCallback animationFrameCallback = _animationFrameCallbacks[callbackId];
+            _animationFrameCallbacks.Remove(callbackId);
+            _animationFrameRequestHandles.Remove(callbackId);
+
+            animationFrameCallback(time);
+        }
+
+        public int RequestAnimationFrame(AnimationFrameCallback animationFrameCallback)
+        {
+            unchecked { _animationFrameCallbackId++; }
+            int callbackId = _animationFrameCallbackId;
+
+            int handle = InvokeRet<int, int>("nkWindow.RequestAnimationFrame", callbackId);
+
+            _animationFrameCallbacks.Add(callbackId, animationFrameCallback);
+            _animationFrameRequestHandles.Add(callbackId, handle);
+
+            return callbackId;
+        }
+
+        public void CancelAnimationFrame(int requestID)
+        {
+            int callbackId = requestID;
+            requestID = _animationFrameRequestHandles[callbackId];
+
+            _animationFrameCallbacks.Remove(callbackId);
+            _animationFrameRequestHandles.Remove(callbackId);
+
+            Invoke<int>("nkWindow.CancelAnimationFrame", requestID);
+
+            return;
         }
 
         [JSInvokable]
