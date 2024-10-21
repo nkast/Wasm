@@ -42,15 +42,11 @@ namespace nkast.Wasm.Dom
             for (int index = 0; index < strs.Length; index++)
             {
                 int uid = int.Parse(strs[index]);
-                if (Gamepad._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+                Gamepad gamepad = Gamepad.FromUid(uid);
+                if (gamepad != null)
                 {
-                    if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    {
-                        gamepads[index] = (Gamepad)jsObj;
-                        continue;
-                    }
-                    else
-                        Gamepad._uidMap.Remove(uid);
+                    gamepads[index] = gamepad;
+                    continue;
                 }
 
                 if (uid != 0)

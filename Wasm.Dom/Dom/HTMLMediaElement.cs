@@ -57,15 +57,26 @@ namespace nkast.Wasm.Dom
             Invoke("nkMedia.RegisterEvents");
         }
 
+        public static HTMLMediaElement FromUid(int uid)
+        {
+            if (HTMLMediaElement._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (HTMLMediaElement)jsObj;
+                else
+                    HTMLMediaElement._uidMap.Remove(uid);
+            }
+
+            return null;
+        }
+
+
         [JSInvokable]
         public static void JsMediaOnEnded(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            HTMLMediaElement mediaElement = HTMLMediaElement.FromUid(uid);
+            if (mediaElement == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
-
-            HTMLMediaElement mediaElement = (HTMLMediaElement)jsObj;
 
             var handler = mediaElement.OnEnded;
             if (handler != null)
@@ -75,12 +86,9 @@ namespace nkast.Wasm.Dom
         [JSInvokable]
         public static void JsMediaOnPlaying(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            HTMLMediaElement mediaElement = HTMLMediaElement.FromUid(uid);
+            if (mediaElement == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
-
-            HTMLMediaElement mediaElement = (HTMLMediaElement)jsObj;
 
             var handler = mediaElement.OnPlaying;
             if (handler != null)
@@ -90,12 +98,9 @@ namespace nkast.Wasm.Dom
         [JSInvokable]
         public static void JsMediaOnOnTimeUpdate(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            HTMLMediaElement mediaElement = HTMLMediaElement.FromUid(uid);
+            if (mediaElement == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
-
-            HTMLMediaElement mediaElement = (HTMLMediaElement)jsObj;
 
             var handler = mediaElement.OnTimeUpdate;
             if (handler != null)

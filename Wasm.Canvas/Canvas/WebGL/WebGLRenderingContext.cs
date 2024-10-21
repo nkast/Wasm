@@ -19,15 +19,25 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.RegisterEvents");
         }
 
+        public static WebGLRenderingContext FromUid(int uid)
+        {
+            if (WebGLRenderingContext._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (WebGLRenderingContext)jsObj;
+                else
+                    WebGLRenderingContext._uidMap.Remove(uid);
+            }
+
+            return null;
+        }
+
         [JSInvokable]
         public static void JsWebGLRenderingContextOnContextLost(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            WebGLRenderingContext glContext = WebGLRenderingContext.FromUid(uid);
+            if (glContext == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
-
-            WebGLRenderingContext glContext = (WebGLRenderingContext)jsObj;
 
             var handler = glContext.ContextLost;
             if (handler != null)
@@ -37,12 +47,9 @@ namespace nkast.Wasm.Canvas.WebGL
         [JSInvokable]
         public static void JsWebGLRenderingContextOnContextRestored(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            WebGLRenderingContext glContext = WebGLRenderingContext.FromUid(uid);
+            if (glContext == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
-
-            WebGLRenderingContext glContext = (WebGLRenderingContext)jsObj;
 
             var handler = glContext.ContextRestored;
             if (handler != null)

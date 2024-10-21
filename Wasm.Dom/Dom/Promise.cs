@@ -16,27 +16,32 @@ namespace nkast.Wasm.Dom
             Invoke("nkPromise.RegisterEvents");
         }
 
+        public static Promise FromUid(int uid)
+        {
+            if (Promise._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (Promise)jsObj;
+                else
+                    Promise._uidMap.Remove(uid);
+            }
+
+            return null;
+        }
+
         [JSInvokable]
         public static void JsPromiseOnCompleted(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
+            Promise promise = Promise.FromUid(uid);
 
-            Promise promise = (Promise)jsObj;
             promise.OnCompleted();
         }
 
         [JSInvokable]
         public static void JsPromiseOnError(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                return;
-            if (!_uidMap[uid].TryGetTarget(out JSObject jsObj))
-                return;
+            Promise promise = Promise.FromUid(uid);
 
-            Promise promise = (Promise)jsObj;
             promise.OnError();
         }
 

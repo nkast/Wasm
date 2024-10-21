@@ -6,11 +6,24 @@ namespace nkast.Wasm.Input
 {
     public class GamepadHapticActuator : JSObject
     {
-        static internal Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public GamepadHapticActuator(Gamepad gamepad, int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+        }
+
+        public static GamepadHapticActuator FromUid(int uid)
+        {
+            if (GamepadHapticActuator._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (GamepadHapticActuator)jsObj;
+                else
+                    GamepadHapticActuator._uidMap.Remove(uid);
+            }
+
+            return null;
         }
 
         public bool PlayEffect(string type, GamepadHapticActuatorParams actuatorParams)

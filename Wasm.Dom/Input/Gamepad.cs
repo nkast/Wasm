@@ -10,7 +10,7 @@ namespace nkast.Wasm.Input
 {
     public class Gamepad : JSObject
     {
-        static internal Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public bool Connected
         {
@@ -84,13 +84,9 @@ namespace nkast.Wasm.Input
             get
             {
                 int uid = InvokeRet<int>("nkGamepad.GetVibrationActuator");
-                if (GamepadHapticActuator._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                {
-                    if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                        return (GamepadHapticActuator)jsObj;
-                    else
-                        GamepadHapticActuator._uidMap.Remove(uid);
-                }
+                GamepadHapticActuator gamepadHapticActuator = GamepadHapticActuator.FromUid(uid);
+                if (gamepadHapticActuator != null)
+                    return gamepadHapticActuator;
 
                 if (uid != 0)
                     return new GamepadHapticActuator(this, uid);
@@ -102,6 +98,19 @@ namespace nkast.Wasm.Input
         internal Gamepad(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+        }
+
+        public static Gamepad FromUid(int uid)
+        {
+            if (Gamepad._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (Gamepad)jsObj;
+                else
+                    Gamepad._uidMap.Remove(uid);
+            }
+
+            return null;
         }
 
         protected override void Dispose(bool disposing)
