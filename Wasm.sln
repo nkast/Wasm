@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.XHR", "Wasm.XHR\Wasm.X
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.Audio", "Wasm.Audio\Wasm.Audio.csproj", "{82123812-2A24-4683-A470-89DE71431D28}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.XR", "Wasm.XR\Wasm.XR.csproj", "{FAB9C731-51E5-4908-B4A8-D9B74A099A64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{82123812-2A24-4683-A470-89DE71431D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82123812-2A24-4683-A470-89DE71431D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82123812-2A24-4683-A470-89DE71431D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAB9C731-51E5-4908-B4A8-D9B74A099A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB9C731-51E5-4908-B4A8-D9B74A099A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB9C731-51E5-4908-B4A8-D9B74A099A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB9C731-51E5-4908-B4A8-D9B74A099A64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
