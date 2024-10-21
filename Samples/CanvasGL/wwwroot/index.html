@@ -26,10 +26,13 @@
     <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script type="module">
         import { BrotliDecode } from './js/decode.min.js';
+        // Set this to enable Brotli (.br) decompression on static webServers
+        // that don't support content compression and http://.
+        var enableBrotliDecompression = false;
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity)
             {
-                if (type !== 'dotnetjs' && location.hostname !== 'localhost')
+                if (enableBrotliDecompression === true && type !== 'dotnetjs' && location.hostname !== 'localhost')
                 {
                     return (async function()
                     {
@@ -38,14 +41,13 @@
                             throw new Error(response.statusText);
                         const originalResponseBuffer = await response.arrayBuffer();
                         const originalResponseArray = new Int8Array(originalResponseBuffer);
-                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
-                        const contentType = type === 'dotnetwasm'
+                        const contentType = (type === 'dotnetwasm')
                                           ? 'application/wasm'
                                           : 'application/octet-stream';
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
                         return new Response(decompressedResponseArray,
-                            {
-                                headers: { 'content-type': contentType }
-                            });
+                                            { headers: { 'content-type': contentType }
+                                   });
                     })();
                 }
             }
@@ -84,6 +86,7 @@
             // begin game loop
             window.requestAnimationFrame(tickJS);
         };
+
     </script>
 </body>
 

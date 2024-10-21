@@ -50,7 +50,6 @@ namespace Boids.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
-
         [JSInvokable]
         public void TickDotNet()
         {
@@ -78,14 +77,14 @@ namespace Boids.Pages
 
             // run gameloop tick
 
-            TimeSpan  t = _sw.Elapsed;
+            TimeSpan t  = _sw.Elapsed;
             TimeSpan dt = t - _prevt;
             _prevt = t;
 
             // reset canvas
             cx.SetTransform(1, 0, 0, 1, 0, 0);
             cx.ClearRect(0, 0, cs.Width, cs.Height);
-            
+
             // scale to virtual resolution
             float bbscalew = cs.Width / RootClip.vres.w;
             float bbscaleh = cs.Height / RootClip.vres.h;
