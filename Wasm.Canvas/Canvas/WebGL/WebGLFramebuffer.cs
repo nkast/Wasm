@@ -1,14 +1,15 @@
-﻿using nkast.Wasm.Dom;
+﻿using System;
+using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas.WebGL
 {
     public class WebGLFramebuffer : JSObject
     {
-        WebGLRenderingContext _glContext;
+        private IWebGLRenderingContext _glContext;
 
-        internal WebGLFramebuffer(int uid, WebGLRenderingContext glContext) : base(uid)
+        internal protected WebGLFramebuffer(int uid, IWebGLRenderingContext glContext) : base(uid)
         {
-            _glContext = glContext;
+            _glContext = (WebGLRenderingContext)glContext;
         }
 
         protected override void Dispose(bool disposing)
@@ -18,7 +19,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
             }
 
-            _glContext.DeleteFramebuffer(this);
+            ((WebGLRenderingContext)_glContext).DeleteFramebuffer(this);
             _glContext = null;
 
             base.Dispose(disposing);
