@@ -12,5 +12,6 @@ namespace nkast.Wasm.Canvas.WebGL
 
         // WebGL2
         FLOAT = 0x1406,
+        HALF_FLOAT = 0x140B,
     }
 }

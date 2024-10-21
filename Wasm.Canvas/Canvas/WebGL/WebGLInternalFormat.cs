@@ -27,5 +27,9 @@ namespace nkast.Wasm.Canvas.WebGL
         R32F    = 0x822E,
         RG32F   = 0x8230,
         RGBA32F = 0x8814,
+
+        R16F    = 0x822D,
+        RG16F   = 0x822F,
+        RGBA16F = 0x881A,
     }
 }
