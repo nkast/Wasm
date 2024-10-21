@@ -95,7 +95,7 @@ namespace nkast.Wasm.Input
             }
         }
 
-        internal Gamepad(int uid) : base(uid)
+        public Gamepad(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this));
         }
