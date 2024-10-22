@@ -286,8 +286,12 @@ window.nkXRViewerPose =
 
         for (var i=0; i < vs.length; i++)
         {
-            var view = vs[i];
-            var uid = nkJSObject.RegisterObject(view);
+            var view = vs[i];            
+            var uid = nkJSObject.objectMap.indexOf(view);
+            if (uid !== -1)
+                uid = (uid + 1);
+            else
+                uid = nkJSObject.RegisterObject(view);
 
             Module.HEAP32[(pt+ i*4)>>2] = uid;
         }

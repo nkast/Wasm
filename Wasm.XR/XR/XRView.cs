@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using nkast.Wasm.Dom;
 
@@ -6,8 +7,24 @@ namespace nkast.Wasm.XR
 {
     public class XRView : JSObject
     {
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
         public XRView(int uid) : base(uid)
         {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+        }
+
+        public static XRView FromUid(int uid)
+        {
+            if (XRView._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (XRView)jsObj;
+                else
+                    XRView._uidMap.Remove(uid);
+            }
+
+            return null;
         }
 
         public XRRigidTransform Transform
@@ -40,6 +57,17 @@ namespace nkast.Wasm.XR
                 int eye = InvokeRet<int>("nkXRView.GetEye");
                 return (XREye)eye;
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+            }
+
+            _uidMap.Remove(Uid);
+
+            base.Dispose(disposing);
         }
     }
 }

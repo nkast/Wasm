@@ -27,7 +27,10 @@ namespace nkast.Wasm.XR
                 for (int i = 0; i < count; i++)
                 {
                     int uid = puids[i];
-                    _views.Add(new XRView(uid));
+                    XRView view = XRView.FromUid(uid);
+                    if (view == null)
+                        view = new XRView(uid);
+                    _views.Add(view);
                 }
 
                 return _readOnlyViews;
