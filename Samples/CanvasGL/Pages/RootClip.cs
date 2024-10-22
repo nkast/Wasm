@@ -28,5 +28,13 @@ namespace CanvasGL.Pages
 
             base.Update(uc);
         }
+
+        public override void Draw(DrawContext dc)
+        {
+            float dt = (float)dc.dt.TotalSeconds;
+
+            base.Draw(dc);
+        }
+
     }
 }

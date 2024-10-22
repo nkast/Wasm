@@ -32,15 +32,8 @@ namespace CanvasGL.Pages
 
             if (firstRender)
             {
-                Init();
-
                 JsRuntime.InvokeAsync<object>("initRenderJS", DotNetObjectReference.Create(this));
             }
-        }
-
-        private void Init()
-        {
-            _root = new RootClip();
         }
 
         Canvas cs;
@@ -60,6 +53,8 @@ namespace CanvasGL.Pages
                 ContextAttributes attribs = new ContextAttributes();
                 attribs.Depth = true;
                 gl = cs.GetContext<IWebGLRenderingContext>(attribs);
+                //gl.ContextLost += gl_ContextLost;
+                //gl.ContextRestored += gl_ContextRestored;
 
                 Window.Current.OnResize += this.OnResize;
                 Window.Current.OnFocus += this.OnFocus;
@@ -72,6 +67,8 @@ namespace CanvasGL.Pages
                 Window.Current.OnTouchStart += this.OnTouchStart;
                 Window.Current.OnTouchMove += this.OnTouchMove;
                 Window.Current.OnTouchEnd += this.OnTouchEnd;
+
+                _root = new RootClip();
 
                 _sw.Start();
                 _prevt = _sw.Elapsed;
@@ -92,6 +89,7 @@ namespace CanvasGL.Pages
             float bbscaleh = cs.Height / RootClip.vres.h;
 
             UpdateContext uc = new UpdateContext(
+                gl,
                 t, dt,
                 currMouseState, prevMouseState,
                 currTouchState, prevTouchState
@@ -124,6 +122,16 @@ namespace CanvasGL.Pages
                 _root.Draw(dc);
             }
 
+        }
+
+        private void gl_ContextLost(object sender, EventArgs e)
+        {
+            Console.WriteLine("gl_ContextLost");
+        }
+
+        private void gl_ContextRestored(object sender, EventArgs e)
+        {
+            Console.WriteLine("gl_ContextRestored");
         }
 
         private void OnResize(object sender)
