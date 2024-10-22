@@ -53,6 +53,13 @@ window.nkPromise =
         var pr = nkJSObject.GetObject(uid);
         return nkJSObject.RegisterObject(pr.AsyncValue);
     },
+    GetErrorMessage: function (uid)
+    {
+        var pr = nkJSObject.GetObject(uid);
+        var mg = pr.Error.message;
+
+        return BINDING.js_to_mono_obj(mg);
+    },
 
     RegisterEvents: function (uid)
     {

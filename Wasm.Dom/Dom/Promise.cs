@@ -41,7 +41,6 @@ namespace nkast.Wasm.Dom
         public static void JsPromiseOnError(int uid)
         {
             Promise promise = Promise.FromUid(uid);
-
             promise.OnError();
         }
 
@@ -73,7 +72,11 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            _tcs.SetException(new Exception());
+            string message = "Promise failed.";
+            string error = InvokeRet<string>("nkPromise.GetErrorMessage");
+            message += " " + error;
+
+            _tcs.SetException(new Exception(message));
         }
 
         public Task<TResult> GetTask()
@@ -98,7 +101,11 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            _tcs.SetException(new Exception());
+            string message = "Promise failed.";
+            string error = InvokeRet<string>("nkPromise.GetErrorMessage");
+            message += " " + error;
+
+            _tcs.SetException(new Exception(message));
         }
 
         public Task GetTask()
