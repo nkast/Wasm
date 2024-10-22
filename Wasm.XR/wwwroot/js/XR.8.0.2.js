@@ -5,7 +5,14 @@ window.nkXRSystem =
     {
         var nv = nkJSObject.GetObject(uid);
         if ("xr" in nv)
-            return nkJSObject.RegisterObject(nv.xr);
+        {
+            var xr = nv.xr;
+             var uid = nkJSObject.objectMap.indexOf(xr);
+            if (uid !== -1)
+                return (uid + 1);
+
+            return nkJSObject.RegisterObject(xr);
+        }
         else
             return nkJSObject.RegisterObject(null);
     },
