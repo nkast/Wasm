@@ -59,8 +59,8 @@ namespace CanvasGL.Pages
         {
             var gl = dc.GLContext;
 
-            using (var program = InitProgram(gl, VS_SOURCE, FS_SOURCE))
-            using (var vertexBuffer = gl.CreateBuffer())
+            using (WebGLProgram program = InitProgram(gl, VS_SOURCE, FS_SOURCE))
+            using (WebGLBuffer vertexBuffer = gl.CreateBuffer())
             {                
                 gl.BindBuffer(WebGLBufferType.ARRAY, vertexBuffer);
 
@@ -102,10 +102,10 @@ namespace CanvasGL.Pages
 
         private WebGLProgram InitProgram(IWebGLRenderingContext gl, string vsSource, string fsSource)
         {
-            var vertexShader = LoadShader(gl, WebGLShaderType.VERTEX, vsSource);
+            WebGLShader vertexShader = LoadShader(gl, WebGLShaderType.VERTEX, vsSource);
             var fragmentShader = LoadShader(gl, WebGLShaderType.FRAGMENT, fsSource);
 
-            var program = gl.CreateProgram();
+            WebGLProgram program = gl.CreateProgram();
             gl.AttachShader(program, vertexShader);
             gl.AttachShader(program, fragmentShader);
             gl.LinkProgram(program);

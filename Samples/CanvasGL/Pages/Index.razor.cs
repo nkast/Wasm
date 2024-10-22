@@ -84,9 +84,6 @@ namespace CanvasGL.Pages
             gl.ClearColor(.39f, .58f, 0.92f, 1f);
             gl.Clear(WebGLBufferBits.COLOR | WebGLBufferBits.DEPTH | WebGLBufferBits.STENCIL);
 
-            // scale to virtual resolution
-            float bbscalew = cs.Width / RootClip.vres.w;
-            float bbscaleh = cs.Height / RootClip.vres.h;
 
             UpdateContext uc = new UpdateContext(
                 gl,
@@ -96,12 +93,16 @@ namespace CanvasGL.Pages
                 );
             prevMouseState = currMouseState;
             prevTouchState = currTouchState;
+
+            // scale to virtual resolution
+            float bbscalew = cs.Width / RootClip.vres.w;
+            float bbscaleh = cs.Height / RootClip.vres.h;
             uc.tx = uc.tx * Matrix4x4.CreateScale(bbscalew, bbscalew, 1);
 
             _root.Update(uc);
 
             float aspect = (float)cs.Width / (float)cs.Height;
-            Matrix4x4 world = Matrix4x4.CreateTranslation(new Vector3(0, 0, -5));
+            Matrix4x4 world = Matrix4x4.CreateTranslation(new Vector3(0, 0, -2f));
             Matrix4x4 view = Matrix4x4.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0));
             Matrix4x4 proj = Matrix4x4.CreatePerspectiveFieldOfView(MathF.PI / 4, aspect, 0.1f, 100.0f);
 
