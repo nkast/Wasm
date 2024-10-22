@@ -32,7 +32,7 @@
         Blazor.start({
             loadBootResource: function (type, name, defaultUri, integrity)
             {
-                if (enableBrotliDecompression === true && type !== 'dotnetjs' && location.hostname !== 'localhost')
+                if (enableBrotliDecompression === true && type !== 'dotnetjs' && location.hostname !== '192.168.217.143')
                 {
                     return (async function()
                     {
