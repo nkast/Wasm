@@ -544,6 +544,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.Finish");
         }
 
+        public bool IsContextLost()
+        {
+            return InvokeRet<bool>("nkCanvasGLContext.IsContextLost");
+        }
+
         public bool GetExtension(string name)
         {
             return InvokeRet<string, bool>("nkCanvasGLContext.GetExtension", name);
