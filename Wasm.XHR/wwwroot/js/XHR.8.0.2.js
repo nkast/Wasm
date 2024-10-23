@@ -37,4 +37,10 @@
         var responseText = xhr.responseText;
         return BINDING.js_to_mono_obj(responseText);
     },
+    GetReadyState: function(uid,d)
+    {
+        var xhr = nkJSObject.GetObject(uid);
+        var readyState = xhr.readyState;
+        return readyState;
+    },
 };

@@ -51,6 +51,15 @@ namespace nkast.Wasm.XHR
             }
         }
 
+        public ReadyState ReadyState
+        {
+            get
+            {
+                int readyState = InvokeRet<int>("nkXHR.GetReadyState");
+                return (ReadyState) readyState;
+            }
+        }
+
         internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
         {
         }
