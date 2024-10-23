@@ -1,10 +1,17 @@
 using System;
+using System.Collections.Generic;
+using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas
 {
     public class Canvas : JSObject
     {
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
+        public event EventHandler WebGLContextLost;
+        public event EventHandler WebGLContextRestored;
+
         //get or set the width of the canvas
         public int Width
         { 
@@ -26,6 +33,45 @@ namespace nkast.Wasm.Canvas
 
         private Canvas(int uid) : base(uid)
         {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            Invoke("nkCanvas.RegisterEvents");
+        }
+
+        public static Canvas FromUid(int uid)
+        {
+            if (Canvas._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
+            {
+                if (jsObjRef.TryGetTarget(out JSObject jsObj))
+                    return (Canvas)jsObj;
+                else
+                    Canvas._uidMap.Remove(uid);
+            }
+
+            return null;
+        }
+
+        [JSInvokable] 
+        public static void JsCanvasOnWebGLContextLost(int uid)
+        {
+            Canvas canvas = Canvas.FromUid(uid);
+            if (canvas == null)
+                return;
+
+            var handler = canvas.WebGLContextLost;
+            if (handler != null)
+                handler(canvas, EventArgs.Empty);
+        }
+
+        [JSInvokable]
+        public static void JsCanvasOnWebGLContextRestored(int uid)
+        {
+            Canvas canvas = Canvas.FromUid(uid);
+            if (canvas == null)
+                return;
+
+            var handler = canvas.WebGLContextRestored;
+            if (handler != null)
+                handler(canvas, EventArgs.Empty);
         }
 
         public TContext GetContext<TContext>()
@@ -146,6 +192,20 @@ namespace nkast.Wasm.Canvas
             }
 
             throw new NotSupportedException();
+        }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            Invoke("nkCanvas.UnregisterEvents");
+            _uidMap.Remove(Uid);
+
+            base.Dispose(disposing);
         }
 
     }

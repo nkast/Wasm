@@ -141,6 +141,26 @@
             return 0;
         return nkJSObject.RegisterObject(glx);
     },
+        
+    RegisterEvents: function (uid)
+    {
+        var c = nkJSObject.GetObject(uid);
+
+        c.onwebglcontextlost = function (event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsCanvasOnWebGLContextLost', uid);
+        };
+        c.onwebglcontextrestored = function (event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsCanvasOnWebGLContextRestored', uid);
+        };
+    },
+    UnregisterEvents: function (uid)
+    {
+        var c = nkJSObject.GetObject(uid);
+        c.onwebglcontextlost = null;
+        c.onwebglcontextrestored = null;
+    }
 };
 
 window.nkOffscreenCanvas =
