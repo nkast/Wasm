@@ -10,13 +10,9 @@ namespace nkast.Wasm.Canvas.WebGL
     {
         static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
-        public event EventHandler ContextLost;
-        public event EventHandler ContextRestored;
-
         internal WebGLRenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this));
-            Invoke("nkCanvasGLContext.RegisterEvents");
         }
 
         public static WebGLRenderingContext FromUid(int uid)
@@ -30,30 +26,6 @@ namespace nkast.Wasm.Canvas.WebGL
             }
 
             return null;
-        }
-
-        [JSInvokable]
-        public static void JsWebGLRenderingContextOnContextLost(int uid)
-        {
-            WebGLRenderingContext glContext = WebGLRenderingContext.FromUid(uid);
-            if (glContext == null)
-                return;
-
-            var handler = glContext.ContextLost;
-            if (handler != null)
-                handler(glContext, EventArgs.Empty);
-        }
-
-        [JSInvokable]
-        public static void JsWebGLRenderingContextOnContextRestored(int uid)
-        {
-            WebGLRenderingContext glContext = WebGLRenderingContext.FromUid(uid);
-            if (glContext == null)
-                return;
-
-            var handler = glContext.ContextRestored;
-            if (handler != null)
-                handler(glContext, EventArgs.Empty);
         }
 
         public void Enable(WebGLCapability cap)
@@ -589,7 +561,6 @@ namespace nkast.Wasm.Canvas.WebGL
 
             }
 
-            Invoke("nkCanvasGLContext.UnregisterEvents");
             _uidMap.Remove(Uid);
 
             //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext

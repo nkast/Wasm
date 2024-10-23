@@ -53,8 +53,8 @@ namespace CanvasGL.Pages
                 ContextAttributes attribs = new ContextAttributes();
                 attribs.Depth = true;
                 gl = cs.GetContext<IWebGLRenderingContext>(attribs);
-                //gl.ContextLost += gl_ContextLost;
-                //gl.ContextRestored += gl_ContextRestored;
+                //gl.WebGLContextLost += cs_ContextLost;
+                //gl.WebGLContextRestored += cs_ContextRestored;
 
                 Window.Current.OnResize += this.OnResize;
                 Window.Current.OnFocus += this.OnFocus;
@@ -75,7 +75,6 @@ namespace CanvasGL.Pages
             }
 
             // run gameloop tick
-
             TimeSpan t  = _sw.Elapsed;
             TimeSpan dt = t - _prevt;
             _prevt = t;
@@ -125,12 +124,12 @@ namespace CanvasGL.Pages
 
         }
 
-        private void gl_ContextLost(object sender, EventArgs e)
+        private void cs_ContextLost(object sender, EventArgs e)
         {
             Console.WriteLine("gl_ContextLost");
         }
 
-        private void gl_ContextRestored(object sender, EventArgs e)
+        private void cs_ContextRestored(object sender, EventArgs e)
         {
             Console.WriteLine("gl_ContextRestored");
         }
