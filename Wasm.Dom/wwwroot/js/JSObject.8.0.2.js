@@ -29,6 +29,17 @@
         uid--;
         return nkJSObject.objectMap[uid];
     },
+    GetUid: function(obj)
+    {
+        var uid = nkJSObject.objectMap.indexOf(obj);
+        if (uid !== -1)
+        {
+            uid++;
+            return uid;
+        }
+        else
+            return -1;
+    },
     DisposeObject: function(uid)
     {
         uid--;

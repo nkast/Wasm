@@ -7,9 +7,9 @@ window.nkXRSystem =
         if ("xr" in nv)
         {
             var xr = nv.xr;
-             var uid = nkJSObject.objectMap.indexOf(xr);
+            var uid = nkJSObject.GetUid(xr);
             if (uid !== -1)
-                return (uid + 1);
+                return uid;
 
             return nkJSObject.RegisterObject(xr);
         }
@@ -50,9 +50,9 @@ window.nkXRSession =
 
         var rs = ss.renderState;
 
-        var uid = nkJSObject.objectMap.indexOf(rs);
+        var uid = nkJSObject.GetUid(rs);
         if (uid !== -1)
-            return (uid+1);
+            return uid;
 
         return nkJSObject.RegisterObject(rs);
     },
@@ -61,9 +61,9 @@ window.nkXRSession =
         var ss = nkJSObject.GetObject(uid);
 
         var is = ss.inputSources;
-        var uid = nkJSObject.objectMap.indexOf(is);
+        var uid = nkJSObject.GetUid(is);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(is);
     },
@@ -106,15 +106,13 @@ window.nkXRSession =
     },
     RequestAnimationFrameCallback: function(time, xrFrame, ci)
     {
-        var xrFrameUid = nkJSObject.objectMap.indexOf(xrFrame);
-        if (xrFrameUid !== -1)
-            xrFrameUid = (xrFrameUid+1);
-        else
+        var xrFrameUid = nkJSObject.GetUid(xrFrame);
+        if (xrFrameUid === -1)
             xrFrameUid = nkJSObject.RegisterObject(xrFrame);
 
-        var uid = nkJSObject.objectMap.indexOf(xrFrame.session);
-        if (uid !== -1)
-            uid = (uid+1);
+        var uid = nkJSObject.GetUid(xrFrame.session);
+        if (xrFrameUid === -1)
+            return;
 
         DotNet.invokeMethod('nkast.Wasm.XR', 'JsXRSessionOnAnimationFrame', uid, ci, time, xrFrameUid);
     },
@@ -155,9 +153,9 @@ window.nkXRRenderState =
 
         var xl = rs.baseLayer;
 
-        var uid = nkJSObject.objectMap.indexOf(xl);
+        var uid = nkJSObject.GetUid(xl);
         if (uid !== -1)
-            return (uid+1);
+            return uid;
 
         return nkJSObject.RegisterObject(xl);
     },
@@ -267,9 +265,9 @@ window.nkXRPose =
         var ps = nkJSObject.GetObject(uid);
 
         var tf = ps.transform;
-        var uid = nkJSObject.objectMap.indexOf(tf);
+        var uid = nkJSObject.GetUid(tf);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(tf);
     },
@@ -287,10 +285,8 @@ window.nkXRViewerPose =
         for (var i=0; i < vs.length; i++)
         {
             var view = vs[i];            
-            var uid = nkJSObject.objectMap.indexOf(view);
-            if (uid !== -1)
-                uid = (uid + 1);
-            else
+            var uid = nkJSObject.GetUid(view);
+            if (uid === -1)
                 uid = nkJSObject.RegisterObject(view);
 
             Module.HEAP32[(pt+ i*4)>>2] = uid;
@@ -307,9 +303,9 @@ window.nkXRView =
         var ve = nkJSObject.GetObject(uid);
 
         var tf = ve.transform;
-        var uid = nkJSObject.objectMap.indexOf(tf);
+        var uid = nkJSObject.GetUid(tf);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(tf);
     },
@@ -421,9 +417,9 @@ window.nkXRRigidTransform =
         var rt = nkJSObject.GetObject(uid);
 
         var tf = rt.inverse;
-        var uid = nkJSObject.objectMap.indexOf(tf);
+        var uid = nkJSObject.GetUid(tf);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(tf);
     },
@@ -445,9 +441,9 @@ window.nkXRInputSourceArray =
         var dx = Module.HEAP32[(d + 0 >> 2)];
 
         var is = sa[dx];
-        var uid = nkJSObject.objectMap.indexOf(is);
+        var uid = nkJSObject.GetUid(is);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(is);
     },
@@ -461,9 +457,9 @@ window.nkXRInputSource =
 
         var gs = is.gripSpace;
 
-        var uid = nkJSObject.objectMap.indexOf(gs);
+        var uid = nkJSObject.GetUid(gs);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(gs);
     },
@@ -473,9 +469,9 @@ window.nkXRInputSource =
 
         var ps = is.targetRaySpace;
 
-        var uid = nkJSObject.objectMap.indexOf(ps);
+        var uid = nkJSObject.GetUid(ps);
         if (uid !== -1)
-            return (uid + 1);
+            return uid;
 
         return nkJSObject.RegisterObject(ps);
     },
@@ -498,9 +494,9 @@ window.nkXRInputSource =
 
         var gp = is.gamepad;
 
-        var uid = nkJSObject.objectMap.indexOf(gp);
+        var uid = nkJSObject.GetUid(gp);
         if (uid !== -1)
-            return (uid+1);
+            return uid;
             
         return nkJSObject.RegisterObject(gp);
     },

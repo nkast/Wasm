@@ -5,9 +5,9 @@
         var gp = nkJSObject.GetObject(uid);
         var ha = gp.vibrationActuator;
 
-        var uid = nkJSObject.objectMap.indexOf(ha);
+        var uid = nkJSObject.GetUid(ha);
         if (uid !== -1)
-            return (uid+1);
+            return uid;
 
         return nkJSObject.RegisterObject(ha);
     },
