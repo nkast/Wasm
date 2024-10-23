@@ -999,6 +999,15 @@ window.nkCanvasGLContext =
 
         return gc.getExtension(nm) !== null;
     },
+    GetExtension1: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var nm = nkJSObject.ReadString(d+ 0);
+        
+        var ex = gc.getExtension(nm);
+
+        return nkJSObject.RegisterObject(ex);
+    },
 
     GetError: function (uid, d)
     {
@@ -1090,5 +1099,21 @@ window.nkCanvasGL2Context =
         var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
 
         gc.getBufferSubData(bt, of, dt, si*st, ln*st);
+    },
+};
+
+window.nkCanvasLoseContextExtension =
+{
+    LoseContext: function (uid, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+
+        ex.loseContext();
+    },
+    RestoreContext: function (uid, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+
+        ex.restoreContext();
     },
 };

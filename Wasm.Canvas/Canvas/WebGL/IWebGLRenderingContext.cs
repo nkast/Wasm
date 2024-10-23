@@ -103,6 +103,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void Finish();
         bool IsContextLost();
         bool GetExtension(string name);
+        TExtension GetExtension<TExtension>(string name) where TExtension : WebGLExtension;
         WebGLErrorCode GetError();
     }
 }

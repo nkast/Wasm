@@ -554,6 +554,21 @@ namespace nkast.Wasm.Canvas.WebGL
             return InvokeRet<string, bool>("nkCanvasGLContext.GetExtension", name);
         }
 
+        public TExtension GetExtension<TExtension>(string name)
+            where TExtension : WebGLExtension
+        {
+            int uid = InvokeRet<string, int>("nkCanvasGLContext.GetExtension1", name);
+
+            switch (name)
+            {
+                case "WEBGL_lose_context":
+                    return (TExtension)(WebGLExtension)new WebGLLoseContextExtension(uid);
+
+                default:
+                    return (TExtension)new WebGLExtension(uid);
+            }
+        }
+
         public WebGLErrorCode GetError()
         {   
             return (WebGLErrorCode)InvokeRet<int>("nkCanvasGLContext.GetError");
