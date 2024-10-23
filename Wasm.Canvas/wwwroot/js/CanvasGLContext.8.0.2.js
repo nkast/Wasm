@@ -984,6 +984,13 @@ window.nkCanvasGLContext =
         var gc = nkJSObject.GetObject(uid);
         gc.finish();
     },
+    
+    IsContextLost: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+
+        return gc.isContextLost();
+    },
 
     GetExtension: function (uid, d)
     {
