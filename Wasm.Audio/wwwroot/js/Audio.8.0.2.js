@@ -42,7 +42,7 @@ window.nkAudioBaseContext =
     SetState: function (uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        ac.state = Blazor.platform.readStringField(d+ 0);
+        ac.state = nkJSObject.ReadString(d+ 0);
     },
 
     CreateBuffer: function (uid, d)
@@ -278,7 +278,7 @@ window.nkAudioOscillatorNode =
     SetType: function (uid, d)
     {
         var os = nkJSObject.GetObject(uid);
-        os.type = Blazor.platform.readStringField(d+ 0);
+        os.type = nkJSObject.ReadString(d+ 0);
     }
 };
 

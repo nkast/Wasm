@@ -8,7 +8,7 @@ window.nkCanvas2dContext =
     SetFillStyle: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.fillStyle = Blazor.platform.readStringField(d+ 0);
+        dc.fillStyle = nkJSObject.ReadString(d+ 0);
     },
 
     GetStrokeStyle: function(uid)
@@ -19,7 +19,7 @@ window.nkCanvas2dContext =
     SetStrokeStyle: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.strokeStyle = Blazor.platform.readStringField(d+ 0);
+        dc.strokeStyle = nkJSObject.ReadString(d+ 0);
     },
 
     GetFont: function(uid)
@@ -30,7 +30,7 @@ window.nkCanvas2dContext =
     SetFont: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.font = Blazor.platform.readStringField(d+ 0);
+        dc.font = nkJSObject.ReadString(d+ 0);
     },
 
     GetTextAlign: function(uid)
@@ -41,7 +41,7 @@ window.nkCanvas2dContext =
     SetTextAlign: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.textAlign = Blazor.platform.readStringField(d+ 0);
+        dc.textAlign = nkJSObject.ReadString(d+ 0);
     },
 
     GetTextBaseline: function(uid)
@@ -52,7 +52,7 @@ window.nkCanvas2dContext =
     SetTextBaseline: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.textBaseline = Blazor.platform.readStringField(d+ 0);
+        dc.textBaseline = nkJSObject.ReadString(d+ 0);
     },
 
     GetLineWidth: function(uid)
@@ -74,7 +74,7 @@ window.nkCanvas2dContext =
     SetLineCap: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.lineCap = Blazor.platform.readStringField(d+ 0);
+        dc.lineCap = nkJSObject.ReadString(d+ 0);
     },
 
     GetMiterLimit: function(uid)
@@ -107,7 +107,7 @@ window.nkCanvas2dContext =
     SetGlobalCompositeOperation: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.globalCompositeOperation = Blazor.platform.readStringField(d+ 0);
+        dc.globalCompositeOperation = nkJSObject.ReadString(d+ 0);
     },
 
     GetImageSmoothingEnabled: function(uid)
@@ -141,7 +141,7 @@ window.nkCanvas2dContext =
     SetShadowColor: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        dc.shadowColor = Blazor.platform.readStringField(d+ 0);
+        dc.shadowColor = nkJSObject.ReadString(d+ 0);
     },
 
     GetShadowOffsetX: function(uid)
@@ -197,7 +197,7 @@ window.nkCanvas2dContext =
     DrawImage: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = Blazor.platform.readStringField(d+ 0);
+        var id = nkJSObject.ReadString(d+ 0);
         var dx = Module.HEAPF32[(d+ 4)>>2];
         var dy = Module.HEAPF32[(d+ 8)>>2];
         var img = document.getElementById(id);
@@ -207,7 +207,7 @@ window.nkCanvas2dContext =
     DrawImage1: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = Blazor.platform.readStringField(d+ 0);
+        var id = nkJSObject.ReadString(d+ 0);
         var dx = Module.HEAPF32[(d+ 4)>>2];
         var dy = Module.HEAPF32[(d+ 8)>>2];
         var dw = Module.HEAPF32[(d+12)>>2];
@@ -219,7 +219,7 @@ window.nkCanvas2dContext =
     DrawImage2: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = Blazor.platform.readStringField(d+ 0);
+        var id = nkJSObject.ReadString(d+ 0);
         var sx = Module.HEAPF32[(d+ 4)>>2];
         var sy = Module.HEAPF32[(d+ 8)>>2];
         var sw = Module.HEAPF32[(d+12)>>2];
@@ -235,7 +235,7 @@ window.nkCanvas2dContext =
     FillText: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var t = Blazor.platform.readStringField(d+ 0);
+        var t = nkJSObject.ReadString(d+ 0);
         var x = Module.HEAPF32[(d+ 4)>>2];
         var y = Module.HEAPF32[(d+ 8)>>2];
         dc.fillText(t, x, y);
@@ -243,7 +243,7 @@ window.nkCanvas2dContext =
     FillText1: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var t = Blazor.platform.readStringField(d+ 0);
+        var t = nkJSObject.ReadString(d+ 0);
         var x = Module.HEAPF32[(d+ 4)>>2];
         var y = Module.HEAPF32[(d+ 8)>>2];
         var w = Module.HEAPF32[(d+12)>>2];
@@ -252,7 +252,7 @@ window.nkCanvas2dContext =
     StrokeText: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var t = Blazor.platform.readStringField(d+ 0);
+        var t = nkJSObject.ReadString(d+ 0);
         var x = Module.HEAPF32[(d+ 4)>>2];
         var y = Module.HEAPF32[(d+ 8)>>2];
         dc.strokeText(t, x, y);
@@ -260,7 +260,7 @@ window.nkCanvas2dContext =
     StrokeText1: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var t = Blazor.platform.readStringField(d+ 0);
+        var t = nkJSObject.ReadString(d+ 0);
         var x = Module.HEAPF32[(d+ 4)>>2];
         var y = Module.HEAPF32[(d+ 8)>>2];
         var w = Module.HEAPF32[(d+12)>>2];
@@ -269,7 +269,7 @@ window.nkCanvas2dContext =
     MeasureText: function (uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var t = Blazor.platform.readStringField(d+ 0);
+        var t = nkJSObject.ReadString(d+ 0);
         var m = dc.measureText(t);
         return BINDING.js_to_mono_obj(m.width.toString());
     },

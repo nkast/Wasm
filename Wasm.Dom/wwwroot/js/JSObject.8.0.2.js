@@ -38,7 +38,14 @@
     GetWindow: function()
     {
         return nkJSObject.RegisterObject(window);
-    }
+    },
+
+    ReadString: function(d)
+    {
+        const pt = Module.HEAP32[(d)>>2];
+        var str = BINDING.conv_string(pt);
+        return str;
+    },
 }
 
 window.nkPromise =

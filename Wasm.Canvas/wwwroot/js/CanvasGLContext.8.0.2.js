@@ -266,7 +266,7 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
-        var sr = Blazor.platform.readStringField(d+ 4);
+        var sr = nkJSObject.ReadString(d+ 4);
 
         var sh = nkJSObject.GetObject(shuid);
         gc.shaderSource(sh, sr);
@@ -276,7 +276,7 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
-        var nm = Blazor.platform.readStringField(d+ 4);
+        var nm = nkJSObject.ReadString(d+ 4);
 
         var pg = nkJSObject.GetObject(pguid);
         return gc.getAttribLocation(pg, nm);
@@ -286,7 +286,7 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
-        var nm = Blazor.platform.readStringField(d+ 4);
+        var nm = nkJSObject.ReadString(d+ 4);
 
         var pg = nkJSObject.GetObject(pguid);
         var ul = gc.getUniformLocation(pg, nm);
@@ -988,7 +988,7 @@ window.nkCanvasGLContext =
     GetExtension: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var nm = Blazor.platform.readStringField(d+ 0);
+        var nm = nkJSObject.ReadString(d+ 0);
 
         return gc.getExtension(nm) !== null;
     },

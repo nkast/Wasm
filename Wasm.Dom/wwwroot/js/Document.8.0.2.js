@@ -8,13 +8,13 @@
     SetTitle: function (uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var tl = Blazor.platform.readStringField(d+ 0);
+        var tl = nkJSObject.ReadString(d+ 0);
         dc.title = tl;
     },
     GetElementById: function (uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = Blazor.platform.readStringField(d+ 0);
+        var id = nkJSObject.ReadString(d+ 0);
         var el = dc.getElementById(id);
         return nkJSObject.RegisterObject(el);
     },

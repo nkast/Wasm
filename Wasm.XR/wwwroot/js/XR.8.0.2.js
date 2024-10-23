@@ -27,7 +27,7 @@ window.nkXRSystem =
     IsSessionSupported: function(uid, d)
     {
         var xr = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readStringField(d, 0);
+        var md = nkJSObject.ReadString(d, 0);
 
         var pr = xr.isSessionSupported(md);
         return nkJSObject.RegisterObject(pr);
@@ -35,7 +35,7 @@ window.nkXRSystem =
     RequestSession: function(uid, d)
     {
         var xr = nkJSObject.GetObject(uid);
-        var md = Blazor.platform.readStringField(d, 0);
+        var md = nkJSObject.ReadString(d, 0);
 
         var pr = xr.requestSession(md);
         return nkJSObject.RegisterObject(pr);
@@ -86,7 +86,7 @@ window.nkXRSession =
     RequestReferenceSpace: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
-        var rs = Blazor.platform.readStringField(d, 0);
+        var rs = nkJSObject.ReadString(d, 0);
 
         var pr = ss.requestReferenceSpace(rs);
         return nkJSObject.RegisterObject(pr);
