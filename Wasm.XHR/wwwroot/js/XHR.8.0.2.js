@@ -20,6 +20,13 @@
         var mt = Blazor.platform.readStringField(d+ 0);
         xhr.overrideMimeType(mt);
     },
+    SetRequestHeader: function(uid,d)
+    {
+        var xhr = nkJSObject.GetObject(uid);
+        var hd = Blazor.platform.readStringField(d+ 0);
+        var vl = Blazor.platform.readStringField(d+ 4);
+        xhr.setRequestHeader(hd,vl);
+    },
     Send: function (uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);

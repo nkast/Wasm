@@ -73,6 +73,11 @@ namespace nkast.Wasm.XHR
             Invoke("nkXHR.OverrideMimeType", mimeType);
         }
 
+        public void SetRequestHeader(string header, string value)
+        {
+            Invoke("nkXHR.SetRequestHeader", header, value);
+        }
+
         public void Send()
         {
             Invoke("nkXHR.Send");
