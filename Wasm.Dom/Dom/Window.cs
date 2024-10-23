@@ -13,10 +13,15 @@ namespace nkast.Wasm.Dom
         private Navigator _navigator;
 
         public delegate void AnimationFrameCallback(float time);
+        public delegate void TimeoutCallback();
 
         int _animationFrameCallbackId;
         Dictionary<int, AnimationFrameCallback> _animationFrameCallbacks = new Dictionary<int, AnimationFrameCallback>();
         Dictionary<int, int> _animationFrameRequestHandles = new Dictionary<int, int>();
+
+        int _timeoutCallbackId;
+        Dictionary<int, TimeoutCallback> _timeoutCallbacks = new Dictionary<int, TimeoutCallback>();
+        Dictionary<int, int> _timeoutHandles = new Dictionary<int, int>();
 
         public delegate void OnResizeDelegate(object sender);
         public delegate void OnMouseMoveDelegate(object sender, int x, int y);
@@ -164,6 +169,59 @@ namespace nkast.Wasm.Dom
             Invoke<int>("nkWindow.CancelAnimationFrame", requestID);
 
             return;
+        }
+
+        [JSInvokable]
+        public static void JsWindowOnTimeout(int uid, int callbackId)
+        {
+            Window wnd = WindowFromUid(uid);
+            wnd.OnTimeout(callbackId);
+        }
+
+        private void OnTimeout(int callbackId)
+        {
+            TimeoutCallback timeouteCallback = _timeoutCallbacks[callbackId];
+            _timeoutCallbacks.Remove(callbackId);
+            _timeoutHandles.Remove(callbackId);
+
+            timeouteCallback();
+        }
+
+        public int SetTimeout(TimeoutCallback timeoutCallback)
+        {
+            unchecked { _timeoutCallbackId++; }
+            int callbackId = _timeoutCallbackId;
+
+            int handle = InvokeRet<int, int, int>("nkWindow.SetTimeout", callbackId, 0);
+
+            _timeoutCallbacks.Add(callbackId, timeoutCallback);
+            _timeoutHandles.Add(callbackId, handle);
+
+            return callbackId;
+        }
+
+        public int SetTimeout(TimeoutCallback timeoutCallback, TimeSpan delay)
+        {
+            unchecked { _timeoutCallbackId++; }
+            int callbackId = _timeoutCallbackId;
+
+            int handle = InvokeRet<int, int, int>("nkWindow.SetTimeout", callbackId, (int)delay.TotalMilliseconds);
+
+            _timeoutCallbacks.Add(callbackId, timeoutCallback);
+            _timeoutHandles.Add(callbackId, handle);
+
+            return callbackId;
+        }
+
+        public void clearTimeout(int timeoutID)
+        {
+            int callbackId = timeoutID;
+            timeoutID = _timeoutHandles[callbackId];
+
+            _timeoutCallbacks.Remove(callbackId);
+            _timeoutHandles.Remove(callbackId);
+
+            Invoke<int>("nkWindow.ClearTimeout", timeoutID);
         }
 
         [JSInvokable]

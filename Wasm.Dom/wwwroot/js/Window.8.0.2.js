@@ -50,6 +50,31 @@
         var rq = Module.HEAP32[(d + 0) >> 2];
 
         w.cancelAnimationFrame(rq);
+    },    
+    SetTimeout: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var ci = Module.HEAP32[(d+ 0)>>2];
+        var dl = Module.HEAP32[(d+ 4)>>2];
+
+        var callback = nkWindow.TimeoutCallback;
+        var hd = w.setTimeout((time) =>
+        {
+            callback(time, ci);
+        }, dl);
+
+        return hd;
+    },
+    TimeoutCallback: function (time, ci)
+    {
+        DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnTimeout', uid, ci, time);
+    },
+    ClearTimeout: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var hd = Module.HEAP32[(d+ 0)>>2];
+
+        w.clearTimeout(hd);
     },
 
     RegisterEvents: function(uid)
