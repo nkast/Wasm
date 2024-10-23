@@ -43,4 +43,24 @@
         var readyState = xhr.readyState;
         return readyState;
     },
+    
+    RegisterEvents: function (uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+
+        bs.onload = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.XHR', 'JsXMLHttpRequestOnLoad', uid);
+        };
+        bs.onerror = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.XHR', 'JsXMLHttpRequestOnError', uid);
+        };
+    },
+    UnregisterEvents: function (uid)
+    {
+        var me = nkJSObject.GetObject(uid);
+        me.onload = null;
+        me.onerror = null;
+    },
 };
