@@ -6,21 +6,31 @@
     {
         if (obj == null)
             return -1;
-        if (nkJSObject.objectMap.indexOf(obj) != -1)
+        if ('nkUid' in obj)
             throw "object already registered";
+            
+        // debug check
+        //if (nkJSObject.objectMap.indexOf(obj) != -1)
+        //    throw "object already registered";
 
         if (nkJSObject.emptySlots.length == 0)
         {
             nkJSObject.objectMap.push(obj);
             var uid = nkJSObject.objectMap.lastIndexOf(obj);
             uid++;
+            obj.nkUid = uid;
             return uid;
         }
         else
         {
             var uid = nkJSObject.emptySlots.pop();
+
+            if (nkJSObject.objectMap[uid] !== undefined)
+                throw "slot allready used";
+
             nkJSObject.objectMap[uid] = obj;
             uid++;
+            obj.nkUid = uid;
             return uid;
         }
     },
@@ -31,18 +41,23 @@
     },
     GetUid: function(obj)
     {
-        var uid = nkJSObject.objectMap.indexOf(obj);
-        if (uid !== -1)
-        {
-            uid++;
-            return uid;
-        }
-        else
-            return -1;
+        if ('nkUid' in obj)
+            return obj.nkUid;
+
+        return -1;
     },
     DisposeObject: function(uid)
     {
         uid--;
+
+        var obj = nkJSObject.objectMap[uid];   
+                
+        if (obj === undefined)
+            throw "obj is undefined";
+        if (obj.nkUid !== (uid+1))
+            throw "invalid nkUid";
+
+        delete obj.nkUid;
         delete nkJSObject.objectMap[uid];
         nkJSObject.emptySlots.push(uid);
     },
@@ -69,7 +84,13 @@ window.nkPromise =
     GetValueJSObject: function (uid)
     {
         var pr = nkJSObject.GetObject(uid);
-        return nkJSObject.RegisterObject(pr.AsyncValue);
+
+        var ob = pr.AsyncValue;
+        var uid = nkJSObject.GetUid(ob);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(ob);
     },
     GetErrorMessage: function (uid)
     {
