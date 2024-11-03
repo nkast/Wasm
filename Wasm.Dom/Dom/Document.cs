@@ -24,21 +24,30 @@ namespace nkast.Wasm.Dom
             _window = window;
         }
 
-        public TElement GetElementById<TElement>(string id)
-            where TElement : JSObject
+        private TElement FromId<TElement>(string id) where TElement : JSObject
         {
-            if (_elementsCache.TryGetValue(id, out WeakReference<JSObject>  elementRef))
+            if (_elementsCache.TryGetValue(id, out WeakReference<JSObject> elementRef))
             {
                 if (elementRef.TryGetTarget(out JSObject jsObj))
                     return (TElement)jsObj;
                 else
                     _elementsCache.Remove(id);
             }
-            
+
+            return null;
+        }
+
+        public TElement GetElementById<TElement>(string id)
+            where TElement : JSObject
+        {
+            TElement element = FromId<TElement>(id);
+            if (element != null)
+                return element;
+
             int uid = InvokeRet<string, int>("nkDocument.GetElementById", id);
             if (uid != -1)
             {
-                JSObject element = CreateInstance<TElement>(uid);
+                element = CreateInstance<TElement>(uid);
                 _elementsCache.Add(id, new WeakReference<JSObject>(element));
                 return (TElement)element;
             }
@@ -46,7 +55,7 @@ namespace nkast.Wasm.Dom
             return null;
         }
 
-        protected static JSObject CreateInstance<TElement>(int uid)
+        protected static TElement CreateInstance<TElement>(int uid)
             where TElement : JSObject
         {   
             return (TElement)Activator.CreateInstance(
