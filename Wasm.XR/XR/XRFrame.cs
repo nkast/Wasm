@@ -25,7 +25,7 @@ namespace nkast.Wasm.XR
             this._session = session;
         }
 
-        public static XRFrame FromUid(int uid)
+        internal static XRFrame FromUid(int uid)
         {
             if (XRFrame._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))

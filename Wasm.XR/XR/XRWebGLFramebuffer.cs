@@ -4,7 +4,7 @@ namespace nkast.Wasm.XR
 {
     internal class XRWebGLFramebuffer : WebGLFramebuffer
     {
-        public XRWebGLFramebuffer(int uid, IWebGLRenderingContext glContext)
+        internal XRWebGLFramebuffer(int uid, IWebGLRenderingContext glContext)
             : base(uid, glContext)
         {
         }

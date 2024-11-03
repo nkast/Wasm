@@ -47,13 +47,13 @@ namespace nkast.Wasm.XR
             }
         }
 
-        public XRSession(int uid) : base(uid)
+        internal XRSession(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkXRSession.RegisterEvents");
         }
 
-        public static XRSession FromUid(int uid)
+        internal static XRSession FromUid(int uid)
         {
             if (XRSession._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))

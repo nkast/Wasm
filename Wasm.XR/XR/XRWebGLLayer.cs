@@ -71,7 +71,7 @@ namespace nkast.Wasm.XR
             return uid;
         }
 
-        public static XRWebGLLayer FromUid(int uid)
+        internal static XRWebGLLayer FromUid(int uid)
         {
             if (XRWebGLLayer._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))

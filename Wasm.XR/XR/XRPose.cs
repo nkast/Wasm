@@ -23,7 +23,7 @@ namespace nkast.Wasm.XR
             }
         }
 
-        public XRPose(int uid) : base(uid)
+        internal XRPose(int uid) : base(uid)
         {
         }
 

@@ -31,7 +31,7 @@ namespace nkast.Wasm.XR
             //_navigator = navigator;
         }
 
-        public static XRSystem FromUid(int uid)
+        internal static XRSystem FromUid(int uid)
         {
             if (XRSystem._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
             {

@@ -10,7 +10,7 @@ namespace nkast.Wasm.XR
         List<XRView> _views = new List<XRView>();
         IReadOnlyList<XRView> _readOnlyViews;
 
-        public XRViewerPose(int uid) : base(uid)
+        internal XRViewerPose(int uid) : base(uid)
         {
             _readOnlyViews = new ReadOnlyCollection<XRView>(_views);
         }

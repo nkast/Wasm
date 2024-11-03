@@ -10,12 +10,12 @@ namespace nkast.Wasm.XR
     {
         static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
-        public XRRigidTransform(int uid) : base(uid)
+        internal XRRigidTransform(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
-        public static XRRigidTransform FromUid(int uid)
+        internal static XRRigidTransform FromUid(int uid)
         {
             if (XRRigidTransform._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
