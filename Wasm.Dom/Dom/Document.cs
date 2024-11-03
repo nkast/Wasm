@@ -27,25 +27,23 @@ namespace nkast.Wasm.Dom
         public TElement GetElementById<TElement>(string id)
             where TElement : JSObject
         {
-            JSObject element = null;
-            WeakReference<JSObject> refElement;
-            if (_elementsCache.TryGetValue(id, out refElement))
+            if (_elementsCache.TryGetValue(id, out WeakReference<JSObject>  elementRef))
             {
-                if (!refElement.TryGetTarget(out element))
+                if (elementRef.TryGetTarget(out JSObject jsObj))
+                    return (TElement)jsObj;
+                else
                     _elementsCache.Remove(id);
             }
             
-            if (element == null)
+            int uid = InvokeRet<string, int>("nkDocument.GetElementById", id);
+            if (uid != -1)
             {
-                int uid = InvokeRet<string, int>("nkDocument.GetElementById", id);
-                if (uid != -1)
-                {
-                    element = CreateInstance<TElement>(uid);
-                    _elementsCache.Add(id, new WeakReference<JSObject>(element));
-                }
+                JSObject element = CreateInstance<TElement>(uid);
+                _elementsCache.Add(id, new WeakReference<JSObject>(element));
+                return (TElement)element;
             }
 
-            return (TElement)element;
+            return null;
         }
 
         protected static JSObject CreateInstance<TElement>(int uid)
