@@ -3,13 +3,19 @@
     GetVibrationActuator: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
-        var ha = gp.vibrationActuator;
 
-        var uid = nkJSObject.GetUid(ha);
-        if (uid !== -1)
-            return uid;
+        if ('vibrationActuator' in gp)
+        {
+            var ha = gp.vibrationActuator;
 
-        return nkJSObject.RegisterObject(ha);
+            var uid = nkJSObject.GetUid(ha);
+            if (uid !== -1)
+                return uid;
+
+            return nkJSObject.RegisterObject(ha);
+        }
+        else 
+        return -1;
     },
     GetId: function (uid)
     {

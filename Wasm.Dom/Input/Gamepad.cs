@@ -88,7 +88,7 @@ namespace nkast.Wasm.Input
                 if (gamepadHapticActuator != null)
                     return gamepadHapticActuator;
 
-                if (uid != 0)
+                if (uid > 0)
                     return new GamepadHapticActuator(this, uid);
 
                 return null;

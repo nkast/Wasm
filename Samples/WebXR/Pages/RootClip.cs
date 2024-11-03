@@ -224,7 +224,8 @@ namespace WebXR.Pages
                             if (buttons[0].Pressed) // 0 = trigger
                             {
                                 pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
-                                gamepad.VibrationActuator.Pulse(1.0f, 100);
+                                if (gamepad.VibrationActuator != null)
+                                    gamepad.VibrationActuator.Pulse(1.0f, 100);
                             }
                             else if (buttons[0].Touched) // 0 = trigger
                             {
