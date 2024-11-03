@@ -21,16 +21,22 @@ namespace nkast.Wasm.Audio
         [JSInvokable]
         public static void JsAudioScheduledSourceNodeOnEnded(int uid)
         {
-            if (!_uidMap.TryGetValue(uid, out var jsObjRef))
+            AudioScheduledSourceNode bufferSource = FromUid(uid);
+            if (bufferSource == null)
                 return;
-            if (!_uidMap[uid].TryGetTarget(out var jsObj))
-                return;
-
-            AudioScheduledSourceNode bufferSource = (AudioScheduledSourceNode)jsObj;
 
             var handler = bufferSource.OnEnded;
             if (handler != null)
                 handler(bufferSource, EventArgs.Empty);
+        }
+
+        private static AudioScheduledSourceNode FromUid(int uid)
+        {
+            if (_uidMap.TryGetValue(uid, out var jsObjRef))
+                if (_uidMap[uid].TryGetTarget(out var jsObj))
+                    return (AudioScheduledSourceNode)jsObj;
+
+            return null;
         }
 
         public void Start()
