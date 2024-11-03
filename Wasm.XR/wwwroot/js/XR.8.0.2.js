@@ -285,11 +285,11 @@ window.nkXRViewerPose =
         for (var i=0; i < vs.length; i++)
         {
             var view = vs[i];            
-            var uid = nkJSObject.GetUid(view);
-            if (uid === -1)
-                uid = nkJSObject.RegisterObject(view);
+            var vid = nkJSObject.GetUid(view);
+            if (vid === -1)
+                vid = nkJSObject.RegisterObject(view);
 
-            Module.HEAP32[(pt+ i*4)>>2] = uid;
+            Module.HEAP32[(pt+ i*4)>>2] = vid;
         }
 
         return vs.length;
