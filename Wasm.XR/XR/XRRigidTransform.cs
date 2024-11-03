@@ -12,18 +12,14 @@ namespace nkast.Wasm.XR
 
         public XRRigidTransform(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static XRRigidTransform FromUid(int uid)
         {
             if (XRRigidTransform._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRRigidTransform)jsObj;
-                else
-                    XRRigidTransform._uidMap.Remove(uid);
-            }
 
             return null;
         }

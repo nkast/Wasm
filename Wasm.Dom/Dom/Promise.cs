@@ -12,19 +12,15 @@ namespace nkast.Wasm.Dom
 
         internal Promise(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkPromise.RegisterEvents");
         }
 
         public static Promise FromUid(int uid)
         {
             if (Promise._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (Promise)jsObj;
-                else
-                    Promise._uidMap.Remove(uid);
-            }
 
             return null;
         }

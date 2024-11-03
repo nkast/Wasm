@@ -14,7 +14,7 @@ namespace nkast.Wasm.Audio
 
         internal AudioScheduledSourceNode(int uid, BaseAudioContext context) : base(uid, context)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkAudioScheduledSourceNode.RegisterEvents");
         }
 

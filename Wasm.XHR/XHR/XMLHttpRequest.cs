@@ -15,7 +15,7 @@ namespace nkast.Wasm.XHR
 
         public XMLHttpRequest() : base(Register())
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkXHR.RegisterEvents");
         }
 
@@ -29,12 +29,8 @@ namespace nkast.Wasm.XHR
         public static XMLHttpRequest FromUid(int uid)
         {
             if (XMLHttpRequest._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XMLHttpRequest)jsObj;
-                else
-                    XMLHttpRequest._uidMap.Remove(uid);
-            }
 
             return null;
         }

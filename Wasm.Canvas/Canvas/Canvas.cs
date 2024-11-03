@@ -33,19 +33,15 @@ namespace nkast.Wasm.Canvas
 
         private Canvas(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkCanvas.RegisterEvents");
         }
 
         public static Canvas FromUid(int uid)
         {
             if (Canvas._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (Canvas)jsObj;
-                else
-                    Canvas._uidMap.Remove(uid);
-            }
 
             return null;
         }

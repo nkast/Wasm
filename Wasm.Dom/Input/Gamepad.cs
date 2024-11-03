@@ -97,18 +97,14 @@ namespace nkast.Wasm.Input
 
         public Gamepad(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static Gamepad FromUid(int uid)
         {
             if (Gamepad._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (Gamepad)jsObj;
-                else
-                    Gamepad._uidMap.Remove(uid);
-            }
 
             return null;
         }

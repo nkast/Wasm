@@ -53,19 +53,15 @@ namespace nkast.Wasm.Dom
 
         internal HTMLMediaElement(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkMedia.RegisterEvents");
         }
 
         public static HTMLMediaElement FromUid(int uid)
         {
             if (HTMLMediaElement._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (HTMLMediaElement)jsObj;
-                else
-                    HTMLMediaElement._uidMap.Remove(uid);
-            }
 
             return null;
         }

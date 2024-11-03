@@ -20,7 +20,7 @@ namespace nkast.Wasm.XR
 
         internal XRFrame(int uid, XRSession session) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
 
             this._session = session;
         }
@@ -28,12 +28,8 @@ namespace nkast.Wasm.XR
         public static XRFrame FromUid(int uid)
         {
             if (XRFrame._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRFrame)jsObj;
-                else
-                    XRFrame._uidMap.Remove(uid);
-            }
 
             return null;
         }

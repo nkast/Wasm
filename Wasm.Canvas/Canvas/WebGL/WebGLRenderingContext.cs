@@ -12,18 +12,14 @@ namespace nkast.Wasm.Canvas.WebGL
 
         internal WebGLRenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static WebGLRenderingContext FromUid(int uid)
         {
             if (WebGLRenderingContext._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (WebGLRenderingContext)jsObj;
-                else
-                    WebGLRenderingContext._uidMap.Remove(uid);
-            }
 
             return null;
         }

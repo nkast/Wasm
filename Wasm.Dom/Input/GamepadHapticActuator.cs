@@ -10,18 +10,14 @@ namespace nkast.Wasm.Input
 
         public GamepadHapticActuator(Gamepad gamepad, int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static GamepadHapticActuator FromUid(int uid)
         {
             if (GamepadHapticActuator._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (GamepadHapticActuator)jsObj;
-                else
-                    GamepadHapticActuator._uidMap.Remove(uid);
-            }
 
             return null;
         }

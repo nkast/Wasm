@@ -10,18 +10,14 @@ namespace nkast.Wasm.XR
 
         public XRRenderState(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static XRRenderState FromUid(int uid)
         {
             if (XRRenderState._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRRenderState)jsObj;
-                else
-                    XRRenderState._uidMap.Remove(uid);
-            }
 
             return null;
         }

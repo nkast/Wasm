@@ -57,7 +57,7 @@ namespace nkast.Wasm.XR
         public XRWebGLLayer(XRSession xrSession, IWebGLRenderingContext glContext)
             : base(Register(xrSession, glContext))
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
 
             this._xrSession = xrSession;
             this._glContext = glContext;
@@ -74,12 +74,8 @@ namespace nkast.Wasm.XR
         public static XRWebGLLayer FromUid(int uid)
         {
             if (XRWebGLLayer._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRWebGLLayer)jsObj;
-                else
-                    XRWebGLLayer._uidMap.Remove(uid);
-            }
 
             return null;
         }

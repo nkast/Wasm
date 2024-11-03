@@ -10,18 +10,14 @@ namespace nkast.Wasm.XR
 
         public XRSpace(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
         public static XRSpace FromUid(int uid)
         {
             if (XRSpace._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRSpace)jsObj;
-                else
-                    XRSpace._uidMap.Remove(uid);
-            }
 
             return null;
         }

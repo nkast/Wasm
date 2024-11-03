@@ -13,19 +13,15 @@ namespace nkast.Wasm.XR
 
         public XRInputSourceArray(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
 
         }
 
         public static XRInputSourceArray FromUid(int uid)
         {
             if (XRInputSourceArray._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
                 if (jsObjRef.TryGetTarget(out JSObject jsObj))
                     return (XRInputSourceArray)jsObj;
-                else
-                    XRInputSourceArray._uidMap.Remove(uid);
-            }
 
             return null;
         }
