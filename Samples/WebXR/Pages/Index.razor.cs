@@ -131,7 +131,7 @@ namespace WebXR.Pages
 
         }
 
-        void OnXRAnimationFrame(float time, XRFrame xrFrame)
+        void OnXRAnimationFrame(TimeSpan time, XRFrame xrFrame)
         {
             // run gameloop tick
             TimeSpan t  = _sw.Elapsed;
