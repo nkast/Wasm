@@ -24,3 +24,17 @@
         return dc.hasFocus();
     }
 };
+
+window.nkElement =
+{
+    GetClientWidth: function(uid)
+    {
+        var e = nkJSObject.GetObject(uid);
+        return e.clientWidth;
+    },
+    GetClientHeight: function (uid)
+    {
+        var e = nkJSObject.GetObject(uid);
+        return e.clientHeight;
+    },
+};
