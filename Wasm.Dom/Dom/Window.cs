@@ -180,11 +180,11 @@ namespace nkast.Wasm.Dom
 
         private void OnTimeout(int callbackId)
         {
-            TimeoutCallback timeouteCallback = _timeoutCallbacks[callbackId];
+            TimeoutCallback timeoutCallback = _timeoutCallbacks[callbackId];
             _timeoutCallbacks.Remove(callbackId);
             _timeoutHandles.Remove(callbackId);
 
-            timeouteCallback();
+            timeoutCallback();
         }
 
         public int SetTimeout(TimeoutCallback timeoutCallback)
