@@ -14,7 +14,7 @@ namespace nkast.Wasm.XR
         public event EventHandler<EventArgs> Ended;
         public event EventHandler<InputSourcesChangedEventArgs> InputSourcesChanged;
 
-        public delegate void XRAnimationFrameCallback(float time, XRFrame frame);
+        public delegate void XRAnimationFrameCallback(TimeSpan time, XRFrame frame);
 
         int _animationFrameCallbackId;
         Dictionary<int, XRAnimationFrameCallback> _animationFrameCallbacks = new Dictionary<int, XRAnimationFrameCallback>();
@@ -106,7 +106,7 @@ namespace nkast.Wasm.XR
             if (xrFrame == null)
                 xrFrame = new XRFrame(xrFrameUid, this);
 
-            animationFrameCallback(time, xrFrame);
+            animationFrameCallback(TimeSpan.FromMilliseconds(time), xrFrame);
         }
 
         public Task<XRReferenceSpace> RequestReferenceSpace(string referenceSpaceType)

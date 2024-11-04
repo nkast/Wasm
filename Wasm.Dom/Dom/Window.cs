@@ -12,7 +12,7 @@ namespace nkast.Wasm.Dom
         private Document _document;
         private Navigator _navigator;
 
-        public delegate void AnimationFrameCallback(float time);
+        public delegate void AnimationFrameCallback(TimeSpan time);
         public delegate void TimeoutCallback();
         public delegate void IntervalCallback();
 
@@ -147,7 +147,7 @@ namespace nkast.Wasm.Dom
             _animationFrameCallbacks.Remove(callbackId);
             _animationFrameRequestHandles.Remove(callbackId);
 
-            animationFrameCallback(time);
+            animationFrameCallback(TimeSpan.FromMilliseconds(time));
         }
 
         public int RequestAnimationFrame(AnimationFrameCallback animationFrameCallback)
