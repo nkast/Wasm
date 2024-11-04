@@ -34,11 +34,14 @@ namespace WebXR.Pages
 
             if (firstRender)
             {
-                JsRuntime.InvokeAsync<object>("initRenderJS", DotNetObjectReference.Create(this));
+                Window.Current.RequestAnimationFrame(OnAnimationFrame);
             }
         }
 
+
+
         Canvas cs;
+        Div canvasHolder;
         IWebGLRenderingContext gl;
 
         MouseState currMouseState;
@@ -46,12 +49,23 @@ namespace WebXR.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
-        [JSInvokable]
-        public void TickDotNet()
+        void OnAnimationFrame(TimeSpan time)
+        {
+            Tick(time);
+            Window.Current.RequestAnimationFrame(OnAnimationFrame);
+        }
+
+        public void Tick(TimeSpan time)
         {
             if (cs == null)
             {
                 cs = Window.Current.Document.GetElementById<Canvas>("theCanvas");
+                canvasHolder = Window.Current.Document.GetElementById<Div>("canvasHolder");
+                
+                // resize the canvas to fit its parent
+                cs.Width = canvasHolder.ClientWidth;
+                cs.Height = canvasHolder.ClientHeight;
+
                 ContextAttributes attribs = new ContextAttributes();
                 attribs.Depth = true;
                 gl = cs.GetContext<IWebGLRenderingContext>(attribs);
@@ -80,6 +94,10 @@ namespace WebXR.Pages
             {
                 return;
             }
+
+            // resize the canvas to fit its parent
+            cs.Width = canvasHolder.ClientWidth;
+            cs.Height = canvasHolder.ClientHeight;
 
             // run gameloop tick
             TimeSpan t  = _sw.Elapsed;
