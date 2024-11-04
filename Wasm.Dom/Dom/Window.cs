@@ -213,7 +213,7 @@ namespace nkast.Wasm.Dom
             return callbackId;
         }
 
-        public void clearTimeout(int timeoutID)
+        public void ClearTimeout(int timeoutID)
         {
             int callbackId = timeoutID;
             timeoutID = _timeoutHandles[callbackId];
