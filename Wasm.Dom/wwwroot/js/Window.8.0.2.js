@@ -81,48 +81,50 @@
     {
         var w = nkJSObject.GetObject(uid);
 
-        window.onresize = function(event)
+        window.addEventListener('resize', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnResize', uid);
-        };
-        window.onfocus = function(event)
+        });
+        window.addEventListener('focus', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnFocus', uid);
-        };
-        window.onblur = function(event)
+        });
+        window.addEventListener('blur', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnBlur', uid);
-        };
-        window.onmousemove = function(event)
+        });
+
+        window.addEventListener('mousemove', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseMove', uid,
                 event.clientX, event.clientY);
-        };
-        window.onmousedown = function(event)
+        });
+        window.addEventListener('mousedown', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseDown', uid,
                 event.clientX, event.clientY, event.buttons);
-        };
-        window.onmouseup = function(event)
+        });
+        window.addEventListener('mouseup', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseUp', uid,
                 event.clientX, event.clientY, event.buttons);
-        };
-        window.onmousewheel = function(event)
+        });
+        window.addEventListener('mousewheel', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseWheel', uid,
                 event.deltaX, event.deltaY, event.deltaZ,  event.deltaMode);
-        };
-        window.onkeydown = function(event)
+        });
+
+        window.addEventListener('keydown', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnKeyDown', uid,
                 event.key.charCodeAt(0), event.keyCode, event.location);
-        };
-        window.onkeyup = function(event)
+        });
+        window.addEventListener('keyup', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnKeyUp', uid,
                 event.key.charCodeAt(0), event.keyCode, event.location);
-        };
+        });
 
         window.addEventListener('touchstart', (event) =>
         {
