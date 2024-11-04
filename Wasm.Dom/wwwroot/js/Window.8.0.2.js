@@ -77,6 +77,32 @@
         w.clearTimeout(hd);
     },
 
+    SetInterval: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var ci = Module.HEAP32[(d+ 0)>>2];
+        var dl = Module.HEAP32[(d+ 4)>>2];
+
+        var callback = nkWindow.IntervalCallback;
+        var hd = w.setInterval(() =>
+        {
+            callback(uid, ci);
+        }, dl);
+
+        return hd;
+    },
+    IntervalCallback: function (uid, ci)
+    {
+        DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnInterval', uid, ci);
+    },
+    ClearInterval: function (uid, d)
+    {
+        var w  = nkJSObject.GetObject(uid);
+        var hd = Module.HEAP32[(d+ 0)>>2];
+
+        w.clearInterval(hd);
+    },
+
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);

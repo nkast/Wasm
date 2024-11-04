@@ -14,6 +14,7 @@ namespace nkast.Wasm.Dom
 
         public delegate void AnimationFrameCallback(float time);
         public delegate void TimeoutCallback();
+        public delegate void IntervalCallback();
 
         int _animationFrameCallbackId;
         Dictionary<int, AnimationFrameCallback> _animationFrameCallbacks = new Dictionary<int, AnimationFrameCallback>();
@@ -22,6 +23,10 @@ namespace nkast.Wasm.Dom
         int _timeoutCallbackId;
         Dictionary<int, TimeoutCallback> _timeoutCallbacks = new Dictionary<int, TimeoutCallback>();
         Dictionary<int, int> _timeoutHandles = new Dictionary<int, int>();
+
+        int _intervalCallbackId;
+        Dictionary<int, IntervalCallback> _intervalCallbacks = new Dictionary<int, IntervalCallback>();
+        Dictionary<int, int> _intervalHandles = new Dictionary<int, int>();
 
         public delegate void OnResizeDelegate(object sender);
         public delegate void OnMouseMoveDelegate(object sender, int x, int y);
@@ -222,6 +227,57 @@ namespace nkast.Wasm.Dom
             _timeoutHandles.Remove(callbackId);
 
             Invoke<int>("nkWindow.ClearTimeout", timeoutID);
+        }
+
+        [JSInvokable]
+        public static void JsWindowOnInterval(int uid, int intervalId)
+        {
+            Window wnd = WindowFromUid(uid);
+            wnd.OnInterval(intervalId);
+        }
+
+        private void OnInterval(int intervalId)
+        {
+            IntervalCallback intervalCallback = _intervalCallbacks[intervalId];
+
+            intervalCallback();
+        }
+
+        public int SetInterval(IntervalCallback intervalCallback)
+        {
+            unchecked { _intervalCallbackId++; }
+            int intervalId = _intervalCallbackId;
+
+            int handle = InvokeRet<int, int, int>("nkWindow.SetInterval", intervalId, 0);
+
+            _intervalCallbacks.Add(intervalId, intervalCallback);
+            _intervalHandles.Add(intervalId, handle);
+
+            return intervalId;
+        }
+
+        public int SetInterval(IntervalCallback intervalCallback, TimeSpan delay)
+        {
+            unchecked { _intervalCallbackId++; }
+            int intervalId = _intervalCallbackId;
+
+            int handle = InvokeRet<int, int, int>("nkWindow.SetInterval", intervalId, (int)delay.TotalMilliseconds);
+
+            _intervalCallbacks.Add(intervalId, intervalCallback);
+            _intervalHandles.Add(intervalId, handle);
+
+            return intervalId;
+        }
+
+        public void ClearInterval(int intervalID)
+        {
+            int callbackId = intervalID;
+            intervalID = _intervalHandles[callbackId];
+
+            _intervalCallbacks.Remove(callbackId);
+            _intervalHandles.Remove(callbackId);
+
+            Invoke<int>("nkWindow.ClearInterval", intervalID);
         }
 
         [JSInvokable]
