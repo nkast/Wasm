@@ -35,12 +35,12 @@
         var callback = nkWindow.RequestAnimationFrameCallback;
         var handle = w.requestAnimationFrame((time) =>
         {
-            callback(time, ci);
+            callback(uid, time, ci);
         });
 
         return handle;
     },
-    RequestAnimationFrameCallback: function (time, ci)
+    RequestAnimationFrameCallback: function (uid, time, ci)
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnAnimationFrame', uid, ci, time);
     },
@@ -58,16 +58,16 @@
         var dl = Module.HEAP32[(d+ 4)>>2];
 
         var callback = nkWindow.TimeoutCallback;
-        var hd = w.setTimeout((time) =>
+        var hd = w.setTimeout(() =>
         {
-            callback(time, ci);
+            callback(uid, ci);
         }, dl);
 
         return hd;
     },
-    TimeoutCallback: function (time, ci)
+    TimeoutCallback: function (uid, ci)
     {
-        DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnTimeout', uid, ci, time);
+        DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnTimeout', uid, ci);
     },
     ClearTimeout: function (uid, d)
     {
