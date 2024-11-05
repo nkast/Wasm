@@ -157,6 +157,41 @@ window.nkXRSession =
 
 window.nkXRRenderState =
 {
+    GetDepthNear: function(uid, d)
+    {
+        var rs = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+        
+        var dn = -1;
+        if ('depthNear' in rs)
+            dn = rs.depthNear;
+
+        Module.HEAPF32[(pt+ 0)>>2] = dn;
+    },
+    GetDepthFar: function(uid, d)
+    {
+        var rs = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+
+        var df = -1;
+        if ('depthFar' in rs)
+            df = rs.depthFar;
+
+        Module.HEAPF32[(pt+ 0)>>2] = df;
+    },
+    GetInlineVerticalFieldOfView: function(uid, d)
+    {
+        var rs = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+
+        var fo = -1;
+        if ('inlineVerticalFieldOfView' in rs)
+            fo = rs.inlineVerticalFieldOfView;
+         if (fo === null)
+             fo = -1;
+
+        Module.HEAPF32[(pt+ 0)>>2] = fo;
+    },
     GetBaseLayer: function(uid, d)
     {
         var rs = nkJSObject.GetObject(uid);

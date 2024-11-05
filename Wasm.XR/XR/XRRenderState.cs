@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
@@ -20,6 +21,44 @@ namespace nkast.Wasm.XR
                     return (XRRenderState)jsObj;
 
             return null;
+        }
+
+        public unsafe float? DepthNear
+        {
+            get
+            {
+                float result = default;
+                Invoke<IntPtr>("nkXRRenderState.GetDepthNear", new IntPtr(&result));
+                if (result == -1)
+                    return null;
+
+                return result;
+            }
+        }
+
+        public unsafe float? DepthFar
+        {
+            get
+            {
+                float result = default;
+                Invoke<IntPtr>("nkXRRenderState.GetDepthFar", new IntPtr(&result));
+                if (result == -1)
+                    return null;
+
+                return result;
+            }
+        }
+        public unsafe float? InlineVerticalFieldOfView
+        {
+            get
+            {
+                float result = default;
+                Invoke<IntPtr>("nkXRRenderState.GetInlineVerticalFieldOfView", new IntPtr(&result));
+                if (result == -1)
+                    return null;
+
+                return result;
+            }
         }
 
         public XRWebGLLayer BaseLayer

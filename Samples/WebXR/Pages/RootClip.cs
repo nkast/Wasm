@@ -84,6 +84,8 @@ namespace WebXR.Pages
                         transform.Dispose();
 
                         XRWebGLLayer glLayer = renderState.BaseLayer;
+                        float? depthNear = renderState.DepthNear;
+                        float? depthFar = renderState.DepthFar;
                         int w = glLayer.FramebufferWidth;
                         int h = glLayer.FramebufferHeight;
                         bool ign = glLayer.IgnoreDepthValues;
