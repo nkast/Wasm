@@ -51,7 +51,7 @@
         {
             btns[i*3+0] = buttons[i].value;
             btns[i*3+1] = (buttons[i].pressed) ? 1 : 0;
-            if (buttons[i].touched2 == undefined)
+            if (buttons[i].touched == undefined)
                 btns[i*3+2] = 0;
             else
                 btns[i*3+2] = (buttons[i].touched) ? 1 : 0;
