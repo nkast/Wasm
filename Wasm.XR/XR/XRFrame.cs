@@ -11,18 +11,25 @@ namespace nkast.Wasm.XR
     {
         static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
-        private XRSession _session;
-
         public XRSession Session
         {
-            get { return _session; }
+            get
+            {
+                int uid = InvokeRet<int>("nkXRFrame.GetSession");
+                if (uid == -1)
+                    return null;
+
+                XRSession xrSession = XRSession.FromUid(uid);
+                if (xrSession != null)
+                    return xrSession;
+
+                return new XRSession(uid);
+            }
         }
 
-        internal XRFrame(int uid, XRSession session) : base(uid)
+        internal XRFrame(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-
-            this._session = session;
         }
 
         internal static XRFrame FromUid(int uid)

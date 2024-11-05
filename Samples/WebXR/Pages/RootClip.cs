@@ -69,8 +69,9 @@ namespace WebXR.Pages
 
             if (dc.xrFrame != null)
             {
-                //XRRenderState renderState = dc.xrFrame.Session.RenderState;
-                XRRenderState renderState = _xrsession.RenderState;
+                XRSession xrsession = dc.xrFrame.Session;
+                XRRenderState renderState = xrsession.RenderState;
+
                 XRViewerPose viewerPose = dc.xrFrame.GetViewerPose(_localspace);
                 if (viewerPose != null)
                 {

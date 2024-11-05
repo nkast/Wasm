@@ -224,6 +224,17 @@ window.nkXRWebGLLayer =
 
 window.nkXRFrame =
 {
+    GetSession: function(uid, d)
+    {
+        var fr = nkJSObject.GetObject(uid);
+
+        var ss = fr.session;
+        var uid = nkJSObject.GetUid(ss);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(ss);
+    },
     GetViewerPose: function(uid, d)
     {
         var fr = nkJSObject.GetObject(uid);

@@ -104,7 +104,7 @@ namespace nkast.Wasm.XR
 
             XRFrame xrFrame = XRFrame.FromUid(xrFrameUid);
             if (xrFrame == null)
-                xrFrame = new XRFrame(xrFrameUid, this);
+                xrFrame = new XRFrame(xrFrameUid);
 
             animationFrameCallback(TimeSpan.FromMilliseconds(time), xrFrame);
         }
