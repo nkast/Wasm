@@ -72,43 +72,45 @@ namespace WebXR.Pages
                 XRSession xrsession = dc.xrFrame.Session;
                 XRRenderState renderState = xrsession.RenderState;
 
-                XRViewerPose viewerPose = dc.xrFrame.GetViewerPose(_localspace);
-                if (viewerPose != null)
+                using (XRViewerPose viewerPose = dc.xrFrame.GetViewerPose(_localspace))
                 {
-                    bool emulatedPosition = viewerPose.EmulatedPosition;
-                    XRRigidTransform transform = viewerPose.Transform;
-
-                    XRWebGLLayer glLayer = renderState.BaseLayer;
-                    int w = glLayer.FramebufferWidth;
-                    int h = glLayer.FramebufferHeight;
-                    bool ign = glLayer.IgnoreDepthValues;
-                    bool antialias = glLayer.Antialias;
-                    WebGLFramebuffer glFramebuffer = glLayer.Framebuffer;
-
-                    if (glFramebuffer != null)
-                        dc.GLContext.BindFramebuffer(WebGLFramebufferType.FRAMEBUFFER, glFramebuffer);
-
-                    foreach (XRView xrView in viewerPose.Views)
+                    if (viewerPose != null)
                     {
-                        XREye eye = xrView.Eye;
+                        bool emulatedPosition = viewerPose.EmulatedPosition;
+                        XRRigidTransform transform = viewerPose.Transform;
 
-                        XRViewport xrViewport = glLayer.GetViewport(xrView);
-                        dc.GLContext.Viewport(xrViewport.X, xrViewport.Y, xrViewport.Width, xrViewport.Height);
+                        XRWebGLLayer glLayer = renderState.BaseLayer;
+                        int w = glLayer.FramebufferWidth;
+                        int h = glLayer.FramebufferHeight;
+                        bool ign = glLayer.IgnoreDepthValues;
+                        bool antialias = glLayer.Antialias;
+                        WebGLFramebuffer glFramebuffer = glLayer.Framebuffer;
 
-                        XRRigidTransform vTransform = xrView.Transform;
-                        float aspect = (float)xrViewport.Width / (float)xrViewport.Height;
-                        Matrix4x4 view = vTransform.Inverse.Matrix;
-                        Matrix4x4 proj = xrView.ProjectionMatrix;
-                        dc.view = view;
-                        dc.proj = proj;
+                        if (glFramebuffer != null)
+                            dc.GLContext.BindFramebuffer(WebGLFramebufferType.FRAMEBUFFER, glFramebuffer);
 
-                        base.Draw(dc);
+                        foreach (XRView xrView in viewerPose.Views)
+                        {
+                            XREye eye = xrView.Eye;
 
-                        DrawPointers(dc);
+                            XRViewport xrViewport = glLayer.GetViewport(xrView);
+                            dc.GLContext.Viewport(xrViewport.X, xrViewport.Y, xrViewport.Width, xrViewport.Height);
+
+                            XRRigidTransform vTransform = xrView.Transform;
+                            float aspect = (float)xrViewport.Width / (float)xrViewport.Height;
+                            Matrix4x4 view = vTransform.Inverse.Matrix;
+                            Matrix4x4 proj = xrView.ProjectionMatrix;
+                            dc.view = view;
+                            dc.proj = proj;
+
+                            base.Draw(dc);
+
+                            DrawPointers(dc);
+                        }
+
+                        if (glFramebuffer != null)
+                            dc.GLContext.BindFramebuffer(WebGLFramebufferType.FRAMEBUFFER, null);
                     }
-
-                    if (glFramebuffer != null)
-                        dc.GLContext.BindFramebuffer(WebGLFramebufferType.FRAMEBUFFER, null);
                 }
             }
             else
@@ -196,58 +198,62 @@ namespace WebXR.Pages
                 XRSpace gripSpace = inputSource.GripSpace;
                 if (gripSpace != null)
                 {
-                    XRPose grip = dc.xrFrame.GetPose(gripSpace, _localspace);
-                    if (grip != null)
+                    using (XRPose grip = dc.xrFrame.GetPose(gripSpace, _localspace))
                     {
-                        XRRigidTransform gripTransform = grip.Transform;
-                        Matrix4x4 gripTranformMtx = gripTransform.Matrix;
+                        if (grip != null)
+                        {
+                            XRRigidTransform gripTransform = grip.Transform;
+                            Matrix4x4 gripTranformMtx = gripTransform.Matrix;
+                        }
                     }
                 }
 
                 XRSpace pointerSpace = inputSource.TargetRaySpace;
                 if (pointerSpace != null)
                 {
-                    XRPose pointer = dc.xrFrame.GetPose(pointerSpace, _localspace);
-                    if (pointer != null)
+                    using (XRPose pointer = dc.xrFrame.GetPose(pointerSpace, _localspace))
                     {
-                        XRRigidTransform pointerTransform = pointer.Transform;
-                        Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
-
-                        // draw pointer
-                        Matrix4x4 pointerMtx = Matrix4x4.Identity;
-                        pointerMtx *= Matrix4x4.CreateRotationX(-(float)Math.Tau / 4f);
-                        pointerMtx *= Matrix4x4.CreateScale(0.2f, 1.0f, 1.0f);
-
-                        if (gamepad != null)
+                        if (pointer != null)
                         {
-                            GamepadButton[] buttons = gamepad.Buttons;
+                            XRRigidTransform pointerTransform = pointer.Transform;
+                            Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
 
-                            if (buttons[0].Pressed) // 0 = trigger
+                            // draw pointer
+                            Matrix4x4 pointerMtx = Matrix4x4.Identity;
+                            pointerMtx *= Matrix4x4.CreateRotationX(-(float)Math.Tau / 4f);
+                            pointerMtx *= Matrix4x4.CreateScale(0.2f, 1.0f, 1.0f);
+
+                            if (gamepad != null)
                             {
-                                pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
-                                if (gamepad.VibrationActuator != null)
-                                    gamepad.VibrationActuator.Pulse(1.0f, 100);
+                                GamepadButton[] buttons = gamepad.Buttons;
+
+                                if (buttons[0].Pressed) // 0 = trigger
+                                {
+                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
+                                    if (gamepad.VibrationActuator != null)
+                                        gamepad.VibrationActuator.Pulse(1.0f, 100);
+                                }
+                                else if (buttons[0].Touched) // 0 = trigger
+                                {
+                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
+                                }
                             }
-                            else if (buttons[0].Touched) // 0 = trigger
+
+                            pointerMtx *= Matrix4x4.CreateScale(0.1f);
+
+                            pointerMtx *= pointerTranformMtx;
+                            DrawContext dcp = new DrawContext()
                             {
-                                pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
-                            }
+                                GLContext = dc.GLContext,
+                                Layer = dc.Layer,
+                                t = dc.t,
+                                dt = dc.dt,
+                                world = pointerMtx,
+                                view = dc.view,
+                                proj = dc.proj,
+                            };
+                            _tri.Draw(dcp);
                         }
-
-                        pointerMtx *= Matrix4x4.CreateScale(0.1f);
-
-                        pointerMtx *= pointerTranformMtx;
-                        DrawContext dcp = new DrawContext()
-                        {
-                            GLContext = dc.GLContext,
-                            Layer = dc.Layer,
-                            t  = dc.t,
-                            dt = dc.dt,
-                            world = pointerMtx,
-                            view = dc.view,
-                            proj = dc.proj,
-                        };
-                        _tri.Draw(dcp);
                     }
                 }
             }
