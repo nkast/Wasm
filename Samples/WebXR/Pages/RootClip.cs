@@ -245,6 +245,7 @@ namespace WebXR.Pages
                             if (gamepad != null)
                             {
                                 GamepadButton[] buttons = gamepad.Buttons;
+                                float[] axes = gamepad.Axes;
 
                                 if (buttons[0].Pressed) // 0 = trigger
                                 {

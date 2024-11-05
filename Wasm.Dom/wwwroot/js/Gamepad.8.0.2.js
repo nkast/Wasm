@@ -45,28 +45,41 @@
     GetButtons: function (uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
+        var ct = Module.HEAP32[(d+ 0)>>2];
+        var st = Module.HEAP32[(d+ 4)>>2];
+        var pt = Module.HEAP32[(d+ 8)>>2];
+
         var buttons = gp.buttons;
-        var btns = [];
+
+        if (ct<buttons.length)
+            return -buttons.length;
+            
         for (var i = 0; i < buttons.length; i++)
         {
-            btns[i*3+0] = buttons[i].value;
-            btns[i*3+1] = (buttons[i].pressed) ? 1 : 0;
-            if (buttons[i].touched == undefined)
-                btns[i*3+2] = 0;
-            else
-                btns[i*3+2] = (buttons[i].touched) ? 1 : 0;
+            Module.HEAPF32[(pt+ 0 + i*st)>>2] = buttons[i].value;
+            Module.HEAPU8[(pt+ 4 + i*st)>>0]  = (buttons[i].pressed) ? 1 : 0;
+            Module.HEAPU8[(pt+ 5 + i*st)>>0]  = (buttons[i].touched !== undefined && buttons[i].touched) ? 1 : 0;
         }
-        var str = btns.toString();
 
-        return BINDING.js_to_mono_obj(str);
+        return buttons.length;
     },
     GetAxes: function (uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
-        var axes = gp.axes;
-        var str = axes.toString();
+        var ct = Module.HEAP32[(d+ 0)>>2];
+        var pt = Module.HEAP32[(d+ 4)>>2];
 
-        return BINDING.js_to_mono_obj(str);
+        var axes = gp.axes;
+        
+        if (ct<axes.length)
+            return -axes.length;
+            
+        for (var i = 0; i < axes.length; i++)
+        {
+            Module.HEAPF32[(pt+ 0 + i*4)>>2] = axes[i];
+        }
+
+        return axes.length;
     }
 };
 

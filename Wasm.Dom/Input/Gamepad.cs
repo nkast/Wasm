@@ -37,42 +37,32 @@ namespace nkast.Wasm.Input
             get { return InvokeRet<int>("nkGamepad.GetTimestamp"); }
         }
 
-        public GamepadButton[] Buttons
+        public unsafe GamepadButton[] Buttons
         {
             get
             {
-                string str = InvokeRet<string>("nkGamepad.GetButtons");
+                int count = -InvokeRet<int, int, IntPtr, int>("nkGamepad.GetButtons", -1, 0, IntPtr.Zero);
+                GamepadButton[] ret = new GamepadButton[count];
 
-                if (str == String.Empty)
-                    return new GamepadButton[0];
-
-                string[] strs = str.Split(',');
-                GamepadButton[] ret = new GamepadButton[strs.Length/3];
-                for (int cnt = 0; cnt < ret.Length; cnt++)
+                fixed (GamepadButton* pret = ret)
                 {
-                    ret[cnt].Value = float.Parse(strs[cnt*3+0]);
-                    ret[cnt].Pressed = int.Parse(strs[cnt*3+1]) != 0;
-                    ret[cnt].Touched = int.Parse(strs[cnt*3+2]) != 0;
+                    count = InvokeRet<int, int, IntPtr, int>("nkGamepad.GetButtons", count, sizeof(GamepadButton), new IntPtr(pret));
                 }
 
                 return ret;
             }
         }
 
-        public float[] Axes
+        public unsafe float[] Axes
         {
             get
             {
-                string str = InvokeRet<string>("nkGamepad.GetAxes");
+                int count = -InvokeRet<int, IntPtr, int>("nkGamepad.GetAxes", -1, IntPtr.Zero);
+                float[] ret = new float[count];
 
-                if (str == String.Empty)
-                    return new float[0];
-
-                string[] strs = str.Split(',');
-                float[] ret = new float[strs.Length];
-                for (int cnt = 0; cnt < ret.Length; cnt++)
+                fixed (float* pret = ret)
                 {
-                    ret[cnt] = float.Parse(strs[cnt]);
+                    count = -InvokeRet<int, IntPtr, int>("nkGamepad.GetAxes", count, new IntPtr(pret));
                 }
 
                 return ret;
