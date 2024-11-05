@@ -280,7 +280,7 @@ window.nkXRPose =
 
         var av = ps.angularVelocity;
                 
-        if (av !== null)
+        if (av !== null && av !== undefined)
         {
             Module.HEAPF32[(pt+ 0)>>2] = av.x;
             Module.HEAPF32[(pt+ 4)>>2] = av.y;
@@ -298,7 +298,7 @@ window.nkXRPose =
 
         var lv = ps.linearVelocity;
 
-        if (lv !== null)
+        if (lv !== null && lv !== undefined)
         {
             Module.HEAPF32[(pt+ 0)>>2] = lv.x;
             Module.HEAPF32[(pt+ 4)>>2] = lv.y;
