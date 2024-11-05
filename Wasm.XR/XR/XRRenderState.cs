@@ -27,12 +27,12 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                float result = default;
+                XRViewport result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetDepthNear", new IntPtr(&result));
-                if (result == -1)
+                if (result.X == -1)
                     return null;
 
-                return result;
+                return result.X;
             }
         }
 
@@ -40,24 +40,24 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                float result = default;
+                XRViewport result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetDepthFar", new IntPtr(&result));
-                if (result == -1)
+                if (result.X == -1)
                     return null;
 
-                return result;
+                return result.X;
             }
         }
         public unsafe float? InlineVerticalFieldOfView
         {
             get
             {
-                float result = default;
+                XRViewport result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetInlineVerticalFieldOfView", new IntPtr(&result));
-                if (result == -1)
+                if (result.X == -1)
                     return null;
 
-                return result;
+                return result.X;
             }
         }
 
