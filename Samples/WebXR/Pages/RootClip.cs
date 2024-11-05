@@ -77,9 +77,11 @@ namespace WebXR.Pages
                     if (viewerPose != null)
                     {
                         bool emulatedPosition = viewerPose.EmulatedPosition;
-                        XRRigidTransform transform = viewerPose.Transform;
                         Vector4? angularVelocity = viewerPose.AngularVelocity;
                         Vector4? linearVelocity = viewerPose.LinearVelocity;
+                        XRRigidTransform transform = viewerPose.Transform;
+                        Matrix4x4 tranformMtx = transform.Matrix;
+                        transform.Dispose();
 
                         XRWebGLLayer glLayer = renderState.BaseLayer;
                         int w = glLayer.FramebufferWidth;
@@ -98,16 +100,22 @@ namespace WebXR.Pages
                             XRViewport xrViewport = glLayer.GetViewport(xrView);
                             dc.GLContext.Viewport(xrViewport.X, xrViewport.Y, xrViewport.Width, xrViewport.Height);
 
-                            XRRigidTransform vTransform = xrView.Transform;
                             float aspect = (float)xrViewport.Width / (float)xrViewport.Height;
-                            Matrix4x4 view = vTransform.Inverse.Matrix;
-                            Matrix4x4 proj = xrView.ProjectionMatrix;
-                            dc.view = view;
-                            dc.proj = proj;
+
+                            using (XRRigidTransform viewTransform = xrView.Transform)
+                            using (XRRigidTransform invViewTransform = viewTransform.Inverse)
+                            {
+                                Matrix4x4 view = invViewTransform.Matrix;
+                                Matrix4x4 proj = xrView.ProjectionMatrix;
+                                dc.view = view;
+                                dc.proj = proj;
+                            }
 
                             base.Draw(dc);
 
                             DrawPointers(dc);
+
+                            xrView.Dispose();
                         }
 
                         if (glFramebuffer != null)
@@ -204,10 +212,11 @@ namespace WebXR.Pages
                     {
                         if (grip != null)
                         {
-                            XRRigidTransform gripTransform = grip.Transform;
-                            Matrix4x4 gripTranformMtx = gripTransform.Matrix;
                             Vector4? gripAngularVelocity = grip.AngularVelocity;
                             Vector4? gripLinearVelocity = grip.LinearVelocity;
+                            XRRigidTransform gripTransform = grip.Transform;
+                            Matrix4x4 gripTranformMtx = gripTransform.Matrix;
+                            gripTransform.Dispose();
 
                         }
                     }
@@ -220,10 +229,11 @@ namespace WebXR.Pages
                     {
                         if (pointer != null)
                         {
-                            XRRigidTransform pointerTransform = pointer.Transform;
-                            Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
                             Vector4? pointerAngularVelocity = pointer.AngularVelocity;
                             Vector4? pointerLinearVelocity = pointer.LinearVelocity;
+                            XRRigidTransform pointerTransform = pointer.Transform;
+                            Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
+                            pointerTransform.Dispose();
 
                             // draw pointer
                             Matrix4x4 pointerMtx = Matrix4x4.Identity;

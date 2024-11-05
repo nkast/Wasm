@@ -80,8 +80,10 @@ namespace WebXR.Pages
 
                 Matrix4x4 worldViewProj = dc.world * dc.view * dc.proj;
                 float[] wvparray = MatrixToArray(worldViewProj);
-                var wvplocation = gl.GetUniformLocation(program, "uWorldViewProj");
-                gl.UniformMatrix4fv<float>(wvplocation, wvparray);
+                using (WebGLUniformLocation wvplocation = gl.GetUniformLocation(program, "uWorldViewProj"))
+                {
+                    gl.UniformMatrix4fv<float>(wvplocation, wvparray);
+                }
 
                 gl.DrawArrays(WebGLPrimitiveType.TRIANGLES, 0, 3);
             }
