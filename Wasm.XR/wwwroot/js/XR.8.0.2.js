@@ -200,10 +200,6 @@ window.nkXRWebGLLayer =
     {
         var xl = nkJSObject.GetObject(uid);
         var fb = xl.framebuffer;
-        
-        var fbuid = nkJSObject.GetUid(fb);
-        if (fbuid !== -1)
-            return fbuid;
 
         return nkJSObject.RegisterObject(fb);
     },

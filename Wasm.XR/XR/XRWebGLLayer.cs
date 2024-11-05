@@ -13,6 +13,8 @@ namespace nkast.Wasm.XR
         private XRSession _xrSession;
         private IWebGLRenderingContext _glContext;
 
+        private WebGLFramebuffer _framebuffer;
+
         public int FramebufferWidth
         {
             get { return InvokeRet<int>("nkXRWebGLLayer.GetFramebufferWidth"); }
@@ -37,15 +39,18 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRWebGLLayer.GetFramebuffer");
-                WebGLFramebuffer framebuffer = WebGLFramebuffer.FromUid(uid);
-                if (framebuffer != null)
-                    return framebuffer;
+                if (_framebuffer != null)
+                    return _framebuffer;
 
+                int uid = InvokeRet<int>("nkXRWebGLLayer.GetFramebuffer");
                 if (uid == -1)
                     return null;
 
-                return new XRWebGLFramebuffer(uid, _glContext);
+                WebGLFramebuffer framebuffer = null;
+                framebuffer = new XRWebGLFramebuffer(uid, _glContext);
+
+                _framebuffer = framebuffer;
+                return framebuffer;
             }
         }
 
