@@ -41,8 +41,11 @@
     },
     GetUid: function(obj)
     {
-        if ('nkUid' in obj)
-            return obj.nkUid;
+        if (obj !== null)
+        {
+            if ('nkUid' in obj)
+                return obj.nkUid;
+        }
 
         return -1;
     },
