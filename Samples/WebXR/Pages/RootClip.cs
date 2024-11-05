@@ -249,13 +249,13 @@ namespace WebXR.Pages
 
                                 if (buttons[0].Pressed) // 0 = trigger
                                 {
-                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
+                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.1f + (0.4f * buttons[0].Value));
                                     if (gamepad.VibrationActuator != null)
-                                        gamepad.VibrationActuator.Pulse(1.0f, 100);
+                                        gamepad.VibrationActuator.Pulse( (0.1f + 0.9f * buttons[0].Value) , 100);
                                 }
                                 else if (buttons[0].Touched) // 0 = trigger
                                 {
-                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.5f);
+                                    pointerMtx *= Matrix4x4.CreateScale(1.0f, 1.0f, 1.1f);
                                 }
                             }
 
