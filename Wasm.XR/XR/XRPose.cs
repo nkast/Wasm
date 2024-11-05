@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
@@ -8,6 +9,34 @@ namespace nkast.Wasm.XR
         public bool EmulatedPosition
         {
             get { return InvokeRet<bool>("nkXRPose.GetEmulatedPosition"); }
+        }
+
+        public unsafe Vector4? AngularVelocity
+        {
+            get
+            {
+                Vector4 result = default;
+                bool valid = InvokeRet<IntPtr, bool>("nkXRPose.GetAngularVelocity", new IntPtr(&result));
+
+                if (valid)
+                    return result;
+                else
+                    return null;
+            }
+        }
+
+        public unsafe Vector4? LinearVelocity
+        {
+            get
+            {
+                Vector4 result = default;
+                bool valid = InvokeRet<IntPtr, bool>("nkXRPose.GetLinearVelocity", new IntPtr(&result));
+
+                if (valid)
+                    return result;
+                else
+                    return null;
+            }
         }
 
         public XRRigidTransform Transform

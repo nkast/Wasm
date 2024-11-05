@@ -275,6 +275,42 @@ window.nkXRPose =
 
         return ep;
     },
+    GetAngularVelocity: function(uid, d)
+    {
+        var ps = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+
+        var av = ps.angularVelocity;
+                
+        if (av !== null)
+        {
+            Module.HEAPF32[(pt+ 0)>>2] = av.x;
+            Module.HEAPF32[(pt+ 4)>>2] = av.y;
+            Module.HEAPF32[(pt+ 8)>>2] = av.z;
+            Module.HEAPF32[(pt+12)>>2] = av.w;
+            return true;
+        }
+        else
+            return false;
+    },
+    GetLinearVelocity: function(uid, d)
+    {
+        var ps = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+
+        var lv = ps.linearVelocity;
+
+        if (lv !== null)
+        {
+            Module.HEAPF32[(pt+ 0)>>2] = lv.x;
+            Module.HEAPF32[(pt+ 4)>>2] = lv.y;
+            Module.HEAPF32[(pt+ 8)>>2] = lv.z;
+            Module.HEAPF32[(pt+12)>>2] = lv.w;
+            return true;
+        }
+        else
+            return false;
+    },
     GetTransform: function(uid, d)
     {
         var ps = nkJSObject.GetObject(uid);

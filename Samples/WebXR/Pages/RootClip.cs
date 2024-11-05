@@ -78,6 +78,8 @@ namespace WebXR.Pages
                     {
                         bool emulatedPosition = viewerPose.EmulatedPosition;
                         XRRigidTransform transform = viewerPose.Transform;
+                        Vector4? angularVelocity = viewerPose.AngularVelocity;
+                        Vector4? linearVelocity = viewerPose.LinearVelocity;
 
                         XRWebGLLayer glLayer = renderState.BaseLayer;
                         int w = glLayer.FramebufferWidth;
@@ -204,6 +206,9 @@ namespace WebXR.Pages
                         {
                             XRRigidTransform gripTransform = grip.Transform;
                             Matrix4x4 gripTranformMtx = gripTransform.Matrix;
+                            Vector4? gripAngularVelocity = grip.AngularVelocity;
+                            Vector4? gripLinearVelocity = grip.LinearVelocity;
+
                         }
                     }
                 }
@@ -217,6 +222,8 @@ namespace WebXR.Pages
                         {
                             XRRigidTransform pointerTransform = pointer.Transform;
                             Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
+                            Vector4? pointerAngularVelocity = pointer.AngularVelocity;
+                            Vector4? pointerLinearVelocity = pointer.LinearVelocity;
 
                             // draw pointer
                             Matrix4x4 pointerMtx = Matrix4x4.Identity;
