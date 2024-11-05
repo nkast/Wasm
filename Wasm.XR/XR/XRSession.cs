@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using Microsoft.JSInterop.WebAssembly;
+using nkast.Wasm.Canvas.WebGL;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
@@ -162,6 +163,14 @@ namespace nkast.Wasm.XR
 
             return;
         }
+
+        internal int CreateWebGLLayer(IWebGLRenderingContext glContext)
+        {
+            int uid = InvokeRet<int, int>("nkXRSession.CreateWebGLLayer", ((JSObject)glContext).Uid);
+
+            return uid;
+        }
+
 
         protected override void Dispose(bool disposing)
         {

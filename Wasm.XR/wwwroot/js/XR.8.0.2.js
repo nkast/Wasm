@@ -44,6 +44,16 @@ window.nkXRSystem =
 
 window.nkXRSession =
 {
+    CreateWebGLLayer: function(uid, d)
+    {
+        var ss = nkJSObject.GetObject(uid);
+        var gcuid = Module.HEAP32[(d+ 0)>>2];
+
+        var gc = nkJSObject.GetObject(gcuid);
+
+        var xl = new XRWebGLLayer(ss, gc);
+        return nkJSObject.RegisterObject(xl);
+    },
     GetRenderState: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
@@ -164,18 +174,6 @@ window.nkXRRenderState =
 
 window.nkXRWebGLLayer =
 {
-    Create: function(d)
-    {
-        var ss = Module.HEAP32[(d+ 0)>>2];
-        var gc = Module.HEAP32[(d+ 4)>>2];
-
-        var sso = nkJSObject.GetObject(ss);
-        var gco = nkJSObject.GetObject(gc);
-
-        var xl = new XRWebGLLayer(sso, gco);
-        return nkJSObject.RegisterObject(xl);
-    },
-
     GetFramebufferWidth: function(uid, d)
     {
         var xl = nkJSObject.GetObject(uid);

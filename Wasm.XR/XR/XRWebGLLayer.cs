@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Canvas.WebGL;
 using nkast.Wasm.Dom;
 
@@ -60,9 +59,7 @@ namespace nkast.Wasm.XR
 
         private static int Register(XRSession xrSession, IWebGLRenderingContext glContext)
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<ValueTuple<int, int>, int>("nkXRWebGLLayer.Create",
-                ValueTuple.Create<int, int>(xrSession.Uid, ((JSObject)glContext).Uid));
+            int uid = xrSession.CreateWebGLLayer(glContext);
             return uid;
         }
 
@@ -92,10 +89,6 @@ namespace nkast.Wasm.XR
             _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
-        }
-
-        internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
     }
 }
