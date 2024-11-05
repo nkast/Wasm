@@ -132,9 +132,6 @@ namespace nkast.Wasm.XR
 
         public void UpdateRenderState(RenderStateAttributes attributes)
         {
-            if (attributes == null)
-                throw new ArgumentNullException(nameof(attributes));
-
             Invoke("nkXRSession.UpdateRenderState", attributes.BaseLayer.Uid);
         }
 

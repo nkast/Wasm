@@ -1,6 +1,6 @@
 ﻿namespace nkast.Wasm.XR
 {
-    public class RenderStateAttributes
+    public struct RenderStateAttributes
     {
 
         public XRLayer BaseLayer { get; set; }
