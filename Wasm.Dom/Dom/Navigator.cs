@@ -31,38 +31,42 @@ namespace nkast.Wasm.Dom
 
         public Gamepad[] GetGamepads()
         {
-            string str = InvokeRet<string>("nkNavigator.GetGamepads");
-
-            if (str == String.Empty)
-                return _emptyGamepadArray;
-
-            string[] strs = str.Split(',');
-            Gamepad[] gamepads = new Gamepad[strs.Length];
-
-            for (int index = 0; index < strs.Length; index++)
+            using(GamepadArray gamepadsArray = GetGamepadArray())
             {
-                int uid = int.Parse(strs[index]);
-                Gamepad gamepad = Gamepad.FromUid(uid);
-                if (gamepad != null)
+                Gamepad[] gamepads = new Gamepad[gamepadsArray.Count];
+                for (int index = 0; index < gamepadsArray.Count; index++)
                 {
-                    gamepads[index] = gamepad;
-                    continue;
+                    Gamepad gamepad = gamepadsArray[index];
+                    if (gamepad != null)
+                    {
+                        gamepads[index] = gamepad;
+                        continue;
+                    }
                 }
 
-                if (uid != 0)
-                    gamepads[index] = new Gamepad(uid);
-            }
+                foreach (int key in _prevGamepads.Keys)
+                {
+                    if (!gamepads.Contains(_prevGamepads[key]))
+                        _prevGamepads[key].Dispose();
+                }
 
-            foreach(int key in _prevGamepads.Keys)
-            {
-                if (!gamepads.Contains(_prevGamepads[key]))
-                    _prevGamepads[key].Dispose();
-            }
-            _prevGamepads.Clear();
-            for (int index = 0; index < gamepads.Length; index++)
-                _prevGamepads.Add(index, gamepads[index]);
+                _prevGamepads.Clear();
+                for (int index = 0; index < gamepads.Length; index++)
+                    _prevGamepads.Add(index, gamepads[index]);
 
-            return gamepads;
+                return gamepads;
+            }
+        }
+
+        private GamepadArray GetGamepadArray()
+        {
+            int uid = InvokeRet<int>("nkNavigator.GetGamepads");
+
+            GamepadArray gamepadArray = GamepadArray.FromUid(uid);
+            if (gamepadArray != null)
+                return gamepadArray;
+
+            return new GamepadArray(uid);
         }
 
         public void Vibrate(int duration)
