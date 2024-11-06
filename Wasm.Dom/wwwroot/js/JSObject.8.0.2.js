@@ -17,7 +17,6 @@
         {
             nkJSObject.objectMap.push(obj);
             var uid = nkJSObject.objectMap.lastIndexOf(obj);
-            uid++;
             obj.nkUid = uid;
             return uid;
         }
@@ -29,14 +28,12 @@
                 throw "slot allready used";
 
             nkJSObject.objectMap[uid] = obj;
-            uid++;
             obj.nkUid = uid;
             return uid;
         }
     },
     GetObject: function(uid)
     {
-        uid--;
         return nkJSObject.objectMap[uid];
     },
     GetUid: function(obj)
@@ -51,13 +48,11 @@
     },
     DisposeObject: function(uid)
     {
-        uid--;
-
         var obj = nkJSObject.objectMap[uid];   
                 
         if (obj === undefined)
             throw "obj is undefined";
-        if (obj.nkUid !== (uid+1))
+        if (obj.nkUid !== uid)
             throw "invalid nkUid";
 
         delete obj.nkUid;
