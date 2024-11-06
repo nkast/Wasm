@@ -8,7 +8,7 @@ using nkast.Wasm.Input;
 
 namespace nkast.Wasm.Dom
 {
-    public class Navigator : JSObject
+    public class Navigator : CachedJSObject<Navigator>
     {
         private readonly Window _window;
         static Gamepad[] _emptyGamepadArray = new Gamepad[0];

@@ -6,23 +6,12 @@ using Microsoft.JSInterop.WebAssembly;
 
 namespace nkast.Wasm.Dom
 {
-    public abstract class Promise : JSObject
+    public abstract class Promise : CachedJSObject<Promise>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         internal Promise(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkPromise.RegisterEvents");
-        }
-
-        public static Promise FromUid(int uid)
-        {
-            if (Promise._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (Promise)jsObj;
-
-            return null;
         }
 
         [JSInvokable]
@@ -50,8 +39,6 @@ namespace nkast.Wasm.Dom
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

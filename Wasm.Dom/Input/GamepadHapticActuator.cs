@@ -4,22 +4,11 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Input
 {
-    public class GamepadHapticActuator : JSObject
+    public class GamepadHapticActuator : CachedJSObject<GamepadHapticActuator>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public GamepadHapticActuator(Gamepad gamepad, int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        public static GamepadHapticActuator FromUid(int uid)
-        {
-            if (GamepadHapticActuator._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (GamepadHapticActuator)jsObj;
-
-            return null;
         }
 
         public bool PlayEffect(string type, GamepadHapticActuatorParams actuatorParams)
@@ -44,8 +33,6 @@ namespace nkast.Wasm.Input
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

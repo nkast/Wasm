@@ -3,7 +3,7 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Audio
 {
-    public class AudioNode : JSObject
+    public class AudioNode : CachedJSObject<AudioNode>
     {
         BaseAudioContext _context;
 

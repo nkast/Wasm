@@ -5,9 +5,8 @@ using nkast.Wasm.Input;
 
 namespace nkast.Wasm.XR
 {
-    public class XRInputSource : JSObject
+    public class XRInputSource : CachedJSObject<XRInputSource>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public XRSpace GripSpace
         {
@@ -68,17 +67,8 @@ namespace nkast.Wasm.XR
 
         internal XRInputSource(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
         }
 
-        internal static XRInputSource FromUid(int uid)
-        {
-            if (XRInputSource._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XRInputSource)jsObj;
-
-            return null;
-        }
 
 
         protected override void Dispose(bool disposing)
@@ -87,8 +77,6 @@ namespace nkast.Wasm.XR
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

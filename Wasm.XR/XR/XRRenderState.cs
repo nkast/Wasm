@@ -5,22 +5,10 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
 {
-    public class XRRenderState : JSObject
+    public class XRRenderState : CachedJSObject<XRRenderState>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
-
         internal XRRenderState(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        internal static XRRenderState FromUid(int uid)
-        {
-            if (XRRenderState._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XRRenderState)jsObj;
-
-            return null;
         }
 
         public unsafe float? DepthNear
@@ -66,7 +54,7 @@ namespace nkast.Wasm.XR
             get
             {
                 int uid = InvokeRet<int>("nkXRRenderState.GetBaseLayer");
-                XRWebGLLayer glLayer = XRWebGLLayer.FromUid(uid);
+                XRWebGLLayer glLayer = XRWebGLLayer.FromUid<XRWebGLLayer>(uid);
                 if (glLayer != null)
                     return glLayer;
 
@@ -81,8 +69,6 @@ namespace nkast.Wasm.XR
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

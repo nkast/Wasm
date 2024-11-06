@@ -4,9 +4,8 @@ using Microsoft.JSInterop;
 
 namespace nkast.Wasm.Dom
 {
-    public abstract class HTMLMediaElement : JSObject, IHTMLMediaElement
+    public abstract class HTMLMediaElement : CachedJSObject<HTMLMediaElement>, IHTMLMediaElement
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public event EventHandler OnEnded;
         public event EventHandler OnPlaying;
@@ -53,17 +52,7 @@ namespace nkast.Wasm.Dom
 
         internal HTMLMediaElement(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkMedia.RegisterEvents");
-        }
-
-        public static HTMLMediaElement FromUid(int uid)
-        {
-            if (HTMLMediaElement._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (HTMLMediaElement)jsObj;
-
-            return null;
         }
 
 
@@ -134,7 +123,6 @@ namespace nkast.Wasm.Dom
 
             Pause();
             Invoke("nkMedia.UnregisterEvents");
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

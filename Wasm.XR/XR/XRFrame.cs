@@ -7,9 +7,8 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
 {
-    public class XRFrame : JSObject
+    public class XRFrame : CachedJSObject<XRFrame>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public XRSession Session
         {
@@ -29,16 +28,6 @@ namespace nkast.Wasm.XR
 
         internal XRFrame(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        internal static XRFrame FromUid(int uid)
-        {
-            if (XRFrame._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XRFrame)jsObj;
-
-            return null;
         }
 
         public XRViewerPose GetViewerPose(XRReferenceSpace referenceSpace)
@@ -65,8 +54,6 @@ namespace nkast.Wasm.XR
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

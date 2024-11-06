@@ -8,20 +8,9 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     internal class WebGLRenderingContext : RenderingContext, IWebGLRenderingContext, IDisposable
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         internal WebGLRenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        public static WebGLRenderingContext FromUid(int uid)
-        {
-            if (WebGLRenderingContext._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (WebGLRenderingContext)jsObj;
-
-            return null;
         }
 
         public void Enable(WebGLCapability cap)
@@ -576,8 +565,6 @@ namespace nkast.Wasm.Canvas.WebGL
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             //Invoke("nkCanvasGLContext.DisposeObject"); // DisposeWebGLContext
             base.Dispose(disposing);

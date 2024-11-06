@@ -22,7 +22,6 @@ namespace nkast.Wasm.Dom
             }
         }
 
-
         #region implement IDisposable
 
         private bool _isDisposed;

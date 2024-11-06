@@ -7,9 +7,8 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
 {
-    public class XRSystem : JSObject
+    public class XRSystem : CachedJSObject<XRSystem>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public static XRSystem FromNavigator(Navigator navigator)
         {
@@ -29,19 +28,6 @@ namespace nkast.Wasm.XR
         internal XRSystem(Navigator navigator, int uid) : base(uid)
         {
             //_navigator = navigator;
-        }
-
-        internal static XRSystem FromUid(int uid)
-        {
-            if (XRSystem._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-            {
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XRSystem)jsObj;
-                else
-                    XRSystem._uidMap.Remove(uid);
-            }
-
-            return null;
         }
 
         public Task<bool> IsSessionSupportedAsync(string mode)
@@ -65,8 +51,6 @@ namespace nkast.Wasm.XR
             if (disposing)
             {
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

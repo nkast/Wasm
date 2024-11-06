@@ -8,9 +8,8 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Input
 {
-    public class Gamepad : JSObject
+    public class Gamepad : CachedJSObject<Gamepad>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public bool Connected
         {
@@ -87,16 +86,6 @@ namespace nkast.Wasm.Input
 
         public Gamepad(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        public static Gamepad FromUid(int uid)
-        {
-            if (Gamepad._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (Gamepad)jsObj;
-
-            return null;
         }
 
         protected override void Dispose(bool disposing)
@@ -105,8 +94,6 @@ namespace nkast.Wasm.Input
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

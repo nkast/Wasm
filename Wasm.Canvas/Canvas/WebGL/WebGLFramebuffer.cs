@@ -3,7 +3,7 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas.WebGL
 {
-    public class WebGLFramebuffer : JSObject
+    public class WebGLFramebuffer : CachedJSObject<WebGLFramebuffer>
     {
         private IWebGLRenderingContext _glContext;
 

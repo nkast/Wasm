@@ -6,16 +6,14 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XHR
 {
-    public class XMLHttpRequest : JSObject
+    public class XMLHttpRequest : CachedJSObject<XMLHttpRequest>
     { 
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         public event EventHandler Load;
         public event EventHandler Error;
 
         public XMLHttpRequest() : base(Register())
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
             Invoke("nkXHR.RegisterEvents");
         }
 
@@ -24,15 +22,6 @@ namespace nkast.Wasm.XHR
             WebAssemblyJSRuntime runtime = new WasmJSRuntime();
             int uid = runtime.InvokeUnmarshalled<int>("nkXHR.Create");
             return uid;
-        }
-
-        public static XMLHttpRequest FromUid(int uid)
-        {
-            if (XMLHttpRequest._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XMLHttpRequest)jsObj;
-
-            return null;
         }
 
         [JSInvokable]
@@ -114,7 +103,6 @@ namespace nkast.Wasm.XHR
             }
 
             Invoke("nkXHR.UnregisterEvents");
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

@@ -5,24 +5,13 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
 {
-    public class XRInputSourceArray : JSObject
+    public class XRInputSourceArray : CachedJSObject<XRInputSourceArray>
         , IReadOnlyCollection<XRInputSource>
         , IReadOnlyList<XRInputSource>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
 
         internal XRInputSourceArray(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-        }
-
-        internal static XRInputSourceArray FromUid(int uid)
-        {
-            if (XRInputSourceArray._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (XRInputSourceArray)jsObj;
-
-            return null;
         }
 
         #region IReadOnlyList
@@ -76,8 +65,6 @@ namespace nkast.Wasm.XR
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }

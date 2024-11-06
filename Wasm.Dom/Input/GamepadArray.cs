@@ -5,25 +5,12 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Input
 {
-    public class GamepadArray : JSObject
+    public class GamepadArray : CachedJSObject<GamepadArray>
         , IReadOnlyCollection<Gamepad>
         , IReadOnlyList<Gamepad>
     {
-        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
-
         internal GamepadArray(int uid) : base(uid)
         {
-            _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-
-        }
-
-        internal static GamepadArray FromUid(int uid)
-        {
-            if (GamepadArray._uidMap.TryGetValue(uid, out WeakReference<JSObject> jsObjRef))
-                if (jsObjRef.TryGetTarget(out JSObject jsObj))
-                    return (GamepadArray)jsObj;
-
-            return null;
         }
 
         #region IReadOnlyList
@@ -81,8 +68,6 @@ namespace nkast.Wasm.Input
             {
 
             }
-
-            _uidMap.Remove(Uid);
 
             base.Dispose(disposing);
         }
