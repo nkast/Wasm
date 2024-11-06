@@ -198,11 +198,8 @@ namespace WebXR.Pages
 
         internal void DrawPointers(DrawContext dc)
         {
-            XRInputSourceArray inputSources = _xrsession.InputSources;
-            for (int i = 0; i < inputSources.Count; i++)
+            foreach(XRInputSource inputSource in _xrsession.InputSources)
             {
-                XRInputSource inputSource = inputSources[i];
-
                 XRHandedness hand = inputSource.Handedness;
 
                 Gamepad gamepad = inputSource.Gamepad;

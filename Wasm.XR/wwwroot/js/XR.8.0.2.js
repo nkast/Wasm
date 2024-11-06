@@ -509,30 +509,6 @@ window.nkXRRigidTransform =
     },
 };
 
-window.nkXRInputSourceArray =
-{
-    GetLength: function (uid, d)
-    {
-        var sa = nkJSObject.GetObject(uid);
-
-        var le = sa.length;
-
-        return le;
-    },
-    GetXRInputSource: function (uid, d)
-    {
-        var sa = nkJSObject.GetObject(uid);
-        var dx = Module.HEAP32[(d + 0 >> 2)];
-
-        var is = sa[dx];
-        var uid = nkJSObject.GetUid(is);
-        if (uid !== -1)
-            return uid;
-
-        return nkJSObject.RegisterObject(is);
-    },
-};
-
 window.nkXRInputSource =
 {
     GetGripSpace: function (uid, d)

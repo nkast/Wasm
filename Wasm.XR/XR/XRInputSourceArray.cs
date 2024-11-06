@@ -14,7 +14,6 @@ namespace nkast.Wasm.XR
         internal XRInputSourceArray(int uid) : base(uid)
         {
             _uidMap.Add(Uid, new WeakReference<JSObject>(this, true));
-
         }
 
         internal static XRInputSourceArray FromUid(int uid)
@@ -32,10 +31,13 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int, int>("nkXRInputSourceArray.GetXRInputSource", index);
+                int uid = InvokeRet<int, int>("nkJSArray.GetItem", index);
                 XRInputSource inputSource = XRInputSource.FromUid(uid);
                 if (inputSource != null)
                     return inputSource;
+
+                if (uid == -1)
+                    return null;
 
                 return new XRInputSource(uid);
             }
@@ -47,11 +49,7 @@ namespace nkast.Wasm.XR
 
         public int Count
         {
-            get
-            {
-                int count = InvokeRet<int>("nkXRInputSourceArray.GetLength");
-                return count;
-            }
+            get { return InvokeRet<int>("nkJSArray.GetLength"); }
         }
 
         #endregion ICollection
@@ -61,12 +59,12 @@ namespace nkast.Wasm.XR
 
         IEnumerator<XRInputSource> IEnumerable<XRInputSource>.GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return new JSArrayEnumerator<XRInputSource>(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new System.NotImplementedException();
+            return ((IEnumerable<XRInputSource>)this).GetEnumerator();
         }
 
         #endregion IEnumerable

@@ -77,6 +77,27 @@
     },
 }
 
+window.nkJSArray =
+{
+    GetLength: function (uid, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        return ar.length;
+    },
+    GetItem: function (uid, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = Module.HEAP32[(d + 0 >> 2)];
+
+        var it = ar[id];
+        var uid = nkJSObject.GetUid(it);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(it);
+    },
+};
+
 window.nkPromise =
 {
     GetValueBoolean: function (uid)
