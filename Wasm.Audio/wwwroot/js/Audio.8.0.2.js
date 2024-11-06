@@ -39,11 +39,6 @@ window.nkAudioBaseContext =
         var ac = nkJSObject.GetObject(uid);
         return BINDING.js_to_mono_obj(ac.state);
     },
-    SetState: function (uid, d)
-    {
-        var ac = nkJSObject.GetObject(uid);
-        ac.state = nkJSObject.ReadString(d+ 0);
-    },
 
     CreateBuffer: function (uid, d)
     {
