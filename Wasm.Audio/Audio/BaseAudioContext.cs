@@ -56,7 +56,6 @@ namespace nkast.Wasm.Audio
                 string str = InvokeRet<string>("nkAudioBaseContext.GetState");
                 return Enum.Parse<ContextState>(str, true);
             }
-            set { Invoke("nkAudioBaseContext.SetState", value.ToString().ToLower()); }
         }
 
         public AudioBuffer CreateBuffer(int numOfChannels, int  length, int sampleRate)
