@@ -11,6 +11,8 @@ namespace nkast.Wasm.Dom
         static Window _current;
         private Document _document;
         private Navigator _navigator;
+        private Storage _sessionStorage;
+        private Storage _localStorage;
 
         public delegate void AnimationFrameCallback(TimeSpan time);
         public delegate void TimeoutCallback();
@@ -62,7 +64,6 @@ namespace nkast.Wasm.Dom
 
         public OnGamepadConnectedDelegate OnGamepadConnected;
         public OnGamepadDisconnectedDelegate OnGamepadDisconnected;
-
 
         public static Window Current
         { 
@@ -120,6 +121,38 @@ namespace nkast.Wasm.Dom
         public bool IsSecureContext
         {
             get { return InvokeRet<bool>("nkWindow.GetIsSecureContext"); }
+        }
+
+        public Storage SessionStorage
+        {
+            get
+            {
+                if (_sessionStorage == null)
+                {
+                    int uid = InvokeRet<int>("nkWindow.GetSessionStorage");
+                    if (uid == -1)
+                        return null;
+                    _sessionStorage = new Storage(uid);
+                }
+
+                return _sessionStorage;
+            }
+        }
+        public Storage LocalStorage
+        {
+            get
+            {
+
+                if (_localStorage == null)
+                {
+                    int uid = InvokeRet<int>("nkWindow.GetLocalStorage");
+                    if (uid == -1)
+                        return null;
+                    _localStorage = new Storage(uid);
+                }
+
+                return _localStorage;
+            }
         }
 
         private Window(int uid) : base(uid)
