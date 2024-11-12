@@ -12,6 +12,47 @@
         var n = w.navigator;
         return nkJSObject.RegisterObject(n);
     },
+    GetSessionStorage: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        
+        try 
+        {
+            var ss = w.sessionStorage;
+            const x = "__storage_test__";
+            ss.setItem(x, x);
+            ss.removeItem(x);
+
+            var ssuid = nkJSObject.RegisterObject(ss);            
+            delete ss.nkUid;
+            return ssuid;
+        }
+        catch (e)
+        {
+             return -1;
+        }
+
+    },
+    GetLocalStorage: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+
+        try 
+        {
+            var ls = w.localStorage;
+            const x = "__storage_test__";
+            ls.setItem(x, x);
+            ls.removeItem(x);
+
+            var lsuid = nkJSObject.RegisterObject(ls);
+            delete ls.nkUid;
+            return lsuid;
+        }
+        catch (e)
+        {
+             return -1;
+        }
+    },
     GetInnerWidth: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
@@ -203,3 +244,56 @@
         
     }
 };
+
+window.nkStorage =
+{
+    GetLength: function (uid)
+    {
+        var st = nkJSObject.GetObject(uid);
+        return st.length;
+    },
+    Clear: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        st.clear();
+    },
+    
+    SetItem: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        var ke = nkJSObject.ReadString(d+ 0);
+        var va = nkJSObject.ReadString(d+ 4);
+        st.setItem(ke, va);
+    },    
+    GetItem: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        var ke = nkJSObject.ReadString(d+ 0);
+        var va = st.getItem(ke);
+        return BINDING.js_to_mono_obj(va);
+    },    
+    RemoveItem: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        var ke = nkJSObject.ReadString(d+ 0);
+        st.removeItem(ke);
+    },
+
+    GetUserAgent: function (uid)
+    {
+        var nv = nkJSObject.GetObject(uid);
+        return BINDING.js_to_mono_obj(nv.userAgent);
+    },
+    GetGamepads: function(uid)
+    {
+        var nv = nkJSObject.GetObject(uid);
+        
+        var gps = nv.getGamepads();
+        var uid = nkJSObject.GetUid(gps);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(gps);
+    },
+};
+
