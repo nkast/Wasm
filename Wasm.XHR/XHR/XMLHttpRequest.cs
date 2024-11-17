@@ -107,6 +107,11 @@ namespace nkast.Wasm.XHR
             base.Dispose(disposing);
         }
 
+        public void DecompressBrotliStream(byte[] compressedBuffer, uint compressedDataSize, byte[] decompressedBuffer, uint decompressedDataSize)
+        {
+            Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, compressedBuffer, decompressedBuffer);
+        }
+
         internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
         {
         }

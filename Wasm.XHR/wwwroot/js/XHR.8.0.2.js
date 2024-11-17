@@ -50,6 +50,24 @@
         var readyState = xhr.readyState;
         return readyState;
     },
+
+    DecompressBrotliStream: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var cl = Module.HEAP32[(d+ 0)>>2];
+        var dl = Module.HEAP32[(d+ 4)>>2];
+        var carr = Module.HEAP32[(d+ 8)>>2];
+        var darr = Module.HEAP32[(d+12)>>2];
+
+        var carrPtr = Blazor.platform.getArrayEntryPtr(carr, 0, 4);
+        var darrPtr = Blazor.platform.getArrayEntryPtr(darr, 0, 4);
+        
+        var cdt = new Int8Array(Module.HEAPU8.buffer, carrPtr, cl);
+        var ddt = new Int8Array(Module.HEAPU8.buffer, darrPtr, dl);
+        
+        var decompressedArray = BrotliDecode(cdt);
+        ddt.set(decompressedArray);
+    },
     
     RegisterEvents: function (uid)
     {
