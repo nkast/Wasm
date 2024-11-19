@@ -1018,6 +1018,25 @@ window.nkCanvasGLContext =
 
 window.nkCanvasGL2Context =
 {
+    BlitFramebuffer: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var sX0 = Module.HEAP32[(d+ 0)>>2];
+        var sY0 = Module.HEAP32[(d+ 4)>>2];
+        var sX1 = Module.HEAP32[(d+ 8)>>2];
+        var sY1 = Module.HEAP32[(d+12)>>2];
+        var dX0 = Module.HEAP32[(d+16)>>2];
+        var dY0 = Module.HEAP32[(d+20)>>2];        
+        var dX1 = Module.HEAP32[(d+24)>>2];
+        var dY1 = Module.HEAP32[(d+28)>>2];
+        var mk  = Module.HEAP32[(d+32)>>2];
+        var fr  = Module.HEAP32[(d+36)>>2];
+
+        gc.blitFramebuffer(
+            sX0, sY0, sX1, sY1,
+            dX0, dY0, dX1, dY1,
+            mk, fr);
+    },
     DrawBuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
