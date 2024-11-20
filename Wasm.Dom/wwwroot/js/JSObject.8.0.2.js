@@ -1,6 +1,6 @@
 ﻿window.nkJSObject =
 {
-    objectMap: [],
+    objectMap: [null],
     emptySlots: [],
     RegisterObject: function(obj)
     {
