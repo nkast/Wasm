@@ -19,8 +19,11 @@ namespace nkast.Wasm.Canvas.WebGL
 
             }
 
-            ((WebGLRenderingContext)_glContext).DeleteFramebuffer(this);
-            _glContext = null;
+            if (_glContext != null)
+            {
+                ((WebGLRenderingContext)_glContext).DeleteFramebuffer(this);
+                _glContext = null;
+            }
 
             base.Dispose(disposing);
         }

@@ -7,8 +7,8 @@ namespace nkast.Wasm.XR
 {
     internal class XRWebGLFramebuffer : WebGLFramebuffer
     {
-        internal XRWebGLFramebuffer(int uid, IWebGLRenderingContext glContext)
-            : base(uid, glContext)
+        internal XRWebGLFramebuffer(int uid)
+            : base(uid, null)
         {
 
         }
@@ -20,7 +20,7 @@ namespace nkast.Wasm.XR
 
             }
 
-            //base.Dispose(disposing);
+            base.Dispose(disposing);
         }
     }
 }

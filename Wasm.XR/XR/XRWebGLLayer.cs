@@ -43,7 +43,7 @@ namespace nkast.Wasm.XR
                 if (uid == -1)
                     return null;
 
-                return new XRWebGLFramebuffer(uid, _glContext);
+                return new XRWebGLFramebuffer(uid);
             }
         }
 
