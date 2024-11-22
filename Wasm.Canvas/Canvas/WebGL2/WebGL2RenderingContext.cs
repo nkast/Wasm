@@ -11,6 +11,11 @@ namespace nkast.Wasm.Canvas.WebGL
         {
         }
 
+        public int GetParameter(WebGL2PNameInteger pname)
+        {
+            return base.GetParameter((WebGLPNameInteger)pname);
+        }
+
         public void BindFramebuffer(WebGL2FramebufferType target, WebGLFramebuffer framebuffer)
         {
             base.BindFramebuffer((WebGLFramebufferType)target, framebuffer);

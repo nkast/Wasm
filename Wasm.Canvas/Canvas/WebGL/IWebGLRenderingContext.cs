@@ -30,6 +30,8 @@ namespace nkast.Wasm.Canvas.WebGL
         void ClearDepth(float depth);
         void ClearStencil(int stencil);
         void Clear(WebGLBufferBits bufferBits);
+        int GetParameter(WebGLPNameInteger pname);
+        string GetParameter(WebGLPNameString pname);
         void ActiveTexture(WebGLTextureUnit textureUnit);
         void DepthFunc(WebGLDepthComparisonFunc func);
         WebGLTexture CreateTexture();

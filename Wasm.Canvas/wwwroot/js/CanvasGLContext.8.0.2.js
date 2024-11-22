@@ -170,6 +170,20 @@ window.nkCanvasGLContext =
         var bb = Module.HEAP32[(d+ 0)>>2];
         gc.clear(bb);
     },
+    
+    GetParameterInt: function(uid,d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var pn = Module.HEAP32[(d+ 0)>>2];
+        return gc.getParameter(pn);
+    },
+    GetParameterString: function(uid,d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var pn = Module.HEAP32[(d+ 0)>>2];
+        var str = gc.getParameter(pn);
+        return BINDING.js_to_mono_obj(str);
+    },
 
     CreateTexture: function (uid, d)
     {

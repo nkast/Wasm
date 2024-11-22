@@ -119,6 +119,16 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.Clear", (int)bufferBits);
         }
 
+        public int GetParameter(WebGLPNameInteger pname)
+        {
+            return InvokeRet<int, int>("nkCanvasGLContext.GetParameterInt", (int)pname);
+        }
+
+        public string GetParameter(WebGLPNameString pname)
+        {
+            return InvokeRet<int, string>("nkCanvasGLContext.GetParameterString", (int)pname);
+        }
+
         public WebGLTexture CreateTexture()
         {
             int uid = InvokeRet<int>("nkCanvasGLContext.CreateTexture");
