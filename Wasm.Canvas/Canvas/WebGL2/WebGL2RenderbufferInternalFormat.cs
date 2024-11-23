@@ -21,6 +21,9 @@ namespace nkast.Wasm.Canvas.WebGL
         DEPTH_COMPONENT32F = 0x8CAC,
         DEPTH32F_STENCIL8 = 0x8CAD,
 
+        R8 = 0x8229,
+        RG8 = 0x822B,
+        RGB8 = 0x8051,
         RGBA8 = 0x8058,
         SRGB8_ALPHA8 = 0x8C43,
 
