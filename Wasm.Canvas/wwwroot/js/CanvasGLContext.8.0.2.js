@@ -1141,6 +1141,16 @@ window.nkCanvasGL2Context =
 
         gc.getBufferSubData(bt, of, dt, si*st, ln*st);
     },
+    RenderbufferStorageMultisample: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var bt = Module.HEAP32[(d+ 0)>>2];
+        var sm = Module.HEAP32[(d+ 4)>>2];
+        var fm = Module.HEAP32[(d+ 8)>>2];
+        var w  = Module.HEAP32[(d+12)>>2];
+        var h  = Module.HEAP32[(d+16)>>2];
+        gc.renderbufferStorageMultisample(bt, sm, fm, w, h);
+    },
 };
 
 window.nkCanvasLoseContextExtension =

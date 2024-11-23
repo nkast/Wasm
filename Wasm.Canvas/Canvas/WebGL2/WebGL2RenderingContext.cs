@@ -87,6 +87,11 @@ namespace nkast.Wasm.Canvas.WebGL
             base.RenderbufferStorage(target, (WebGLRenderbufferInternalFormat)internalFormat, width, height);
         }
 
+        public void RenderbufferStorageMultisample(WebGLRenderbufferType target, int samples, WebGL2RenderbufferInternalFormat internalFormat, int width, int height)
+        {
+            Invoke("nkCanvasGL2Context.RenderbufferStorageMultisample", (int)target, samples, (int)internalFormat, width, height);
+        }
+
         public WebGL2FramebufferStatus CheckFramebufferStatus(WebGL2FramebufferType target)
         {
             return (WebGL2FramebufferStatus)base.CheckFramebufferStatus((WebGLFramebufferType)target);

@@ -20,6 +20,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex) where TData : struct;
         void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex, int length) where TData : struct;
         void RenderbufferStorage(WebGLRenderbufferType target, WebGL2RenderbufferInternalFormat internalFormat, int width, int height);
+        void RenderbufferStorageMultisample(WebGLRenderbufferType target, int samples, WebGL2RenderbufferInternalFormat internalFormat, int width, int height);
         WebGL2FramebufferStatus CheckFramebufferStatus(WebGL2FramebufferType target);
     }
 }
