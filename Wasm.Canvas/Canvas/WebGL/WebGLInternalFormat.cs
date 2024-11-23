@@ -24,6 +24,14 @@ namespace nkast.Wasm.Canvas.WebGL
 
 
         // WebGL2
+        R8      = 0x8229,
+        RG8     = 0x822B,
+        RGB8    = 0x8051,
+        RGBA8   = 0x8058,
+        RGBA4   = 0x8056,
+        RGB5_A1 = 0x8057,
+        RGB565  = 0x8D62,
+
         R32F    = 0x822E,
         RG32F   = 0x8230,
         RGBA32F = 0x8814,
