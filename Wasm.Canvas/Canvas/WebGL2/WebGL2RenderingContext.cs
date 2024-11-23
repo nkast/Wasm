@@ -72,6 +72,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.GetBufferSubData2", (int)target, offset, startIndex, length, stride, dstData);
         }
 
+        public WebGL2FramebufferStatus CheckFramebufferStatus(WebGL2FramebufferType target)
+        {
+            return (WebGL2FramebufferStatus)base.CheckFramebufferStatus((WebGLFramebufferType)target);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
