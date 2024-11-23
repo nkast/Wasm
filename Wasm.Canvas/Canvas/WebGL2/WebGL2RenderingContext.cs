@@ -38,6 +38,11 @@ namespace nkast.Wasm.Canvas.WebGL
                                                          (int)mask, (int)filter);
         }
 
+        public void ReadBuffer(WebGL2DrawBufferAttachmentPoint buffer)
+        {
+            Invoke("nkCanvasGL2Context.ReadBuffer", (int) buffer);
+        }
+
         public void DrawBuffer(WebGL2DrawBufferAttachmentPoint buffer)
         {
             Invoke("nkCanvasGL2Context.DrawBuffer", (int)buffer);

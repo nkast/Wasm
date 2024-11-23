@@ -1050,6 +1050,14 @@ window.nkCanvasGL2Context =
             sX0, sY0, sX1, sY1,
             dX0, dY0, dX1, dY1,
             mk, fr);
+    },    
+    ReadBuffer: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var ap = Module.HEAP32[(d+ 0)>>2];
+
+        gc.readBuffer(ap);
+
     },
     DrawBuffer: function (uid, d)
     {
