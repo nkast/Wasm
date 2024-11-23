@@ -21,6 +21,11 @@ namespace nkast.Wasm.Canvas.WebGL
             base.BindFramebuffer((WebGLFramebufferType)target, framebuffer);
         }
 
+        public void FramebufferRenderbuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLRenderbufferType renderbuffertarget, WebGLRenderbuffer renderbuffer)
+        {
+            base.FramebufferRenderbuffer((WebGLFramebufferType)target, attachment, renderbuffertarget, renderbuffer);
+        }
+
         public void FramebufferTexture2D(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture)
         {
             base.FramebufferTexture2D((WebGLFramebufferType)target, attachment, texturetarget, texture);
