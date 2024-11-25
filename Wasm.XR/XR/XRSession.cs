@@ -77,7 +77,7 @@ namespace nkast.Wasm.XR
         }
 
         [JSInvokable]
-        public static void JsXRSessionOnAnimationFrame(int uid, int callbackId, float time, int xrFrameUid)
+        public static void JsXRSessionOnAnimationFrame(int uid, int callbackId, double time, int xrFrameUid)
         {
             XRSession xrSession = XRSession.FromUid(uid);
             if (xrSession == null)

@@ -168,7 +168,7 @@ namespace nkast.Wasm.Dom
         }
 
         [JSInvokable]
-        public static void JsWindowOnAnimationFrame(int uid, int callbackId, float time)
+        public static void JsWindowOnAnimationFrame(int uid, int callbackId, double time)
         {
             Window wnd = WindowFromUid(uid);
             wnd.OnAnimationFrame(callbackId, TimeSpan.FromMilliseconds(time));
