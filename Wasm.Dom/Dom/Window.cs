@@ -171,16 +171,16 @@ namespace nkast.Wasm.Dom
         public static void JsWindowOnAnimationFrame(int uid, int callbackId, float time)
         {
             Window wnd = WindowFromUid(uid);
-            wnd.OnAnimationFrame(callbackId, time);
+            wnd.OnAnimationFrame(callbackId, TimeSpan.FromMilliseconds(time));
         }
 
-        private void OnAnimationFrame(int callbackId, float time)
+        private void OnAnimationFrame(int callbackId, TimeSpan time)
         {
             AnimationFrameCallback animationFrameCallback = _animationFrameCallbacks[callbackId];
             _animationFrameCallbacks.Remove(callbackId);
             _animationFrameRequestHandles.Remove(callbackId);
 
-            animationFrameCallback(TimeSpan.FromMilliseconds(time));
+            animationFrameCallback(time);
         }
 
         public int RequestAnimationFrame(AnimationFrameCallback animationFrameCallback)

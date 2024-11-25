@@ -83,10 +83,10 @@ namespace nkast.Wasm.XR
             if (xrSession == null)
                 return;
 
-            xrSession.OnAnimationFrame(callbackId, time, xrFrameUid);
+            xrSession.OnAnimationFrame(callbackId, TimeSpan.FromMilliseconds(time), xrFrameUid);
         }
 
-        private void OnAnimationFrame(int callbackId, float time, int xrFrameUid)
+        private void OnAnimationFrame(int callbackId, TimeSpan time, int xrFrameUid)
         {
             XRAnimationFrameCallback animationFrameCallback = _animationFrameCallbacks[callbackId];
             _animationFrameCallbacks.Remove(callbackId);
@@ -96,7 +96,7 @@ namespace nkast.Wasm.XR
             if (xrFrame == null)
                 xrFrame = new XRFrame(xrFrameUid);
 
-            animationFrameCallback(TimeSpan.FromMilliseconds(time), xrFrame);
+            animationFrameCallback(time, xrFrame);
         }
 
         public Task<XRReferenceSpace> RequestReferenceSpace(string referenceSpaceType)
