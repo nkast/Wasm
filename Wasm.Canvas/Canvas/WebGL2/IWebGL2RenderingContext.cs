@@ -10,6 +10,8 @@ namespace nkast.Wasm.Canvas.WebGL
         void BindFramebuffer(WebGL2FramebufferType target, WebGLFramebuffer framebuffer);
         void FramebufferRenderbuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLRenderbufferType renderbuffertarget, WebGLRenderbuffer renderbuffer);
         void FramebufferTexture2D(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture);
+        void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments);
+        void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments, int startIndex, int length);
         void BlitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, WebGLBufferBits mask, WebGLTexParam filter);
         void ReadBuffer(WebGL2DrawBufferAttachmentPoint buffer);
         void DrawBuffer(WebGL2DrawBufferAttachmentPoint buffer);

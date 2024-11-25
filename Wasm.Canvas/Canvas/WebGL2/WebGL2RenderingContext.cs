@@ -31,6 +31,16 @@ namespace nkast.Wasm.Canvas.WebGL
             base.FramebufferTexture2D((WebGLFramebufferType)target, attachment, texturetarget, texture);
         }
 
+        public void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments)
+        {
+            Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, 0, attachments.Length, attachments);
+        }
+
+        public void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments, int startIndex, int length)
+        {
+            Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, startIndex, length, attachments);
+        }
+
         public void BlitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, WebGLBufferBits mask, WebGLTexParam filter)
         {
             Invoke("nkCanvasGL2Context.BlitFramebuffer", srcX0, srcY0, srcX1, srcY1, 

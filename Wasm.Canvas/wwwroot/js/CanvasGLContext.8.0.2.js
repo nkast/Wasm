@@ -1032,6 +1032,22 @@ window.nkCanvasGLContext =
 
 window.nkCanvasGL2Context =
 {
+    InvalidateFramebuffer: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var ft = Module.HEAP32[(d+ 0)>>2];        
+        var si = Module.HEAP32[(d+ 4)>>2];
+        var ln = Module.HEAP32[(d+ 8)>>2];
+        var arr = Module.HEAP32[(d+12)>>2];
+        
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var arrLen = Blazor.platform.getArrayLength(arr);
+                
+        var at = new Uint32Array(Module.HEAPU8.buffer, arrPtr + si*4, ln);
+        var ar = Array.prototype.slice.call(at);
+
+        gc.invalidateFramebuffer(ft, ar);
+    },
     BlitFramebuffer: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
