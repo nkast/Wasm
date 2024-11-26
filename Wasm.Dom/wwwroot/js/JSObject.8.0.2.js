@@ -114,8 +114,8 @@ window.nkPromise =
     GetErrorMessage: function (uid)
     {
         var pr = nkJSObject.GetObject(uid);
-        var mg = pr.Error.message;
 
+        var mg = pr.Error.message;
         return BINDING.js_to_mono_obj(mg);
     },
 

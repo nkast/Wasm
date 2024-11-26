@@ -55,11 +55,12 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            string message = "Promise failed.";
-            string error = InvokeRet<string>("nkPromise.GetErrorMessage");
-            message += " " + error;
+            string message = InvokeRet<string>("nkPromise.GetErrorMessage");
 
-            _tcs.SetException(new Exception(message));
+            Exception ex;
+            ex = new Exception(message);
+
+            _tcs.SetException(ex);
         }
 
         public Task<TResult> GetTask()
@@ -84,11 +85,12 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            string message = "Promise failed.";
-            string error = InvokeRet<string>("nkPromise.GetErrorMessage");
-            message += " " + error;
+            string message = InvokeRet<string>("nkPromise.GetErrorMessage");
 
-            _tcs.SetException(new Exception(message));
+            Exception ex;
+            ex = new Exception(message);
+
+            _tcs.SetException(ex);
         }
 
         public Task GetTask()
