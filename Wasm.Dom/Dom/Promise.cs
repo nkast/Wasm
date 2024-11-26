@@ -56,9 +56,25 @@ namespace nkast.Wasm.Dom
         protected override void OnError()
         {
             string message = InvokeRet<string>("nkPromise.GetErrorMessage");
+            int errorType = InvokeRet<int>("nkPromise.GetErrorType");
 
             Exception ex;
-            ex = new Exception(message);
+            switch (errorType)
+            {
+                case 11: // "InvalidStateError"
+                    ex = new InvalidOperationException(message);
+                    break;
+                case 12: // "NotSupportedError"
+                    ex = new NotSupportedException(message);
+                    break;
+                case 13: // "SecurityError"
+                    ex = new UnauthorizedAccessException(message);
+                    break;
+
+                default:
+                    ex = new Exception(message);
+                    break;
+            }
 
             _tcs.SetException(ex);
         }
@@ -86,9 +102,25 @@ namespace nkast.Wasm.Dom
         protected override void OnError()
         {
             string message = InvokeRet<string>("nkPromise.GetErrorMessage");
+            int errorType = InvokeRet<int>("nkPromise.GetErrorType");
 
             Exception ex;
-            ex = new Exception(message);
+            switch (errorType)
+            {
+                case 11: // "InvalidStateError"
+                    ex = new InvalidOperationException(message);
+                    break;
+                case 12: // "NotSupportedError"
+                    ex = new NotSupportedException(message);
+                    break;
+                case 13: // "SecurityError"
+                    ex = new UnauthorizedAccessException(message);
+                    break;
+
+                default:
+                    ex = new Exception(message);
+                    break;
+            }
 
             _tcs.SetException(ex);
         }

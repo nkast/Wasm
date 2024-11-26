@@ -111,12 +111,62 @@ window.nkPromise =
 
         return nkJSObject.RegisterObject(ob);
     },
+    GetErrorType: function (uid)
+    {
+        var pr = nkJSObject.GetObject(uid);
+
+        if (pr.Error instanceof DOMException)
+        {
+            switch (pr.Error.name)
+            {
+                case "InvalidStateError":
+                    return 11;
+                case "NotSupportedError":
+                    return 12;
+                case "SecurityError":
+                    return 13;
+
+                default:
+                    return 10;
+            }
+        }
+        else if (pr.Error instanceof Error)
+        {
+            return 2;
+        }
+        else if (typeof pr.Error === "string")
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    },
     GetErrorMessage: function (uid)
     {
         var pr = nkJSObject.GetObject(uid);
 
-        var mg = pr.Error.message;
-        return BINDING.js_to_mono_obj(mg);
+        if (pr.Error instanceof DOMException)
+        {
+            var mg = pr.Error.message;
+            return BINDING.js_to_mono_obj(mg);
+        }
+        else if (pr.Error instanceof Error)
+        {
+            var mg = pr.Error.message;
+            return BINDING.js_to_mono_obj(mg);
+        }
+        else if (typeof pr.Error === "string")
+        {
+            var mg = pr.Error;
+            return BINDING.js_to_mono_obj(mg);
+        }
+        else
+        {
+            var mg = "Unknown Error";
+            return BINDING.js_to_mono_obj(mg);
+        }
     },
 
     RegisterEvents: function (uid)
