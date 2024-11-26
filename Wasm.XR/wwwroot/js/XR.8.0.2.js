@@ -54,6 +54,35 @@ window.nkXRSession =
         var xl = new XRWebGLLayer(ss, gc);
         return nkJSObject.RegisterObject(xl);
     },
+    CreateWebGLLayer1: function(uid, d)
+    {
+        var ss = nkJSObject.GetObject(uid);
+        var gcuid = Module.HEAP32[(d+ 0)>>2];
+        var bi = Module.HEAP32[(d+ 4)>>2];
+        
+        var al = (bi >>  0) & 3;
+        var dp = (bi >>  2) & 3;
+        var st = (bi >>  4) & 3;
+        var aa = (bi >>  6) & 3;
+        var id = (bi >>  8) & 3;
+        
+        var options = {};
+        if (al != 3)
+            options.alpha = al !== 0;
+        if (dp != 3)
+            options.depth = dp !== 0;
+        if (st != 3)
+            options.stencil = st !== 0;
+        if (aa != 3)
+            options.antialias = aa !== 0;
+        if (id != 3)
+            options.ignoreDepthValues = id !== 0;
+
+        var gc = nkJSObject.GetObject(gcuid);
+
+        var xl = new XRWebGLLayer(ss, gc, options);
+        return nkJSObject.RegisterObject(xl);
+    },
     GetRenderState: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);

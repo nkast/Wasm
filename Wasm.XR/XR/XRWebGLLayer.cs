@@ -54,9 +54,20 @@ namespace nkast.Wasm.XR
             this._glContext = glContext;
         }
 
+        public XRWebGLLayer(XRSession xrSession, IWebGLRenderingContext glContext, XRWebGLLayerOptions options) 
+            : base(Register(xrSession, glContext, options))
+        {
+        }
+
         private static int Register(XRSession xrSession, IWebGLRenderingContext glContext)
         {
             int uid = xrSession.CreateWebGLLayer(glContext);
+            return uid;
+        }
+
+        private static int Register(XRSession xrSession, IWebGLRenderingContext glContext, XRWebGLLayerOptions options)
+        {
+            int uid = xrSession.CreateWebGLLayer(glContext, options);
             return uid;
         }
 

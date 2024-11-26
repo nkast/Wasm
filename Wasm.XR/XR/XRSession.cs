@@ -157,6 +157,12 @@ namespace nkast.Wasm.XR
             return uid;
         }
 
+        internal int CreateWebGLLayer(IWebGLRenderingContext glContext, XRWebGLLayerOptions options)
+        {
+            int uid = InvokeRet<int, int, int>("nkXRSession.CreateWebGLLayer1", ((JSObject)glContext).Uid, options.ToBit());
+
+            return uid;
+        }
 
         protected override void Dispose(bool disposing)
         {
