@@ -15,7 +15,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                XRViewport result = default;
+                Vector4 result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetDepthNear", new IntPtr(&result));
                 if (result.X == -1)
                     return null;
@@ -28,7 +28,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                XRViewport result = default;
+                Vector4 result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetDepthFar", new IntPtr(&result));
                 if (result.X == -1)
                     return null;
@@ -40,7 +40,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                XRViewport result = default;
+                Vector4 result = default;
                 Invoke<IntPtr>("nkXRRenderState.GetInlineVerticalFieldOfView", new IntPtr(&result));
                 if (result.X == -1)
                     return null;
