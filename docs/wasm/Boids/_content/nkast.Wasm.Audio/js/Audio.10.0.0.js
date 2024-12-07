@@ -1,0 +1,807 @@
+﻿window.nkAudioContext =
+{
+    Create: function()
+    {
+        var ac = new AudioContext();
+        return nkJSObject.RegisterObject(ac);
+    },
+    Create1: function(sampleRate)
+    {
+        var options = {};
+        if (sampleRate != 0)
+            options.sampleRate = sampleRate;
+        var ac = new AudioContext(options);
+        return nkJSObject.RegisterObject(ac);
+    },
+
+    Resume: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.resume();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    Suspend: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.suspend();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    Close1: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.close();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    CreateMediaStreamSource: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var sid = module.HEAP32[(d + 0)>>2];
+        var ms = nkJSObject.GetObject(sid);
+        var sn = ac.createMediaStreamSource(ms);
+        return nkJSObject.RegisterObject(sn);
+    },
+};
+
+window.nkAudioBaseContext =
+{
+    GetSampleRate: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var sr = ac.sampleRate;
+        return sr;
+    },
+    GetCurrentTime: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var ct = ac.currentTime;
+        return ct;
+    },
+    GetDestination: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var ds = ac.destination;        
+        return  nkJSObject.RegisterObject(ds);
+    },
+    GetListener: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var lr = ac.listener;
+        return  nkJSObject.RegisterObject(lr);
+    },
+    GetAudioWorklet: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var aw = ac.audioWorklet;
+
+        var uid = nkJSObject.GetUid(aw);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(aw);
+    },
+    
+    GetState: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        switch (ac.state)
+        {
+            case "suspended": return 1;
+            case "running": return 2;
+            case "closed": return 3;
+            default:
+                throw new Error("Unknown AudioContext state: " + ac.state);
+        }
+    },
+
+    CreateBuffer: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var nc = module.HEAP32[(d+ 0)>>2];
+        var le = module.HEAP32[(d+ 4)>>2];
+        var sr = module.HEAP32[(d+ 8)>>2];
+        var ab = ac.createBuffer(nc, le, sr);
+        return  nkJSObject.RegisterObject(ab);
+    },
+    CreateBufferSource: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var bs = ac.createBufferSource();
+        return nkJSObject.RegisterObject(bs);
+    },
+    CreateOscillator: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var os = ac.createOscillator();
+        return nkJSObject.RegisterObject(os);
+    },
+    CreateGain: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var gn = ac.createGain();         
+        return nkJSObject.RegisterObject(gn);
+    },
+    CreatePanner: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var pn = ac.createPanner();
+        return nkJSObject.RegisterObject(pn);
+    },
+    CreateStereoPanner: function(uid)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var sp = ac.createStereoPanner();
+        return nkJSObject.RegisterObject(sp);
+    },
+    CreateMediaElementSource: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var mid= module.HEAP32[(d+ 0)>>2];
+        var me = nkJSObject.GetObject(mid);
+        var ms = ac.createMediaElementSource(me);
+        return nkJSObject.RegisterObject(ms);
+    },
+    CreateWorklet: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var na = nkJSObject.ReadString(module, d+ 0);
+
+        var wn = new AudioWorkletNode(ac, na);
+
+        return nkJSObject.RegisterObject(wn);
+    },
+    CreateWorklet1: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var na = nkJSObject.ReadString(module, d+ 0);
+        var ni = module.HEAP32[(d+ 4)>>2];
+        var no = module.HEAP32[(d+ 8)>>2];
+        var arr = module.HEAP32[(d+ 12)>>2];
+        var cn = module.HEAP32[(d+ 16)>>2];
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var oc = new Uint32Array(module.HEAPU8.buffer, arrPtr, cn);
+
+        var options = {};
+        if (ni >= 0)
+            options.numberOfInputs = ni;
+        if (no >= 0)
+            options.numberOfOutputs = no;
+        if (cn > 0)
+            options.outputChannelCount = oc;
+
+        var wn = new AudioWorkletNode(ac, na, options);
+        return nkJSObject.RegisterObject(wn);
+    }
+};
+
+window.nkAudioBuffer =
+{
+    CopyToChannel: function(uid, module, d)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var ch = module.HEAP32[(d+ 0)>>2];
+        var arr = module.HEAP32[(d+ 4)>>2];
+        var cn  = module.HEAP32[(d+ 8)>>2];
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var sr = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
+
+        ab.copyToChannel(sr, ch);
+    },    
+    GetSampleRate: function(uid)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var sr = ab.sampleRate;
+        return sr;
+    },
+    GetLength: function(uid)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var ln = ab.length;
+        return ln;
+    },
+    GetDuration: function(uid)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var du = ab.duration;
+        return du;
+    },
+    GetNumberOfChannels: function(uid)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var nc = ab.numberOfChannels;
+        return nc;
+    }
+};
+
+window.nkAudioListener =
+{
+    SetPositionX: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var px = module.HEAP32[(d+ 0)>>2];
+        lr.positionX = px;
+    },
+    SetPositionY: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var py = module.HEAP32[(d+ 0)>>2];
+        lr.positionY = py;
+    },
+    SetPositionZ: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var pz = module.HEAP32[(d+ 0)>>2];
+        lr.positionZ = pz;
+    },
+
+    SetForwardX: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var fx = module.HEAP32[(d+ 0)>>2];
+        lr.forwardX = fx;
+    },
+    SetForwardY: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var fy = module.HEAP32[(d+ 0)>>2];
+        lr.forwardY = fy;
+    },
+    SetForwardZ: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var fz = module.HEAP32[(d+ 0)>>2];
+        lr.forwardZ = fz;
+    },
+
+    SetUpX: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var ux = module.HEAP32[(d+ 0)>>2];
+        lr.upX = ux;
+    },
+    SetUpY: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var uy = module.HEAP32[(d+ 0)>>2];
+        lr.upY = uy;
+    },
+    SetUpZ: function(uid, module, d)
+    {
+        var lr = nkJSObject.GetObject(uid);
+        var uz = module.HEAP32[(d+ 0)>>2];
+        lr.upZ = uz;
+    }
+};
+
+window.nkAudioBufferSourceNode =
+{
+    SetBuffer: function(uid, module, d)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var bid= module.HEAP32[(d+ 0)>>2];
+        var ab = nkJSObject.GetObject(bid);
+        bs.buffer = ab;
+    },
+
+    GetLoop: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        return bs.loop;
+    },
+    SetLoop: function(uid, module, d)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var lp = module.HEAP32[(d+ 0)>>2];
+        bs.loop = lp !== 0;
+    },
+    GetPlaybackRate: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var pr = bs.playbackRate;
+        return nkJSObject.RegisterObject(pr);
+    },
+    Start: function(uid, module, d)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var wh = module.HEAPF64[(d+ 0)>>3];
+        var os = module.HEAPF64[(d+ 8)>>3];
+        var du = module.HEAPF64[(d+16)>>3];
+        if (du > 0)
+            bs.start(wh, os, du);
+        else
+            bs.start(wh, os);
+    }
+};
+
+window.nkAudioScheduledSourceNode =
+{
+    Start: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        bs.start();
+    },
+    Stop: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        bs.stop();
+    },
+    
+    RegisterEvents: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+
+        bs.onended = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Audio', 'JsAudioScheduledSourceNodeOnEnded', uid);
+        };
+    },    
+    UnregisterEvents: function(uid)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        bs.onended = null;
+    }
+};
+
+window.nkAudioDestinationNode =
+{
+    GetMaxChannelCount: function(uid)
+    {
+        var gn = nkJSObject.GetObject(uid);
+        return gn.maxChannelCount;
+    }
+};
+
+window.nkAudioNode =
+{
+    GetNumberOfInputs: function(uid)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.numberOfInputs;
+    },
+    GetNumberOfOutputs: function(uid)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.numberOfOutputs;
+    },
+    GetChannelCount: function(uid)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.channelCount;
+    },
+    GetChannelCountMode: function(uid)
+    {
+        var an = nkJSObject.GetObject(uid);
+        switch (an.channelCountMode)
+        {
+            case "max": return 1;
+            case "clamped-max": return 2;
+            case "explicit": return 3;
+            default:
+                throw new Error("Unknown channelCountMode: " + an.channelCountMode);
+        }
+    },
+    Connect: function(uid, module, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        var did= module.HEAP32[(d+ 0)>>2];
+        var ds = nkJSObject.GetObject(did);
+        an.connect(ds);
+    },
+    Disconnect: function(uid)
+    {
+        var an = nkJSObject.GetObject(uid);
+        an.disconnect();
+    },
+    Disconnect1: function(uid, module, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        var did = module.HEAP32[(d+ 0)>>2];
+        var ds = nkJSObject.GetObject(did);
+        an.disconnect(ds);
+    },
+};
+
+window.nkAudioOscillatorNode =
+{
+    GetFrequency: function(uid)
+    {
+        var os = nkJSObject.GetObject(uid);
+        var ap = os.frequency;
+        return  nkJSObject.RegisterObject(ap);
+    },
+
+    GetType: function(uid)
+    {
+        var os = nkJSObject.GetObject(uid);
+        switch (os.type)
+        {
+            case "sine": return 1;
+            case "square": return 2;
+            case "sawtooth": return 3;
+            case "triangle": return 4;
+            case "custom": return 5;
+            default:
+                throw new Error("Unknown OscillatorNode type: " + os.type);
+        }
+    },
+    SetType: function(uid, module, d)
+    {
+        var os = nkJSObject.GetObject(uid);
+        var ty = module.HEAP32[(d+ 0)>>2];
+        switch (ty)
+        {
+            case 1: os.type = "sine"; break;
+            case 2: os.type = "square"; break;
+            case 3: os.type = "sawtooth"; break;
+            case 4: os.type = "triangle"; break;
+            case 5:
+                throw new Error("You never set type to custom manually; instead, use the setPeriodicWave().");
+            default:
+                throw new Error("Unknown OscillatorNode type: " + ty);
+        }
+    }
+};
+
+window.nkAudioGainNode =
+{
+    GetGain: function(uid)
+    {
+        var gn = nkJSObject.GetObject(uid);
+        var ap = gn.gain;
+        return nkJSObject.RegisterObject(ap);
+    }
+};
+
+window.nkAudioPannerNode =
+{
+    GetPanningModel: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pm = pn.panningModel;
+        switch (pm)
+        {
+            case "equalpower": return 1;
+            case "HRTF": return 2;
+            default:
+                throw new Error("Unknown PanningModel state: " + pm);
+        }
+    },
+    SetPanningModel: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pm = module.HEAP32[(d+ 0)>>2];
+        switch (pm)
+        {
+            case 1: pn.panningModel = "equalpower"; break;
+            case 2: pn.panningModel = "HRTF"; break;
+            default:
+                throw new Error("Unknown PanningModel state: " + pm);
+        }
+    },
+    GetPositionX: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var px = pn.positionX;
+        return nkJSObject.RegisterObject(px);
+    },
+    GetPositionY: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var py = pn.positionY;
+        return nkJSObject.RegisterObject(py);
+    },
+    GetPositionZ: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pz = pn.positionZ;
+        return nkJSObject.RegisterObject(pz);
+    },
+    GetOrientationX: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var ox = pn.orientationX;
+        return nkJSObject.RegisterObject(ox);
+    },
+    GetOrientationY: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var oy = pn.orientationY;
+        return nkJSObject.RegisterObject(oy);
+    },
+    GetOrientationZ: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var oz = pn.orientationZ;
+        return nkJSObject.RegisterObject(oz);
+    },
+    GetDistanceModel: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var dm = pn.distanceModel;
+        switch (dm)
+        {
+            case "linear": return 1;
+            case "inverse": return 2;
+            case "exponential": return 3;
+            default:
+                throw new Error("Unknown DistanceModel state: " + dm);
+        }
+    },
+    SetDistanceModel: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var dm = module.HEAP32[(d+ 0)>>2];
+        switch (dm)
+        {
+            case 1: pn.distanceModel = "linear"; break;
+            case 2: pn.distanceModel = "inverse"; break;
+            case 3: pn.distanceModel = "exponential"; break;
+            default:
+                throw new Error("Unknown DistanceModel state: " + dm);
+        }
+    },
+    GetRefDistance: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.refDistance;
+    },
+    SetRefDistance: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var rd = module.HEAPF64[(d+ 0)>>3];
+        pn.refDistance = rd;
+    },
+    GetMaxDistance: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.maxDistance;
+    },
+    SetMaxDistance: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var md = module.HEAPF64[(d+ 0)>>3];
+        pn.maxDistance = md;
+    },
+    GetRolloffFactor: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.rolloffFactor;
+    },
+    SetRolloffFactor: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var rf = module.HEAPF64[(d+ 0)>>3];
+        pn.rolloffFactor = rf;
+    },
+    GetConeInnerAngle: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneInnerAngle;
+    },
+    SetConeInnerAngle: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var ci = module.HEAPF64[(d+ 0)>>3];
+        pn.coneInnerAngle = ci;
+    },
+    GetConeOuterAngle: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneOuterAngle;
+    },
+    SetConeOuterAngle: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var co = module.HEAPF64[(d+ 0)>>3];
+        pn.coneOuterAngle = co;
+    },
+    GetConeOuterGain: function(uid)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneOuterGain;
+    },
+    SetConeOuterGain: function(uid, module, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var cg = module.HEAPF64[(d+ 0)>>3];
+        pn.coneOuterGain = cg;
+    }
+};
+
+window.nkAudioStereoPannerNode =
+{
+    GetPan: function(uid)
+    {
+        var sp = nkJSObject.GetObject(uid);
+        var ap = sp.pan;
+        return nkJSObject.RegisterObject(ap);
+    }
+};
+
+window.nkAudioWorkletNode =
+{
+    GetPort: function(uid)
+    {
+        var wn = nkJSObject.GetObject(uid);
+
+        var po = wn.port;
+
+        var uid = nkJSObject.GetUid(po);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(po);
+    },
+    GetParameters: function(uid)
+    {
+        var wn = nkJSObject.GetObject(uid);
+
+        var pa = wn.parameters;
+
+        var uid = nkJSObject.GetUid(pa);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(pa);
+    }
+};
+
+window.nkAudioParam =
+{  
+    GetDefaultValue: function(uid)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.defaultValue;
+    },
+    GetMinValue: function(uid)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.minValue;
+    },
+    GetMaxValue: function(uid)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.maxValue;
+    },
+
+    GetValue: function(uid)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.value;
+    },
+    SetValue: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        ap.value = vl;
+    },
+    
+    SetValueAtTime: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var st = module.HEAPF32[(d+ 4)>>2];
+        ap.setValueAtTime(vl, st);
+    },
+    LinearRampToValueAtTime: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var et = module.HEAPF32[(d+ 4)>>2];
+        ap.linearRampToValueAtTime(vl, et);
+    },
+    ExponentialRampToValueAtTime: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var et = module.HEAPF32[(d+ 4)>>2];
+        ap.exponentialRampToValueAtTime(vl, et);
+    },
+    SetTargetAtTime: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var tg = module.HEAPF32[(d+ 0)>>2];
+        var st = module.HEAPF32[(d+ 4)>>2];
+        var tc = module.HEAPF32[(d+ 8)>>2];
+        ap.setTargetAtTime(tg, st, tc);
+    },
+    SetValueCurveAtTime: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var st = module.HEAPF32[(d+ 0)>>2];
+        var dt = module.HEAPF32[(d+ 4)>>2];
+        var arr = module.HEAP32[(d+ 8)>>2];
+        var cn  = module.HEAP32[(d+ 12)>>2];
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var vs = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
+
+        ap.setValueCurveAtTime(vs, st, dt);
+    },
+
+    CancelScheduledValues: function(uid, module, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        var st = module.HEAPF32[(d+ 0)>>2];
+        ap.cancelScheduledValues(st);
+    }
+};
+
+window.nkAudioParamMap =
+{
+    GetSize: function(uid)
+    {
+        var pm = nkJSObject.GetObject(uid);
+        return pm.size;
+    },
+    Get: function(uid, module, d)
+    {
+        var pm = nkJSObject.GetObject(uid);
+        var ky = nkJSObject.ReadString(module, d+ 0);
+
+        var ap = pm.get(ky);
+
+        var uid = nkJSObject.GetUid(ap);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(ap);
+    },
+};
+
+window.nkAudioWorklet =
+{
+    AddModule: function(uid, module, d)
+    {
+        var aw = nkJSObject.GetObject(uid);
+        var mu = nkJSObject.ReadString(module, d+ 0);
+
+        var pr = aw.addModule(mu);
+        return nkJSObject.RegisterObject(pr);
+    },
+};
+
+window.nkMediaDevices =
+{
+    Create: function(uid)
+    {
+        var nv = nkJSObject.GetObject(uid);
+        if ("mediaDevices" in nv)
+        {
+            var md = nv.mediaDevices;
+            var uid = nkJSObject.GetUid(md);
+            if (uid !== -1)
+                return uid;
+
+            return nkJSObject.RegisterObject(md);
+        }
+        else
+            return nkJSObject.RegisterObject(null);
+    },
+
+    GetUserMedia: function(uid, module, d)
+    {
+        var md = nkJSObject.GetObject(uid);
+        var bi = module.HEAP32[(d+ 0)>>2];
+
+        var au = (bi >>  0) & 3;
+        var vi = (bi >>  2) & 3;
+
+        var constraints = {};
+        if (au != 3)
+            constraints.audio = au !== 0;
+        if (vi != 3)
+            constraints.video = vi !== 0;
+
+        var pr = md.getUserMedia(constraints);
+        return nkJSObject.RegisterObject(pr);
+    },
+};
