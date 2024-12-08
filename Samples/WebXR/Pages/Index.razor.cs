@@ -15,10 +15,12 @@ namespace WebXR.Pages
 {
     public partial class Index
     {
+        static Index _indexInstance;
+
         Stopwatch _sw = new Stopwatch();
         TimeSpan _prevt;
 
-        RootClip _root;
+        internal RootClip _root;
 
         // Summary:
         //     Method invoked when the component is ready to start, having received its initial
@@ -26,6 +28,8 @@ namespace WebXR.Pages
         protected override void OnInitialized()
         {
             base.OnInitialized();
+
+            _indexInstance = this;
         }
 
         protected override void OnAfterRender(bool firstRender)
@@ -36,6 +40,20 @@ namespace WebXR.Pages
             {
                 JsRuntime.InvokeAsync<object>("initRenderJS", DotNetObjectReference.Create(this));
             }
+        }
+
+        internal void SetbtnEnterVR(string text, bool disabled)
+        {
+            string textContentCmd = "document.getElementById('btnEnterVR').textContent = '" + text + "';";
+            JsRuntime.InvokeAsync<string>("eval", textContentCmd);
+            string disabledCmd = "document.getElementById('btnEnterVR').disabled = " + disabled.ToString().ToLower() + ";";
+            JsRuntime.InvokeAsync<string>("eval", disabledCmd);
+        }
+
+        [JSInvokable]
+        public static void btnEnterVROnButtonClick()
+        {
+            _indexInstance._root._requestVR = true;
         }
 
         Canvas cs;
@@ -70,7 +88,7 @@ namespace WebXR.Pages
                 Window.Current.OnTouchMove += this.OnTouchMove;
                 Window.Current.OnTouchEnd += this.OnTouchEnd;
 
-                _root = new RootClip(OnXRAnimationFrame);
+                _root = new RootClip(this);
 
                 _sw.Start();
                 _prevt = _sw.Elapsed;
@@ -131,7 +149,7 @@ namespace WebXR.Pages
 
         }
 
-        void OnXRAnimationFrame(TimeSpan time, XRFrame xrFrame)
+        internal void OnXRAnimationFrame(TimeSpan time, XRFrame xrFrame)
         {
             // run gameloop tick
             TimeSpan t  = _sw.Elapsed;

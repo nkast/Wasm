@@ -10,6 +10,7 @@ namespace WebXR.Pages
 {
     internal class RootClip : Clip
     {
+        Index _index;
         XRSession.XRAnimationFrameCallback _xrAnimationFrameCallback;
 
         public static Size vres = new Size(1920, 960);
@@ -17,9 +18,10 @@ namespace WebXR.Pages
         TriangleClip _tri;
 
 
-        public RootClip(XRSession.XRAnimationFrameCallback xrAnimationFrameCallback) : base()
+        public RootClip(Index index) : base()
         {
-            _xrAnimationFrameCallback = xrAnimationFrameCallback;
+            this._index = index;
+            _xrAnimationFrameCallback = index.OnXRAnimationFrame;
 
             size = new Size(RootClip.vres.w, RootClip.vres.h);
 
@@ -32,7 +34,22 @@ namespace WebXR.Pages
             if (_xr != null)
             {
                 _xr.IsSessionSupportedAsync("immersive-vr")
-                    .ContinueWith((b) => _isXRSessionSupported = b.Result);
+                    .ContinueWith((b) =>
+                    {
+                        _isVRSessionSupported = b.Result;
+                        if (_isVRSessionSupported)
+                        {
+                            _index.SetbtnEnterVR("click to Enter VR", false);
+                        }
+                        else
+                        {
+                            _index.SetbtnEnterVR("VR is not supported", true);
+                        }
+                    });
+            }
+            else
+            {
+                _index.SetbtnEnterVR("VR is not supported", true);
             }
         }
 
@@ -40,24 +57,28 @@ namespace WebXR.Pages
         {
             float dt = (float)uc.dt.TotalSeconds;
 
-            if (_isXRSessionSupported)
+            if (_isVRSessionSupported)
             {
                 if (uc.CurrMouseState.LeftButton == true
                 &&  uc.CurrMouseState.Position.X < 64
                 &&  uc.CurrMouseState.Position.Y < 64
                 &&  !_initXRStarted)
                 {
-                    _initXRStarted = true;
-                    InitXRSessionAsync(uc);
+                    _requestVR = true;
                 }
                 if (uc.CurrTouchState.IsPressed == true
                 &&  uc.CurrTouchState.Position.X < 64
                 &&  uc.CurrTouchState.Position.Y < 64
                 &&  !_initXRStarted)
                 {
-                    _initXRStarted = true;
-                    InitXRSessionAsync(uc);
+                    _requestVR = true;
                 }
+            }
+
+            if (_requestVR == true)
+            {
+                _requestVR = false;
+                InitXRSessionAsync(uc);
             }
 
             base.Update(uc);
@@ -132,7 +153,8 @@ namespace WebXR.Pages
         }
 
 
-        public bool _isXRSessionSupported;
+        public bool _isVRSessionSupported;
+        internal bool _requestVR;
         public bool _initXRStarted;
         public bool _isXRInitialized;
         public int _xrAnimationHandle;
@@ -142,8 +164,11 @@ namespace WebXR.Pages
         public XRReferenceSpace _localspace;
         public XRWebGLLayer _glLayer;
 
-        private async void InitXRSessionAsync(UpdateContext uc)
+        internal async void InitXRSessionAsync(UpdateContext uc)
         {
+            _initXRStarted = true;
+            _index.SetbtnEnterVR("entering VR ...", true);
+
             var gl = uc.GLContext;
 
             try
@@ -169,18 +194,23 @@ namespace WebXR.Pages
                 }
 
                 _isXRInitialized = true;
+                _index.SetbtnEnterVR("VR enabled", true);
                 _xrAnimationHandle = _xrsession.RequestAnimationFrame(_xrAnimationFrameCallback);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("InitXRSessionAsync failed. "+ex.Message);
-                Window.Current.Document.Title = "InitXRSessionAsync failed. " + ex.Message;
-                throw;
+                //Window.Current.Document.Title = "InitXRSessionAsync failed. " + ex.Message;
+
+                _initXRStarted = false;
+                _index.SetbtnEnterVR("click to Enter VR (retry)", false);
             }
         }
 
         private void _xrsession_Ended(object sender, EventArgs e)
         {
+            _index.SetbtnEnterVR("click to Enter VR ", false);
+
             Console.WriteLine("_xrsession_Ended");
             _xrsession.CancelAnimationFrame(_xrAnimationHandle);
             _isXRInitialized = false;
