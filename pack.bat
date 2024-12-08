@@ -1,7 +1,7 @@
 dotnet pack Wasm.Dom\Wasm.Dom.csproj /p:Configuration=Release -o bin\publish
 dotnet pack Wasm.XHR\Wasm.XHR.csproj /p:Configuration=Release -o bin\publish
 dotnet pack Wasm.Canvas\Wasm.Canvas.csproj /p:Configuration=Release -o bin\publish
-dotnet pack Wasm.Audio\Wasm.XR.csproj /p:Configuration=Release -o bin\publish
+dotnet pack Wasm.XR\Wasm.XR.csproj /p:Configuration=Release -o bin\publish
 dotnet pack Wasm.Audio\Wasm.Audio.csproj /p:Configuration=Release -o bin\publish
 
 set username=username
