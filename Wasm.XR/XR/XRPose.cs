@@ -39,16 +39,13 @@ namespace nkast.Wasm.XR
             }
         }
 
-        public XRRigidTransform Transform
+        public unsafe XRRigidTransform Transform
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRPose.GetTransform");
-                XRRigidTransform transform = XRRigidTransform.FromUid(uid);
-                if (transform != null)
-                    return transform;
-
-                return new XRRigidTransform(uid);
+                XRRigidTransform result = default;
+                Invoke<IntPtr>("nkXRPose.GetTransform", new IntPtr(&result));
+                return result;
             }
         }
 

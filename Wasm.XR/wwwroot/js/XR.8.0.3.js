@@ -442,13 +442,20 @@ window.nkXRPose =
     GetTransform: function(uid, d)
     {
         var ps = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
 
         var tf = ps.transform;
-        var uid = nkJSObject.GetUid(tf);
-        if (uid !== -1)
-            return uid;
-
-        return nkJSObject.RegisterObject(tf);
+        
+        var or = tf.orientation;
+        Module.HEAPF32[(pt+ 0)>>2] = or.x;
+        Module.HEAPF32[(pt+ 4)>>2] = or.y;
+        Module.HEAPF32[(pt+ 8)>>2] = or.z;
+        Module.HEAPF32[(pt+12)>>2] = or.w;            
+        var ps = tf.position;
+        Module.HEAPF32[(pt+16)>>2] = ps.x;
+        Module.HEAPF32[(pt+20)>>2] = ps.y;
+        Module.HEAPF32[(pt+24)>>2] = ps.z;
+        Module.HEAPF32[(pt+28)>>2] = ps.w;
     },
 };
 
@@ -480,13 +487,20 @@ window.nkXRView =
     GetTransform: function(uid, d)
     {
         var ve = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
 
         var tf = ve.transform;
-        var uid = nkJSObject.GetUid(tf);
-        if (uid !== -1)
-            return uid;
 
-        return nkJSObject.RegisterObject(tf);
+        var or = tf.orientation;
+        Module.HEAPF32[(pt+ 0)>>2] = or.x;
+        Module.HEAPF32[(pt+ 4)>>2] = or.y;
+        Module.HEAPF32[(pt+ 8)>>2] = or.z;
+        Module.HEAPF32[(pt+12)>>2] = or.w;            
+        var ps = tf.position;
+        Module.HEAPF32[(pt+16)>>2] = ps.x;
+        Module.HEAPF32[(pt+20)>>2] = ps.y;
+        Module.HEAPF32[(pt+24)>>2] = ps.z;
+        Module.HEAPF32[(pt+28)>>2] = ps.w;
     },
     GetProjectionMatrix: function(uid, d)
     {
@@ -529,78 +543,6 @@ window.nkXRView =
             return 2;
 
         return 0;
-    },
-};
-
-window.nkXRRigidTransform =
-{
-    GetOrientation: function(uid, d)
-    {
-        var rt = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
-
-        var or = rt.orientation;
-
-        Module.HEAPF32[(pt+ 0)>>2] = or.x;
-        Module.HEAPF32[(pt+ 4)>>2] = or.y;
-        Module.HEAPF32[(pt+ 8)>>2] = or.z;
-        Module.HEAPF32[(pt+12)>>2] = or.w;
-
-        return;
-    },
-    GetPosition: function(uid, d)
-    {
-        var rt = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
-
-        var ps = rt.position;
-        
-        Module.HEAPF32[(pt+ 0)>>2] = ps.x;
-        Module.HEAPF32[(pt+ 4)>>2] = ps.y;
-        Module.HEAPF32[(pt+ 8)>>2] = ps.z;
-        Module.HEAPF32[(pt+12)>>2] = ps.w;
-
-        return;
-    },
-    GetMatrix: function(uid, d)
-    {
-        var rt = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
-
-        var mt = rt.matrix;
-
-        Module.HEAPF32[(pt+ 0)>>2] = mt[00];
-        Module.HEAPF32[(pt+ 4)>>2] = mt[01];
-        Module.HEAPF32[(pt+ 8)>>2] = mt[02];
-        Module.HEAPF32[(pt+12)>>2] = mt[03];
-
-        Module.HEAPF32[(pt+16)>>2] = mt[04];
-        Module.HEAPF32[(pt+20)>>2] = mt[05];
-        Module.HEAPF32[(pt+24)>>2] = mt[06];
-        Module.HEAPF32[(pt+28)>>2] = mt[07];
-
-        Module.HEAPF32[(pt+32)>>2] = mt[08];
-        Module.HEAPF32[(pt+36)>>2] = mt[09];
-        Module.HEAPF32[(pt+40)>>2] = mt[10];
-        Module.HEAPF32[(pt+44)>>2] = mt[11];
-
-        Module.HEAPF32[(pt+48)>>2] = mt[12];
-        Module.HEAPF32[(pt+52)>>2] = mt[13];
-        Module.HEAPF32[(pt+56)>>2] = mt[14];
-        Module.HEAPF32[(pt+60)>>2] = mt[15];
-
-        return;
-    },
-    GetInverse: function(uid, d)
-    {
-        var rt = nkJSObject.GetObject(uid);
-
-        var tf = rt.inverse;
-        var uid = nkJSObject.GetUid(tf);
-        if (uid !== -1)
-            return uid;
-
-        return nkJSObject.RegisterObject(tf);
     },
 };
 

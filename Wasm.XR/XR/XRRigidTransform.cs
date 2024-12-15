@@ -6,39 +6,18 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
 {
-    public class XRRigidTransform : CachedJSObject<XRRigidTransform>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct XRRigidTransform
     {
-
-        internal XRRigidTransform(int uid) : base(uid)
-        {
-        }
-
-        public unsafe Quaternion Orientation
-        {
-            get
-            {
-                Quaternion result = default;
-                Invoke<IntPtr>("nkXRRigidTransform.GetOrientation", new IntPtr(&result));
-                return result;
-            }
-        }
-
-        public unsafe Vector4 Position
-        {
-            get
-            {
-                Vector4 result = default;
-                Invoke<IntPtr>("nkXRRigidTransform.GetPosition", new IntPtr(&result));
-                return result;
-            }
-        }
+        public Quaternion Orientation;
+        public Vector4    Position;
 
         public unsafe Matrix4x4 Matrix
         {
             get
             {
-                Matrix4x4 result = default;
-                Invoke<IntPtr>("nkXRRigidTransform.GetMatrix", new IntPtr(&result));
+                Matrix4x4 result = Matrix4x4.CreateFromQuaternion(Orientation);
+                result.Translation = new Vector3(Position.X, Position.Y, Position.Z);
                 return result;
             }
         }
@@ -47,24 +26,17 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRRigidTransform.GetInverse");
-                XRRigidTransform invTransform = XRRigidTransform.FromUid(uid);
-                if (invTransform != null)
-                    return invTransform;
-
-                return new XRRigidTransform(uid);
+                XRRigidTransform invTransform = default;
+                invTransform.Orientation = Quaternion.Inverse(Orientation);
+                invTransform.Position    = -Vector4.Transform(Position, invTransform.Orientation);
+                return invTransform;
             }
         }
 
-
-        protected override void Dispose(bool disposing)
+        public XRRigidTransform(Quaternion orientation, Vector4 position)
         {
-            if (disposing)
-            {
-
-            }
-
-            base.Dispose(disposing);
+            this.Orientation = orientation;
+            this.Position = position;
         }
     }
 }
