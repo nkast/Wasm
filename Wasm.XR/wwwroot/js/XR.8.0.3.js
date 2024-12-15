@@ -40,6 +40,72 @@ window.nkXRSystem =
         var pr = xr.requestSession(md);
         return nkJSObject.RegisterObject(pr);
     },
+    RequestSession1: function(uid, d)
+    {
+        var xr = nkJSObject.GetObject(uid);
+        var md = nkJSObject.ReadString(d, 0);
+                
+        var refs = Module.HEAP32[(d+ 4)>>2];
+        var opfs = Module.HEAP32[(d+ 8)>>2];
+
+        var requiredFeatures = nkXRSystem.GetSessionFeatures(refs);
+        var optionalFeatures = nkXRSystem .GetSessionFeatures(opfs);
+
+        var pr = xr.requestSession(md, {
+            requiredFeatures: requiredFeatures,
+            optionalFeatures: optionalFeatures
+        });
+        return nkJSObject.RegisterObject(pr);
+    },
+    GetSessionFeatures: function(fs)
+    {
+        var features = [];
+
+        var ls = (fs >>  0) & 1;
+        var fs = (fs >>  1) & 1;
+        var ub = (fs >>  2) & 1;
+        var bf = (fs >>  3) & 1;
+        var vr = (fs >>  4) & 1;
+                
+        var an = (fs >>  5) & 1;
+        var ds = (fs >>  6) & 1;
+        var ov = (fs >>  7) & 1;
+        var ha = (fs >>  8) & 1;
+        var hi = (fs >>  9) & 1;
+        var ly = (fs >> 10) & 1;
+        var le = (fs >> 11) & 1;
+        var sv = (fs >> 12) & 1;
+
+        if (ls == 1)
+            features.push('local');
+        if (fs == 1)
+            features.push('local-floor');
+        if (ub == 1)
+            features.push('unbounded');
+        if (bf == 1)
+            features.push('bounded-floor');
+        if (vr == 1)
+            features.push('viewer');
+            
+        if (an == 1)
+            features.push('anchors');
+        if (ds == 1)
+            features.push('depth-Sensing');
+        if (ov == 1)
+            features.push('dom-overlay');
+        if (ha == 1)
+            features.push('hand-tracking');
+        if (hi == 1)
+            features.push('hit-test');
+        if (ly == 1)
+            features.push('layers');
+        if (le == 1)
+            features.push('light-estimation');
+        if (sv == 1)
+            features.push('secondary-views');
+
+        return features;
+    },
 };
 
 window.nkXRSession =

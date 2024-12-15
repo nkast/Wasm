@@ -46,6 +46,14 @@ namespace nkast.Wasm.XR
             return promise.GetTask();
         }
 
+        public Task<XRSession> RequestSessionAsync(string mode, XRSessionOptions options)
+        {
+            int uid = InvokeRet<string, int, int, int>("nkXRSystem.RequestSession1", mode, (int)options.RequiredFeatures, (int)options.OptionalFeatures);
+
+            PromiseJSObject<XRSession> promise = new PromiseJSObject<XRSession>(uid, (int newuid) => new XRSession(newuid));
+            return promise.GetTask();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
