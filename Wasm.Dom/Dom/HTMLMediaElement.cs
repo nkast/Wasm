@@ -16,6 +16,15 @@ namespace nkast.Wasm.Dom
             get { return InvokeRet<string>("nkMedia.GetCurrentSrc"); }
         }
 
+        public TimeSpan CurrentTime
+        {
+            get
+            {
+                int currentTime = InvokeRet<int>("nkMedia.GetCurrentTime");
+                return TimeSpan.FromMilliseconds(currentTime);
+            }
+        }
+
         public string Src
         {
             get { return InvokeRet<string>("nkMedia.GetSrc"); }

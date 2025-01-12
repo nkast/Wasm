@@ -5,6 +5,12 @@
         var me = nkJSObject.GetObject(uid);
         return BINDING.js_to_mono_obj(me.currentSrc);
     },
+
+    GetCurrentTime: function (uid)
+    {
+        var me = nkJSObject.GetObject(uid);
+        return me.currentTime * 1000;
+    },
     
     GetEnded: function (uid, d)
     {
