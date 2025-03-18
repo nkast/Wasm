@@ -62,7 +62,7 @@ window.nkXRSystem =
         var features = [];
 
         var ls = (fs >>  0) & 1;
-        var fs = (fs >>  1) & 1;
+        var lf = (fs >>  1) & 1;
         var ub = (fs >>  2) & 1;
         var bf = (fs >>  3) & 1;
         var vr = (fs >>  4) & 1;
@@ -78,7 +78,7 @@ window.nkXRSystem =
 
         if (ls == 1)
             features.push('local');
-        if (fs == 1)
+        if (lf == 1)
             features.push('local-floor');
         if (ub == 1)
             features.push('unbounded');
