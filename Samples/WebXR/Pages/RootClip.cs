@@ -170,7 +170,13 @@ namespace WebXR.Pages
 
             try
             {
-                _xrsession = await _xr.RequestSessionAsync("immersive-vr");
+                XRSessionOptions sessionOptions = default;
+                sessionOptions.RequiredFeatures = XRSessionFeatures.Local;
+                sessionOptions.OptionalFeatures = XRSessionFeatures.LocalFloor
+                                                | XRSessionFeatures.Anchors
+                                                | XRSessionFeatures.HandTracking
+                                                ;
+                _xrsession = await _xr.RequestSessionAsync("immersive-vr", sessionOptions);
                 _xrsession.Ended += _xrsession_Ended;
                 _xrsession.InputSourcesChanged += _xrsession_InputSourcesChanged;
                 await gl.MakeXRCompatibleAsync();
