@@ -53,6 +53,11 @@ namespace nkast.Wasm.XR
             throw new NotImplementedException();
         }
 
+        public Task<XRAnchor> CreateAnchor(XRRigidTransform pose, XRSpace baseSpace)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
