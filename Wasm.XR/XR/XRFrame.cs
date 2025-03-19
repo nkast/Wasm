@@ -48,6 +48,11 @@ namespace nkast.Wasm.XR
             return new XRPose(uid);
         }
 
+        public XRJointPose GetJointPose(XRJointSpace space, XRSpace baseSpace)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

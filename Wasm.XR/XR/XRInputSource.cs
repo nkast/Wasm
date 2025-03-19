@@ -65,6 +65,14 @@ namespace nkast.Wasm.XR
             }
         }
 
+        public XRHand Hand
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         internal XRInputSource(int uid) : base(uid)
         {
         }
