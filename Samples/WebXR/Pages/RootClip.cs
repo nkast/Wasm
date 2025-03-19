@@ -102,7 +102,6 @@ namespace WebXR.Pages
                         Vector4? linearVelocity = viewerPose.LinearVelocity;
                         XRRigidTransform transform = viewerPose.Transform;
                         Matrix4x4 tranformMtx = transform.Matrix;
-                        transform.Dispose();
 
                         XRWebGLLayer glLayer = renderState.BaseLayer;
                         float? depthNear = renderState.DepthNear;
@@ -125,14 +124,12 @@ namespace WebXR.Pages
 
                             float aspect = (float)xrViewport.Width / (float)xrViewport.Height;
 
-                            using (XRRigidTransform viewTransform = xrView.Transform)
-                            using (XRRigidTransform invViewTransform = viewTransform.Inverse)
-                            {
-                                Matrix4x4 view = invViewTransform.Matrix;
-                                Matrix4x4 proj = xrView.ProjectionMatrix;
-                                dc.view = view;
-                                dc.proj = proj;
-                            }
+                            XRRigidTransform viewTransform = xrView.Transform;
+                            XRRigidTransform invViewTransform = viewTransform.Inverse;
+                            Matrix4x4 view = invViewTransform.Matrix;
+                            Matrix4x4 proj = xrView.ProjectionMatrix;
+                            dc.view = view;
+                            dc.proj = proj;
 
                             base.Draw(dc);
 
@@ -245,7 +242,6 @@ namespace WebXR.Pages
                             Vector4? gripLinearVelocity = grip.LinearVelocity;
                             XRRigidTransform gripTransform = grip.Transform;
                             Matrix4x4 gripTranformMtx = gripTransform.Matrix;
-                            gripTransform.Dispose();
 
                         }
                     }
@@ -262,7 +258,6 @@ namespace WebXR.Pages
                             Vector4? pointerLinearVelocity = pointer.LinearVelocity;
                             XRRigidTransform pointerTransform = pointer.Transform;
                             Matrix4x4 pointerTranformMtx = pointerTransform.Matrix;
-                            pointerTransform.Dispose();
 
                             // draw pointer
                             Matrix4x4 pointerMtx = Matrix4x4.Identity;
