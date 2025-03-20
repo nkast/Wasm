@@ -233,7 +233,7 @@ namespace WebXR.Pages
         {
             foreach(XRInputSource inputSource in _xrsession.InputSources)
             {
-                XRHandedness hand = inputSource.Handedness;
+                XRHandedness handedness = inputSource.Handedness;
 
                 Gamepad gamepad = inputSource.Gamepad;
 
@@ -304,6 +304,17 @@ namespace WebXR.Pages
                         }
                     }
                 }
+
+                XRHand hand = inputSource.Hand;
+                if (hand != null)
+                {
+                    int handJointCount = hand.Count;
+                    for (int i = 0; i < handJointCount; i++)
+                    {
+
+                    }
+                }
+
             }
         }
 

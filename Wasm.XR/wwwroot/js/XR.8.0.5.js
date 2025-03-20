@@ -598,4 +598,28 @@ window.nkXRInputSource =
         return nkJSObject.RegisterObject(gp);
     },
 
+    GetHand: function (uid, d)
+    {
+        var is = nkJSObject.GetObject(uid);
+
+        var hd = is.hand;        
+        if (hd == undefined) return -1; // // immersive-web-emulator returns undefined instead of null. https://immersive-web.github.io/webxr-hand-input/#xrinputsource-interface
+
+        var uid = nkJSObject.GetUid(hd);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(hd);
+    },
 };
+
+
+window.nkXRHand =
+{
+    GetSize: function (uid, d)
+    {
+        var hd = nkJSObject.GetObject(uid);
+        return hd.size;
+    },
+};
+

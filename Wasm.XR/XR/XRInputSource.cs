@@ -69,7 +69,17 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                throw new NotImplementedException();
+                //int uid = InvokeRet<int>("nkXRInputSource.GetGripSpace");
+                int uid = InvokeRet<int>("nkXRInputSource.GetHand");
+                if (uid == -1)
+                    return null;
+
+                XRHand hand = XRHand.FromUid(uid);
+                if (hand != null)
+                    return hand;
+
+                return new XRHand(uid);
+
             }
         }
 
