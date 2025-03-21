@@ -391,6 +391,19 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
+    GetJointPose: function (uid, d)
+    {
+        var fr = nkJSObject.GetObject(uid);
+        var spid = Module.HEAP32[(d + 0) >> 2];
+        var bsid = Module.HEAP32[(d + 4) >> 2];
+
+        var sp = nkJSObject.GetObject(spid);
+        var bs = nkJSObject.GetObject(bsid);
+
+        var ps = fr.getJointPose(sp, bs);
+
+        return nkJSObject.RegisterObject(ps);
+    },
 };
 
 window.nkXRPose =
@@ -456,6 +469,18 @@ window.nkXRPose =
         Module.HEAPF32[(pt+20)>>2] = ps.y;
         Module.HEAPF32[(pt+24)>>2] = ps.z;
         Module.HEAPF32[(pt+28)>>2] = ps.w;
+    },
+};
+
+window.XRJointPose =
+{
+    GetRadius: function (uid, d)
+    {
+        var ps = nkJSObject.GetObject(uid);
+
+        var rd = ps.radius;
+
+        throw new Error("Not implemented");
     },
 };
 
@@ -620,6 +645,19 @@ window.nkXRHand =
     {
         var hd = nkJSObject.GetObject(uid);
         return hd.size;
+    },
+    Get: function (uid, d)
+    {
+        var hd = nkJSObject.GetObject(uid);
+        var ky = nkJSObject.ReadString(d + 0);
+
+        var js = hd.get(ky);
+
+        var uid = nkJSObject.GetUid(js);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(js);
     },
 };
 

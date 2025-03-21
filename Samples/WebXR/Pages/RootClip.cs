@@ -308,15 +308,107 @@ namespace WebXR.Pages
                 XRHand hand = inputSource.Hand;
                 if (hand != null)
                 {
-                    int handJointCount = hand.Count;
-                    for (int i = 0; i < handJointCount; i++)
-                    {
-
-                    }
+                    DrawHand(dc, hand);
                 }
 
             }
         }
 
+        private void DrawHand(DrawContext dc, XRHand hand)
+        {
+            int handJointCount = hand.Count;
+
+            XRJointSpace wristSpace = hand["wrist"];
+
+            XRJointSpace thumbMetacarpalSpace = hand["thumb-metacarpal"];
+            XRJointSpace thumbProximalSpace = hand["thumb-phalanx-proximal"];
+            XRJointSpace thumbDistalSpace = hand["thumb-phalanx-distal"];
+            XRJointSpace thumbTipSpace = hand["thumb-tip"];
+
+            XRJointSpace indexMetacarpalSpace = hand["index-finger-metacarpal"];
+            XRJointSpace indexProximalSpace = hand["index-finger-phalanx-proximal"];
+            XRJointSpace indexIntermediateSpace = hand["index-finger-phalanx-intermediate"];
+            XRJointSpace indexDistalSpace = hand["index-finger-phalanx-distal"];
+            XRJointSpace indexTipSpace = hand["index-finger-tip"];
+
+            XRJointSpace middleMetacarpalSpace = hand["middle-finger-metacarpal"];
+            XRJointSpace middleProximalSpace = hand["middle-finger-phalanx-proximal"];
+            XRJointSpace middleIntermediateSpace = hand["middle-finger-phalanx-intermediate"];
+            XRJointSpace middleDistalSpace = hand["middle-finger-phalanx-distal"];
+            XRJointSpace middleTipSpace = hand["middle-finger-tip"];
+
+            XRJointSpace ringMetacarpalSpace = hand["ring-finger-metacarpal"];
+            XRJointSpace ringProximalSpace = hand["ring-finger-phalanx-proximal"];
+            XRJointSpace ringIntermediateSpace = hand["ring-finger-phalanx-intermediate"];
+            XRJointSpace ringDistalSpace = hand["ring-finger-phalanx-distal"];
+            XRJointSpace ringTipSpace = hand["ring-finger-tip"];
+
+            XRJointSpace pinkyMetacarpalSpace = hand["pinky-finger-metacarpal"];
+            XRJointSpace pinkyProximalSpace = hand["pinky-finger-phalanx-proximal"];
+            XRJointSpace pinkyIntermediateSpace = hand["pinky-finger-phalanx-intermediate"];
+            XRJointSpace pinkyDistalSpace = hand["pinky-finger-phalanx-distal"];
+            XRJointSpace pinkyTipSpace = hand["pinky-finger-tip"];
+
+            DrawBone(dc, wristSpace, thumbMetacarpalSpace);
+            DrawBone(dc, thumbMetacarpalSpace, thumbProximalSpace);
+            DrawBone(dc, thumbProximalSpace, thumbDistalSpace);
+            DrawBone(dc, thumbDistalSpace, thumbTipSpace);
+
+            DrawBone(dc, wristSpace, indexMetacarpalSpace);
+            DrawBone(dc, indexMetacarpalSpace, indexProximalSpace);
+            DrawBone(dc, indexProximalSpace, indexIntermediateSpace);
+            DrawBone(dc, indexIntermediateSpace, indexDistalSpace);
+            DrawBone(dc, indexDistalSpace, indexTipSpace);
+
+            DrawBone(dc, wristSpace, middleMetacarpalSpace);
+            DrawBone(dc, middleMetacarpalSpace, middleProximalSpace);
+            DrawBone(dc, middleProximalSpace, middleIntermediateSpace);
+            DrawBone(dc, middleIntermediateSpace, middleDistalSpace);
+            DrawBone(dc, middleDistalSpace, middleTipSpace);
+
+            DrawBone(dc, wristSpace, ringMetacarpalSpace);
+            DrawBone(dc, ringMetacarpalSpace, ringProximalSpace);
+            DrawBone(dc, ringProximalSpace, ringIntermediateSpace);
+            DrawBone(dc, ringIntermediateSpace, ringDistalSpace);
+            DrawBone(dc, ringDistalSpace, ringTipSpace);
+
+            DrawBone(dc, wristSpace, pinkyMetacarpalSpace);
+            DrawBone(dc, pinkyMetacarpalSpace, pinkyProximalSpace);
+            DrawBone(dc, pinkyProximalSpace, pinkyIntermediateSpace);
+            DrawBone(dc, pinkyIntermediateSpace, pinkyDistalSpace);
+            DrawBone(dc, pinkyDistalSpace, pinkyTipSpace);
+        }
+
+        private void DrawBone(DrawContext dc, XRJointSpace jointASpace, XRJointSpace jointBSpace)
+        {
+            using (XRJointPose jointPoseA = dc.xrFrame.GetJointPose(jointASpace, _localspace))
+            using (XRJointPose jointPoseB = dc.xrFrame.GetJointPose(jointBSpace, _localspace))
+            {
+                XRRigidTransform jointPoseTransformA = jointPoseA.Transform;
+                XRRigidTransform jointPoseTransformB = jointPoseB.Transform;
+
+                Matrix4x4 jointPoseTransformMtx = jointPoseTransformB.Matrix;
+
+                // draw bone
+                Matrix4x4 boneMtx = Matrix4x4.Identity;
+                boneMtx *= Matrix4x4.CreateRotationX(-(float)Math.Tau / 4f);
+                boneMtx *= Matrix4x4.CreateScale(0.2f, 1.0f, 1.0f);
+
+                boneMtx *= Matrix4x4.CreateScale(0.04f);
+
+                boneMtx *= jointPoseTransformMtx;
+                DrawContext dcp = new DrawContext()
+                {
+                    GLContext = dc.GLContext,
+                    Layer = dc.Layer,
+                    t = dc.t,
+                    dt = dc.dt,
+                    world = boneMtx,
+                    view = dc.view,
+                    proj = dc.proj,
+                };
+                _tri.Draw(dcp);
+            }
+        }
     }
 }

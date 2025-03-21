@@ -50,7 +50,11 @@ namespace nkast.Wasm.XR
 
         public XRJointPose GetJointPose(XRJointSpace space, XRSpace baseSpace)
         {
-            throw new NotImplementedException();
+            int uid = InvokeRet<int, int, int>("nkXRFrame.GetJointPose", space.Uid, baseSpace.Uid);
+            if (uid == -1)
+                return null;
+
+            return new XRJointPose(uid);
         }
 
         public Task<XRAnchor> CreateAnchor(XRRigidTransform pose, XRSpace baseSpace)
