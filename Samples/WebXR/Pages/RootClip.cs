@@ -173,8 +173,8 @@ namespace WebXR.Pages
                 XRSessionOptions sessionOptions = default;
                 sessionOptions.RequiredFeatures = XRSessionFeatures.Local;
                 sessionOptions.OptionalFeatures = XRSessionFeatures.LocalFloor
-                                                | XRSessionFeatures.Anchors
                                                 | XRSessionFeatures.HandTracking
+                                                //| XRSessionFeatures.Anchors
                                                 ;
                 _xrsession = await _xr.RequestSessionAsync("immersive-vr", sessionOptions);
                 _xrsession.Ended += _xrsession_Ended;
