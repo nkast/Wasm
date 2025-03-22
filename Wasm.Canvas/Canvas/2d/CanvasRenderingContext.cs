@@ -101,7 +101,7 @@ namespace nkast.Wasm.Canvas
 
         public bool ImageSmoothingEnabled
         {
-            get { return InvokeRet<bool>("nkCanvas2dContext.GetImageSmoothingEnabled"); }
+            get { return InvokeRetBool("nkCanvas2dContext.GetImageSmoothingEnabled"); }
             set { Invoke("nkCanvas2dContext.SetImageSmoothingEnabled", value ? 1 : 0); }
         }
 
@@ -230,12 +230,12 @@ namespace nkast.Wasm.Canvas
 
         public bool IsPointInPath(float x, float y, bool evenodd = false)
         {
-            return InvokeRet<float, float, int, bool>("nkCanvas2dContext.IsPointInPath", x, y, evenodd ? 1 : 0);
+            return InvokeRetBool<float, float, int>("nkCanvas2dContext.IsPointInPath", x, y, evenodd ? 1 : 0);
         }
 
         public bool IsPointInStroke(float x, float y)
         {
-            return InvokeRet<float, float, bool>("nkCanvas2dContext.IsPointInStroke", x, y);
+            return InvokeRetBool<float, float>("nkCanvas2dContext.IsPointInStroke", x, y);
         }
 
         public void MoveTo(float x, float y)

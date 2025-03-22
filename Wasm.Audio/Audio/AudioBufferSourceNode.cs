@@ -18,7 +18,7 @@ namespace nkast.Wasm.Audio
 
         public bool Loop
         {
-            get { return InvokeRet<bool>("nkAudioBufferSourceNode.GetLoop"); }
+            get { return InvokeRetBool("nkAudioBufferSourceNode.GetLoop"); }
             set { Invoke("nkAudioBufferSourceNode.SetLoop", value ? 1 : 0); }
         }
 

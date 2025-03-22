@@ -207,12 +207,12 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public bool GetShaderParameter(WebGLShader shader, WebGLShaderStatus pname)
         {
-            return InvokeRet<int, int, bool>("nkCanvasGLContext.GetShaderParameter", shader.Uid, (int)pname);
+            return InvokeRetBool<int, int>("nkCanvasGLContext.GetShaderParameter", shader.Uid, (int)pname);
         }
 
         public bool GetProgramParameter(WebGLProgram program, WebGLProgramStatus pname)
         {
-            return InvokeRet<int, int, bool>("nkCanvasGLContext.GetProgramParameter", program.Uid, (int)pname);
+            return InvokeRetBool<int, int>("nkCanvasGLContext.GetProgramParameter", program.Uid, (int)pname);
         }
 
         public void TexImage2D(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, WebGLFormat format, WebGLTexelType type)
@@ -541,12 +541,12 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public bool IsContextLost()
         {
-            return InvokeRet<bool>("nkCanvasGLContext.IsContextLost");
+            return InvokeRetBool("nkCanvasGLContext.IsContextLost");
         }
 
         public bool GetExtension(string name)
         {
-            return InvokeRet<string, bool>("nkCanvasGLContext.GetExtension", name);
+            return InvokeRetBool<string>("nkCanvasGLContext.GetExtension", name);
         }
 
         public TExtension GetExtension<TExtension>(string name)

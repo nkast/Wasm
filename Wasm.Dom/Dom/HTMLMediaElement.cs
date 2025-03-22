@@ -33,23 +33,23 @@ namespace nkast.Wasm.Dom
 
         public bool Ended
         {
-            get { return InvokeRet<bool>("nkMedia.GetEnded"); }
+            get { return InvokeRetBool("nkMedia.GetEnded"); }
         }
 
         public bool Paused
         {
-            get { return InvokeRet<bool>("nkMedia.GetPaused"); }
+            get { return InvokeRetBool("nkMedia.GetPaused"); }
         }
 
         public bool Muted
         {
-            get { return InvokeRet<bool>("nkMedia.GetMuted"); }
+            get { return InvokeRetBool("nkMedia.GetMuted"); }
             set { Invoke("nkMedia.SetMuted", value); }
         }
 
         public bool Loop
         {
-            get { return InvokeRet<bool>("nkMedia.GetLoop"); }
+            get { return InvokeRetBool("nkMedia.GetLoop"); }
             set { Invoke("nkMedia.SetLoop", value); }
         }
 

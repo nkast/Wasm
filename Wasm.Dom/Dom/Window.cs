@@ -120,7 +120,7 @@ namespace nkast.Wasm.Dom
 
         public bool IsSecureContext
         {
-            get { return InvokeRet<bool>("nkWindow.GetIsSecureContext"); }
+            get { return InvokeRetBool("nkWindow.GetIsSecureContext"); }
         }
 
         public Storage SessionStorage

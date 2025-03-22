@@ -8,7 +8,7 @@ namespace nkast.Wasm.XR
     {
         public bool EmulatedPosition
         {
-            get { return InvokeRet<bool>("nkXRPose.GetEmulatedPosition"); }
+            get { return InvokeRetBool("nkXRPose.GetEmulatedPosition"); }
         }
 
         public unsafe Vector4? AngularVelocity
@@ -16,7 +16,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                bool valid = InvokeRet<IntPtr, bool>("nkXRPose.GetAngularVelocity", new IntPtr(&result));
+                bool valid = InvokeRetBool<IntPtr>("nkXRPose.GetAngularVelocity", new IntPtr(&result));
 
                 if (valid)
                     return result;
@@ -30,7 +30,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                bool valid = InvokeRet<IntPtr, bool>("nkXRPose.GetLinearVelocity", new IntPtr(&result));
+                bool valid = InvokeRetBool<IntPtr>("nkXRPose.GetLinearVelocity", new IntPtr(&result));
 
                 if (valid)
                     return result;

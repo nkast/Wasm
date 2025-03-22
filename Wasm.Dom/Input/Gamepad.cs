@@ -13,7 +13,7 @@ namespace nkast.Wasm.Input
 
         public bool Connected
         {
-            get { return InvokeRet<bool>("nkGamepad.GetConnected"); }
+            get { return InvokeRetBool("nkGamepad.GetConnected"); }
         }
 
         public string Id

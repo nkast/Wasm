@@ -13,18 +13,18 @@ namespace nkast.Wasm.Input
 
         public bool PlayEffect(string type, GamepadHapticActuatorParams actuatorParams)
         {
-            return InvokeRet<float, float, float, float, float, float, bool>("nkGamepadHapticActuator.PlayEffect",
+            return InvokeRetBool<float, float, float, float, float, float>("nkGamepadHapticActuator.PlayEffect",
                 actuatorParams.StartDelay, actuatorParams.Duration, actuatorParams.StrongMagnitude, actuatorParams.WeakMagnitude, actuatorParams.LeftTrigger, actuatorParams.RightTrigger);
         }
 
         public bool Pulse(float value, float duration)
         {
-            return InvokeRet<float, float, bool>("nkGamepadHapticActuator.Pulse", value, duration);
+            return InvokeRetBool<float, float>("nkGamepadHapticActuator.Pulse", value, duration);
         }
 
         public bool Reset()
         {
-            return InvokeRet<bool>("nkGamepadHapticActuator.Reset");
+            return InvokeRetBool("nkGamepadHapticActuator.Reset");
         }
 
         protected override void Dispose(bool disposing)

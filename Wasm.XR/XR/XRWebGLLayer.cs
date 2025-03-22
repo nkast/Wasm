@@ -23,12 +23,12 @@ namespace nkast.Wasm.XR
 
         public bool IgnoreDepthValues
         {
-            get { return InvokeRet<bool>("nkXRWebGLLayer.GetIgnoreDepthValues"); }
+            get { return InvokeRetBool("nkXRWebGLLayer.GetIgnoreDepthValues"); }
         }
 
         public bool Antialias
         {
-            get { return InvokeRet<bool>("nkXRWebGLLayer.GetAntialias"); }
+            get { return InvokeRetBool("nkXRWebGLLayer.GetAntialias"); }
         }
 
         public WebGLFramebuffer Framebuffer

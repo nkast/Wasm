@@ -139,7 +139,7 @@ namespace nkast.Wasm.Dom
 
         protected override void OnCompleted()
         {
-            bool result = InvokeRet<bool>("nkPromise.GetValueBoolean");
+            bool result = InvokeRetBool("nkPromise.GetValueBoolean");
             _tcs.SetResult(result);
         }
     }
