@@ -17,7 +17,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<String, int>("nkXRHand.Get", key);
+                int uid = InvokeRetInt<String>("nkXRHand.Get", key);
                 if (uid == -1)
                     return null;
 
@@ -57,7 +57,7 @@ namespace nkast.Wasm.XR
 
         public int Count
         {
-            get { return InvokeRet<int>("nkXRHand.GetSize"); }
+            get { return InvokeRetInt("nkXRHand.GetSize"); }
         }
 
         IEnumerator<KeyValuePair<string, XRJointSpace>> IEnumerable<KeyValuePair<string, XRJointSpace>>.GetEnumerator()

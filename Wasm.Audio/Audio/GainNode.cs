@@ -17,7 +17,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_gain == null)
                 {
-                    int uid = InvokeRet<int>("nkAudioGainNode.GetGain");
+                    int uid = InvokeRetInt("nkAudioGainNode.GetGain");
                     _gain = new AudioParam(uid, Context);
                 }
 

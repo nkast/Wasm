@@ -23,7 +23,7 @@ namespace nkast.Wasm.Input
 
         public int Index
         {
-            get { return InvokeRet<int>("nkGamepad.GetIndex"); }
+            get { return InvokeRetInt("nkGamepad.GetIndex"); }
         }
 
         public string Mapping
@@ -33,19 +33,19 @@ namespace nkast.Wasm.Input
 
         public int Timestamp
         {
-            get { return InvokeRet<int>("nkGamepad.GetTimestamp"); }
+            get { return InvokeRetInt("nkGamepad.GetTimestamp"); }
         }
 
         public unsafe GamepadButton[] Buttons
         {
             get
             {
-                int count = -InvokeRet<int, int, IntPtr, int>("nkGamepad.GetButtons", -1, 0, IntPtr.Zero);
+                int count = -InvokeRetInt<int, int, IntPtr>("nkGamepad.GetButtons", -1, 0, IntPtr.Zero);
                 GamepadButton[] ret = new GamepadButton[count];
 
                 fixed (GamepadButton* pret = ret)
                 {
-                    count = InvokeRet<int, int, IntPtr, int>("nkGamepad.GetButtons", count, sizeof(GamepadButton), new IntPtr(pret));
+                    count = InvokeRetInt<int, int, IntPtr>("nkGamepad.GetButtons", count, sizeof(GamepadButton), new IntPtr(pret));
                 }
 
                 return ret;
@@ -56,12 +56,12 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int count = -InvokeRet<int, IntPtr, int>("nkGamepad.GetAxes", -1, IntPtr.Zero);
+                int count = -InvokeRetInt<int, IntPtr>("nkGamepad.GetAxes", -1, IntPtr.Zero);
                 float[] ret = new float[count];
 
                 fixed (float* pret = ret)
                 {
-                    count = -InvokeRet<int, IntPtr, int>("nkGamepad.GetAxes", count, new IntPtr(pret));
+                    count = -InvokeRetInt<int, IntPtr>("nkGamepad.GetAxes", count, new IntPtr(pret));
                 }
 
                 return ret;
@@ -72,7 +72,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int uid = InvokeRet<int>("nkGamepad.GetVibrationActuator");
+                int uid = InvokeRetInt("nkGamepad.GetVibrationActuator");
                 GamepadHapticActuator gamepadHapticActuator = GamepadHapticActuator.FromUid(uid);
                 if (gamepadHapticActuator != null)
                     return gamepadHapticActuator;

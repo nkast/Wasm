@@ -9,14 +9,14 @@ namespace nkast.Wasm.Canvas
         //get or set the width of the OffscreenCanvas
         public int Width
         { 
-            get { return InvokeRet<int>("nkOffscreenCanvas.GetWidth"); }
+            get { return InvokeRetInt("nkOffscreenCanvas.GetWidth"); }
             set { Invoke("nkOffscreenCanvas.SetWidth", value); }
         }
 
         //get or set the height of the OffscreenCanvas
         public int Height
         {
-            get { return InvokeRet<int>("nkOffscreenCanvas.GetHeight"); }
+            get { return InvokeRetInt("nkOffscreenCanvas.GetHeight"); }
             set { Invoke("nkOffscreenCanvas.SetHeight", value); }
         }
 
@@ -48,7 +48,7 @@ namespace nkast.Wasm.Canvas
                 if (_canvasRenderingContext != null)
                     return (TContext)(IRenderingContext)_canvasRenderingContext;
 
-                int uid = InvokeRet<int>("nkOffscreenCanvas.Create2DContext");
+                int uid = InvokeRetInt("nkOffscreenCanvas.Create2DContext");
 
                 _canvasRenderingContext = new CanvasRenderingContext(null, uid);
 
@@ -64,7 +64,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRet<int>("nkOffscreenCanvas.CreateWebGLContext");
+                int uid = InvokeRetInt("nkOffscreenCanvas.CreateWebGLContext");
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(null, uid);
 
@@ -80,7 +80,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRet<int>("nkCanvas.CreateWebGL2Context");
+                int uid = InvokeRetInt("nkCanvas.CreateWebGL2Context");
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(null, uid);
 
@@ -114,7 +114,7 @@ namespace nkast.Wasm.Canvas
                 ||  attributes.XrCompatible != null)
                     throw new ArgumentException("attributes are not valid for 2d canvas context.", nameof(attributes));
 
-                int uid = InvokeRet<int, int>("nkOffscreenCanvas.Create2DContext1", attributes.ToBit());
+                int uid = InvokeRetInt<int>("nkOffscreenCanvas.Create2DContext1", attributes.ToBit());
                 
                 _canvasRenderingContext = new CanvasRenderingContext(null, uid);
 
@@ -130,7 +130,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRet<int, int>("nkOffscreenCanvas.CreateWebGLContext1", attributes.ToBit());
+                int uid = InvokeRetInt<int>("nkOffscreenCanvas.CreateWebGLContext1", attributes.ToBit());
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(null, uid);
 
@@ -146,7 +146,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRet<int, int>("nkOffscreenCanvas.CreateWebGL2Context1", attributes.ToBit());
+                int uid = InvokeRetInt<int>("nkOffscreenCanvas.CreateWebGL2Context1", attributes.ToBit());
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(null, uid);
 

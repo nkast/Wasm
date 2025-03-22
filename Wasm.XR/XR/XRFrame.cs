@@ -14,7 +14,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRFrame.GetSession");
+                int uid = InvokeRetInt("nkXRFrame.GetSession");
                 if (uid == -1)
                     return null;
 
@@ -32,7 +32,7 @@ namespace nkast.Wasm.XR
 
         public XRViewerPose GetViewerPose(XRReferenceSpace referenceSpace)
         {
-            int uid = InvokeRet<int, int>("nkXRFrame.GetViewerPose", referenceSpace.Uid);
+            int uid = InvokeRetInt<int>("nkXRFrame.GetViewerPose", referenceSpace.Uid);
             if (uid == -1)
                 return null;
 
@@ -41,7 +41,7 @@ namespace nkast.Wasm.XR
 
         public XRPose GetPose(XRSpace space, XRSpace baseSpace)
         {
-            int uid = InvokeRet<int,int, int>("nkXRFrame.GetPose", space.Uid, baseSpace.Uid);
+            int uid = InvokeRetInt<int, int>("nkXRFrame.GetPose", space.Uid, baseSpace.Uid);
             if (uid == -1)
                 return null;
 
@@ -50,7 +50,7 @@ namespace nkast.Wasm.XR
 
         public XRJointPose GetJointPose(XRJointSpace space, XRSpace baseSpace)
         {
-            int uid = InvokeRet<int, int, int>("nkXRFrame.GetJointPose", space.Uid, baseSpace.Uid);
+            int uid = InvokeRetInt<int, int>("nkXRFrame.GetJointPose", space.Uid, baseSpace.Uid);
             if (uid == -1)
                 return null;
 

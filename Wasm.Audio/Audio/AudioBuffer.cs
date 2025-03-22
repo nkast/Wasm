@@ -14,17 +14,17 @@ namespace nkast.Wasm.Audio
 
         public int SampleRate
         {
-            get { return InvokeRet<int>("nkAudioBuffer.GetSampleRate"); }
+            get { return InvokeRetInt("nkAudioBuffer.GetSampleRate"); }
         }
 
         public int Length
         {
-            get { return InvokeRet<int>("nkAudioBuffer.GetLength"); }
+            get { return InvokeRetInt("nkAudioBuffer.GetLength"); }
         }
 
         public int NumberOfChannels
         {
-            get { return InvokeRet<int>("nkAudioBuffer.GetNumberOfChannels"); }
+            get { return InvokeRetInt("nkAudioBuffer.GetNumberOfChannels"); }
         }
 
         public void CopyToChannel(float[] source, int channelNumber)

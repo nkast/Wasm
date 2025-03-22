@@ -13,7 +13,7 @@ namespace nkast.Wasm.Dom
 
         public int Length
         {
-            get { return InvokeRet<int>("nkStorage.GetLength"); }
+            get { return InvokeRetInt("nkStorage.GetLength"); }
         }
 
         public void SetItem(string key, string value)

@@ -13,12 +13,12 @@ namespace nkast.Wasm.XR
 
         public int FramebufferWidth
         {
-            get { return InvokeRet<int>("nkXRWebGLLayer.GetFramebufferWidth"); }
+            get { return InvokeRetInt("nkXRWebGLLayer.GetFramebufferWidth"); }
         }
 
         public int FramebufferHeight
         {
-            get { return InvokeRet<int>("nkXRWebGLLayer.GetFramebufferHeight"); }
+            get { return InvokeRetInt("nkXRWebGLLayer.GetFramebufferHeight"); }
         }
 
         public bool IgnoreDepthValues
@@ -35,7 +35,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRWebGLLayer.GetFramebuffer");
+                int uid = InvokeRetInt("nkXRWebGLLayer.GetFramebuffer");
                 XRWebGLFramebuffer framebuffer = XRWebGLFramebuffer.FromUid<XRWebGLFramebuffer>(uid);
                 if (framebuffer != null)
                     return framebuffer;

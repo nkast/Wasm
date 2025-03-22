@@ -21,7 +21,7 @@ namespace nkast.Wasm.XR
             {
                 int* puids = stackalloc int[2];
 
-                int count = InvokeRet<IntPtr, int>("nkXRViewerPose.GetViews", new IntPtr(puids));
+                int count = InvokeRetInt<IntPtr>("nkXRViewerPose.GetViews", new IntPtr(puids));
                 _views.Clear();
 
                 for (int i = 0; i < count; i++)

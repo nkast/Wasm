@@ -86,7 +86,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_document == null)
                 {
-                    int uid = InvokeRet<int>("nkWindow.GetDocument");
+                    int uid = InvokeRetInt("nkWindow.GetDocument");
                     _document = new Document(this, uid);
                 }
 
@@ -100,7 +100,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_navigator == null)
                 {
-                    int uid = InvokeRet<int>("nkWindow.GetNavigator");
+                    int uid = InvokeRetInt("nkWindow.GetNavigator");
                     _navigator = new Navigator(this, uid);
                 }
 
@@ -110,12 +110,12 @@ namespace nkast.Wasm.Dom
 
         public int InnerWidth
         {
-            get { return InvokeRet<int>("nkWindow.GetInnerWidth"); }
+            get { return InvokeRetInt("nkWindow.GetInnerWidth"); }
         }
 
         public int InnerHeight
         {
-            get { return InvokeRet<int>("nkWindow.GetInnerHeight"); }
+            get { return InvokeRetInt("nkWindow.GetInnerHeight"); }
         }
 
         public bool IsSecureContext
@@ -129,7 +129,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_sessionStorage == null)
                 {
-                    int uid = InvokeRet<int>("nkWindow.GetSessionStorage");
+                    int uid = InvokeRetInt("nkWindow.GetSessionStorage");
                     if (uid == -1)
                         return null;
                     _sessionStorage = new Storage(uid);
@@ -145,7 +145,7 @@ namespace nkast.Wasm.Dom
 
                 if (_localStorage == null)
                 {
-                    int uid = InvokeRet<int>("nkWindow.GetLocalStorage");
+                    int uid = InvokeRetInt("nkWindow.GetLocalStorage");
                     if (uid == -1)
                         return null;
                     _localStorage = new Storage(uid);
@@ -188,7 +188,7 @@ namespace nkast.Wasm.Dom
             unchecked { _animationFrameCallbackId++; }
             int callbackId = _animationFrameCallbackId;
 
-            int handle = InvokeRet<int, int>("nkWindow.RequestAnimationFrame", callbackId);
+            int handle = InvokeRetInt<int>("nkWindow.RequestAnimationFrame", callbackId);
 
             _animationFrameCallbacks.Add(callbackId, animationFrameCallback);
             _animationFrameRequestHandles.Add(callbackId, handle);
@@ -230,7 +230,7 @@ namespace nkast.Wasm.Dom
             unchecked { _timeoutCallbackId++; }
             int callbackId = _timeoutCallbackId;
 
-            int handle = InvokeRet<int, int, int>("nkWindow.SetTimeout", callbackId, 0);
+            int handle = InvokeRetInt<int, int>("nkWindow.SetTimeout", callbackId, 0);
 
             _timeoutCallbacks.Add(callbackId, timeoutCallback);
             _timeoutHandles.Add(callbackId, handle);
@@ -243,7 +243,7 @@ namespace nkast.Wasm.Dom
             unchecked { _timeoutCallbackId++; }
             int callbackId = _timeoutCallbackId;
 
-            int handle = InvokeRet<int, int, int>("nkWindow.SetTimeout", callbackId, (int)delay.TotalMilliseconds);
+            int handle = InvokeRetInt<int, int>("nkWindow.SetTimeout", callbackId, (int)delay.TotalMilliseconds);
 
             _timeoutCallbacks.Add(callbackId, timeoutCallback);
             _timeoutHandles.Add(callbackId, handle);
@@ -281,7 +281,7 @@ namespace nkast.Wasm.Dom
             unchecked { _intervalCallbackId++; }
             int intervalId = _intervalCallbackId;
 
-            int handle = InvokeRet<int, int, int>("nkWindow.SetInterval", intervalId, 0);
+            int handle = InvokeRetInt<int, int>("nkWindow.SetInterval", intervalId, 0);
 
             _intervalCallbacks.Add(intervalId, intervalCallback);
             _intervalHandles.Add(intervalId, handle);
@@ -294,7 +294,7 @@ namespace nkast.Wasm.Dom
             unchecked { _intervalCallbackId++; }
             int intervalId = _intervalCallbackId;
 
-            int handle = InvokeRet<int, int, int>("nkWindow.SetInterval", intervalId, (int)delay.TotalMilliseconds);
+            int handle = InvokeRetInt<int, int>("nkWindow.SetInterval", intervalId, (int)delay.TotalMilliseconds);
 
             _intervalCallbacks.Add(intervalId, intervalCallback);
             _intervalHandles.Add(intervalId, handle);

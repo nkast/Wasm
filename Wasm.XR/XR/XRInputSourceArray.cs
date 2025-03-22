@@ -20,7 +20,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int, int>("nkJSArray.GetItem", index);
+                int uid = InvokeRetInt<int>("nkJSArray.GetItem", index);
                 XRInputSource inputSource = XRInputSource.FromUid(uid);
                 if (inputSource != null)
                     return inputSource;
@@ -38,7 +38,7 @@ namespace nkast.Wasm.XR
 
         public int Count
         {
-            get { return InvokeRet<int>("nkJSArray.GetLength"); }
+            get { return InvokeRetInt("nkJSArray.GetLength"); }
         }
 
         #endregion ICollection

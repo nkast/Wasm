@@ -56,7 +56,7 @@ namespace nkast.Wasm.Dom
         protected override void OnError()
         {
             string message = InvokeRet<string>("nkPromise.GetErrorMessage");
-            int errorType = InvokeRet<int>("nkPromise.GetErrorType");
+            int errorType = InvokeRetInt("nkPromise.GetErrorType");
 
             Exception ex;
             switch (errorType)
@@ -102,7 +102,7 @@ namespace nkast.Wasm.Dom
         protected override void OnError()
         {
             string message = InvokeRet<string>("nkPromise.GetErrorMessage");
-            int errorType = InvokeRet<int>("nkPromise.GetErrorType");
+            int errorType = InvokeRetInt("nkPromise.GetErrorType");
 
             Exception ex;
             switch (errorType)
@@ -156,7 +156,7 @@ namespace nkast.Wasm.Dom
 
         protected override void OnCompleted()
         {
-            int uid = InvokeRet<int>("nkPromise.GetValueJSObject");
+            int uid = InvokeRetInt("nkPromise.GetValueJSObject");
 
             TResult result = (TResult)_objectFactory(uid);
             _tcs.SetResult(result);

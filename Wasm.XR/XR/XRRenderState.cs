@@ -53,7 +53,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRRenderState.GetBaseLayer");
+                int uid = InvokeRetInt("nkXRRenderState.GetBaseLayer");
                 XRWebGLLayer glLayer = XRWebGLLayer.FromUid<XRWebGLLayer>(uid);
                 if (glLayer != null)
                     return glLayer;

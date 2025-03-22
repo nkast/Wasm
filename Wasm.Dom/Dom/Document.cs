@@ -44,7 +44,7 @@ namespace nkast.Wasm.Dom
             if (element != null)
                 return element;
 
-            int uid = InvokeRet<string, int>("nkDocument.GetElementById", id);
+            int uid = InvokeRetInt<string>("nkDocument.GetElementById", id);
             if (uid != -1)
             {
                 element = CreateInstance<TElement>(uid);

@@ -12,7 +12,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRInputSource.GetGripSpace");
+                int uid = InvokeRetInt("nkXRInputSource.GetGripSpace");
                 if (uid == -1)
                     return null;
 
@@ -28,7 +28,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRInputSource.GetTargetRaySpace");
+                int uid = InvokeRetInt("nkXRInputSource.GetTargetRaySpace");
                 if (uid == -1)
                     return null;
 
@@ -44,7 +44,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int hand = InvokeRet<int>("nkXRInputSource.GetHandedness");
+                int hand = InvokeRetInt("nkXRInputSource.GetHandedness");
                 return (XRHandedness)hand;
             }
         }
@@ -53,7 +53,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRet<int>("nkXRInputSource.GetGamepad");
+                int uid = InvokeRetInt("nkXRInputSource.GetGamepad");
                 if (uid == -1)
                     return null;
 
@@ -69,8 +69,8 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                //int uid = InvokeRet<int>("nkXRInputSource.GetGripSpace");
-                int uid = InvokeRet<int>("nkXRInputSource.GetHand");
+                //int uid = InvokeRetInt("nkXRInputSource.GetGripSpace");
+                int uid = InvokeRetInt("nkXRInputSource.GetHand");
                 if (uid == -1)
                     return null;
 

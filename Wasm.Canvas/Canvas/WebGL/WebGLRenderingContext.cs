@@ -121,7 +121,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public int GetParameter(WebGLPNameInteger pname)
         {
-            return InvokeRet<int, int>("nkCanvasGLContext.GetParameterInt", (int)pname);
+            return InvokeRetInt<int>("nkCanvasGLContext.GetParameterInt", (int)pname);
         }
 
         public string GetParameter(WebGLPNameString pname)
@@ -131,7 +131,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLTexture CreateTexture()
         {
-            int uid = InvokeRet<int>("nkCanvasGLContext.CreateTexture");
+            int uid = InvokeRetInt("nkCanvasGLContext.CreateTexture");
             return new WebGLTexture(uid, this);
         }
 
@@ -142,7 +142,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLShader CreateShader(WebGLShaderType type)
         {
-            int uid = InvokeRet<int, int>("nkCanvasGLContext.CreateShader", (int)type);
+            int uid = InvokeRetInt<int>("nkCanvasGLContext.CreateShader", (int)type);
             return new WebGLShader(uid, this);
         }
 
@@ -153,7 +153,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLProgram CreateProgram()
         {
-            int uid = InvokeRet<int>("nkCanvasGLContext.CreateProgram");
+            int uid = InvokeRetInt("nkCanvasGLContext.CreateProgram");
             return new WebGLProgram(uid, this);
         }
 
@@ -164,7 +164,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLBuffer CreateBuffer()
         {
-            int uid = InvokeRet<int>("nkCanvasGLContext.CreateBuffer");
+            int uid = InvokeRetInt("nkCanvasGLContext.CreateBuffer");
             return new WebGLBuffer(uid, this);
         }
 
@@ -175,7 +175,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLFramebuffer CreateFramebuffer()
         {
-            int uid = InvokeRet<int>("nkCanvasGLContext.CreateFramebuffer");
+            int uid = InvokeRetInt("nkCanvasGLContext.CreateFramebuffer");
             return new WebGLFramebuffer(uid, this);
         }
 
@@ -186,7 +186,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLRenderbuffer CreateRenderbuffer()
         {
-            int uid = InvokeRet<int>("nkCanvasGLContext.CreateRenderbuffer");
+            int uid = InvokeRetInt("nkCanvasGLContext.CreateRenderbuffer");
             return new WebGLRenderbuffer(uid, this);
         }
 
@@ -318,7 +318,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLFramebufferStatus CheckFramebufferStatus(WebGLFramebufferType target)
         {
-            return (WebGLFramebufferStatus)InvokeRet<int, int>("nkCanvasGLContext.CheckFramebufferStatus", (int)target);
+            return (WebGLFramebufferStatus)InvokeRetInt<int>("nkCanvasGLContext.CheckFramebufferStatus", (int)target);
         }
 
         public void GenerateMipmap(WebGLTextureTarget target)
@@ -343,12 +343,12 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public int GetAttribLocation(WebGLProgram program, string name)
         {
-            return InvokeRet<int, string, int>("nkCanvasGLContext.GetAttribLocation", program.Uid, name);
+            return InvokeRetInt<int, string>("nkCanvasGLContext.GetAttribLocation", program.Uid, name);
         }
 
         public WebGLUniformLocation GetUniformLocation(WebGLProgram program, string name)
         {
-            int uid = InvokeRet<int, string, int>("nkCanvasGLContext.GetUniformLocation", program.Uid, name);
+            int uid = InvokeRetInt<int, string>("nkCanvasGLContext.GetUniformLocation", program.Uid, name);
             if (uid == -1)
                 return null;
             return new WebGLUniformLocation(uid, this);
@@ -552,7 +552,7 @@ namespace nkast.Wasm.Canvas.WebGL
         public TExtension GetExtension<TExtension>(string name)
             where TExtension : WebGLExtension
         {
-            int uid = InvokeRet<string, int>("nkCanvasGLContext.GetExtension1", name);
+            int uid = InvokeRetInt<string>("nkCanvasGLContext.GetExtension1", name);
 
             switch (name)
             {
@@ -566,7 +566,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public WebGLErrorCode GetError()
         {   
-            return (WebGLErrorCode)InvokeRet<int>("nkCanvasGLContext.GetError");
+            return (WebGLErrorCode)InvokeRetInt("nkCanvasGLContext.GetError");
         }
 
         protected override void Dispose(bool disposing)

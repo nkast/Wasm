@@ -36,7 +36,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int eye = InvokeRet<int>("nkXRView.GetEye");
+                int eye = InvokeRetInt("nkXRView.GetEye");
                 return (XREye)eye;
             }
         }

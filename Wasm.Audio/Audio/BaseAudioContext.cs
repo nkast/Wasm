@@ -16,7 +16,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                int sampleRate = InvokeRet<int>("nkAudioBaseContext.GetSampleRate");
+                int sampleRate = InvokeRetInt("nkAudioBaseContext.GetSampleRate");
                 return SampleRate;
             }
         }
@@ -27,7 +27,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_destination == null)
                 {
-                    int uid = InvokeRet<int>("nkAudioBaseContext.GetDestination");
+                    int uid = InvokeRetInt("nkAudioBaseContext.GetDestination");
                     _destination = new AudioDestinationNode(uid, this);
                 }
 
@@ -41,7 +41,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_listener == null)
                 {
-                    int uid = InvokeRet<int>("nkAudioBaseContext.GetListener");
+                    int uid = InvokeRetInt("nkAudioBaseContext.GetListener");
                     _listener = new AudioListener(uid, this);
                 }
 
@@ -60,37 +60,37 @@ namespace nkast.Wasm.Audio
 
         public AudioBuffer CreateBuffer(int numOfChannels, int  length, int sampleRate)
         {
-            int uid = InvokeRet<int, int, int, int>("nkAudioBaseContext.CreateBuffer", numOfChannels, length, sampleRate);
+            int uid = InvokeRetInt<int, int, int>("nkAudioBaseContext.CreateBuffer", numOfChannels, length, sampleRate);
             return new AudioBuffer(uid, this);
         }
 
         public AudioBufferSourceNode CreateBufferSource()
         {
-            int uid = InvokeRet<int>("nkAudioBaseContext.CreateBufferSource");
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateBufferSource");
             return new AudioBufferSourceNode(uid, this);
         }
 
         public OscillatorNode CreateOscillator()
         {
-            int uid = InvokeRet<int>("nkAudioBaseContext.CreateOscillator");
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateOscillator");
             return new OscillatorNode(uid, this);
         }        
 
         public MediaElementAudioSourceNode CreateMediaElementSource(IHTMLMediaElement media)
         {
-            int uid = InvokeRet<int, int>("nkAudioBaseContext.CreateMediaElementSource", ((JSObject)media).Uid);
+            int uid = InvokeRetInt<int>("nkAudioBaseContext.CreateMediaElementSource", ((JSObject)media).Uid);
             return new MediaElementAudioSourceNode(uid, this, media);
         }
 
         public GainNode CreateGain()
         {
-            int uid = InvokeRet<int>("nkAudioBaseContext.CreateGain");
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateGain");
             return new GainNode(uid, this);
         }
 
         public StereoPannerNode CreateStereoPanner()
         {
-            int uid = InvokeRet<int>("nkAudioBaseContext.CreateStereoPanner");
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateStereoPanner");
             return new StereoPannerNode(uid, this);
         }
 

@@ -11,7 +11,7 @@ namespace nkast.Wasm.Audio
 
         public int MaxChannelCount
         {            
-            get { return InvokeRet<int>("nkAudioDestinationNode.GetMaxChannelCount"); }
+            get { return InvokeRetInt("nkAudioDestinationNode.GetMaxChannelCount"); }
         }
 
         protected override void Dispose(bool disposing)

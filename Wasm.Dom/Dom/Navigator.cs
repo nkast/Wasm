@@ -21,7 +21,7 @@ namespace nkast.Wasm.Dom
 
         public int MaxTouchPoints
         {
-            get { return InvokeRet<int>("nkNavigator.GetMaxTouchPoints"); }
+            get { return InvokeRetInt("nkNavigator.GetMaxTouchPoints"); }
         }
 
         internal Navigator(Window window, int uid) : base(uid)
@@ -60,7 +60,7 @@ namespace nkast.Wasm.Dom
 
         private GamepadArray GetGamepadArray()
         {
-            int uid = InvokeRet<int>("nkNavigator.GetGamepads");
+            int uid = InvokeRetInt("nkNavigator.GetGamepads");
 
             GamepadArray gamepadArray = GamepadArray.FromUid(uid);
             if (gamepadArray != null)

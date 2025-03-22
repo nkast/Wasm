@@ -13,12 +13,12 @@ namespace nkast.Wasm.Dom
 
         public int ClientWidth
         {
-            get { return InvokeRet<int>("nkElement.GetClientWidth"); }
+            get { return InvokeRetInt("nkElement.GetClientWidth"); }
         }
 
         public int ClientHeight
         {
-            get { return InvokeRet<int>("nkElement.GetClientHeight"); }
+            get { return InvokeRetInt("nkElement.GetClientHeight"); }
         }
     }
 }

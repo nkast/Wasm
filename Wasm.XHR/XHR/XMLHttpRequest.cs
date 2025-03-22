@@ -72,7 +72,7 @@ namespace nkast.Wasm.XHR
         {
             get
             {
-                int status = InvokeRet<int>("nkXHR.GetStatus");
+                int status = InvokeRetInt("nkXHR.GetStatus");
                 return status;
             }
         }
@@ -90,7 +90,7 @@ namespace nkast.Wasm.XHR
         {
             get
             {
-                int readyState = InvokeRet<int>("nkXHR.GetReadyState");
+                int readyState = InvokeRetInt("nkXHR.GetReadyState");
                 return (ReadyState) readyState;
             }
         }
