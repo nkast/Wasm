@@ -33,9 +33,9 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, string>(identifier, Uid));
         }
 
-        protected TRes InvokeRet<TRes>(string identifier)
+        protected string InvokeRetString(string identifier)
         {
-            return Runtime.InvokeUnmarshalled<int, TRes>(identifier, Uid);
+            return Runtime.InvokeUnmarshalled<int, string>(identifier, Uid);
         }
 
         protected void Invoke<T1>(string identifier, T1 arg1)
@@ -63,10 +63,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, int>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, TRes>(string identifier, T1 arg1)
+        protected string InvokeRetString<T1>(string identifier, T1 arg1)
         {
             var args = ValueTuple.Create(arg1, Net7Padding);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, int>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, int>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2>(string identifier, T1 arg1, T2 arg2)
@@ -93,10 +93,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, TRes>(string identifier, T1 arg1, T2 arg2)
+        protected string InvokeRetString<T1, T2>(string identifier, T1 arg1, T2 arg2)
         {
             var args = ValueTuple.Create(arg1, arg2);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3>(string identifier, T1 arg1, T2 arg2, T3 arg3)
@@ -123,10 +123,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3)
+        protected string InvokeRetString<T1, T2, T3>(string identifier, T1 arg1, T2 arg2, T3 arg3)
         {
             var args = ValueTuple.Create(arg1, arg2, arg3);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
@@ -153,10 +153,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        protected string InvokeRetString<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
@@ -183,10 +183,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+        protected string InvokeRetString<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
@@ -213,10 +213,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+        protected string InvokeRetString<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
@@ -243,10 +243,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6, T7>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        protected string InvokeRetString<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6, T7>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6, T7>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
@@ -309,7 +309,7 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        protected string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
             var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
                 value1: arg1,
@@ -321,7 +321,7 @@ namespace nkast.Wasm.Dom
                 value7: arg7,
                 value8: arg8
             );
-            return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
@@ -348,10 +348,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+        protected string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
-            return Runtime.InvokeUnmarshalled<int, FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>, string>(identifier, Uid, args);
         }
 
         protected void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
@@ -378,10 +378,10 @@ namespace nkast.Wasm.Dom
             return float.Parse(Runtime.InvokeUnmarshalled<int, FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>, string>(identifier, Uid, args));
         }
 
-        protected TRes InvokeRet<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TRes>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        protected string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
         {
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
-            return Runtime.InvokeUnmarshalled<int, FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>, TRes>(identifier, Uid, args);
+            return Runtime.InvokeUnmarshalled<int, FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>, string>(identifier, Uid, args);
         }
     }
 }

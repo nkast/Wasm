@@ -81,7 +81,7 @@ namespace nkast.Wasm.XHR
         {
             get
             {
-                string responseText = InvokeRet<string>("nkXHR.GetResponseText");
+                string responseText = InvokeRetString("nkXHR.GetResponseText");
                 return responseText;
             }
         }

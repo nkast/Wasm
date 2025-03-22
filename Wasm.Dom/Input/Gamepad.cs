@@ -18,7 +18,7 @@ namespace nkast.Wasm.Input
 
         public string Id
         {
-            get { return InvokeRet<string>("nkGamepad.GetId"); }
+            get { return InvokeRetString("nkGamepad.GetId"); }
         }
 
         public int Index
@@ -28,7 +28,7 @@ namespace nkast.Wasm.Input
 
         public string Mapping
         {
-            get { return InvokeRet<string>("nkGamepad.GetMapping"); }
+            get { return InvokeRetString("nkGamepad.GetMapping"); }
         }
 
         public int Timestamp

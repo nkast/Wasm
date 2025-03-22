@@ -13,7 +13,7 @@ namespace nkast.Wasm.Dom
 
         public string CurrentSrc
         {
-            get { return InvokeRet<string>("nkMedia.GetCurrentSrc"); }
+            get { return InvokeRetString("nkMedia.GetCurrentSrc"); }
         }
 
         public TimeSpan CurrentTime
@@ -27,7 +27,7 @@ namespace nkast.Wasm.Dom
 
         public string Src
         {
-            get { return InvokeRet<string>("nkMedia.GetSrc"); }
+            get { return InvokeRetString("nkMedia.GetSrc"); }
             set { Invoke("nkMedia.SetSrc", value); }
         }
 

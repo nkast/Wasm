@@ -23,7 +23,7 @@ namespace nkast.Wasm.Dom
 
         public string GetItem(string key)
         {
-            return InvokeRet<string, string>("nkStorage.GetItem", key);
+            return InvokeRetString<string>("nkStorage.GetItem", key);
         }
 
         public void RemoveItem(string key)

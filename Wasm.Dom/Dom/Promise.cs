@@ -55,7 +55,7 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            string message = InvokeRet<string>("nkPromise.GetErrorMessage");
+            string message = InvokeRetString("nkPromise.GetErrorMessage");
             int errorType = InvokeRetInt("nkPromise.GetErrorType");
 
             Exception ex;
@@ -101,7 +101,7 @@ namespace nkast.Wasm.Dom
 
         protected override void OnError()
         {
-            string message = InvokeRet<string>("nkPromise.GetErrorMessage");
+            string message = InvokeRetString("nkPromise.GetErrorMessage");
             int errorType = InvokeRetInt("nkPromise.GetErrorType");
 
             Exception ex;

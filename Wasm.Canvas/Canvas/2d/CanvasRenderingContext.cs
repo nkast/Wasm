@@ -13,19 +13,19 @@ namespace nkast.Wasm.Canvas
 
         public string FillStyle
         {
-            get { return InvokeRet<string>("nkCanvas2dContext.GetFillStyle"); }
+            get { return InvokeRetString("nkCanvas2dContext.GetFillStyle"); }
             set { Invoke("nkCanvas2dContext.SetFillStyle", value); }
         }
 
         public string StrokeStyle
         {
-            get { return InvokeRet<string>("nkCanvas2dContext.GetStrokeStyle"); }
+            get { return InvokeRetString("nkCanvas2dContext.GetStrokeStyle"); }
             set { Invoke("nkCanvas2dContext.SetStrokeStyle", value); }
         }
 
         public string Font
         {
-            get { return InvokeRet<string>("nkCanvas2dContext.GetFont"); }
+            get { return InvokeRetString("nkCanvas2dContext.GetFont"); }
             set { Invoke("nkCanvas2dContext.SetFont", value); }
         }
 
@@ -33,7 +33,7 @@ namespace nkast.Wasm.Canvas
         {
             get
             {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetTextAlign");
+                string str = InvokeRetString("nkCanvas2dContext.GetTextAlign");
                 return Enum.Parse<TextAlign>(str, true);
             }
             set { Invoke("nkCanvas2dContext.SetTextAlign", value.ToString().ToLower()); }
@@ -43,7 +43,7 @@ namespace nkast.Wasm.Canvas
         {
             get
             {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetTextBaseline");
+                string str = InvokeRetString("nkCanvas2dContext.GetTextBaseline");
                 return Enum.Parse<TextBaseline>(str, true);
             }
             set { Invoke("nkCanvas2dContext.SetTextBaseline", value.ToString().ToLower()); }
@@ -59,7 +59,7 @@ namespace nkast.Wasm.Canvas
         {
             get
             {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetLineCap");
+                string str = InvokeRetString("nkCanvas2dContext.GetLineCap");
                 return Enum.Parse<LineCap>(str, true);
             }
             set { Invoke("nkCanvas2dContext.SetLineCap", value.ToString().ToLower()); }
@@ -81,7 +81,7 @@ namespace nkast.Wasm.Canvas
         {
             get
             {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetGlobalCompositeOperation")?.Replace('-', '_');
+                string str = InvokeRetString("nkCanvas2dContext.GetGlobalCompositeOperation")?.Replace('-', '_');
                 return Enum.Parse<CompositeOperation>(str, true);
             }
             set { Invoke("nkCanvas2dContext.SetGlobalCompositeOperation", value.ToString().ToLower().Replace('_', '-')); }
@@ -101,7 +101,7 @@ namespace nkast.Wasm.Canvas
 
         public string ShadowColor
         {
-            get { return InvokeRet<string>("nkCanvas2dContext.GetShadowColor"); }
+            get { return InvokeRetString("nkCanvas2dContext.GetShadowColor"); }
             set { Invoke("nkCanvas2dContext.SetShadowColor", value); }
         }
 
@@ -175,7 +175,7 @@ namespace nkast.Wasm.Canvas
         private static float[] _emptyLineDash = new float[0];
         public float[] GetLineDash()
         {
-            string str = InvokeRet<string>("nkCanvas2dContext.GetLineDash");
+            string str = InvokeRetString("nkCanvas2dContext.GetLineDash");
             if (string.IsNullOrEmpty(str))
                 return _emptyLineDash;
 

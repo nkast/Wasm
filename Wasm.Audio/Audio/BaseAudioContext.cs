@@ -53,7 +53,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                string str = InvokeRet<string>("nkAudioBaseContext.GetState");
+                string str = InvokeRetString("nkAudioBaseContext.GetState");
                 return Enum.Parse<ContextState>(str, true);
             }
         }

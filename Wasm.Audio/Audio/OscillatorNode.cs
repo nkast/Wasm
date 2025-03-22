@@ -29,7 +29,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                string str = InvokeRet<string>("nkAudioOscillatorNode.GetType");
+                string str = InvokeRetString("nkAudioOscillatorNode.GetType");
                 return Enum.Parse<OscillatorType>(str, true);
             }
             set { Invoke("nkCanvas2dContext.SetType", value.ToString().ToLower()); }

@@ -15,7 +15,7 @@ namespace nkast.Wasm.Dom
 
         public string Title
         {
-            get { return InvokeRet<string>("nkDocument.GetTitle"); }
+            get { return InvokeRetString("nkDocument.GetTitle"); }
             set { Invoke("nkDocument.SetTitle", value); }
         }
 

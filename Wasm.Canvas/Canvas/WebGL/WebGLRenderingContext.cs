@@ -126,7 +126,7 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public string GetParameter(WebGLPNameString pname)
         {
-            return InvokeRet<int, string>("nkCanvasGLContext.GetParameterString", (int)pname);
+            return InvokeRetString<int>("nkCanvasGLContext.GetParameterString", (int)pname);
         }
 
         public WebGLTexture CreateTexture()
@@ -333,12 +333,12 @@ namespace nkast.Wasm.Canvas.WebGL
 
         public string GetProgramInfoLog(WebGLProgram program)
         {
-            return InvokeRet<int, string>("nkCanvasGLContext.GetProgramInfoLog", program.Uid);
+            return InvokeRetString<int>("nkCanvasGLContext.GetProgramInfoLog", program.Uid);
         }
 
         public string GetShaderInfoLog(WebGLShader shader)
         {
-            return InvokeRet<int, string>("nkCanvasGLContext.GetShaderInfoLog", shader.Uid);
+            return InvokeRetString<int>("nkCanvasGLContext.GetShaderInfoLog", shader.Uid);
         }
 
         public int GetAttribLocation(WebGLProgram program, string name)

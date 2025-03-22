@@ -16,7 +16,7 @@ namespace nkast.Wasm.Dom
 
         public string UserAgent
         {
-            get { return InvokeRet<string>("nkNavigator.GetUserAgent"); }
+            get { return InvokeRetString("nkNavigator.GetUserAgent"); }
         }
 
         public int MaxTouchPoints
