@@ -3,7 +3,7 @@
     GetCurrentSrc: function (uid)
     {
         var me = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(me.currentSrc);
+        return me.currentSrc;
     },
 
     GetCurrentTime: function (uid)
@@ -27,7 +27,7 @@
     GetSrc: function (uid)
     {
         var me = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(me.src);
+        return me.src;
     },
     SetSrc: function (uid, d)
     {

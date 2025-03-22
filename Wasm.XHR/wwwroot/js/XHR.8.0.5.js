@@ -42,7 +42,7 @@
     {
         var xhr = nkJSObject.GetObject(uid);
         var responseText = xhr.responseText;
-        return BINDING.js_to_mono_obj(responseText);
+        return responseText;
     },
     GetReadyState: function(uid,d)
     {

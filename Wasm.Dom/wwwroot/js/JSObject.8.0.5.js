@@ -126,6 +126,16 @@
 
         return func(uid);
     },
+    JSInvoke1String: function(pidentifier, length, uid)
+    {
+        const identifier = nkJSObject.ToJSString(pidentifier, length);
+
+        let func = nkJSObject.functionMap.get(identifier);
+        if (!func)
+            func = nkJSObject.ResolveFunction(identifier);
+
+        return func(uid);
+    },
     JSInvoke2Void: function(pidentifier, length, uid, d)
     {
         const identifier = nkJSObject.ToJSString(pidentifier, length);
@@ -147,6 +157,16 @@
         return func(uid, d);
     },
     JSInvoke2Int: function(pidentifier, length, uid, d)
+    {
+        const identifier = nkJSObject.ToJSString(pidentifier, length);
+
+        let func = nkJSObject.functionMap.get(identifier);
+        if (!func)
+            func = nkJSObject.ResolveFunction(identifier);
+
+        return func(uid, d);
+    },
+    JSInvoke2String: function(pidentifier, length, uid, d)
     {
         const identifier = nkJSObject.ToJSString(pidentifier, length);
 
@@ -236,22 +256,22 @@ window.nkPromise =
         if (pr.Error instanceof DOMException)
         {
             var mg = pr.Error.message;
-            return BINDING.js_to_mono_obj(mg);
+            return mg;
         }
         else if (pr.Error instanceof Error)
         {
             var mg = pr.Error.message;
-            return BINDING.js_to_mono_obj(mg);
+            return mg;
         }
         else if (typeof pr.Error === "string")
         {
             var mg = pr.Error;
-            return BINDING.js_to_mono_obj(mg);
+            return mg;
         }
         else
         {
             var mg = "Unknown Error";
-            return BINDING.js_to_mono_obj(mg);
+            return mg;
         }
     },
 

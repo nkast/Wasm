@@ -19,6 +19,9 @@ namespace nkast.Wasm.Dom
         [JSImport("globalThis.window.nkJSObject.JSInvoke1Int")]
         private static partial int JSInvoke1Int(int pidentifier, int identifierLength, int uid);
 
+        [JSImport("globalThis.window.nkJSObject.JSInvoke1String")]
+        private static partial string JSInvoke1String(int pidentifier, int identifierLength, int uid);
+
         [JSImport("globalThis.window.nkJSObject.JSInvoke2Void")]
         private static partial void JSInvoke2Void(int pidentifier, int identifierLength, int uid, int d);
 
@@ -27,6 +30,9 @@ namespace nkast.Wasm.Dom
 
         [JSImport("globalThis.window.nkJSObject.JSInvoke2Int")]
         private static partial int JSInvoke2Int(int pidentifier, int identifierLength, int uid, int d);
+
+        [JSImport("globalThis.window.nkJSObject.JSInvoke2String")]
+        private static partial string JSInvoke2String(int pidentifier, int identifierLength, int uid, int d);
 
 
         protected unsafe void Invoke(string identifier)
@@ -65,7 +71,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                return Runtime.InvokeUnmarshalled<int, string>(identifier, Uid);
+                return JSInvoke1String((int)pidentifier, identifier.Length, Uid);
             }
         }
 
@@ -111,7 +117,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, Net7Padding);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, int>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -156,7 +162,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -201,7 +207,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2, arg3);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -246,7 +252,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2, arg3, arg4);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -291,7 +297,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -336,7 +342,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -381,7 +387,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-                return Runtime.InvokeUnmarshalled<int, ValueTuple<T1, T2, T3, T4, T5, T6, T7>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -426,7 +432,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-                return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -471,7 +477,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
-                return Runtime.InvokeUnmarshalled<int, FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
 
@@ -516,7 +522,7 @@ namespace nkast.Wasm.Dom
             fixed (char* pidentifier = identifier)
             {
                 var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
-                return Runtime.InvokeUnmarshalled<int, FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>, string>(identifier, Uid, args);
+                return JSInvoke2String((int)pidentifier, identifier.Length, Uid, (int)&args);
             }
         }
     }

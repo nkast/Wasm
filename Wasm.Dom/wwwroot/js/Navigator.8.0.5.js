@@ -3,7 +3,7 @@
     GetUserAgent: function (uid)
     {
         var nv = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(nv.userAgent);
+        return nv.userAgent;
     },
     GetMaxTouchPoints: function (uid)
     {

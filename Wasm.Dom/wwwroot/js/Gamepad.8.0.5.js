@@ -20,7 +20,7 @@
     GetId: function (uid)
     {
         var gp = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(gp.id);
+        return gp.id;
     },
     GetIndex: function (uid, d)
     {
@@ -35,7 +35,7 @@
     GetMapping: function (uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(gp.mapping);
+        return gp.mapping;
     },
     GetTimestamp: function (uid, d)
     {

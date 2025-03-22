@@ -37,7 +37,7 @@ window.nkAudioBaseContext =
     GetState: function (uid)
     {
         var ac = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(ac.state);
+        return ac.state;
     },
 
     CreateBuffer: function (uid, d)
@@ -268,7 +268,7 @@ window.nkAudioOscillatorNode =
     GetType: function (uid)
     {
         var os = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(os.type);
+        return os.type;
     },
     SetType: function (uid, d)
     {

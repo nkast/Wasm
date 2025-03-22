@@ -270,7 +270,7 @@ window.nkStorage =
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(d+ 0);
         var va = st.getItem(ke);
-        return BINDING.js_to_mono_obj(va);
+        return va;
     },    
     RemoveItem: function (uid, d)
     {

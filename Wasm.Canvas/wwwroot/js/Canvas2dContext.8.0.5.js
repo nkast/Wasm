@@ -3,7 +3,7 @@ window.nkCanvas2dContext =
     GetFillStyle: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.fillStyle);
+        return dc.fillStyle;
     },
     SetFillStyle: function(uid,d)
     {
@@ -14,7 +14,7 @@ window.nkCanvas2dContext =
     GetStrokeStyle: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.strokeStyle);
+        return dc.strokeStyle;
     },
     SetStrokeStyle: function(uid,d)
     {
@@ -25,7 +25,7 @@ window.nkCanvas2dContext =
     GetFont: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.font);
+        return dc.font;
     },
     SetFont: function (uid,d)
     {
@@ -36,7 +36,7 @@ window.nkCanvas2dContext =
     GetTextAlign: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.textAlign);
+        return dc.textAlign;
     },
     SetTextAlign: function(uid,d)
     {
@@ -47,7 +47,7 @@ window.nkCanvas2dContext =
     GetTextBaseline: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.textBaseline);
+        return dc.textBaseline;
     },
     SetTextBaseline: function(uid,d)
     {
@@ -69,7 +69,7 @@ window.nkCanvas2dContext =
     GetLineCap: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.lineCap);
+        return dc.lineCap;
     },
     SetLineCap: function(uid,d)
     {
@@ -102,7 +102,7 @@ window.nkCanvas2dContext =
     GetGlobalCompositeOperation: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.globalCompositeOperation);
+        return dc.globalCompositeOperation;
     },
     SetGlobalCompositeOperation: function (uid,d)
     {
@@ -136,7 +136,7 @@ window.nkCanvas2dContext =
     GetShadowColor: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.shadowColor);
+        return dc.shadowColor;
     },
     SetShadowColor: function (uid,d)
     {
@@ -278,7 +278,7 @@ window.nkCanvas2dContext =
     {
         var dc = nkJSObject.GetObject(uid);
         var ds = dc.getLineDash();
-        return BINDING.js_to_mono_obj(ds.toString());
+        return ds.toString();
     },
     SetLineDash: function(uid,d)
     {
