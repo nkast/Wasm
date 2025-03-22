@@ -51,11 +51,7 @@ namespace nkast.Wasm.Canvas
 
         public float LineWidth
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetLineWidth");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetLineWidth"); }
             set { Invoke("nkCanvas2dContext.SetLineWidth", value); }
         }
 
@@ -71,21 +67,13 @@ namespace nkast.Wasm.Canvas
 
         public float MiterLimit
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetMiterLimit");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetMiterLimit"); }
             set { Invoke("nkCanvas2dContext.SetMiterLimit", value); }
         }
 
         public float GlobalAlpha
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetGlobalAlpha");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetGlobalAlpha"); }
             set { Invoke("nkCanvas2dContext.SetGlobalAlpha", value); }
         }
 
@@ -107,11 +95,7 @@ namespace nkast.Wasm.Canvas
 
         public float ShadowBlur
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetShadowBlur");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetShadowBlur"); }
             set { Invoke("nkCanvas2dContext.SetShadowBlur", value); }
         }
 
@@ -123,21 +107,13 @@ namespace nkast.Wasm.Canvas
 
         public float ShadowOffsetX
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetShadowOffsetX");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetShadowOffsetX"); }
             set { Invoke("nkCanvas2dContext.SetShadowOffsetX", value); }
         }
 
         public float ShadowOffsetY
         {
-            get
-            {
-                string str = InvokeRet<string>("nkCanvas2dContext.GetShadowOffsetY");
-                return float.Parse(str);
-            }
+            get { return InvokeRetFloat("nkCanvas2dContext.GetShadowOffsetY");}
             set { Invoke("nkCanvas2dContext.SetShadowOffsetY", value); }
         }
 
@@ -193,8 +169,7 @@ namespace nkast.Wasm.Canvas
 
         public float MeasureText(string text)
         {
-            string ret = InvokeRet<string, string>("nkCanvas2dContext.MeasureText", text);
-            return float.Parse(ret);
+            return InvokeRetFloat<string>("nkCanvas2dContext.MeasureText", text);
         }
 
         private static float[] _emptyLineDash = new float[0];
