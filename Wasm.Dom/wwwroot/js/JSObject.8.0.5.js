@@ -106,6 +106,16 @@
 
         func(uid);
     },
+    JSInvoke1Bool: function(pidentifier, length, uid)
+    {
+        const identifier = nkJSObject.ToJSString(pidentifier, length);
+
+        let func = nkJSObject.functionMap.get(identifier);
+        if (!func)
+            func = nkJSObject.ResolveFunction(identifier);
+
+        return func(uid);
+    },
     JSInvoke1Int: function(pidentifier, length, uid)
     {
         const identifier = nkJSObject.ToJSString(pidentifier, length);
@@ -125,6 +135,16 @@
             func = nkJSObject.ResolveFunction(identifier);
 
         func(uid, d);
+    },
+    JSInvoke2Bool: function(pidentifier, length, uid, d)
+    {
+        const identifier = nkJSObject.ToJSString(pidentifier, length);
+
+        let func = nkJSObject.functionMap.get(identifier);
+        if (!func)
+            func = nkJSObject.ResolveFunction(identifier);
+
+        return func(uid, d);
     },
     JSInvoke2Int: function(pidentifier, length, uid, d)
     {
