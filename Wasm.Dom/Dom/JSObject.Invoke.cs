@@ -373,16 +373,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
-                    value1: arg1,
-                    value2: arg2,
-                    value3: arg3,
-                    value4: arg4,
-                    value5: arg5,
-                    value6: arg6,
-                    value7: arg7,
-                    value8: arg8
-                );
+                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1,arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, IJSVoidResult>(identifier, Uid, args);
             }
         }
@@ -391,16 +382,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
-                value1: arg1,
-                value2: arg2,
-                value3: arg3,
-                value4: arg4,
-                value5: arg5,
-                value6: arg6,
-                value7: arg7,
-                value8: arg8
-                );
+                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, bool>(identifier, Uid, args);
             }
         }
@@ -409,16 +391,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
-                value1: arg1,
-                value2: arg2,
-                value3: arg3,
-                value4: arg4,
-                value5: arg5,
-                value6: arg6,
-                value7: arg7,
-                value8: arg8
-                );
+                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, int>(identifier, Uid, args);
             }
         }
@@ -427,16 +400,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
-                value1: arg1,
-                value2: arg2,
-                value3: arg3,
-                value4: arg4,
-                value5: arg5,
-                value6: arg6,
-                value7: arg7,
-                value8: arg8
-                );
+                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 return float.Parse(Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, string>(identifier, Uid, args));
             }
         }
@@ -445,16 +409,7 @@ namespace nkast.Wasm.Dom
         {
             fixed (char* pidentifier = identifier)
             {
-                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(
-                value1: arg1,
-                value2: arg2,
-                value3: arg3,
-                value4: arg4,
-                value5: arg5,
-                value6: arg6,
-                value7: arg7,
-                value8: arg8
-                );
+                var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
                 return Runtime.InvokeUnmarshalled<int, FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>, string>(identifier, Uid, args);
             }
         }
