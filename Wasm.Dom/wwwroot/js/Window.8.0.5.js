@@ -278,22 +278,5 @@ window.nkStorage =
         var ke = nkJSObject.ReadString(d+ 0);
         st.removeItem(ke);
     },
-
-    GetUserAgent: function (uid)
-    {
-        var nv = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(nv.userAgent);
-    },
-    GetGamepads: function(uid)
-    {
-        var nv = nkJSObject.GetObject(uid);
-        
-        var gps = nv.getGamepads();
-        var uid = nkJSObject.GetUid(gps);
-        if (uid !== -1)
-            return uid;
-
-        return nkJSObject.RegisterObject(gps);
-    },
 };
 
