@@ -3,7 +3,7 @@
     GetTitle: function (uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.title);
+        return dc.title;
     },
     SetTitle: function (uid, d)
     {

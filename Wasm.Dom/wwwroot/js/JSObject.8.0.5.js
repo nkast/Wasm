@@ -118,6 +118,11 @@
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
+    JSInvoke1String: function(fid, uid)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func(uid);
+    },
     JSInvoke2Void: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
@@ -134,6 +139,11 @@
         return func(uid, d);
     },
     JSInvoke2Float: function(fid, uid, d)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func(uid, d);
+    },
+    JSInvoke2String: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid, d);
@@ -217,23 +227,19 @@ window.nkPromise =
 
         if (pr.Error instanceof DOMException)
         {
-            var mg = pr.Error.message;
-            return BINDING.js_to_mono_obj(mg);
+            return pr.Error.message;
         }
         else if (pr.Error instanceof Error)
         {
-            var mg = pr.Error.message;
-            return BINDING.js_to_mono_obj(mg);
+            return pr.Error.message;
         }
         else if (typeof pr.Error === "string")
         {
-            var mg = pr.Error;
-            return BINDING.js_to_mono_obj(mg);
+            return pr.Error;
         }
         else
         {
-            var mg = "Unknown Error";
-            return BINDING.js_to_mono_obj(mg);
+            return "Unknown Error";
         }
     },
 

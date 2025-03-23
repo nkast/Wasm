@@ -181,8 +181,7 @@ window.nkCanvasGLContext =
     {
         var gc = nkJSObject.GetObject(uid);
         var pn = Module.HEAP32[(d+ 0)>>2];
-        var str = gc.getParameter(pn);
-        return BINDING.js_to_mono_obj(str);
+        return gc.getParameter(pn);
     },
 
     CreateTexture: function (uid, d)
@@ -847,8 +846,7 @@ window.nkCanvasGLContext =
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
         var pg = nkJSObject.GetObject(pguid);
-        var nf = gc.getProgramInfoLog(pg);
-        return BINDING.js_to_mono_obj(nf);
+        return gc.getProgramInfoLog(pg);
     },
 
     GetShaderInfoLog: function (uid, d)
@@ -856,8 +854,7 @@ window.nkCanvasGLContext =
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
         var sh = nkJSObject.GetObject(shuid);
-        var nf = gc.getShaderInfoLog(sh);
-        return BINDING.js_to_mono_obj(nf);
+        return gc.getShaderInfoLog(sh);
     },
 
     LinkProgram: function (uid, d)
