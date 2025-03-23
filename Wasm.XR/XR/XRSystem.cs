@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.JSInterop;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XR
@@ -12,8 +10,7 @@ namespace nkast.Wasm.XR
 
         public static XRSystem FromNavigator(Navigator navigator)
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<int, int>("nkXRSystem.Create", navigator.Uid);
+            int uid = JSObject.StaticInvokeRetInt("nkXRSystem.Create", navigator.Uid);
             if (uid == -1)
                 return null;
 
@@ -61,10 +58,6 @@ namespace nkast.Wasm.XR
             }
 
             base.Dispose(disposing);
-        }
-
-        internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
     }
 
