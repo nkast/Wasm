@@ -58,7 +58,7 @@ window.nkCanvas2dContext =
     GetLineWidth: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.lineWidth.toString());
+        return dc.lineWidth;
     },
     SetLineWidth: function (uid,d)
     {
@@ -80,7 +80,7 @@ window.nkCanvas2dContext =
     GetMiterLimit: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.miterLimit.toString());
+        return dc.miterLimit;
     },
     SetMiterLimit: function(uid,d)
     {
@@ -91,7 +91,7 @@ window.nkCanvas2dContext =
     GetGlobalAlpha: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.globalAlpha.toString());
+        return dc.globalAlpha;
     },
     SetGlobalAlpha: function(uid,d)
     {
@@ -125,7 +125,7 @@ window.nkCanvas2dContext =
     GetShadowBlur: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.shadowBlur.toString());
+        return dc.shadowBlur;
     },
     SetShadowBlur: function (uid,d)
     {
@@ -147,7 +147,7 @@ window.nkCanvas2dContext =
     GetShadowOffsetX: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.shadowOffsetX.toString());
+        return dc.shadowOffsetX;
     },
     SetShadowOffsetX: function (uid,d)
     {
@@ -158,7 +158,7 @@ window.nkCanvas2dContext =
     GetShadowOffsetY: function(uid)
     {
         var dc = nkJSObject.GetObject(uid);
-        return BINDING.js_to_mono_obj(dc.shadowOffsetY.toString());
+        return dc.shadowOffsetY;
     },
     SetShadowOffsetY: function (uid,d)
     {
@@ -271,7 +271,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
         var m = dc.measureText(t);
-        return BINDING.js_to_mono_obj(m.width.toString());
+        return m.width;
     },
 
     GetLineDash: function(uid)
