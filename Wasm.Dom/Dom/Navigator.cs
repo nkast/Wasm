@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Input;
 
 namespace nkast.Wasm.Dom
