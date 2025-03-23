@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices.JavaScript;
-using Microsoft.JSInterop.WebAssembly;
 
 namespace nkast.Wasm.Dom
 {
     public partial class JSObject
     {
-        private readonly WebAssemblyJSRuntime Runtime = new WasmJSRuntime();
-
         private static Dictionary<string, int> _fidMap = new Dictionary<string, int>();
 
         [JSImport("globalThis.window.nkJSObject.JSRegisterFunction")]
