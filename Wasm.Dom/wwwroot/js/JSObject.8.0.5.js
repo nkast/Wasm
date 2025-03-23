@@ -103,10 +103,20 @@
         let func = nkJSObject.funcMap[fid];
         func(uid);
     },
+    JSInvoke1Bool: function(fid, uid)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func(uid);
+    },
     JSInvoke2Void: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
         func(uid, d);
+    },
+    JSInvoke2Bool: function(fid, uid, d)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func(uid, d);
     },
 }
 
