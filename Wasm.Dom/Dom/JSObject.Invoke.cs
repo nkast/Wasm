@@ -72,6 +72,12 @@ namespace nkast.Wasm.Dom
             return JSInvoke1Int(fid, uid);
         }
 
+        protected static int StaticInvokeRetInt(string identifier, int arg1, int arg2)
+        {
+            int fid = RegisterFunction(identifier);
+            return JSInvoke2Int(fid, arg1, arg2);
+        }
+
         protected void Invoke(string identifier)
         {
             int fid = RegisterFunction(identifier);

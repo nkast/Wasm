@@ -1,5 +1,4 @@
 using System;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas
@@ -31,8 +30,7 @@ namespace nkast.Wasm.Canvas
 
         private static int Register(int width, int height)
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<int, int, int>("nkOffscreenCanvas.Create", width, height);
+            int uid = JSObject.StaticInvokeRetInt("nkOffscreenCanvas.Create", width, height);
             return uid;
         }
 
@@ -154,11 +152,6 @@ namespace nkast.Wasm.Canvas
             }
 
             throw new NotSupportedException();
-        }
-
-
-        private sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
     }
 }
