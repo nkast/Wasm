@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.JSInterop.WebAssembly;
 
 namespace nkast.Wasm.Dom
 {
@@ -15,13 +14,8 @@ namespace nkast.Wasm.Dom
 
         private static int Register()
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<int>("nkVideo.Create");
+            int uid = JSObject.StaticInvokeRetInt("nkVideo.Create");
             return uid;
-        }
-
-        internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
     }
 }

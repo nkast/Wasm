@@ -98,6 +98,11 @@
 
         return fid;
     },
+    JSInvoke0Int: function(fid)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func();
+    },
     JSInvoke1Void: function(fid, uid)
     {
         let func = nkJSObject.funcMap[fid];

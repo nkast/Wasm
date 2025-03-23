@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Audio
@@ -14,8 +13,7 @@ namespace nkast.Wasm.Audio
 
         private static int Register()
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<int>("nkAudioContext.Create");
+            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create");
             return uid;
         }
 
@@ -34,10 +32,6 @@ namespace nkast.Wasm.Audio
             Close();
 
             base.Dispose(disposing);
-        }
-
-        internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
 
     }

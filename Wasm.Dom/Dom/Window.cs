@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.JSInterop;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Input;
 
 namespace nkast.Wasm.Dom
@@ -71,8 +70,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_current == null)
                 {
-                    WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-                    int uid = runtime.InvokeUnmarshalled<int>("nkJSObject.GetWindow");
+                    int uid = JSObject.StaticInvokeRetInt("nkJSObject.GetWindow");
                     _current = new Window(uid);
                 }
 

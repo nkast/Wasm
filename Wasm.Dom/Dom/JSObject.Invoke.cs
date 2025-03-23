@@ -12,6 +12,9 @@ namespace nkast.Wasm.Dom
         [JSImport("globalThis.window.nkJSObject.JSRegisterFunction")]
         private static partial int JSRegisterFunction(int pidentifier, int identifierLength);
 
+        [JSImport("globalThis.window.nkJSObject.JSInvoke0Int")]
+        private static partial int JSInvoke0Int(int fid);
+
         [JSImport("globalThis.window.nkJSObject.JSInvoke1Void")]
         private static partial void JSInvoke1Void(int fid, int uid);
 
@@ -57,6 +60,11 @@ namespace nkast.Wasm.Dom
             return fid;
         }
 
+        protected static int StaticInvokeRetInt(string identifier)
+        {
+            int fid = RegisterFunction(identifier);
+            return JSInvoke0Int(fid);
+        }
 
         protected void Invoke(string identifier)
         {

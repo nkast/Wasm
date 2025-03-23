@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.JSInterop;
-using Microsoft.JSInterop.WebAssembly;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.XHR
@@ -19,8 +18,7 @@ namespace nkast.Wasm.XHR
 
         private static int Register()
         {
-            WebAssemblyJSRuntime runtime = new WasmJSRuntime();
-            int uid = runtime.InvokeUnmarshalled<int>("nkXHR.Create");
+            int uid = JSObject.StaticInvokeRetInt("nkXHR.Create");
             return uid;
         }
 
@@ -110,10 +108,6 @@ namespace nkast.Wasm.XHR
         public void DecompressBrotliStream(byte[] compressedBuffer, uint compressedDataSize, byte[] decompressedBuffer, uint decompressedDataSize)
         {
             Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, compressedBuffer, decompressedBuffer);
-        }
-
-        internal sealed class WasmJSRuntime : WebAssemblyJSRuntime
-        {
         }
     }
 }
