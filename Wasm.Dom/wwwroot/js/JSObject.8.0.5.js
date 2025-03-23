@@ -70,6 +70,34 @@
         var str = BINDING.conv_string(pt);
         return str;
     },
+
+    funcMap: [null],
+    utf16Decoder: new TextDecoder("utf-16le"),
+    ToJSString: function (pidentifier, length)
+    {   
+        const memory = new Uint16Array(Module.HEAPU16.buffer, pidentifier, length);
+        return nkJSObject.utf16Decoder.decode(memory);
+    },
+    JSRegisterFunction: function (pidentifier, length)
+    {
+        const identifier = nkJSObject.ToJSString(pidentifier, length);
+
+        const parts = identifier.split('.');
+
+        let target = globalThis;
+        for (let i = 0; i < parts.length - 1; i++)
+        {
+            target = target[parts[i]];
+        }
+
+        const functionName = parts[parts.length - 1];
+
+        const func = target[functionName].bind(target);
+        nkJSObject.funcMap.push(func);
+        var fid = nkJSObject.funcMap.lastIndexOf(func);
+
+        return fid;
+    },
 }
 
 window.nkJSArray =

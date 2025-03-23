@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Microsoft.JSInterop;
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.JSInterop.WebAssembly;
 using Microsoft.JSInterop.Infrastructure;
 
@@ -11,6 +11,25 @@ namespace nkast.Wasm.Dom
     {
         private readonly WebAssemblyJSRuntime Runtime = new WasmJSRuntime();
 
+        private static Dictionary<string, int> _fidMap = new Dictionary<string, int>();
+
+        [JSImport("globalThis.window.nkJSObject.JSRegisterFunction")]
+        private static partial int JSRegisterFunction(int pidentifier, int identifierLength);
+
+
+        private static unsafe int RegisterFunction(string identifier)
+        {
+            if (_fidMap.TryGetValue(identifier, out int fid))
+                return fid;
+
+            fixed (char* pidentifier = identifier)
+            {
+                fid = JSRegisterFunction((int)pidentifier, identifier.Length);
+            }
+
+            _fidMap.Add(identifier, fid);
+            return fid;
+        }
 
 
         protected unsafe void Invoke(string identifier)
