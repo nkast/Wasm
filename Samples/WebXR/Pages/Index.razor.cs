@@ -13,7 +13,7 @@ using WebXR.Engine;
 
 namespace WebXR.Pages
 {
-    public partial class Index
+    public partial class Index : IDisposable
     {
         static Index _indexInstance;
 
@@ -276,6 +276,14 @@ namespace WebXR.Pages
             currTouchState.IsPressed = false;
         }
 
-        
+
+        public void Dispose()
+        {
+            _root?.Dispose();
+            _root = null;
+
+            gl?.Dispose();
+            gl = null;
+        }
     }
 }

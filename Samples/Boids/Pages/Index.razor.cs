@@ -10,7 +10,7 @@ using Boids.Engine;
 
 namespace Boids.Pages
 {
-    public partial class Index
+    public partial class Index : IDisposable
     {
         Stopwatch _sw = new Stopwatch();
         TimeSpan _prevt;
@@ -167,6 +167,14 @@ namespace Boids.Pages
             currTouchState.IsPressed = false;
         }
 
-        
+
+        public void Dispose()
+        {
+            _root?.Dispose();
+            _root = null;
+
+            cx?.Dispose();
+            cx = null;
+        }
     }
 }

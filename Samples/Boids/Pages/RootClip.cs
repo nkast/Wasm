@@ -31,5 +31,17 @@ namespace Boids.Pages
 
             base.Update(uc);
         }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _boids?.Dispose();
+                _boids = null;
+            }
+
+            base.Dispose(disposing); 
+        }
     }
 }

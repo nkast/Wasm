@@ -36,5 +36,16 @@ namespace CanvasGL.Pages
             base.Draw(dc);
         }
 
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _tri?.Dispose();
+                _tri = null;
+            }
+
+            base.Dispose(disposing); 
+        }
     }
 }

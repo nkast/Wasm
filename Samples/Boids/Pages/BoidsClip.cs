@@ -332,5 +332,16 @@ namespace Boids.Pages
             results.Y = (pos.X * sin) + (pos.Y * cos);
             return results;
         }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

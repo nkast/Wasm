@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Boids.Engine
 {
-    public class Clip
+    public class Clip : IDisposable
     {
         private Vector2 _position;
         private float _rotation;
@@ -76,5 +76,24 @@ namespace Boids.Engine
             }
         }
 
+        ~Clip()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+        }
     }
 }

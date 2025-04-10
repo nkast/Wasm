@@ -39,5 +39,16 @@ namespace Boids.Pages
 
             base.Draw(dc);
         }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

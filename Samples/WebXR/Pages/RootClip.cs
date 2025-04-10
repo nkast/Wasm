@@ -410,5 +410,17 @@ namespace WebXR.Pages
                 _tri.Draw(dcp);
             }
         }
+
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _tri?.Dispose();
+                _tri = null;
+            }
+
+            base.Dispose(disposing); 
+        }
     }
 }

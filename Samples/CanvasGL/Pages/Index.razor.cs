@@ -11,7 +11,7 @@ using CanvasGL.Engine;
 
 namespace CanvasGL.Pages
 {
-    public partial class Index
+    public partial class Index : IDisposable
     {
         Stopwatch _sw = new Stopwatch();
         TimeSpan _prevt;
@@ -196,6 +196,14 @@ namespace CanvasGL.Pages
             currTouchState.IsPressed = false;
         }
 
-        
+
+        public void Dispose()
+        {
+            _root?.Dispose();
+            _root = null;
+
+            gl?.Dispose();
+            gl = null;
+        }
     }
 }
