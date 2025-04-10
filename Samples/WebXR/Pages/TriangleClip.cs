@@ -7,6 +7,7 @@ namespace WebXR.Pages
 {
     public partial class TriangleClip : Clip
     {
+        WebGLProgram _program;
 
         public TriangleClip() : base()
         {
@@ -58,7 +59,11 @@ namespace WebXR.Pages
         {
             var gl = dc.GLContext;
 
-            using (WebGLProgram program = InitProgram(gl, VS_SOURCE, FS_SOURCE))
+            if (_program == null)
+            {
+                _program = InitProgram(gl, VS_SOURCE, FS_SOURCE);
+            }
+
             using (WebGLBuffer vertexBuffer = gl.CreateBuffer())
             {                
                 gl.BindBuffer(WebGLBufferType.ARRAY, vertexBuffer);
@@ -76,11 +81,11 @@ namespace WebXR.Pages
                 gl.EnableVertexAttribArray(0);
                 gl.EnableVertexAttribArray(1);
 
-                gl.UseProgram(program);
+                gl.UseProgram(_program);
 
                 Matrix4x4 worldViewProj = dc.world * dc.view * dc.proj;
                 float[] wvparray = MatrixToArray(worldViewProj);
-                using (WebGLUniformLocation wvplocation = gl.GetUniformLocation(program, "uWorldViewProj"))
+                using (WebGLUniformLocation wvplocation = gl.GetUniformLocation(_program, "uWorldViewProj"))
                 {
                     gl.UniformMatrix4fv<float>(wvplocation, wvparray);
                 }
@@ -147,7 +152,8 @@ namespace WebXR.Pages
         {
             if (disposing)
             {
-
+                _program?.Dispose();
+                _program = null;
             }
 
             base.Dispose(disposing);

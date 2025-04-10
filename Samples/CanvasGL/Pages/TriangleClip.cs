@@ -7,6 +7,7 @@ namespace CanvasGL.Pages
 {
     public partial class TriangleClip : Clip
     {
+        WebGLProgram _program;
 
         public TriangleClip() : base()
         {
@@ -59,7 +60,11 @@ namespace CanvasGL.Pages
         {
             var gl = dc.GLContext;
 
-            using (WebGLProgram program = InitProgram(gl, VS_SOURCE, FS_SOURCE))
+            if (_program == null)
+            {
+                _program = InitProgram(gl, VS_SOURCE, FS_SOURCE);
+            }
+
             using (WebGLBuffer vertexBuffer = gl.CreateBuffer())
             {                
                 gl.BindBuffer(WebGLBufferType.ARRAY, vertexBuffer);
@@ -77,11 +82,11 @@ namespace CanvasGL.Pages
                 gl.EnableVertexAttribArray(0);
                 gl.EnableVertexAttribArray(1);
 
-                gl.UseProgram(program);
+                gl.UseProgram(_program);
 
                 Matrix4x4 worldViewProj = dc.world * dc.view * dc.proj;
                 float[] wvparray = MatrixToArray(worldViewProj);
-                var wvplocation = gl.GetUniformLocation(program, "uWorldViewProj");
+                var wvplocation = gl.GetUniformLocation(_program, "uWorldViewProj");
                 //gl.UniformMatrix4fv<float>(wvplocation, wvparray);
 
                 gl.DrawArrays(WebGLPrimitiveType.TRIANGLES, 0, 3);
@@ -146,7 +151,8 @@ namespace CanvasGL.Pages
         {
             if (disposing)
             {
-
+                _program?.Dispose();
+                _program = null;
             }
 
             base.Dispose(disposing);
