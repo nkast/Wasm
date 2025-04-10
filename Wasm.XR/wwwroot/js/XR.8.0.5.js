@@ -477,10 +477,7 @@ window.XRJointPose =
     GetRadius: function (uid, d)
     {
         var ps = nkJSObject.GetObject(uid);
-
-        var rd = ps.radius;
-
-        throw new Error("Not implemented");
+        return ps.radius;
     },
 };
 

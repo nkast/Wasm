@@ -8,10 +8,7 @@ namespace nkast.Wasm.XR
     {
         public float Radius
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return InvokeRetFloat("XRJointPose.GetRadius"); }
         }
 
         internal XRJointPose(int uid) : base(uid)
