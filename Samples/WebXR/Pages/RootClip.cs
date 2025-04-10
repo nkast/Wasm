@@ -387,16 +387,22 @@ namespace WebXR.Pages
                 XRRigidTransform jointPoseTransformA = jointPoseA.Transform;
                 XRRigidTransform jointPoseTransformB = jointPoseB.Transform;
 
-                Matrix4x4 jointPoseTransformMtx = jointPoseTransformB.Matrix;
+                Matrix4x4 jointPoseTransformMtxA = jointPoseTransformA.Matrix;
+                Matrix4x4 jointPoseTransformMtxB = jointPoseTransformB.Matrix;
+
+                float jointPoseTransformRadiusA = jointPoseA.Radius;
+                float jointPoseTransformRadiusB = jointPoseB.Radius;
+
+                Vector3 diff = jointPoseTransformMtxB.Translation - jointPoseTransformMtxA.Translation;
+                float len = diff.Length();
 
                 // draw bone
                 Matrix4x4 boneMtx = Matrix4x4.Identity;
+                boneMtx *= Matrix4x4.CreateTranslation(0f, 0.5f, 0f);
                 boneMtx *= Matrix4x4.CreateRotationX(-(float)Math.Tau / 4f);
-                boneMtx *= Matrix4x4.CreateScale(0.2f, 1.0f, 1.0f);
+                boneMtx *= Matrix4x4.CreateScale(jointPoseTransformRadiusB, jointPoseTransformRadiusB, len);
 
-                boneMtx *= Matrix4x4.CreateScale(0.04f);
-
-                boneMtx *= jointPoseTransformMtx;
+                boneMtx *= jointPoseTransformMtxB;
                 DrawContext dcp = new DrawContext()
                 {
                     GLContext = dc.GLContext,
