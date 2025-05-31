@@ -1164,6 +1164,21 @@ window.nkCanvasGL2Context =
         var h  = Module.HEAP32[(d+16)>>2];
         gc.renderbufferStorageMultisample(bt, sm, fm, w, h);
     },
+    VertexAttribDivisor: function (uid, d) {
+        var gc = nkJSObject.GetObject(uid);
+        var ix = Module.HEAP32[(d + 0) >> 2];
+        var di = Module.HEAP32[(d + 4) >> 2];
+        gc.vertexAttribDivisor(ix, di);
+    },
+    DrawElementsInstanced: function (uid, d) {
+        var gc = nkJSObject.GetObject(uid);
+        var md = Module.HEAP32[(d + 0) >> 2];
+        var ct = Module.HEAP32[(d + 4) >> 2];
+        var tp = Module.HEAP32[(d + 8) >> 2];
+        var of = Module.HEAP32[(d + 12) >> 2];
+        var ic = Module.HEAP32[(d + 16) >> 2];
+        gc.drawElementsInstanced(md, ct, tp, of, ic);
+    },
 };
 
 window.nkCanvasLoseContextExtension =
