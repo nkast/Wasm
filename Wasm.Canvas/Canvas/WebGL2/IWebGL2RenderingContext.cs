@@ -24,5 +24,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void RenderbufferStorage(WebGLRenderbufferType target, WebGL2RenderbufferInternalFormat internalFormat, int width, int height);
         void RenderbufferStorageMultisample(WebGLRenderbufferType target, int samples, WebGL2RenderbufferInternalFormat internalFormat, int width, int height);
         WebGL2FramebufferStatus CheckFramebufferStatus(WebGL2FramebufferType target);
+        void VertexAttribDivisor(int index, int divisor);
+        void DrawElementsInstanced(WebGLPrimitiveType mode, int count, WebGLDataType type, int offset, int instanceCount);
     }
 }

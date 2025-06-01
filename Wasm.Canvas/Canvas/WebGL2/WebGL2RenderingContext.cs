@@ -107,6 +107,16 @@ namespace nkast.Wasm.Canvas.WebGL
             return (WebGL2FramebufferStatus)base.CheckFramebufferStatus((WebGLFramebufferType)target);
         }
 
+        public void VertexAttribDivisor(int index, int divisor)
+        {
+            Invoke("nkCanvasGL2Context.VertexAttribDivisor", index, divisor);
+        }
+
+        public void DrawElementsInstanced(WebGLPrimitiveType mode, int count, WebGLDataType type, int offset, int instanceCount)
+        {
+            Invoke("nkCanvasGL2Context.DrawElementsInstanced", (int)mode, count, type, offset, instanceCount);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
