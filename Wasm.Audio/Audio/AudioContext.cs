@@ -6,14 +6,28 @@ namespace nkast.Wasm.Audio
 {
     public class AudioContext : BaseAudioContext
     {
-        public AudioContext() : base(Register())
+        static Dictionary<int, WeakReference<JSObject>> _uidMap = new Dictionary<int, WeakReference<JSObject>>();
+
+        public AudioContext(int sampleRate) : base(Register(sampleRate))
         {
+            _uidMap.Add(Uid, new WeakReference<JSObject>(this));
         }
 
-
-        private static int Register()
+        [JSInvokable]
+        public static void JsAudioContextInitialized(int uid)
         {
-            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create");
+            if (!_uidMap.TryGetValue(uid, out var jsObjRef))
+                return;
+            if (!_uidMap[uid].TryGetTarget(out var jsObj))
+                return;
+
+            AudioContext audioContext = (AudioContext)jsObj;
+            audioContext.IsInitialized = true;
+        }
+
+        private static int Register(int sampleRate)
+        {
+            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create", sampleRate);
             return uid;
         }
 
@@ -21,6 +35,8 @@ namespace nkast.Wasm.Audio
         {
             Invoke("nkAudioContext.Close");
         }
+
+        public bool IsInitialized { get; private set; }
 
         protected override void Dispose(bool disposing)
         {

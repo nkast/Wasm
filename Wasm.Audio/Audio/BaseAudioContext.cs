@@ -94,6 +94,12 @@ namespace nkast.Wasm.Audio
             return new StereoPannerNode(uid, this);
         }
 
+        public StreamingAudioWorkletNode CreateStreamingAudioWorkletNode(int channelCount)
+        {
+            int uid = InvokeRet<int, int>("nkAudioBaseContext.CreateStreamingAudioWorkletNode", channelCount);
+            return new StreamingAudioWorkletNode(uid, this);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
