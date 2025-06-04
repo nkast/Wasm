@@ -16,7 +16,7 @@ window.nkXRSystem =
         else
             return nkJSObject.RegisterObject(null);
     },
-    makeXRCompatible: function (uid)
+    MakeXRCompatible: function (uid)
     {
         var gl = nkJSObject.GetObject(uid);
 
