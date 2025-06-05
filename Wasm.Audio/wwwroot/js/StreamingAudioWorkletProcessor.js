@@ -46,12 +46,13 @@
 
         if (this.isEmpty && !wasEmpty) {
             this.currentBuffer = [];
+
             console.warn('No buffer to process.');
         }
 
         if (!this.isEmpty) {
-
             this.currentBuffer = this.buffers.shift();
+            this.bufferIndex = 0;
             this.port.postMessage({ type: 'dq', remaining: this.buffers.length, uid: this.uid });
 
             return true;
@@ -70,22 +71,19 @@
         }
 
         const sampleCount = outputs[0][0].length;
+        const channelCount = outputs[0].length;
 
-        // TODO: use bulk copy
         for (let sampleIndex = 0; sampleIndex < sampleCount; sampleIndex++) {
-            const sample = this.currentBuffer[this.bufferIndex++];
+            for (let channelIndex = 0; channelIndex < channelCount; channelIndex++) {
 
-            for (let outputIndex = 0; outputIndex < outputs.length; outputIndex++) {
-                for (let channelIndex = 0; channelIndex < outputs[outputIndex].length; channelIndex++) {
-                    outputs[outputIndex][channelIndex][sampleIndex] = sample;
+                if (this.bufferIndex >= this.currentBuffer.length && !this.tryDequeueBuffer()) {
+                    return this.keepAlive;
                 }
-            }
 
-            if (this.bufferIndex >= this.currentBuffer.length) {
-                this.bufferIndex = 0;
+                const channelSample = this.currentBuffer[this.bufferIndex++];
 
-                if (!this.tryDequeueBuffer()) {
-                    break;
+                for (let outputIndex = 0; outputIndex < outputs.length; outputIndex++) {
+                    outputs[outputIndex][channelIndex][sampleIndex] = channelSample;
                 }
             }
         }
