@@ -96,7 +96,7 @@ namespace nkast.Wasm.Audio
 
         public StreamingAudioWorkletNode CreateStreamingAudioWorkletNode(int channelCount)
         {
-            int uid = InvokeRet<int, int>("nkAudioBaseContext.CreateStreamingAudioWorkletNode", channelCount);
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateStreamingAudioWorkletNode", channelCount);
             return new StreamingAudioWorkletNode(uid, this);
         }
 

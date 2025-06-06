@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Audio
