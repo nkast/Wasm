@@ -20,6 +20,15 @@
         var c = nkJSObject.GetObject(uid);
         c.height = Module.HEAP32[(d+ 0)>>2];
     },
+    GetCursor: function (uid) {
+        var c = nkJSObject.GetObject(uid);
+        return c.style.cursor;
+    },
+    SetCursor: function (uid, d) {
+        var c = nkJSObject.GetObject(uid);
+        var sc = nkJSObject.ReadString(d + 0);
+        c.style.cursor = sc;
+    },
     Create2DContext: function (uid)
     {
         var c = nkJSObject.GetObject(uid);

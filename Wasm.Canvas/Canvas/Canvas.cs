@@ -25,6 +25,12 @@ namespace nkast.Wasm.Canvas
             set { Invoke("nkCanvas.SetHeight", value); }
         }
 
+        public string Cursor
+        {
+            get { return InvokeRetString("nkCanvas.GetCursor"); }
+            set { Invoke("nkCanvas.SetCursor", value); }
+        }
+
         CanvasRenderingContext _canvasRenderingContext;
         WebGL.WebGLRenderingContext _webglRenderingContext;
         WebGL.WebGL2RenderingContext _webgl2RenderingContext;
