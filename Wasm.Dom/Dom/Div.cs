@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace nkast.Wasm.Dom
 {
-    public class Div : CachedJSObject<Div>
+    public class Div : HTMLElement<Div>
     {
         internal Div(int uid) : base(uid)
         {

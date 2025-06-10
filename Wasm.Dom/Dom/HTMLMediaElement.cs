@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 
 namespace nkast.Wasm.Dom
 {
-    public abstract class HTMLMediaElement : CachedJSObject<HTMLMediaElement>, IHTMLMediaElement
+    public abstract class HTMLMediaElement : HTMLElement<HTMLMediaElement>, IHTMLMediaElement
     {
 
         public event EventHandler OnEnded;

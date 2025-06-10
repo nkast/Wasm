@@ -5,7 +5,7 @@ using nkast.Wasm.Dom;
 
 namespace nkast.Wasm.Canvas
 {
-    public class Canvas : CachedJSObject<Canvas>
+    public class Canvas : HTMLElement<Canvas>
     {
 
         public event EventHandler WebGLContextLost;
