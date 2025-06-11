@@ -38,3 +38,39 @@ window.nkElement =
         return e.clientHeight;
     },
 };
+
+window.nkHTMLElement =
+{
+    GetStyle: function (uid, d)
+    {
+        var he = nkJSObject.GetObject(uid);
+
+        var st = he.style;
+
+        var uid = nkJSObject.GetUid(st);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(st);
+    },
+};
+
+window.nkStyleDeclaration =
+{
+    GetPropertyValue: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        var pr = nkJSObject.ReadString(d + 0);
+
+        return st.getPropertyValue(pr);
+    },
+
+    SetProperty: function (uid, d)
+    {
+        var st = nkJSObject.GetObject(uid);
+        var pr = nkJSObject.ReadString(d + 0);
+        var va = nkJSObject.ReadString(d + 4);
+
+        st.setProperty(pr, va);
+    },
+};
