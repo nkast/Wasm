@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 
 namespace nkast.Wasm.Dom
 {
-    public abstract class HTMLElement<THTMLElement> : CachedJSObject<THTMLElement>
+    public abstract class HTMLElement<THTMLElement> : Element<THTMLElement>
         where THTMLElement : JSObject
     {
 
