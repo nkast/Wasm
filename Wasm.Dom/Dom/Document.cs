@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Dom
 {

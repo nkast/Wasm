@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-using nkast.Wasm.Dom;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.XR
 {

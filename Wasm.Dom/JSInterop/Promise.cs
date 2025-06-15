@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
-namespace nkast.Wasm.Dom
+namespace nkast.Wasm.JSInterop
 {
     public abstract class Promise : CachedJSObject<Promise>
     {

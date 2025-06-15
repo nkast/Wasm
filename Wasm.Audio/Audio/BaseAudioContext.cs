@@ -1,5 +1,6 @@
 using System;
 using nkast.Wasm.Dom;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Audio
 {

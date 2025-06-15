@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using nkast.Wasm.Dom;
 using nkast.Wasm.Input;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.XR
 {

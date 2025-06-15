@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using nkast.Wasm.Dom;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Input
 {

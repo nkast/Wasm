@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using nkast.Wasm.Dom;
+using nkast.Wasm.JSInterop;
 using nkast.Wasm.Canvas.WebGL;
 
 namespace nkast.Wasm.XR

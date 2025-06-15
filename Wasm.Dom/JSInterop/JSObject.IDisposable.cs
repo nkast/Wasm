@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace nkast.Wasm.Dom
+namespace nkast.Wasm.JSInterop
 {
     public partial class JSObject : IDisposable
     {

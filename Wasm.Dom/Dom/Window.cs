@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.JSInterop;
 using nkast.Wasm.Input;
+using nkast.Wasm.JSInterop;
 using nkast.Wasm.WebStorage;
 
 namespace nkast.Wasm.Dom

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using nkast.Wasm.Dom;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.WebStorage
 {

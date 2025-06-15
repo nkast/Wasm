@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using nkast.Wasm.Input;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Dom
 {

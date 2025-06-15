@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices.JavaScript;
 
-namespace nkast.Wasm.Dom
+namespace nkast.Wasm.JSInterop
 {
     public partial class JSObject
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Dom
 {

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace nkast.Wasm.Dom
+namespace nkast.Wasm.JSInterop
 {
     public struct JSArrayEnumerator<T> : IEnumerator<T>
     {

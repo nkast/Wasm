@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.JSInterop;
+using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Dom
 {

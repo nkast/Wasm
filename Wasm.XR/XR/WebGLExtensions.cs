@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using nkast.Wasm.Canvas.WebGL;
-using nkast.Wasm.Dom;
-using JSInterop = System.Runtime.InteropServices.JavaScript;
+using nkast.Wasm.JSInterop;
+using InteropServicesJS = System.Runtime.InteropServices.JavaScript;
 
 
 namespace nkast.Wasm.Canvas.WebGL
 {
     public static partial class WebGLExtensions
     {
-        [JSInterop.JSImport("globalThis.window.nkXRSystem.MakeXRCompatible")]
+        [InteropServicesJS.JSImport("globalThis.window.nkXRSystem.MakeXRCompatible")]
         private static partial int InvokeRetInt(int uid);
 
         public static Task MakeXRCompatibleAsync(this IWebGLRenderingContext glContext)
