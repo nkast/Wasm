@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\Wasm.Audio\Wasm.Audio.csproj" />
     <ProjectReference Include="..\..\Wasm.Canvas\Wasm.Canvas.csproj" />
     <ProjectReference Include="..\..\Wasm.Dom\Wasm.Dom.csproj" />
+    <ProjectReference Include="..\..\Wasm.JSInterop\Wasm.JSInterop.csproj" />
     <ProjectReference Include="..\..\Wasm.XHR\Wasm.XHR.csproj" />
     <ProjectReference Include="..\..\Wasm.XR\Wasm.XR.csproj" />
   </ItemGroup>

@@ -255,12 +255,12 @@ window.nkPromise =
         pr.then((value) =>
         {
             pr.AsyncValue = value;
-            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsPromiseOnCompleted', uid);
+            DotNet.invokeMethod('nkast.Wasm.JSInterop', 'JsPromiseOnCompleted', uid);
         }
         ).catch((error) =>
         {
             pr.Error = error;
-            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsPromiseOnError', uid);
+            DotNet.invokeMethod('nkast.Wasm.JSInterop', 'JsPromiseOnError', uid);
         });
     },
 };

@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsTrimmable>
     <RazorLangVersion>3.0</RazorLangVersion>
-    <AssemblyName>nkast.Wasm.XHR</AssemblyName>
-    <RootNamespace>nkast.Wasm.XHR</RootNamespace>
+    <AssemblyName>nkast.Wasm.JSInterop</AssemblyName>
+    <RootNamespace>nkast.Wasm.JSInterop</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>nkast.Wasm.XHR</PackageId>
+    <PackageId>nkast.Wasm.JSInterop</PackageId>
     <Version>8.0.5.0</Version>
     <AssemblyVersion>8.0.5.0</AssemblyVersion>
     <Authors>Nick Kastellanos</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
-    <PackageTags>C# Blazor WebAssembly web XMLHttpRequest</PackageTags>
+    <PackageTags>C# Blazor WebAssembly web JSInterop</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -25,15 +25,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
   </ItemGroup>
-	
+
   <ItemGroup>
     <EmbeddedResource Include="ILLink.Descriptors.xml">
       <LogicalName>ILLink.Descriptors.xml</LogicalName>
     </EmbeddedResource>
-  </ItemGroup>
-	
-  <ItemGroup>
-    <ProjectReference Include="..\Wasm.JSInterop\Wasm.JSInterop.csproj" />
   </ItemGroup>
 
   <ItemGroup>

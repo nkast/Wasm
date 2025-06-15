@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.JSInterop", "Wasm.JSInterop\Wasm.JSInterop.csproj", "{619E2020-0895-47BA-8BA5-295A51078068}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.Dom", "Wasm.Dom\Wasm.Dom.csproj", "{91D886B5-8FA5-4550-8DFF-9C768F4E4222}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wasm.Canvas", "Wasm.Canvas\Wasm.Canvas.csproj", "{35C2CDBB-25C8-4686-BD3D-E38F8FD9FCFB}"
@@ -19,6 +21,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{619E2020-0895-47BA-8BA5-295A51078068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619E2020-0895-47BA-8BA5-295A51078068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619E2020-0895-47BA-8BA5-295A51078068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619E2020-0895-47BA-8BA5-295A51078068}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D886B5-8FA5-4550-8DFF-9C768F4E4222}.Release|Any CPU.ActiveCfg = Release|Any CPU
