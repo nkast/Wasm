@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using nkast.Wasm.Dom;
 
-namespace nkast.Wasm.Dom
+namespace nkast.Wasm.WebStorage
 {
     public class Storage : JSObject
     {
