@@ -92,6 +92,15 @@ window.nkAudioBaseContext =
         var me = nkJSObject.GetObject(mid);
         var ms = ac.createMediaElementSource(me);
         return nkJSObject.RegisterObject(ms);
+    },
+    CreateWorklet: function (uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var na = nkJSObject.ReadString(d + 0);
+
+        var wn = new AudioWorkletNode(ac, na);
+
+        return nkJSObject.RegisterObject(wn);
     }
 };
 

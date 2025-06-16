@@ -108,6 +108,11 @@ namespace nkast.Wasm.Audio
             return new StereoPannerNode(uid, this);
         }
 
+        public AudioWorkletNode CreateWorklet(string name)
+        {
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet", name);
+            return new AudioWorkletNode(uid, this);
+        }
 
         protected override void Dispose(bool disposing)
         {
