@@ -50,6 +50,19 @@ namespace nkast.Wasm.Audio
             }
         }
 
+        public AudioWorklet AudioWorklet
+        {
+            get
+            {
+                int uid = InvokeRetInt("nkAudioBaseContext.GetAudioWorklet");
+                AudioWorklet audioWorklet = AudioWorklet.FromUid(uid);
+                if (audioWorklet != null)
+                    return audioWorklet;
+
+                return new AudioWorklet(uid);
+            }
+        }
+
         public ContextState State
         {
             get
