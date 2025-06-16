@@ -18,7 +18,7 @@ namespace nkast.Wasm.Audio
             get
             {
                 int sampleRate = InvokeRetInt("nkAudioBaseContext.GetSampleRate");
-                return SampleRate;
+                return sampleRate;
             }
         }
 
