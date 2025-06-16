@@ -69,6 +69,9 @@ namespace nkast.Wasm.JSInterop
                 case 13: // "SecurityError"
                     ex = new UnauthorizedAccessException(message);
                     break;
+                case 14: // "AbortError"
+                    ex = new Exception(message);
+                    break;
 
                 default:
                     ex = new Exception(message);
@@ -114,6 +117,9 @@ namespace nkast.Wasm.JSInterop
                     break;
                 case 13: // "SecurityError"
                     ex = new UnauthorizedAccessException(message);
+                    break;
+                case 14: // "AbortError"
+                    ex = new Exception(message);
                     break;
 
                 default:

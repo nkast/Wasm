@@ -208,6 +208,8 @@ window.nkPromise =
                     return 12;
                 case "SecurityError":
                     return 13;
+                case "AbortError":
+                    return 14;
 
                 default:
                     return 10;
