@@ -432,4 +432,22 @@ window.nkMediaDevices =
         else
             return nkJSObject.RegisterObject(null);
     },
+
+    GetUserMedia: function (uid, d)
+    {
+        var md = nkJSObject.GetObject(uid);
+        var bi = Module.HEAP32[(d+ 0)>>2];
+
+        var au = (bi >>  0) & 3;
+        var vi = (bi >>  2) & 3;
+
+        var constraints = {};
+        if (au != 3)
+            constraints.audio = au !== 0;
+        if (vi != 3)
+            constraints.video = vi !== 0;
+
+        var pr = md.getUserMedia(constraints);
+        return nkJSObject.RegisterObject(pr);
+    },
 };

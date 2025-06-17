@@ -20,12 +20,19 @@ namespace nkast.Wasm.Media
                 return mediaDevices;
 
             return new MediaDevices(navigator, uid);
-
         }
 
         internal MediaDevices(Navigator navigator, int uid) : base(uid)
         {
             //_navigator = navigator;
+        }
+
+        public Task<MediaStream> GetUserMedia(UserMediaConstraints constraints)
+        {
+            int uid = InvokeRetInt<int>("nkMediaDevices.GetUserMedia", (int)constraints.ToBit());
+
+            PromiseJSObject<MediaStream> promise = new PromiseJSObject<MediaStream>(uid, (int newuid) => new MediaStream(newuid));
+            return promise.GetTask();
         }
 
 
