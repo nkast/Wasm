@@ -415,3 +415,21 @@ window.nkAudioWorklet =
     },
 };
 
+window.nkMediaDevices =
+{
+    Create: function (uid)
+    {
+        var nv = nkJSObject.GetObject(uid);
+        if ("mediaDevices" in nv)
+        {
+            var md = nv.mediaDevices;
+            var uid = nkJSObject.GetUid(md);
+            if (uid !== -1)
+                return uid;
+
+            return nkJSObject.RegisterObject(md);
+        }
+        else
+            return nkJSObject.RegisterObject(null);
+    },
+};
