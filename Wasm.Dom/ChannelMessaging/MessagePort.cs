@@ -22,6 +22,11 @@ namespace nkast.Wasm.ChannelMessaging
             Invoke("nkMessagePort.Close");
         }
 
+        public void PostMessage(int message)
+        {
+            Invoke<int>("nkMessagePort.PostMessagei", message);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -292,5 +292,13 @@ window.nkMessagePort =
         var mp = nkJSObject.GetObject(uid);
         mp.close();
     },
+
+    PostMessagei: function (uid, d)
+    {
+        var mp = nkJSObject.GetObject(uid);
+        var ms = Module.HEAP32[(d+ 0)>>2];
+
+        mp.postMessage(ms);
+    },
 };
 
