@@ -300,5 +300,16 @@ window.nkMessagePort =
 
         mp.postMessage(ms);
     },
+
+    RegisterEvents: function (uid)
+    {
+        var mp = nkJSObject.GetObject(uid);
+
+        mp.addEventListener('message', (event) =>
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsMessagePortOnMessagei', uid, event.data);
+        });
+
+    }
 };
 
