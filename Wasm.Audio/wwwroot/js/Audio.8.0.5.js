@@ -10,7 +10,16 @@
     {
         var ac = nkJSObject.GetObject(uid);
         ac.close();
-    }    
+    },
+
+    CreateMediaStreamSource: function (uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var sid = Module.HEAP32[(d + 0) >> 2];
+        var ms = nkJSObject.GetObject(sid);
+        var sn = ac.createMediaStreamSource(ms);
+        return nkJSObject.RegisterObject(sn);
+    },
 };
 
 window.nkAudioBaseContext =

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using nkast.Wasm.JSInterop;
+using nkast.Wasm.Media;
 
 namespace nkast.Wasm.Audio
 {
@@ -20,6 +21,12 @@ namespace nkast.Wasm.Audio
         public void Close()
         {
             Invoke("nkAudioContext.Close");
+        }
+
+        public MediaStreamSourceNode CreateMediaStreamSource(MediaStream stream)
+        {
+            int uid = InvokeRetInt<int>("nkAudioContext.CreateMediaStreamSource", ((JSObject)stream).Uid);
+            return new MediaStreamSourceNode(uid, this);
         }
 
         protected override void Dispose(bool disposing)
