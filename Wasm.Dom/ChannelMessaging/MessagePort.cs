@@ -47,6 +47,8 @@ namespace nkast.Wasm.ChannelMessaging
 
             }
 
+            Invoke("nkMessagePort.UnregisterEvents");
+
             base.Dispose(disposing);
         }
     }
