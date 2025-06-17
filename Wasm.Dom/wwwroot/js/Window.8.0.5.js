@@ -279,3 +279,18 @@ window.nkStorage =
     },
 };
 
+window.nkMessagePort =
+{
+    Start: function (uid, d)
+    {
+        var mp = nkJSObject.GetObject(uid);
+        mp.start();
+    },
+
+    Close: function (uid, d)
+    {
+        var mp = nkJSObject.GetObject(uid);
+        mp.close();
+    },
+};
+

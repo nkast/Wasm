@@ -318,6 +318,22 @@ window.nkAudioStereoPannerNode =
     }
 };
 
+window.nkAudioWorkletNode =
+{
+    GetPort: function (uid, d)
+    {
+        var wn = nkJSObject.GetObject(uid);
+
+        var po = wn.port;
+
+        var uid = nkJSObject.GetUid(po);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(po);
+    }
+};
+
 window.nkAudioParam =
 {  
     SetValue: function (uid, d)
