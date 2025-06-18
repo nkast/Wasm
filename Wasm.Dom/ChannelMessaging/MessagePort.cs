@@ -45,6 +45,29 @@ namespace nkast.Wasm.ChannelMessaging
                 handler(mp, new MessageEventArgs(data));
         }
 
+        [JSInvokable]
+        public static void JsMessagePortOnMessageUInt8Array(int uid, int aid)
+        {
+            MessagePort mp = MessagePort.FromUid(uid);
+
+            JSUInt8Array jsarray = new JSUInt8Array(aid);
+            try
+            {
+                int count = jsarray.Count;
+
+                byte[] bytes = new byte[count];
+                jsarray.CopyTo(bytes, 0, count);
+
+                var handler = mp.Message;
+                if (handler != null)
+                    handler(mp, new MessageEventArgs(bytes));
+            }
+            finally
+            {
+                jsarray.Dispose();
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

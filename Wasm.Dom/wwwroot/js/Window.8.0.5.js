@@ -319,6 +319,11 @@ window.nkMessagePort =
             {
                 DotNet.invokeMethod('nkast.Wasm.Dom', 'JsMessagePortOnMessagef64', uid, data);
             }
+            else if (data instanceof Uint8Array)
+            {
+                var aid = nkJSObject.RegisterObject(data);
+                DotNet.invokeMethod('nkast.Wasm.Dom', 'JsMessagePortOnMessageUInt8Array', uid, aid);
+            }
             else
             {
                 throw new Error("Unsupported message type: " + typeof data);
