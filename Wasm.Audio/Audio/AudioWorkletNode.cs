@@ -9,20 +9,13 @@ namespace nkast.Wasm.Audio
 
         public MessagePort Port
         {
-            get
-            {
-                int uid = InvokeRetInt("nkAudioWorkletNode.GetPort");
-                MessagePort port = MessagePort.FromUid(uid);
-                if (port != null)
-                    return port;
-
-                return new MessagePort(uid);
-            }
+            get { return _messagePort; }
         }
 
         internal AudioWorkletNode(int uid, BaseAudioContext context) : base(uid, context)
         {
-            _messagePort = this.Port;
+            int mpuid = InvokeRetInt("nkAudioWorkletNode.GetPort");
+            _messagePort = new MessagePort(mpuid);
         }
 
         protected override void Dispose(bool disposing)
