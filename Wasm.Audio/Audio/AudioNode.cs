@@ -9,6 +9,24 @@ namespace nkast.Wasm.Audio
 
         protected BaseAudioContext Context { get { return _context; } }
 
+        public int NumberOfInputs
+        {
+            get { return InvokeRetInt("nkAudioNode.GetNumberOfInputs"); }
+        }
+        public int NumberOfOutputs
+        {
+            get { return InvokeRetInt("nkAudioNode.GetNumberOfOutputs"); }
+        }
+        public int ChannelCount
+        {
+            get { return InvokeRetInt("nkAudioNode.GetChannelCount"); }
+        }
+        public ChannelCountMode ChannelCountMode
+        {
+            get { return (ChannelCountMode)InvokeRetInt("nkAudioNode.GetChannelCountMode"); }
+        }
+
+
         internal AudioNode(int uid, BaseAudioContext context) : base(uid)
         {
             _context = context;

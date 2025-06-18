@@ -269,7 +269,34 @@ window.nkAudioDestinationNode =
 };
 
 window.nkAudioNode =
-{    
+{
+    GetNumberOfInputs: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.numberOfInputs;
+    },
+    GetNumberOfOutputs: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.numberOfOutputs;
+    },
+    GetChannelCount: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        return an.channelCount;
+    },
+    GetChannelCountMode: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+        switch (an.channelCountMode)
+        {
+            case "max": return 1;
+            case "clamped-max": return 2;
+            case "explicit": return 3;
+            default:
+                throw new Error("Unknown channelCountMode: " + an.channelCountMode);
+        }
+    },
     Connect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
