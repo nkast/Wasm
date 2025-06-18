@@ -37,7 +37,12 @@ namespace nkast.Wasm.ChannelMessaging
 
         public void PostMessage(byte[] message)
         {
-            Invoke<byte[]>("nkMessagePort.PostMessageUInt8Array", message);
+            PostMessage(message, 0, message.Length);
+        }
+
+        public void PostMessage(byte[] message, int index, int count)
+        {
+            Invoke<int, int, byte[]>("nkMessagePort.PostMessageUInt8Array", index, count, message);
         }
 
 
