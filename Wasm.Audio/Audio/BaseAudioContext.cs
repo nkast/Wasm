@@ -65,11 +65,7 @@ namespace nkast.Wasm.Audio
 
         public ContextState State
         {
-            get
-            {
-                string str = InvokeRetString("nkAudioBaseContext.GetState");
-                return Enum.Parse<ContextState>(str, true);
-            }
+            get { return (ContextState)InvokeRetInt("nkAudioBaseContext.GetState"); }
         }
 
         public AudioBuffer CreateBuffer(int numOfChannels, int  length, int sampleRate)

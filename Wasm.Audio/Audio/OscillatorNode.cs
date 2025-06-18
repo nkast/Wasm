@@ -27,12 +27,8 @@ namespace nkast.Wasm.Audio
 
         public OscillatorType Type
         {
-            get
-            {
-                string str = InvokeRetString("nkAudioOscillatorNode.GetType");
-                return Enum.Parse<OscillatorType>(str, true);
-            }
-            set { Invoke("nkCanvas2dContext.SetType", value.ToString().ToLower()); }
+            get { return (OscillatorType)InvokeRetInt("nkAudioOscillatorNode.GetType"); }
+            set { Invoke("nkAudioOscillatorNode.SetType", (int)value); }
         }
 
         protected override void Dispose(bool disposing)

@@ -58,7 +58,14 @@ window.nkAudioBaseContext =
     GetState: function (uid)
     {
         var ac = nkJSObject.GetObject(uid);
-        return ac.state;
+        switch (ac.state)
+        {
+            case "suspended": return 1;
+            case "running": return 2;
+            case "closed": return 3;
+            default:
+                throw new Error("Unknown AudioContext state: " + ac.state);
+        }
     },
 
     CreateBuffer: function (uid, d)
@@ -325,12 +332,32 @@ window.nkAudioOscillatorNode =
     GetType: function (uid)
     {
         var os = nkJSObject.GetObject(uid);
-        return os.type;
+        switch (os.type)
+        {
+            case "sine": return 1;
+            case "square": return 2;
+            case "sawtooth": return 3;
+            case "triangle": return 4;
+            case "custom": return 5;
+            default:
+                throw new Error("Unknown OscillatorNode type: " + os.type);
+        }
     },
     SetType: function (uid, d)
     {
         var os = nkJSObject.GetObject(uid);
-        os.type = nkJSObject.ReadString(d+ 0);
+        var ty = Module.HEAP32[(d+ 0)>>2];
+        switch (ty)
+        {
+            case 1: os.type = "sine"; break;
+            case 2: os.type = "square"; break;
+            case 3: os.type = "sawtooth"; break;
+            case 4: os.type = "triangle"; break;
+            case 5:
+                throw new Error("You never set type to custom manually; instead, use the setPeriodicWave().");
+            default:
+                throw new Error("Unknown OscillatorNode type: " + ty);
+        }
     }
 };
 
