@@ -30,8 +30,13 @@ namespace nkast.Wasm.ChannelMessaging
             Invoke<int>("nkMessagePort.PostMessagei", message);
         }
 
+        public void PostMessage(double message)
+        {
+            Invoke<double>("nkMessagePort.PostMessagef64", message);
+        }
+
         [JSInvokable]
-        public static void JsMessagePortOnMessagei(int uid, int data)
+        public static void JsMessagePortOnMessagef64(int uid, double data)
         {
             MessagePort mp = MessagePort.FromUid(uid);
             

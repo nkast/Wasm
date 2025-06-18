@@ -4,11 +4,11 @@ namespace nkast.Wasm.ChannelMessaging
 {
     public class MessageEventArgs
     {
-        public readonly int Data;
+        public readonly double DataFloat64;
 
-        internal MessageEventArgs(int data)
+        internal MessageEventArgs(double data)
         {
-            this.Data = data;
+            this.DataFloat64 = data;
         }
     }
 }

@@ -300,6 +300,13 @@ window.nkMessagePort =
 
         mp.postMessage(ms);
     },
+    PostMessagef64: function (uid, d)
+    {
+        var mp = nkJSObject.GetObject(uid);
+        var ms = Module.HEAPF64[(d+ 0)>>3];
+
+        mp.postMessage(ms);
+    },
 
     RegisterEvents: function (uid)
     {
@@ -307,7 +314,15 @@ window.nkMessagePort =
 
         mp.onmessage = function (event)
         {
-            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsMessagePortOnMessagei', uid, event.data);
+            var data = event.data;
+            if (typeof data === 'number')
+            {
+                DotNet.invokeMethod('nkast.Wasm.Dom', 'JsMessagePortOnMessagef64', uid, data);
+            }
+            else
+            {
+                throw new Error("Unsupported message type: " + typeof data);
+            }
         };
     },
     UnregisterEvents: function (uid)
