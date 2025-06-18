@@ -5,6 +5,8 @@ namespace nkast.Wasm.Audio
 {
     public class AudioWorkletNode : AudioNode
     {
+        MessagePort _messagePort;
+
         public MessagePort Port
         {
             get
@@ -20,6 +22,7 @@ namespace nkast.Wasm.Audio
 
         internal AudioWorkletNode(int uid, BaseAudioContext context) : base(uid, context)
         {
+            _messagePort = this.Port;
         }
 
         protected override void Dispose(bool disposing)
@@ -28,6 +31,8 @@ namespace nkast.Wasm.Audio
             {
 
             }
+
+            _messagePort = null;
 
             base.Dispose(disposing);
         }
