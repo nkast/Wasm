@@ -35,6 +35,12 @@ namespace nkast.Wasm.ChannelMessaging
             Invoke<double>("nkMessagePort.PostMessagef64", message);
         }
 
+        public void PostMessage(byte[] message)
+        {
+            Invoke<byte[]>("nkMessagePort.PostMessageUInt8Array", message);
+        }
+
+
         [JSInvokable]
         public static void JsMessagePortOnMessagef64(int uid, double data)
         {
@@ -67,6 +73,7 @@ namespace nkast.Wasm.ChannelMessaging
                 jsarray.Dispose();
             }
         }
+
 
         protected override void Dispose(bool disposing)
         {
