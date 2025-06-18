@@ -5,6 +5,8 @@ using nkast.Wasm.Input;
 using nkast.Wasm.Canvas;
 using nkast.Wasm.Canvas.WebGL;
 using nkast.Wasm.XR;
+using nkast.Wasm.Audio;
+using nkast.Wasm.Media;
 
 namespace WebXR.Pages
 {
@@ -161,6 +163,12 @@ namespace WebXR.Pages
         public XRReferenceSpace _localspace;
         public XRWebGLLayer _glLayer;
 
+        AudioContext _ac;
+        AudioWorkletNode _wltnode;
+        MediaStreamSourceNode _micNode;
+        MediaStream _micStream;
+        AudioWorkletNode _micWorkletNode;
+
         internal async void InitXRSessionAsync(UpdateContext uc)
         {
             _initXRStarted = true;
@@ -170,6 +178,48 @@ namespace WebXR.Pages
 
             try
             {
+                _ac = new AudioContext();
+                int sampleRate = _ac.SampleRate;
+
+                await _ac.AudioWorklet.AddModule("js/processor.js");
+                _wltnode = _ac.CreateWorklet("random-noise-processor");
+                _wltnode.Connect(_ac.Destination);
+
+                _wltnode.Port.Message += (sender, e) =>
+                {
+                    Console.WriteLine("audioWorklet received message: " + e.DataFloat64);
+                };
+
+                await _ac.AudioWorklet.AddModule("js/micProcessor.js");
+
+                MediaDevices md = MediaDevices.FromNavigator(Window.Current.Navigator);
+                _micStream = await md.GetUserMedia(new UserMediaConstraints() { Audio = true });
+                _micNode = _ac.CreateMediaStreamSource(_micStream);
+                {
+                    _micWorkletNode = _ac.CreateWorklet("mic-processor");
+
+                    _micWorkletNode.Port.Message += (sender, e) =>
+                    {
+                        byte[] audioBuffer = e.DataByteArray;
+                        if (audioBuffer != null)
+                        {
+                            _wltnode.Port.PostMessage(audioBuffer);
+                        }
+                    };
+
+                    _micNode.Connect(_micWorkletNode);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("audioWorklet failed. " + ex.Message);
+                //Window.Current.Document.Title = "audioWorklet failed. " + ex.Message;
+            }
+
+            try
+            {
+
                 XRSessionOptions sessionOptions = default;
                 sessionOptions.RequiredFeatures = XRSessionFeatures.Local;
                 sessionOptions.OptionalFeatures = XRSessionFeatures.LocalFloor
