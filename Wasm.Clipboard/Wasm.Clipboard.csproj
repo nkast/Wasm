@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsTrimmable>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <AssemblyName>nkast.Wasm.Clipboard</AssemblyName>
+    <RootNamespace>nkast.Wasm.Clipboard</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>nkast.Wasm.Clipboard</PackageId>
+    <Version>8.0.5.0</Version>
+    <AssemblyVersion>8.0.5.0</AssemblyVersion>
+    <Authors>Nick Kastellanos</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
+    <PackageTags>C# Blazor WebAssembly web Clipboard</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <EmbeddedResource Include="ILLink.Descriptors.xml">
+      <LogicalName>ILLink.Descriptors.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wasm.Dom\Wasm.Dom.csproj" />
+    <ProjectReference Include="..\Wasm.JSInterop\Wasm.JSInterop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

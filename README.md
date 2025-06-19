@@ -7,6 +7,7 @@ Unlock the full potential of WebAssembly with intuitive bindings for key web tec
 - **[Window](https://developer.mozilla.org/en-US/docs/Web/API/Window):** Interact with browser windows and manage global objects.  
 - **[Navigator](https://developer.mozilla.org/en-US/docs/Web/API/Navigator):** Access device and browser capabilities.
 - **[WebStorage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API):** Leverage efficient client-side storage for your apps.  
+- **[WebClipboard](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard):** Provides access to the system clipboard.  
 - **[Audio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) & [Video](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video):** Embed and control media seamlessly.  
 - **[Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API):** Add gamepad support for interactive experiences.  
 - **[WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API):** Create rich, dynamic soundscapes with low-level audio APIs.  
