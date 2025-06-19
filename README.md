@@ -10,6 +10,7 @@ Unlock the full potential of WebAssembly with intuitive bindings for key web tec
 - **[Audio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) & [Video](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video):** Embed and control media seamlessly.  
 - **[Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API):** Add gamepad support for interactive experiences.  
 - **[WebAudio](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API):** Create rich, dynamic soundscapes with low-level audio APIs.  
+- **[MediaDevices](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API):** Capture and Stream audio from microphone.  
 - **[Canvas 2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D):** Build 2D graphics with ease.
 - **[WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) & [WebGL2](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext):** Dive into high-performance 3D rendering for games and simulations.  
 - **[WebXR](https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/WebXR):** Create immersive VR/AR experiences.
