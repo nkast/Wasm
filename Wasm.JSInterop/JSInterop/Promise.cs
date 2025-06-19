@@ -155,6 +155,19 @@ namespace nkast.Wasm.JSInterop
         }
     }
 
+    public class PromiseString : Promise<string>
+    {
+        public PromiseString(int uid) : base(uid)
+        {
+        }
+
+        protected override void OnCompleted()
+        {
+            string result = InvokeRetString("nkPromise.GetValueString");
+            _tcs.SetResult(result);
+        }
+    }
+
     public class PromiseJSObject<TResult> : Promise<TResult>
         where TResult : JSObject
     {

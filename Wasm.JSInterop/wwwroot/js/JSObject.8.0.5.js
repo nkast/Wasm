@@ -204,6 +204,11 @@ window.nkPromise =
         var pr = nkJSObject.GetObject(uid);
         return pr.AsyncValue;
     },
+    GetValueString: function (uid)
+    {
+        var pr = nkJSObject.GetObject(uid);
+        return pr.AsyncValue;
+    },
     GetValueJSObject: function (uid)
     {
         var pr = nkJSObject.GetObject(uid);
