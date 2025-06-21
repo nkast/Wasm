@@ -182,10 +182,27 @@
                 event.deltaX, event.deltaY, event.deltaZ,  event.deltaMode);
         });
 
-        window.addEventListener('keydown', (event) =>
-        {
+        window.addEventListener('keydown', (event) => {
+            var char;
+            switch (event.key) {
+                case "Enter":
+                    char = 13;
+                    break;
+                case "Backspace":
+                    char = 8;
+                    break;
+                case "Tab":
+                    char = 9;
+                    break;
+                case "Delete":
+                    char = 127;
+                    break;
+                default:
+                    char = (event.key.length == 1) ? event.key.charCodeAt(0) : 0;
+                    break;
+            }
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnKeyDown', uid,
-                event.key.charCodeAt(0), event.keyCode, event.location);
+                char, event.keyCode, event.location);
         });
         window.addEventListener('keyup', (event) =>
         {
