@@ -18,7 +18,7 @@ namespace nkast.Wasm.Audio
                 if (_frequency == null)
                 {
                     int uid = InvokeRetInt("nkAudioOscillatorNode.GetFrequency");
-                    _frequency = new AudioParam(uid, Context);
+                    _frequency = new AudioParam(uid);
                 }
 
                 return _frequency;
