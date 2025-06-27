@@ -234,6 +234,12 @@ window.nkAudioBufferSourceNode =
         var bs = nkJSObject.GetObject(uid);
         var lp = Module.HEAP32[(d+ 0)>>2];
         bs.loop = lp !== 0;
+    },
+    GetPlaybackRate: function (uid, d)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var pr = bs.playbackRate;
+        return nkJSObject.RegisterObject(pr);
     }
 };
 
