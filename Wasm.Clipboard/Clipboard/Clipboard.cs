@@ -15,9 +15,9 @@ namespace nkast.Wasm.WebClipboard
             if (uid == -1)
                 return null;
 
-            Clipboard xrsystem = Clipboard.FromUid(uid);
-            if (xrsystem != null)
-                return xrsystem;
+            Clipboard clipboard = Clipboard.FromUid(uid);
+            if (clipboard != null)
+                return clipboard;
 
             return new Clipboard(navigator, uid);
         }

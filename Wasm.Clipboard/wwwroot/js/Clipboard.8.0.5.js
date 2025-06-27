@@ -4,10 +4,10 @@ window.nkClipboard =
     Create: function(uid)
     {
         var nv = nkJSObject.GetObject(uid);
-        if ("xr" in nv)
+        if ('clipboard' in nv)
         {
             var cb = nv.clipboard;
-            var uid = nkJSObject.GetUid(CSSLayerBlockRule);
+            var uid = nkJSObject.GetUid(cb);
             if (uid !== -1)
                 return uid;
 
