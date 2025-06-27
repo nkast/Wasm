@@ -63,6 +63,11 @@
         var w = nkJSObject.GetObject(uid);
         return w.innerHeight;
     },
+    GetDevicePixelRatio: function (uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        return w.devicePixelRatio;
+    },
     GetIsSecureContext: function (uid)
     {
         var w = nkJSObject.GetObject(uid);

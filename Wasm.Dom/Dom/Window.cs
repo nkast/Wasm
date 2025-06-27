@@ -117,6 +117,11 @@ namespace nkast.Wasm.Dom
         {
             get { return InvokeRetInt("nkWindow.GetInnerHeight"); }
         }
+        
+        public double DevicePixelRatio
+        {
+            get { return InvokeRetDouble("nkWindow.GetDevicePixelRatio"); }
+        }
 
         public bool IsSecureContext
         {
