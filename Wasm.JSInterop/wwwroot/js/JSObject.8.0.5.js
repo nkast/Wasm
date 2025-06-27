@@ -123,6 +123,11 @@
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
+    JSInvoke1Double: function (fid, uid)
+    {
+        let func = nkJSObject.funcMap[fid];
+        return func(uid);
+    },
     JSInvoke1String: function(fid, uid)
     {
         let func = nkJSObject.funcMap[fid];

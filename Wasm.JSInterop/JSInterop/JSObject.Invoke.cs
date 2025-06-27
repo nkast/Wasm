@@ -27,6 +27,9 @@ namespace nkast.Wasm.JSInterop
         [JSImport("globalThis.window.nkJSObject.JSInvoke1Float")]
         private static partial float JSInvoke1Float(int fid, int uid);
 
+        [JSImport("globalThis.window.nkJSObject.JSInvoke1Double")]
+        private static partial double JSInvoke1Double(int fid, int uid);
+
         [JSImport("globalThis.window.nkJSObject.JSInvoke1String")]
         private static partial string JSInvoke1String(int fid, int uid);
 
@@ -100,6 +103,12 @@ namespace nkast.Wasm.JSInterop
         {
             int fid = RegisterFunction(identifier);
             return JSInvoke1Float(fid, Uid);
+        }
+
+        protected double InvokeRetDouble(string identifier)
+        {
+            int fid = RegisterFunction(identifier);
+            return JSInvoke1Double(fid, Uid);
         }
 
         protected string InvokeRetString(string identifier)
