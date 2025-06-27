@@ -14,7 +14,7 @@ namespace nkast.Wasm.Audio
 
         public float Value
         {
-            get { throw new NotImplementedException(); }
+            get { return InvokeRetFloat("nkAudioParam.GetValue"); }
             set { Invoke("nkAudioParam.SetValue", value); }
         }
 

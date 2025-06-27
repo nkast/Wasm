@@ -405,6 +405,11 @@ window.nkAudioWorkletNode =
 
 window.nkAudioParam =
 {  
+    GetValue: function (uid, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.value;
+    },
     SetValue: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
