@@ -5,8 +5,11 @@ namespace nkast.Wasm.Audio
 {
     public class AudioParam : JSObject
     {
-        internal AudioParam(int uid) : base(uid)
+        AudioNode _audioNode;
+
+        internal AudioParam(int uid, AudioNode audioNode) : base(uid)
         {
+            _audioNode = audioNode;
         }
 
         public float Value
@@ -52,6 +55,8 @@ namespace nkast.Wasm.Audio
             {
 
             }
+
+            _audioNode = null;
 
             base.Dispose(disposing);
         }

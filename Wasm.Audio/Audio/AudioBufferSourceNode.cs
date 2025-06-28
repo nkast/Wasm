@@ -30,7 +30,7 @@ namespace nkast.Wasm.Audio
                 if (_playbackRate == null)
                 {
                     int uid = InvokeRetInt("nkAudioBufferSourceNode.GetPlaybackRate");
-                    _playbackRate = new AudioParam(uid);
+                    _playbackRate = new AudioParam(uid, this);
                 }
 
                 return _playbackRate;

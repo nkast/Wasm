@@ -18,7 +18,7 @@ namespace nkast.Wasm.Audio
                 if (_pan == null)
                 {
                     int uid = InvokeRetInt("nkAudioStereoPannerNode.GetPan");
-                    _pan = new AudioParam(uid);
+                    _pan = new AudioParam(uid, this);
                 }
 
                 return _pan;
