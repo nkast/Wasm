@@ -1,0 +1,38 @@
+﻿@page "/"
+@page "/index.html"
+@inject IJSRuntime JsRuntime
+@using nkast.Wasm.Canvas
+
+<PageTitle>Index</PageTitle>
+
+<div id="canvasHolder" style="
+    background: #000;
+    margin:0%;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    width:100vw;
+    height:100vh;
+">
+    <canvas id="theCanvas" ></canvas>
+</div>
+<a
+    style="position: absolute; top: 10px; left: 10px;
+           background: #FFF;
+           font: bold; 
+           padding: 4px;
+           border: 1px solid #000;"
+    id="btnStartAudioWorklet"
+    disabled="true"
+>Click to start AudioWorklet...</a>
+
+<script>
+    document.getElementById('btnStartAudioWorklet').addEventListener('click', (event) => 
+    { 
+        DotNet.invokeMethod('AudioWorklet', 'btnStartAudioWorkletOnButtonClick');
+    });
+</script>
+
+<img id="image1" src="icon-192.png" width="100" height="100" style="visibility:collapse;"/>
