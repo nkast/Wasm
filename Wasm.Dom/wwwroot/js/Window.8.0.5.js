@@ -19,10 +19,6 @@
         try 
         {
             var ss = w.sessionStorage;
-            const x = "__storage_test__";
-            ss.setItem(x, x);
-            ss.removeItem(x);
-
             var ssuid = nkJSObject.RegisterObject(ss);            
             delete ss.nkUid;
             return ssuid;
@@ -40,10 +36,6 @@
         try 
         {
             var ls = w.localStorage;
-            const x = "__storage_test__";
-            ls.setItem(x, x);
-            ls.removeItem(x);
-
             var lsuid = nkJSObject.RegisterObject(ls);
             delete ls.nkUid;
             return lsuid;
