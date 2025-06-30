@@ -20,7 +20,13 @@ namespace nkast.Wasm.ChannelMessaging
         public void CopyTo(byte[] bytes, int destinationIndex, int count)
         {
             InvokeRetInt("nkJSUInt8Array.CopyTo", destinationIndex, count, bytes);
+        }
 
+        public byte[] ToArray()
+        {
+            byte[] bytes = new byte[Count];
+            this.CopyTo(bytes, 0, Count);
+            return bytes;
         }
 
         protected override void Dispose(bool disposing)

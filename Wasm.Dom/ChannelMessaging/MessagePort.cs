@@ -64,14 +64,9 @@ namespace nkast.Wasm.ChannelMessaging
             JSUInt8Array jsarray = new JSUInt8Array(aid);
             try
             {
-                int count = jsarray.Count;
-
-                byte[] bytes = new byte[count];
-                jsarray.CopyTo(bytes, 0, count);
-
                 var handler = mp.Message;
                 if (handler != null)
-                    handler(mp, new MessageEventArgs(bytes));
+                    handler(mp, new MessageEventArgs(jsarray.ToArray()));
             }
             finally
             {
