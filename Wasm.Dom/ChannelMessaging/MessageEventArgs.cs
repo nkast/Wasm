@@ -12,10 +12,10 @@ namespace nkast.Wasm.ChannelMessaging
             this.DataFloat64 = data;
         }
 
-        internal MessageEventArgs(byte[] data)
+        internal MessageEventArgs(JSUInt8Array data)
         {
             this.DataFloat64 = double.NaN;
-            this.DataByteArray = data;
+            this.DataByteArray = data.ToArray();
         }
     }
 }

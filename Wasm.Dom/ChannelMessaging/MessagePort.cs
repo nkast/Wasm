@@ -66,7 +66,7 @@ namespace nkast.Wasm.ChannelMessaging
             {
                 var handler = mp.Message;
                 if (handler != null)
-                    handler(mp, new MessageEventArgs(jsarray.ToArray()));
+                    handler(mp, new MessageEventArgs(jsarray));
             }
             finally
             {
