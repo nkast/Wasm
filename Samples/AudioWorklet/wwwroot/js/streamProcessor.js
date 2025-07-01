@@ -1,5 +1,5 @@
-//   processor.js
-class RandomNoiseProcessor extends AudioWorkletProcessor
+//   streamProcessor.js
+class StreamProcessor extends AudioWorkletProcessor
 {
     constructor()
     {
@@ -17,7 +17,6 @@ class RandomNoiseProcessor extends AudioWorkletProcessor
             if (data instanceof Uint8Array)
             {
                 const buffer = new Int16Array(data.buffer, data.byteOffset, data.length / 2);
-
                 this.queue.push(buffer);
             }
         };
@@ -34,13 +33,14 @@ class RandomNoiseProcessor extends AudioWorkletProcessor
                 const buffer = this.queue.shift();
                 for (let i = 0; i < channel.length && i < buffer.length; i++)
                 {
-                    var value = (buffer[i] / 32767);
+                    let value = (buffer[i] / 32767);
                     channel[i] = value;
                 }
             }
         });
+
         return true;
     }
 }
 
-registerProcessor("random-noise-processor", RandomNoiseProcessor);
+registerProcessor("stream-processor", StreamProcessor);

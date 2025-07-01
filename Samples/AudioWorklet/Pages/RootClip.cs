@@ -16,7 +16,7 @@ namespace AudioWorklet.Pages
         public static Size vres = new Size(1920, 960);
 
         AudioContext _ac;
-        AudioWorkletNode _wltnode;
+        AudioWorkletNode _streamSource;
         MediaStreamSourceNode _micNode;
         MediaStream _micStream;
         AudioWorkletNode _micWorkletNode;
@@ -53,11 +53,11 @@ namespace AudioWorklet.Pages
                 _ac = new AudioContext();
                 int sampleRate = _ac.SampleRate;
 
-                await _ac.AudioWorklet.AddModule("js/processor.js");
-                _wltnode = _ac.CreateWorklet("random-noise-processor");
-                _wltnode.Connect(_ac.Destination);
+                await _ac.AudioWorklet.AddModule("js/streamProcessor.js");
+                _streamSource = _ac.CreateWorklet("stream-processor");
+                _streamSource.Connect(_ac.Destination);
 
-                _wltnode.Port.Message += (sender, e) =>
+                _streamSource.Port.Message += (sender, e) =>
                 {
                     Console.WriteLine("audioWorklet received message: " + e.DataFloat64);
                 };
@@ -75,7 +75,8 @@ namespace AudioWorklet.Pages
                         if (e.DataByteArray != null)
                         {
                             byte[] audioBuffer = e.DataByteArray.ToArray();
-                            _wltnode.Port.PostMessage(audioBuffer);
+                            _streamSource.Port.PostMessage(audioBuffer);
+                            e.DataByteArray.Dispose();
                         }
                     };
 
