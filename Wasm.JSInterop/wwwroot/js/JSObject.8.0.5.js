@@ -191,14 +191,15 @@ window.nkJSUInt8Array =
     CopyTo: function (uid, d)
     {
         var ar = nkJSObject.GetObject(uid);
-        var id = Module.HEAP32[(d+ 0) >>2];
-        var cn = Module.HEAP32[(d+ 4) >>2];
-        var arr = Module.HEAP32[(d+ 8) >>2];
+        var si = Module.HEAP32[(d+ 0)>>2];
+        var di = Module.HEAP32[(d+ 4)>>2];
+        var cn = Module.HEAP32[(d+ 8)>>2];
+        var arr = Module.HEAP32[(d+ 12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
         //var arrLen = Blazor.platform.getArrayLength(arr);
-        var dest = new Uint8Array(Module.HEAPU8.buffer, arrPtr+id, cn);
-        dest.set(ar);
+        var dest = new Uint8Array(Module.HEAPU8.buffer, arrPtr+di, cn);
+        dest.set(ar.subarray(si, si+cn));
     },
 };
 
