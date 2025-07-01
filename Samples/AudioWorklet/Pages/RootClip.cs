@@ -72,9 +72,9 @@ namespace AudioWorklet.Pages
 
                     _micWorkletNode.Port.Message += (sender, e) =>
                     {
-                        byte[] audioBuffer = e.DataByteArray;
-                        if (audioBuffer != null)
+                        if (e.DataByteArray != null)
                         {
+                            byte[] audioBuffer = e.DataByteArray.ToArray();
                             _wltnode.Port.PostMessage(audioBuffer);
                         }
                     };
