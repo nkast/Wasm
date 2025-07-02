@@ -180,7 +180,7 @@ namespace WebXR.Pages
                 _xrsession.Ended += _xrsession_Ended;
                 _xrsession.InputSourcesChanged += _xrsession_InputSourcesChanged;
                 await gl.MakeXRCompatibleAsync();
-                _localspace = await _xrsession.RequestReferenceSpace("local");
+                _localspace = await _xrsession.RequestReferenceSpaceAsync("local");
 
                 _glLayer = new XRWebGLLayer(_xrsession, gl);
                 RenderStateAttributes attribs = new RenderStateAttributes();

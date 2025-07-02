@@ -10,7 +10,7 @@ namespace nkast.Wasm.Audio
         {
         }
 
-        public Task AddModule(string moduleURL)
+        public Task AddModuleAsync(string moduleURL)
         {
             int uid = InvokeRetInt("nkAudioWorklet.AddModule", moduleURL);
 

@@ -27,7 +27,7 @@ namespace nkast.Wasm.WebClipboard
             //_navigator = navigator;
         }
 
-        public Task<string> ReadText()
+        public Task<string> ReadTextAsync()
         {
             int uid = InvokeRetInt("nkClipboard.ReadText");
 
@@ -35,7 +35,7 @@ namespace nkast.Wasm.WebClipboard
             return promise.GetTask();
         }
 
-        public Task WriteText(string newClipText)
+        public Task WriteTextAsync(string newClipText)
         {
             int uid = InvokeRetInt<string>("nkClipboard.WriteText", newClipText);
 

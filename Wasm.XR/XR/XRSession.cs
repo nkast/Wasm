@@ -98,7 +98,7 @@ namespace nkast.Wasm.XR
             animationFrameCallback(time, xrFrame);
         }
 
-        public Task<XRReferenceSpace> RequestReferenceSpace(string referenceSpaceType)
+        public Task<XRReferenceSpace> RequestReferenceSpaceAsync(string referenceSpaceType)
         {
             int uid = InvokeRetInt<string>("nkXRSession.RequestReferenceSpace", referenceSpaceType);
 
@@ -108,6 +108,12 @@ namespace nkast.Wasm.XR
                     return new XRReferenceSpace(newuid);
                 });
             return promise.GetTask();
+        }
+
+        [Obsolete("Use RequestReferenceSpaceAsync(...)")]
+        public Task<XRReferenceSpace> RequestReferenceSpace(string referenceSpaceType)
+        {
+            return RequestReferenceSpaceAsync(referenceSpaceType);
         }
 
         public Task End()

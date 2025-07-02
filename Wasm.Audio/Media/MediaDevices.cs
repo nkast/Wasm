@@ -27,7 +27,7 @@ namespace nkast.Wasm.Media
             //_navigator = navigator;
         }
 
-        public Task<MediaStream> GetUserMedia(UserMediaConstraints constraints)
+        public Task<MediaStream> GetUserMediaAsync(UserMediaConstraints constraints)
         {
             int uid = InvokeRetInt<int>("nkMediaDevices.GetUserMedia", (int)constraints.ToBit());
 

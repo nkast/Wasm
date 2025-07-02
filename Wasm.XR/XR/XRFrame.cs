@@ -55,7 +55,7 @@ namespace nkast.Wasm.XR
             return new XRJointPose(uid);
         }
 
-        public Task<XRAnchor> CreateAnchor(XRRigidTransform pose, XRSpace baseSpace)
+        public Task<XRAnchor> CreateAnchorAsync(XRRigidTransform pose, XRSpace baseSpace)
         {
             throw new NotImplementedException();
         }

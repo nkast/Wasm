@@ -53,7 +53,7 @@ namespace AudioWorklet.Pages
                 _ac = new AudioContext();
                 int sampleRate = _ac.SampleRate;
 
-                await _ac.AudioWorklet.AddModule("js/streamProcessor.js");
+                await _ac.AudioWorklet.AddModuleAsync("js/streamProcessor.js");
                 _streamSource = _ac.CreateWorklet("stream-processor");
                 _streamSource.Connect(_ac.Destination);
 
@@ -62,10 +62,10 @@ namespace AudioWorklet.Pages
                     Console.WriteLine("audioWorklet received message: " + e.DataFloat64);
                 };
 
-                await _ac.AudioWorklet.AddModule("js/micProcessor.js");
+                await _ac.AudioWorklet.AddModuleAsync("js/micProcessor.js");
 
                 MediaDevices md = MediaDevices.FromNavigator(Window.Current.Navigator);
-                _micStream = await md.GetUserMedia(new UserMediaConstraints() { Audio = true });
+                _micStream = await md.GetUserMediaAsync(new UserMediaConstraints() { Audio = true });
                 _micNode = _ac.CreateMediaStreamSource(_micStream);
                 {
                     _micWorkletNode = _ac.CreateWorklet("mic-processor");
