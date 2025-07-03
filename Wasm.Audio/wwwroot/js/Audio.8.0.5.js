@@ -413,6 +413,22 @@ window.nkAudioWorkletNode =
 
 window.nkAudioParam =
 {  
+    GetDefaultValue: function (uid, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.defaultValue;
+    },
+    GetMinValue: function (uid, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.minValue;
+    },
+    GetMaxValue: function (uid, d)
+    {
+        var ap = nkJSObject.GetObject(uid);
+        return ap.maxValue;
+    },
+
     GetValue: function (uid, d)
     {
         var ap = nkJSObject.GetObject(uid);

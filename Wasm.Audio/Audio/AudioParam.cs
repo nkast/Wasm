@@ -12,6 +12,19 @@ namespace nkast.Wasm.Audio
             _audioNode = audioNode;
         }
 
+        public double DefaultValue
+        {
+            get { return InvokeRetDouble("nkAudioParam.GetDefaultValue"); }
+        }
+        public double MinValue
+        {
+            get { return InvokeRetDouble("nkAudioParam.GetMinValue"); }
+        }
+        public double MaxValue
+        {
+            get { return InvokeRetDouble("nkAudioParam.GetMaxValue"); }
+        }
+
         public float Value
         {
             get { return InvokeRetFloat("nkAudioParam.GetValue"); }
