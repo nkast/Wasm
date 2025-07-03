@@ -408,6 +408,18 @@ window.nkAudioWorkletNode =
             return uid;
 
         return nkJSObject.RegisterObject(po);
+    },
+    GetParameters: function (uid, d)
+    {
+        var wn = nkJSObject.GetObject(uid);
+
+        var pa = wn.parameters;
+
+        var uid = nkJSObject.GetUid(pa);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(pa);
     }
 };
 
@@ -490,6 +502,28 @@ window.nkAudioParam =
         var st = Module.HEAPF32[(d+ 0)>>2];
         ap.cancelScheduledValues(st);
     }
+};
+
+window.nkAudioParamMap =
+{
+    GetSize: function (uid, d)
+    {
+        var pm = nkJSObject.GetObject(uid);
+        return pm.size;
+    },
+    Get: function (uid, d)
+    {
+        var pm = nkJSObject.GetObject(uid);
+        var ky = nkJSObject.ReadString(d + 0);
+
+        var ap = pm.get(ky);
+
+        var uid = nkJSObject.GetUid(ap);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(ap);
+    },
 };
 
 window.nkAudioWorklet =
