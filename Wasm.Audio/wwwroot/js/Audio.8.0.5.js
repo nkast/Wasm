@@ -5,6 +5,14 @@
         var ac = new AudioContext();         
         return nkJSObject.RegisterObject(ac);
     },
+    Create1: function(sampleRate)
+    {
+        var options = {};
+        if (sampleRate != 0)
+            options.sampleRate = sampleRate;
+        var ac = new AudioContext(options);
+        return nkJSObject.RegisterObject(ac);
+    },
     
     Close: function(uid,d)
     {

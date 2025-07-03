@@ -11,10 +11,23 @@ namespace nkast.Wasm.Audio
         {
         }
 
+        public AudioContext(AudioContextOptions options) : base(Register(options))
+        {
+        }
 
         private static int Register()
         {
             int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create");
+            return uid;
+        }
+
+        private static int Register(AudioContextOptions options)
+        {
+            if (options.SampleRate.HasValue && options.SampleRate.Value == 0)
+                throw new ArgumentException("SampleRate cannot be zero.", nameof(options.SampleRate));
+
+            int sampleRate = options.SampleRate ?? 0;
+            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create1", sampleRate);
             return uid;
         }
 
