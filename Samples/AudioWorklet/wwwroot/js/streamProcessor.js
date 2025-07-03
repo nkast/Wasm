@@ -1,6 +1,26 @@
 //   streamProcessor.js
 class StreamProcessor extends AudioWorkletProcessor
 {
+    static get parameterDescriptors()
+    {
+        return [
+            {
+                name: 'InputChannelCount',
+                defaultValue: 2,
+                minValue: 1,
+                maxValue: 2,
+                automationRate: 'k-rate'
+            },
+            {
+                name: 'InputSampleRate',
+                defaultValue: 44100,
+                minValue:  8000,
+                maxValue: 96000,
+                automationRate: 'k-rate'
+            }
+        ];
+    }
+
     constructor()
     {
         super();
@@ -25,9 +45,18 @@ class StreamProcessor extends AudioWorkletProcessor
 
     process(inputs, outputs, parameters)
     {
+        const inChannelCount = parameters.InputChannelCount;
+        const inSampleRate     = parameters.InputSampleRate;
+
         const output = outputs[0];
-        output.forEach((channel) =>
+
+        const outChannelCount = output.length;
+        const outSampleCount = output[0].length;
+
+        for (let c = 0; c < outChannelCount; c++)
         {
+            const channel = output[c];
+
             if (this.queue.length > 0)
             {
                 const buffer = this.queue.shift();
@@ -37,7 +66,7 @@ class StreamProcessor extends AudioWorkletProcessor
                     channel[i] = value;
                 }
             }
-        });
+        };
 
         return true;
     }

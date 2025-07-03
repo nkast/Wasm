@@ -55,6 +55,8 @@ namespace AudioWorklet.Pages
 
                 await _ac.AudioWorklet.AddModuleAsync("js/streamProcessor.js");
                 _streamSource = _ac.CreateWorklet("stream-processor");
+                _streamSource.Parameters["InputChannelCount"].Value = 1;
+                _streamSource.Parameters["InputSampleRate"].Value = sampleRate;
                 _streamSource.Connect(_ac.Destination);
 
                 _streamSource.Port.Message += (sender, e) =>

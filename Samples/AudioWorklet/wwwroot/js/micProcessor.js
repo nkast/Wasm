@@ -27,15 +27,20 @@ class MicProcessor extends AudioWorkletProcessor
 
     process(inputs, outputs, parameters)
     {
-        var inChannel0 = inputs[0][0];
+        const input = inputs[0];
+
+        const inChannelCount = input.length;
+        const inSampleCount = input[0].length;
+
+        const inChannel0 = input[0];
         if (inChannel0)
         {
             // convert to 16-6bit PCM
-            var int16 = new Int16Array(inChannel0.length);
-            for (var i = 0; i < inChannel0.length; i++)
+            var int16 = new Int16Array(inSampleCount);
+            for (var i = 0; i < inSampleCount; i++)
             {
-                var s = Math.max(-1, Math.min(1, inChannel0[i]));
-                int16[i] = s * 32767;
+                let value = (inChannel0[i] * 32767);
+                int16[i] = value;
             }
 
             var byteArray = new Uint8Array(int16.buffer);
