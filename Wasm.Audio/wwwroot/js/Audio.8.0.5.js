@@ -328,6 +328,11 @@ window.nkAudioNode =
     Disconnect: function (uid, d)
     {
         var an = nkJSObject.GetObject(uid);
+        an.disconnect();
+    },
+    Disconnect1: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
         var did = Module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.disconnect(ds);

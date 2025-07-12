@@ -37,15 +37,21 @@ namespace nkast.Wasm.Audio
             Invoke("nkAudioNode.Connect", destination.Uid);
         }
 
+        public void Disconnect()
+        {
+            Invoke("nkAudioNode.Disconnect");
+        }
+
         public void Disconnect(AudioNode destination)
         {
-            Invoke("nkAudioNode.Disconnect", destination.Uid);
+            Invoke("nkAudioNode.Disconnect1", destination.Uid);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                Disconnect();
 
             }
 
