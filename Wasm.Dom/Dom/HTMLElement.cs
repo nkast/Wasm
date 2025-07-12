@@ -27,6 +27,17 @@ namespace nkast.Wasm.Dom
         {
         }
 
+        public void Focus()
+        {
+            Invoke("nkHTMLElement.Focus");
+        }
+
+        public void Blur()
+        {
+            Invoke("nkHTMLElement.Blur");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -53,6 +53,16 @@ window.nkHTMLElement =
 
         return nkJSObject.RegisterObject(st);
     },
+    Focus: function (uid, d)
+    {
+        var he = nkJSObject.GetObject(uid);
+        var st = he.focus();
+    },
+    Blur: function (uid, d)
+    {
+        var he = nkJSObject.GetObject(uid);
+        var st = he.blur();
+    },
 };
 
 window.nkStyleDeclaration =
