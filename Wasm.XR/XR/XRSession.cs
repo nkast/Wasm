@@ -46,6 +46,11 @@ namespace nkast.Wasm.XR
             }
         }
 
+        public bool IsSystemKeyboardSupported
+        {
+            get { return InvokeRetBool("nkXRSession.GetIsSystemKeyboardSupported"); }
+        }
+
         internal XRSession(int uid) : base(uid)
         {
             Invoke("nkXRSession.RegisterEvents");

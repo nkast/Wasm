@@ -172,6 +172,15 @@ window.nkXRSession =
 
         return nkJSObject.RegisterObject(is);
     },
+    GetIsSystemKeyboardSupported: function (uid, d)
+    {
+        var ss = nkJSObject.GetObject(uid);
+
+        if ('isSystemKeyboardSupported' in ss)        
+            return ss.isSystemKeyboardSupported;
+        else
+            return false;
+    },
     End: function (uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
