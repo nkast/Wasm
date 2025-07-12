@@ -32,11 +32,17 @@ namespace nkast.Wasm.Audio
         {
             if (disposing)
             {
-
+                if (_messagePort != null)
+                {
+                    _messagePort.Dispose();
+                    _messagePort = null;
+                }
+                if (_parameters != null)
+                {
+                    _parameters.Dispose();
+                    _parameters = null;
+                }
             }
-
-            _messagePort = null;
-            _parameters = null;
 
             base.Dispose(disposing);
         }
