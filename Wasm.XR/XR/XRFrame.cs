@@ -55,9 +55,16 @@ namespace nkast.Wasm.XR
             return new XRJointPose(uid);
         }
 
-        public Task<XRAnchor> CreateAnchorAsync(XRRigidTransform pose, XRSpace baseSpace)
+        public unsafe Task<XRAnchor> CreateAnchorAsync(XRRigidTransform pose, XRSpace baseSpace)
         {
-            throw new NotImplementedException();
+            int uid = InvokeRetInt<IntPtr, int>("nkXRFrame.CreateAnchor", new IntPtr(&pose), baseSpace.Uid);
+
+            PromiseJSObject<XRAnchor> promise = new PromiseJSObject<XRAnchor>(uid,
+                (int newuid) =>
+                {
+                    return new XRAnchor(newuid);
+                });
+            return promise.GetTask();
         }
 
         protected override void Dispose(bool disposing)

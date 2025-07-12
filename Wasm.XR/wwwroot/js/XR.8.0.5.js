@@ -404,6 +404,33 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
+    CreateAnchor: function (uid, d)
+    {
+        var fr = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d+ 0)>>2];
+        var bsid = Module.HEAP32[(d+ 4)>>2];
+
+        var bs = nkJSObject.GetObject(bsid);
+
+        var orientation = 
+        {
+            x: Module.HEAPF32[(pt+ 0)>>2],
+            y: Module.HEAPF32[(pt+ 4)>>2],
+            z: Module.HEAPF32[(pt+ 8)>>2],
+            w: Module.HEAPF32[(pt+12)>>2],
+        };
+        var position = 
+        {
+            x: Module.HEAPF32[(pt+16)>>2],
+            y: Module.HEAPF32[(pt+20)>>2],
+            z: Module.HEAPF32[(pt+24)>>2],
+        };
+        var tf = new XRRigidTransform(position, orientation);
+
+        var pr = fr.createAnchor(tf, bs);
+
+        return nkJSObject.RegisterObject(pr);
+    },
 };
 
 window.nkXRPose =
@@ -635,6 +662,27 @@ window.nkXRInputSource =
     },
 };
 
+window.nkXRAnchor =
+{
+    GetAnchorSpace: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+
+        var as = an.anchorSpace;
+
+        var uid = nkJSObject.GetUid(as);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(as);
+    },
+    Delete: function (uid, d)
+    {
+        var an = nkJSObject.GetObject(uid);
+
+        an.delete();
+    },
+};
 
 window.nkXRHand =
 {

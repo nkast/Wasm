@@ -11,26 +11,33 @@ namespace nkast.Wasm.XR
         {
         }
 
-        public unsafe XRSpace AnchorSpace
+        public XRSpace AnchorSpace
         {
             get
             {
-                throw new NotImplementedException();
+                int uid = InvokeRetInt("nkXRAnchor.GetAnchorSpace");
+                if (uid == -1)
+                    return null;
+
+                XRSpace space = XRSpace.FromUid(uid);
+                if (space != null)
+                    return space;
+
+                return new XRSpace(uid);
             }
         }
 
         private void Delete()
         {
-            throw new NotImplementedException();
+            Invoke("nkXRAnchor.Delete");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                this.Delete();
             }
-
-            this.Delete();
 
             base.Dispose(disposing);
         }
