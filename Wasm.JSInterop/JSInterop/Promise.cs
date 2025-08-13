@@ -5,27 +5,33 @@ using Microsoft.JSInterop;
 
 namespace nkast.Wasm.JSInterop
 {
-    public abstract class Promise : CachedJSObject<Promise>
+    public abstract class Promise : JSObject
     {
+        private static readonly Dictionary<int, Promise> _uidMap = new Dictionary<int, Promise>();
 
         internal Promise(int uid) : base(uid)
         {
+            _uidMap.Add(uid, this);
             Invoke("nkPromise.RegisterEvents");
         }
 
         [JSInvokable]
         public static void JsPromiseOnCompleted(int uid)
         {
-            Promise promise = Promise.FromUid(uid);
+            Promise promise = _uidMap[uid];
 
             promise.OnCompleted();
+            promise.Dispose();
+
         }
 
         [JSInvokable]
         public static void JsPromiseOnError(int uid)
         {
-            Promise promise = Promise.FromUid(uid);
+            Promise promise = _uidMap[uid];
+
             promise.OnError();
+            promise.Dispose();
         }
 
         protected abstract void OnCompleted();
@@ -39,13 +45,15 @@ namespace nkast.Wasm.JSInterop
 
             }
 
+            _uidMap.Remove(Uid);
+
             base.Dispose(disposing);
         }
     }
 
     public abstract class Promise<TResult> : Promise
     {
-        protected readonly TaskCompletionSource<TResult> _tcs;
+        protected TaskCompletionSource<TResult> _tcs;
 
         internal Promise(int uid) : base(uid)
         {
@@ -88,11 +96,23 @@ namespace nkast.Wasm.JSInterop
         {
             return _tcs.Task;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            _tcs = null;
+
+            base.Dispose(disposing);
+        }
     }
 
     public class PromiseVoid : Promise
     {
-        protected readonly TaskCompletionSource _tcs;
+        protected  TaskCompletionSource _tcs;
 
         public PromiseVoid(int uid) : base(uid)
         {
@@ -140,6 +160,18 @@ namespace nkast.Wasm.JSInterop
         {
             return _tcs.Task;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+
+            }
+
+            _tcs = null;
+
+            base.Dispose(disposing);
+        }
     }
 
     public class PromiseBoolean : Promise<bool>
@@ -183,6 +215,7 @@ namespace nkast.Wasm.JSInterop
             int uid = InvokeRetInt("nkPromise.GetValueJSObject");
 
             TResult result = (TResult)_objectFactory(uid);
+            _objectFactory = null;
             _tcs.SetResult(result);
         }
 
