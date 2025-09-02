@@ -16,11 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="nkast.Wasm.JSInterop" Version="8.0.7" />
-    <PackageReference Include="nkast.Wasm.Audio" Version="8.0.7" />
-    <PackageReference Include="nkast.Wasm.Canvas" Version="8.0.7" />
-    <PackageReference Include="nkast.Wasm.XHR" Version="8.0.7" />
-    <PackageReference Include="nkast.Wasm.Dom" Version="8.0.7" />
+    <PackageReference Include="nkast.Wasm.JSInterop" Version="8.0.10" />
+    <PackageReference Include="nkast.Wasm.Audio" Version="8.0.10" />
+    <PackageReference Include="nkast.Wasm.Canvas" Version="8.0.10" />
+    <PackageReference Include="nkast.Wasm.XHR" Version="8.0.10" />
+    <PackageReference Include="nkast.Wasm.Dom" Version="8.0.10" />
     <PackageReference Include="Aether.Physics2D" Version="2.1.0" />
   </ItemGroup>
 
