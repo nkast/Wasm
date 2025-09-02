@@ -11,8 +11,8 @@
 
   <PropertyGroup>
     <PackageId>nkast.Wasm.XR</PackageId>
-    <Version>8.0.7.0</Version>
-    <AssemblyVersion>8.0.7.0</AssemblyVersion>
+    <Version>8.0.10.0</Version>
+    <AssemblyVersion>8.0.10.0</AssemblyVersion>
     <Authors>Nick Kastellanos</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/nkast/Wasm/</RepositoryUrl>
