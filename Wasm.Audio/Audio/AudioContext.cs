@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using nkast.Wasm.JSInterop;
 using nkast.Wasm.Media;
 
@@ -31,6 +32,31 @@ namespace nkast.Wasm.Audio
             return uid;
         }
 
+        public Task ResumeAsync()
+        {
+            int uid = InvokeRetInt("nkAudioContext.Resume");
+
+            PromiseVoid promise = new PromiseVoid(uid);
+            return promise.GetTask();
+        }
+
+        public Task SuspendAsync()
+        {
+            int uid = InvokeRetInt("nkAudioContext.Suspend");
+
+            PromiseVoid promise = new PromiseVoid(uid);
+            return promise.GetTask();
+        }
+
+        public Task CloseAsync()
+        {
+            int uid = InvokeRetInt("nkAudioContext.Close1");
+
+            PromiseVoid promise = new PromiseVoid(uid);
+            return promise.GetTask();
+        }
+
+        [Obsolete("Use CloseAsync()")]
         public void Close()
         {
             Invoke("nkAudioContext.Close");
@@ -49,7 +75,7 @@ namespace nkast.Wasm.Audio
 
             }
 
-            Close();
+            CloseAsync();
 
             base.Dispose(disposing);
         }
