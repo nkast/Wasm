@@ -13,7 +13,31 @@
         var ac = new AudioContext(options);
         return nkJSObject.RegisterObject(ac);
     },
-    
+
+    Resume: function(uid,d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.resume();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    Suspend: function(uid,d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.suspend();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    Close1: function(uid,d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+
+        var pr = ac.close();
+        return nkJSObject.RegisterObject(pr);
+    },
+
     Close: function(uid,d)
     {
         var ac = nkJSObject.GetObject(uid);
