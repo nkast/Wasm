@@ -173,7 +173,7 @@
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseUp', uid,
                 event.clientX, event.clientY, event.buttons);
         });
-        window.addEventListener('mousewheel', (event) =>
+        window.addEventListener('wheel', (event) =>
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnMouseWheel', uid,
                 event.deltaX, event.deltaY, event.deltaZ,  event.deltaMode);
