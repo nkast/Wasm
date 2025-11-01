@@ -56,12 +56,6 @@ namespace nkast.Wasm.Audio
             return promise.GetTask();
         }
 
-        [Obsolete("Use CloseAsync()")]
-        public void Close()
-        {
-            Invoke("nkAudioContext.Close");
-        }
-
         public MediaStreamSourceNode CreateMediaStreamSource(MediaStream stream)
         {
             int uid = InvokeRetInt<int>("nkAudioContext.CreateMediaStreamSource", ((JSObject)stream).Uid);

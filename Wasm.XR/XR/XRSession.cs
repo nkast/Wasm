@@ -115,12 +115,6 @@ namespace nkast.Wasm.XR
             return promise.GetTask();
         }
 
-        [Obsolete("Use RequestReferenceSpaceAsync(...)")]
-        public Task<XRReferenceSpace> RequestReferenceSpace(string referenceSpaceType)
-        {
-            return RequestReferenceSpaceAsync(referenceSpaceType);
-        }
-
         public Task End()
         {
             int uid = InvokeRetInt("nkXRSession.End");

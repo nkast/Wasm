@@ -25,13 +25,6 @@ namespace nkast.Wasm.Canvas
             set { Invoke("nkCanvas.SetHeight", value); }
         }
 
-        [Obsolete("Use Style[\"cursor\"]")]
-        public string Cursor
-        {
-            get { return this.Style["cursor"]; }
-            set { this.Style["cursor"] = value; }
-        }
-
         CanvasRenderingContext _canvasRenderingContext;
         WebGL.WebGLRenderingContext _webglRenderingContext;
         WebGL.WebGL2RenderingContext _webgl2RenderingContext;
