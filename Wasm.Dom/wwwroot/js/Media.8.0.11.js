@@ -9,7 +9,7 @@
     GetCurrentTime: function (uid)
     {
         var me = nkJSObject.GetObject(uid);
-        return me.currentTime * 1000;
+        return me.currentTime;
     },
     
     GetEnded: function (uid, d)

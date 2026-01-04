@@ -20,8 +20,8 @@ namespace nkast.Wasm.Dom
         {
             get
             {
-                int currentTime = InvokeRetInt("nkMedia.GetCurrentTime");
-                return TimeSpan.FromMilliseconds(currentTime);
+                double currentTime = InvokeRetDouble("nkMedia.GetCurrentTime");
+                return TimeSpan.FromSeconds(currentTime);
             }
         }
 
