@@ -27,6 +27,16 @@
 
 window.nkElement =
 {
+    GetClientLeft: function (uid)
+    {
+        var e = nkJSObject.GetObject(uid);
+        return e.clientLeft;
+    },
+    GetClientTop: function (uid)
+    {
+        var e = nkJSObject.GetObject(uid);
+        return e.clientTop;
+    },
     GetClientWidth: function(uid)
     {
         var e = nkJSObject.GetObject(uid);
@@ -36,6 +46,16 @@ window.nkElement =
     {
         var e = nkJSObject.GetObject(uid);
         return e.clientHeight;
+    },
+    GetBoundingClientRect: function (uid, d)
+    {
+        var e = nkJSObject.GetObject(uid);
+        var pt = Module.HEAP32[(d + 0) >> 2];
+        var r = e.getBoundingClientRect();
+        Module.HEAPF64[(pt + 0) >> 3] = r.x;
+        Module.HEAPF64[(pt + 8) >> 3] = r.y;
+        Module.HEAPF64[(pt + 16) >> 3] = r.width;
+        Module.HEAPF64[(pt + 24) >> 3] = r.height;
     },
 };
 

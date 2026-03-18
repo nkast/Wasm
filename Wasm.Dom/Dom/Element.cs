@@ -8,6 +8,16 @@ namespace nkast.Wasm.Dom
     public abstract class Element<TElement> : CachedJSObject<TElement>
         where TElement : JSObject
     {
+        public int ClientLeft
+        {
+            get { return InvokeRetInt("nkElement.GetClientLeft"); }
+        }
+
+        public int ClientTop
+        {
+            get { return InvokeRetInt("nkElement.GetClientTop"); }
+        }
+
         public int ClientWidth
         {
             get { return InvokeRetInt("nkElement.GetClientWidth"); }
@@ -20,6 +30,13 @@ namespace nkast.Wasm.Dom
 
         protected Element(int uid) : base(uid)
         {
+        }
+
+        public unsafe DOMRect GetBoundingClientRect()
+        {
+            DOMRect result = default;
+            Invoke<IntPtr>("nkElement.GetBoundingClientRect", new IntPtr(&result));
+            return result;
         }
 
         protected override void Dispose(bool disposing)
