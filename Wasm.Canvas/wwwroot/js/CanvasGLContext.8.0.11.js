@@ -1179,6 +1179,59 @@ window.nkCanvasGL2Context =
         var ic = Module.HEAP32[(d + 16) >> 2];
         gc.drawElementsInstanced(md, ct, tp, of, ic);
     },
+    CreateQuery: function (uid)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var q = gc.createQuery();
+        return nkJSObject.RegisterObject(q);
+    },
+    DeleteQuery: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var quid = Module.HEAP32[(d + 0) >> 2];
+        var q = nkJSObject.GetObject(quid);
+        gc.deleteQuery(q);
+    },
+    IsQuery: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var quid = Module.HEAP32[(d + 0) >> 2];
+        var q = nkJSObject.GetObject(quid);
+        return gc.isQuery(q);
+    },
+    BeginQuery: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var t = Module.HEAP32[(d + 0) >> 2];
+        var quid = Module.HEAP32[(d + 4) >> 2];
+        var q = nkJSObject.GetObject(quid);
+        gc.beginQuery(t, q);
+    },
+    EndQuery: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var t = Module.HEAP32[(d + 0) >> 2];
+        gc.endQuery(t);
+    },
+    GetQuery: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var t = Module.HEAP32[(d + 0) >> 2];
+        var p = Module.HEAP32[(d + 4) >> 2];
+        var q = gc.getQuery(t, p);
+        return (q?.nkUid != null) ? q.nkUid : -1;
+    },
+    GetQueryParameter: function (uid, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var quid = Module.HEAP32[(d + 0) >> 2];
+        var p = Module.HEAP32[(d + 4) >> 2];
+        var q = nkJSObject.GetObject(quid);
+        var r = gc.getQueryParameter(q, p);
+        if (typeof r === 'boolean')
+            r = r ? 1 : 0;
+        return r;
+    },
 };
 
 window.nkCanvasLoseContextExtension =
