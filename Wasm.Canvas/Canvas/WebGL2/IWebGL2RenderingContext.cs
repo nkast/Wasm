@@ -26,5 +26,12 @@ namespace nkast.Wasm.Canvas.WebGL
         WebGL2FramebufferStatus CheckFramebufferStatus(WebGL2FramebufferType target);
         void VertexAttribDivisor(int index, int divisor);
         void DrawElementsInstanced(WebGLPrimitiveType mode, int count, WebGLDataType type, int offset, int instanceCount);
+        WebGL2Query CreateQuery();
+        void DeleteQuery(WebGL2Query query);
+        bool IsQuery(WebGL2Query query);
+        void BeginQuery(WebGL2QueryType target, WebGL2Query query);
+        void EndQuery(WebGL2QueryType target);
+        WebGL2Query GetQuery(WebGL2QueryType target, WebGL2QueryParam pname);
+        int GetQueryParameter(WebGL2Query query, WebGL2QueryParam pname);
     }
 }
