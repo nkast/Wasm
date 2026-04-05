@@ -117,6 +117,47 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.DrawElementsInstanced", (int)mode, count, type, offset, instanceCount);
         }
 
+        public WebGL2Query CreateQuery()
+        {
+            int uid = InvokeRetInt("nkCanvasGL2Context.CreateQuery");
+            return new WebGL2Query(uid, this);
+        }
+
+        public void DeleteQuery(WebGL2Query query)
+        {
+            Invoke("nkCanvasGL2Context.DeleteQuery", query.Uid);
+        }
+
+        public bool IsQuery(WebGL2Query query)
+        {
+            return InvokeRetBool("nkCanvasGL2Context.IsQuery", query.Uid);
+        }
+
+        public void BeginQuery(WebGL2QueryType target, WebGL2Query query)
+        {
+            Invoke("nkCanvasGL2Context.BeginQuery", (int)target, query.Uid);
+        }
+
+        public void EndQuery(WebGL2QueryType target)
+        {
+            Invoke("nkCanvasGL2Context.EndQuery", (int)target);
+        }
+
+        public WebGL2Query GetQuery(WebGL2QueryType target, WebGL2QueryParam pname)
+        {
+            int uid = InvokeRetInt("nkCanvasGL2Context.GetQuery", (int)target, (int)pname);
+            if (uid == -1)
+                return null;
+
+            WebGL2Query query = WebGL2Query.FromUid(uid);
+            return query;
+        }
+
+        public int GetQueryParameter(WebGL2Query query, WebGL2QueryParam pname)
+        {
+            return InvokeRetInt("nkCanvasGL2Context.GetQueryParameter", query.Uid, (int)pname);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
