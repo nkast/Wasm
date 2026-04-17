@@ -190,7 +190,7 @@ namespace nkast.Wasm.Canvas
 
         public void SetLineDash(float[] segments)
         {
-            Invoke("nkCanvas2dContext.SetLineDash", segments);
+            Invoke("nkCanvas2dContext.SetLineDash", segments, segments.Length);
         }
 
         public void BeginPath()
