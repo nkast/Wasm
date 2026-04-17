@@ -197,7 +197,6 @@ window.nkJSUInt8Array =
         var arr = Module.HEAP32[(d+ 12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
-        //var arrLen = Blazor.platform.getArrayLength(arr);
         var dest = new Uint8Array(Module.HEAPU8.buffer, arrPtr+di, cn);
         dest.set(ar.subarray(si, si+cn));
     },
