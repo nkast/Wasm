@@ -395,71 +395,71 @@ namespace nkast.Wasm.Canvas.WebGL
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform1iv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform1iv", location.Uid, stride, value, value.Length);
         }
         public void Uniform2iv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform2iv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform2iv", location.Uid, stride, value, value.Length);
         }
         public void Uniform3iv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform3iv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform3iv", location.Uid, stride, value, value.Length);
         }
         public void Uniform4iv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform4iv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform4iv", location.Uid, stride, value, value.Length);
         }
 
         public void Uniform1fv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform1fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform1fv", location.Uid, stride, value, value.Length);
         }
         public void Uniform2fv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform2fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform2fv", location.Uid, stride, value, value.Length);
         }
         public void Uniform3fv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform3fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform3fv", location.Uid, stride, value, value.Length);
         }
         public void Uniform4fv<TData>(WebGLUniformLocation location, TData[] value)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.Uniform4fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.Uniform4fv", location.Uid, stride, value, value.Length);
         }
         
         public void UniformMatrix2fv<TData>(WebGLUniformLocation location, TData[] value) 
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.UniformMatrix2fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.UniformMatrix2fv", location.Uid, stride, value, value.Length);
         }
 
         public void UniformMatrix3fv<TData>(WebGLUniformLocation location, TData[] value) 
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.UniformMatrix3fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.UniformMatrix3fv", location.Uid, stride, value, value.Length);
         }
 
         public void UniformMatrix4fv<TData>(WebGLUniformLocation location, TData[] value) 
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGLContext.UniformMatrix4fv", location.Uid, stride, value);
+            Invoke("nkCanvasGLContext.UniformMatrix4fv", location.Uid, stride, value, value.Length);
         }
 
         public void LinkProgram(WebGLProgram program)
