@@ -284,7 +284,7 @@ window.nkCanvas2dContext =
     {
         var dc = nkJSObject.GetObject(uid);
         var arr = Module.HEAP32[(d+ 0)>>2];
-        var cn  = Blazor.platform.getArrayLength(arr);
+        var cn  = Module.HEAP32[(d+ 4)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
 
