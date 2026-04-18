@@ -609,10 +609,10 @@ window.nkCanvasGLContext =
         var tp = Module.HEAP32[(d+24)>>2];
         var st = Module.HEAP32[(d+28)>>2];
         var arr = Module.HEAP32[(d+32)>>2];
+        var cn  = Module.HEAP32[(d+36)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, dt);
     },
@@ -645,10 +645,10 @@ window.nkCanvasGLContext =
         var tp = Module.HEAP32[(d+28)>>2];
         var st = Module.HEAP32[(d+32)>>2];
         var arr = Module.HEAP32[(d+36)>>2];
+        var cn  = Module.HEAP32[(d+40)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
     },
@@ -663,54 +663,16 @@ window.nkCanvasGLContext =
         var ht = Module.HEAP32[(d+16)>>2];
         var st = Module.HEAP32[(d+20)>>2];
         var arr = Module.HEAP32[(d+24)>>2];
-
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
-
-        gc.compressedTexImage2D(tg, lv, it, wh, ht, 0, dt);
-    },
-
-    CompressedTexImage2D1: function (uid, d)
-    {
-        var gc = nkJSObject.GetObject(uid);
-        var tg = Module.HEAP32[(d+ 0)>>2];
-        var lv = Module.HEAP32[(d+ 4)>>2];
-        var it = Module.HEAP32[(d+ 8)>>2];
-        var wh = Module.HEAP32[(d+12)>>2];
-        var ht = Module.HEAP32[(d+16)>>2];
-        var st = Module.HEAP32[(d+20)>>2];
-        var arr = Module.HEAP32[(d+24)>>2];
         var ix = Module.HEAP32[(d+28)>>2];
         var ot = Module.HEAP32[(d+32)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        //var arrLen = Blazor.platform.getArrayLength(arr);
         var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.compressedTexImage2D(tg, lv, it, wh, ht, 0, dt);
     },
 
     ReadPixels: function (uid, d)
-    {
-        var gc = nkJSObject.GetObject(uid);
-        var x  = Module.HEAP32[(d+ 0)>>2];
-        var y  = Module.HEAP32[(d+ 4)>>2];
-        var w  = Module.HEAP32[(d+ 8)>>2];
-        var h  = Module.HEAP32[(d+12)>>2];
-        var ft = Module.HEAP32[(d+16)>>2];
-        var tp = Module.HEAP32[(d+20)>>2];
-        var st = Module.HEAP32[(d+24)>>2];
-        var arr = Module.HEAP32[(d+28)>>2];
-
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
-
-        gc.readPixels(x, y, w, h, ft, tp, dt);
-    },
-
-    ReadPixels1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var x = Module.HEAP32[(d+ 0)>>2];
@@ -725,7 +687,6 @@ window.nkCanvasGLContext =
         var ot = Module.HEAP32[(d+36)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        //var arrLen = Blazor.platform.getArrayLength(arr);
         var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.readPixels(x, y, w, h, ft, tp, dt);
@@ -881,31 +842,15 @@ window.nkCanvasGLContext =
         var us = Module.HEAP32[(d+ 4)>>2];
         var st = Module.HEAP32[(d+ 8)>>2];
         var arr = Module.HEAP32[(d+12)>>2];
+        var cn  = Module.HEAP32[(d+16)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.bufferData(bt, dt, us);
     },
 
     BufferSubData: function (uid, d)
-    {
-        var gc = nkJSObject.GetObject(uid);
-        var bt = Module.HEAP32[(d+ 0)>>2];
-        var of = Module.HEAP32[(d+ 4)>>2];
-        var ln = Module.HEAP32[(d+ 8)>>2];
-        var st = Module.HEAP32[(d+12)>>2];
-        var arr = Module.HEAP32[(d+16)>>2];
-
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        //var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, ln * st);
-
-        gc.bufferSubData(bt, of, dt);
-    },
-
-    BufferSubData1: function (uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -916,7 +861,6 @@ window.nkCanvasGLContext =
         var arr = Module.HEAP32[(d+20)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        //var arrLen = Blazor.platform.getArrayLength(arr);
         var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr + si * st, ln * st);
 
         gc.bufferSubData(bt, of, dt);
@@ -1038,8 +982,7 @@ window.nkCanvasGL2Context =
         var arr = Module.HEAP32[(d+12)>>2];
         
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-                
+        
         var at = new Uint32Array(Module.HEAPU8.buffer, arrPtr + si*4, ln);
         var ar = Array.prototype.slice.call(at);
 
@@ -1088,7 +1031,6 @@ window.nkCanvasGL2Context =
         var arr = Module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
 
         //debugger;
         var db = new Uint32Array(Module.HEAPU8.buffer, arrPtr, ln);
@@ -1116,10 +1058,10 @@ window.nkCanvasGL2Context =
         var of = Module.HEAP32[(d+ 4)>>2];
         var st = Module.HEAP32[(d+ 8)>>2];
         var arr = Module.HEAP32[(d+12)>>2];
+        var cn  = Module.HEAP32[(d+16)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.getBufferSubData(bt, of, dt);
     },
@@ -1131,10 +1073,10 @@ window.nkCanvasGL2Context =
         var si = Module.HEAP32[(d+ 8)>>2];
         var st = Module.HEAP32[(d+12)>>2];
         var arr = Module.HEAP32[(d+16)>>2];
+        var cn  = Module.HEAP32[(d+20)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.getBufferSubData(bt, of, dt, si*st);
     },
@@ -1147,10 +1089,10 @@ window.nkCanvasGL2Context =
         var ln = Module.HEAP32[(d+12)>>2];
         var st = Module.HEAP32[(d+16)>>2];
         var arr = Module.HEAP32[(d+20)>>2];
+        var cn  = Module.HEAP32[(d+24)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, arrLen * st);
+        var dt = new Uint8Array(Module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.getBufferSubData(bt, of, dt, si*st, ln*st);
     },
