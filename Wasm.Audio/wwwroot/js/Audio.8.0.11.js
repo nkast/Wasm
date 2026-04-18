@@ -157,14 +157,14 @@ window.nkAudioBuffer =
     CopyToChannel: function (uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
-        var cn = Module.HEAP32[(d+ 0)>>2];
+        var ch = Module.HEAP32[(d+ 0)>>2];
         var arr = Module.HEAP32[(d+ 4)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var arrLen = Blazor.platform.getArrayLength(arr);
         var sr = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen);
 
-        ab.copyToChannel(sr, cn);
+        ab.copyToChannel(sr, ch);
     },    
     GetSampleRate: function (uid, d)
     {
