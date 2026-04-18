@@ -24,7 +24,7 @@ namespace nkast.Wasm.ChannelMessaging
 
         public void CopyTo(int sourceIndex, byte[] bytes, int destinationIndex, int count)
         {
-            InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, destinationIndex, count, bytes);
+            InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, bytes, destinationIndex, count);
         }
 
         public byte[] ToArray()
