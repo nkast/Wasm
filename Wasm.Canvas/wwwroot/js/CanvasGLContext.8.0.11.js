@@ -404,10 +404,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1iv(ul, dt);
@@ -418,10 +418,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2iv(ul, dt);
@@ -432,10 +432,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3iv(ul, dt);
@@ -446,10 +446,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Int32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform4iv(ul, dt);
@@ -461,10 +461,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1fv(ul, dt);
@@ -475,10 +475,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2fv(ul, dt);
@@ -489,10 +489,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3fv(ul, dt);
@@ -503,10 +503,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st    = Module.HEAP32[(d+ 4)>>2];
         var arr   = Module.HEAP32[(d+ 8)>>2];
+        var cn    = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform4fv(ul, dt);
@@ -518,10 +518,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st = Module.HEAP32[(d+ 4)>>2];
         var arr = Module.HEAP32[(d+ 8)>>2];
+        var cn  = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniformMatrix2fv(ul, false, dt);
@@ -532,10 +532,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st = Module.HEAP32[(d+ 4)>>2];
         var arr = Module.HEAP32[(d+ 8)>>2];
+        var cn  = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniformMatrix3fv(ul, false, dt);
@@ -546,10 +546,10 @@ window.nkCanvasGLContext =
         var uluid = Module.HEAP32[(d+ 0)>>2];
         var st = Module.HEAP32[(d+ 4)>>2];
         var arr = Module.HEAP32[(d+ 8)>>2];
+        var cn  = Module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen * st / 4);
+        var dt = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn * st / 4);
 
         var ul = nkJSObject.GetObject(uluid);
         gc.uniformMatrix4fv(ul, false, dt);
