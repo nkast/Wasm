@@ -283,13 +283,15 @@ window.nkCanvas2dContext =
     SetLineDash: function(uid,d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var a = Blazor.platform.readObject(d+ 0);
-        var cn = Blazor.platform.getArrayLength(a);
+        var arr = Module.HEAP32[(d+ 0)>>2];
+        var cn  = Blazor.platform.getArrayLength(arr);
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+
         var ja = [];
         for (var ind = 0; ind < cn; ind++)
         {
-            var pai = Blazor.platform.getArrayEntryPtr(a, ind, 4);
-            var aiv = Module.HEAPF32[(pai+ 0)>>2];
+            var aiv = Module.HEAPF32[((arrPtr+0)>>2)+ind];
             ja.push(aiv);
         }
         dc.setLineDash(ja);
