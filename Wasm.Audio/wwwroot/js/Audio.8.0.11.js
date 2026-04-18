@@ -159,10 +159,10 @@ window.nkAudioBuffer =
         var ab = nkJSObject.GetObject(uid);
         var ch = Module.HEAP32[(d+ 0)>>2];
         var arr = Module.HEAP32[(d+ 4)>>2];
+        var cn  = Module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var sr = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen);
+        var sr = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn);
 
         ab.copyToChannel(sr, ch);
     },    
@@ -517,10 +517,10 @@ window.nkAudioParam =
         var st = Module.HEAPF32[(d+ 0)>>2];
         var dt = Module.HEAPF32[(d+ 4)>>2];
         var arr = Module.HEAP32[(d+ 8)>>2];
+        var cn  = Module.HEAP32[(d+ 12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var arrLen = Blazor.platform.getArrayLength(arr);
-        var vs = new Float32Array(Module.HEAPU8.buffer, arrPtr, arrLen);
+        var vs = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn);
 
         ap.setValueCurveAtTime(vs, st, dt);
     },

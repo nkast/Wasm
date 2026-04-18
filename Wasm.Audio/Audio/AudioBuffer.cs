@@ -29,7 +29,7 @@ namespace nkast.Wasm.Audio
 
         public void CopyToChannel(float[] source, int channelNumber)
         {
-            Invoke("nkAudioBuffer.CopyToChannel", channelNumber, source);
+            Invoke("nkAudioBuffer.CopyToChannel", channelNumber, source, source.Length);
         }
 
         protected override void Dispose(bool disposing)
