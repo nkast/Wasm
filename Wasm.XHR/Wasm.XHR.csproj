@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
 	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsTrimmable>
+    <IsTrimmable>true</IsTrimmable>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AssemblyName>nkast.Wasm.XHR</AssemblyName>
     <RootNamespace>nkast.Wasm.XHR</RootNamespace>
