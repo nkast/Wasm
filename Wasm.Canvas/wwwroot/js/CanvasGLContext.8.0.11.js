@@ -1,20 +1,20 @@
 window.nkCanvasGLContext =
 {
-    Enable: function (uid, d)
+    Enable: function(uid, d)
     {
         var gc  = nkJSObject.GetObject(uid);
         var cp = Module.HEAP32[(d+ 0)>>2];
         gc.enable(cp);
     },
 
-    Disable: function (uid, d)
+    Disable: function(uid, d)
     {
         var gc  = nkJSObject.GetObject(uid);
         var cp = Module.HEAP32[(d+ 0)>>2];
         gc.disable(cp);
     },
 
-    BlendEquationSeparate: function (uid, d)
+    BlendEquationSeparate: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var cr = Module.HEAP32[(d+ 0)>>2];
@@ -22,7 +22,7 @@ window.nkCanvasGLContext =
         gc.blendEquationSeparate(cr, aa);
     },
 
-    BlendFuncSeparate: function (uid, d)
+    BlendFuncSeparate: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var sc = Module.HEAP32[(d+ 0)>>2];
@@ -32,7 +32,7 @@ window.nkCanvasGLContext =
         gc.blendFuncSeparate(sc, dc, sa, da);
     },
 
-    BlendColor: function (uid, d)
+    BlendColor: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var r = Module.HEAPF32[(d+ 0)>>2];
@@ -42,7 +42,7 @@ window.nkCanvasGLContext =
         gc.blendColor(r, g, b, a);
     },
 
-    ColorMask: function (uid, d)
+    ColorMask: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var r = Module.HEAP32[(d+ 0)>>2] !== 0;
@@ -52,21 +52,21 @@ window.nkCanvasGLContext =
         gc.colorMask(r, g, b, a);
     },
 
-    CullFace: function (uid, d)
+    CullFace: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var cm = Module.HEAP32[(d+ 0)>>2];
         gc.cullFace(cm);
     },
 
-    FrontFace: function (uid, d)
+    FrontFace: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var wd = Module.HEAP32[(d+ 0)>>2];
         gc.frontFace(wd);
     },
 
-    PolygonOffset: function (uid, d)
+    PolygonOffset: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var fr = Module.HEAPF32[(d+ 0)>>2];
@@ -74,28 +74,28 @@ window.nkCanvasGLContext =
         gc.polygonOffset(fr, us);
     },
 
-    DepthMask: function (uid, d)
+    DepthMask: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var en = Module.HEAP32[(d+ 0)>>2] !== 0;
         gc.depthMask(en);
     },
 
-    StencilMask: function (uid, d)
+    StencilMask: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ms = Module.HEAP32[(d+ 0)>>2];
         gc.stencilMask(ms);
     },
 
-    DepthFunc: function (uid, d)
+    DepthFunc: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var fc = Module.HEAP32[(d+ 0)>>2];
         gc.depthFunc(fc);
     },
 
-    StencilFunc: function (uid, d)
+    StencilFunc: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var fc = Module.HEAP32[(d+ 0)>>2];
@@ -105,7 +105,7 @@ window.nkCanvasGLContext =
         gc.stencilFunc(fc, rf, mk);
     },
 
-    StencilOp: function (uid, d)
+    StencilOp: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var fl = Module.HEAP32[(d+ 0)>>2];
@@ -115,7 +115,7 @@ window.nkCanvasGLContext =
         gc.stencilOp(fl, zf, zp);
     },
 
-    Viewport: function (uid, d)
+    Viewport: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var x = Module.HEAP32[(d+ 0)>>2];
@@ -125,7 +125,7 @@ window.nkCanvasGLContext =
         gc.viewport(x, y, w, h);
     },
     
-    DepthRange: function (uid, d)
+    DepthRange: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var zn = Module.HEAPF32[(d+ 0)>>2];
@@ -133,7 +133,7 @@ window.nkCanvasGLContext =
         gc.depthRange(zn, zf);
     },
 
-    Scissor: function (uid, d)
+    Scissor: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var x = Module.HEAP32[(d+ 0)>>2];
@@ -143,7 +143,7 @@ window.nkCanvasGLContext =
         gc.scissor(x, y, w, h);
     },
 
-    ClearColor: function(uid,d)
+    ClearColor: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var r = Module.HEAPF32[(d+ 0)>>2];
@@ -152,46 +152,46 @@ window.nkCanvasGLContext =
         var a = Module.HEAPF32[(d+12)>>2];
         gc.clearColor(r, g, b, a);
     },
-    ClearDepth: function (uid, d)
+    ClearDepth: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var d = Module.HEAPF32[(d+ 0)>>2];
         gc.clearDepth(d);
     },
-    ClearStencil: function (uid, d)
+    ClearStencil: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var s = Module.HEAP32[(d+ 0)>>2];
         gc.clearStencil(s);
     },
-    Clear: function(uid,d)
+    Clear: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bb = Module.HEAP32[(d+ 0)>>2];
         gc.clear(bb);
     },
     
-    GetParameterInt: function(uid,d)
+    GetParameterInt: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pn = Module.HEAP32[(d+ 0)>>2];
         return gc.getParameter(pn);
     },
-    GetParameterString: function(uid,d)
+    GetParameterString: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pn = Module.HEAP32[(d+ 0)>>2];
         return gc.getParameter(pn);
     },
 
-    CreateTexture: function (uid, d)
+    CreateTexture: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tx = gc.createTexture();
         return nkJSObject.RegisterObject(tx);
     },
 
-    DeleteTexture: function (uid, d)
+    DeleteTexture: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var txuid = Module.HEAP32[(d+ 0)>>2];
@@ -199,7 +199,7 @@ window.nkCanvasGLContext =
         gc.deleteTexture(tx);
     },
 
-    CreateShader: function (uid, d)
+    CreateShader: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var st = Module.HEAP32[(d+ 0)>>2];
@@ -207,7 +207,7 @@ window.nkCanvasGLContext =
         return nkJSObject.RegisterObject(sh);
     },
 
-    DeleteShader: function (uid, d)
+    DeleteShader: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bfuid = Module.HEAP32[(d+ 0)>>2];
@@ -215,14 +215,14 @@ window.nkCanvasGLContext =
         gc.deleteShader(bf);
     },
 
-    CreateProgram: function (uid, d)
+    CreateProgram: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pg = gc.createProgram();
         return nkJSObject.RegisterObject(pg);
     },
 
-    DeleteProgram: function (uid, d)
+    DeleteProgram: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -230,14 +230,14 @@ window.nkCanvasGLContext =
         gc.deleteProgram(pg);
     },
 
-    CreateBuffer: function (uid, d)
+    CreateBuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bf = gc.createBuffer();
         return nkJSObject.RegisterObject(bf);
     },
 
-    DeleteBuffer: function (uid, d)
+    DeleteBuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bfuid = Module.HEAP32[(d+ 0)>>2];
@@ -245,14 +245,14 @@ window.nkCanvasGLContext =
         gc.deleteBuffer(bf);
     },
 
-    CreateFramebuffer: function (uid, d)
+    CreateFramebuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bf = gc.createFramebuffer();
         return nkJSObject.RegisterObject(bf);
     },
 
-    DeleteFramebuffer: function (uid, d)
+    DeleteFramebuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bfuid = Module.HEAP32[(d+ 0)>>2];
@@ -260,14 +260,14 @@ window.nkCanvasGLContext =
         gc.deleteFramebuffer(bf);
     },
     
-    CreateRenderbuffer: function (uid, d)
+    CreateRenderbuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bf = gc.createRenderbuffer();
         return nkJSObject.RegisterObject(bf);
     },
 
-    DeleteRenderbuffer: function (uid, d)
+    DeleteRenderbuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bfuid = Module.HEAP32[(d+ 0)>>2];
@@ -275,7 +275,7 @@ window.nkCanvasGLContext =
         gc.deleteRenderbuffer(bf);
     },
 
-    ShaderSource: function (uid, d)
+    ShaderSource: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
@@ -285,7 +285,7 @@ window.nkCanvasGLContext =
         gc.shaderSource(sh, sr);
     },
 
-    GetAttribLocation: function (uid, d)
+    GetAttribLocation: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -295,7 +295,7 @@ window.nkCanvasGLContext =
         return gc.getAttribLocation(pg, nm);
     },
 
-    GetUniformLocation: function (uid, d)
+    GetUniformLocation: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -306,7 +306,7 @@ window.nkCanvasGLContext =
         return nkJSObject.RegisterObject(ul);
     },
 
-    Uniform1i: function (uid, d)
+    Uniform1i: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -316,7 +316,7 @@ window.nkCanvasGLContext =
         gc.uniform1i(ul, v0);
     },
 
-    Uniform2i: function (uid, d)
+    Uniform2i: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -327,7 +327,7 @@ window.nkCanvasGLContext =
         gc.uniform2i(ul, v0, v1);
     },
 
-    Uniform3i: function (uid, d)
+    Uniform3i: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -339,7 +339,7 @@ window.nkCanvasGLContext =
         gc.uniform3i(ul, v0, v1, v2);
     },
 
-    Uniform4i: function (uid, d)
+    Uniform4i: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -352,7 +352,7 @@ window.nkCanvasGLContext =
         gc.uniform4i(ul, v0, v1, v2, v3);
     },
 
-    Uniform1f: function (uid, d)
+    Uniform1f: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -362,7 +362,7 @@ window.nkCanvasGLContext =
         gc.uniform1f(ul, v0);
     },
 
-    Uniform2f: function (uid, d)
+    Uniform2f: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -373,7 +373,7 @@ window.nkCanvasGLContext =
         gc.uniform2f(ul, v0, v1);
     },
 
-    Uniform3f: function (uid, d)
+    Uniform3f: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -385,7 +385,7 @@ window.nkCanvasGLContext =
         gc.uniform3f(ul, v0, v1, v2);
     },
 
-    Uniform4f: function (uid, d)
+    Uniform4f: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -398,7 +398,7 @@ window.nkCanvasGLContext =
         gc.uniform4f(ul, v0, v1, v2, v3);
     },
 
-    Uniform1iv: function (uid, d)
+    Uniform1iv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -412,7 +412,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1iv(ul, dt);
     },
-    Uniform2iv: function (uid, d)
+    Uniform2iv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -426,7 +426,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2iv(ul, dt);
     },
-    Uniform3iv: function (uid, d)
+    Uniform3iv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -440,7 +440,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3iv(ul, dt);
     },
-    Uniform4iv: function (uid, d)
+    Uniform4iv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -455,7 +455,7 @@ window.nkCanvasGLContext =
         gc.uniform4iv(ul, dt);
     },
 
-    Uniform1fv: function (uid, d)
+    Uniform1fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -469,7 +469,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform1fv(ul, dt);
     },
-    Uniform2fv: function (uid, d)
+    Uniform2fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -483,7 +483,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform2fv(ul, dt);
     },
-    Uniform3fv: function (uid, d)
+    Uniform3fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -497,7 +497,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniform3fv(ul, dt);
     },
-    Uniform4fv: function (uid, d)
+    Uniform4fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -512,7 +512,7 @@ window.nkCanvasGLContext =
         gc.uniform4fv(ul, dt);
     },
 
-    UniformMatrix2fv: function (uid, d)
+    UniformMatrix2fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -526,7 +526,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniformMatrix2fv(ul, false, dt);
     },
-    UniformMatrix3fv: function (uid, d)
+    UniformMatrix3fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -540,7 +540,7 @@ window.nkCanvasGLContext =
         var ul = nkJSObject.GetObject(uluid);
         gc.uniformMatrix3fv(ul, false, dt);
     },
-    UniformMatrix4fv: function (uid, d)
+    UniformMatrix4fv: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var uluid = Module.HEAP32[(d+ 0)>>2];
@@ -555,7 +555,7 @@ window.nkCanvasGLContext =
         gc.uniformMatrix4fv(ul, false, dt);
     },
     
-    CompileShader: function (uid, d)
+    CompileShader: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
@@ -563,7 +563,7 @@ window.nkCanvasGLContext =
         gc.compileShader(sh);
     },
 
-    GetShaderParameter: function (uid, d)
+    GetShaderParameter: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
@@ -573,7 +573,7 @@ window.nkCanvasGLContext =
         return gc.getShaderParameter(sh, pn);
     },
 
-    GetProgramParameter: function (uid, d)
+    GetProgramParameter: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -583,7 +583,7 @@ window.nkCanvasGLContext =
         return gc.getProgramParameter(pg, pn);
     },
 
-    TexImage2D: function (uid, d)
+    TexImage2D: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -597,7 +597,7 @@ window.nkCanvasGLContext =
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, null);
     },
 
-    TexImage2D1: function (uid, d)
+    TexImage2D1: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -617,7 +617,7 @@ window.nkCanvasGLContext =
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, dt);
     },
 
-    TexImage2D2: function (uid, d)
+    TexImage2D2: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -632,7 +632,7 @@ window.nkCanvasGLContext =
         gc.texImage2D(tg, lv, it, ft, tp, vi);
     },
 
-    TexSubImage2D1: function (uid, d)
+    TexSubImage2D1: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -653,7 +653,7 @@ window.nkCanvasGLContext =
         gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
     },
   
-    CompressedTexImage2D: function (uid, d)
+    CompressedTexImage2D: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -672,7 +672,7 @@ window.nkCanvasGLContext =
         gc.compressedTexImage2D(tg, lv, it, wh, ht, 0, dt);
     },
 
-    ReadPixels: function (uid, d)
+    ReadPixels: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var x = Module.HEAP32[(d+ 0)>>2];
@@ -692,7 +692,7 @@ window.nkCanvasGLContext =
         gc.readPixels(x, y, w, h, ft, tp, dt);
     },
 
-    TexParameteri: function (uid, d)
+    TexParameteri: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -701,7 +701,7 @@ window.nkCanvasGLContext =
         gc.texParameteri(tg, pn, pm);
     },
 
-    PixelStorei: function (uid, d)
+    PixelStorei: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pn = Module.HEAP32[(d+ 0)>>2];
@@ -709,7 +709,7 @@ window.nkCanvasGLContext =
         gc.pixelStorei(pn, pm);
     },
 
-    BindTexture: function (uid, d)
+    BindTexture: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
@@ -718,7 +718,7 @@ window.nkCanvasGLContext =
         gc.bindTexture(tg, tx);
     },
 
-    BindBuffer: function (uid, d)
+    BindBuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -727,7 +727,7 @@ window.nkCanvasGLContext =
         gc.bindBuffer(bt, bf);
     },
     
-    BindFramebuffer: function (uid, d)
+    BindFramebuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -736,7 +736,7 @@ window.nkCanvasGLContext =
         gc.bindFramebuffer(bt, bf);
     },
 
-    BindRenderbuffer: function (uid, d)
+    BindRenderbuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -745,7 +745,7 @@ window.nkCanvasGLContext =
         gc.bindRenderbuffer(bt, bf);
     },
  
-    FramebufferRenderbuffer: function (uid, d)
+    FramebufferRenderbuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ft = Module.HEAP32[(d+ 0)>>2];
@@ -756,7 +756,7 @@ window.nkCanvasGLContext =
         gc.framebufferRenderbuffer(ft, ap, rt, rb);
     },
  
-    FramebufferTexture2D: function (uid, d)
+    FramebufferTexture2D: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ft = Module.HEAP32[(d+ 0)>>2];
@@ -768,7 +768,7 @@ window.nkCanvasGLContext =
         gc.framebufferTexture2D(ft, ap, tt, tb, lv);
     },
 
-    RenderbufferStorage: function (uid, d)
+    RenderbufferStorage: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -778,21 +778,21 @@ window.nkCanvasGLContext =
         gc.renderbufferStorage(bt, fm, w, h);
     },
 
-    CheckFramebufferStatus: function (uid, d)
+    CheckFramebufferStatus: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ft = Module.HEAP32[(d+ 0)>>2];
         return gc.checkFramebufferStatus(ft);
     },
 
-    GenerateMipmap: function (uid, d)
+    GenerateMipmap: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tg = Module.HEAP32[(d+ 0)>>2];
         gc.generateMipmap(tg);
     },
 
-    AttachShader: function (uid, d)
+    AttachShader: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -802,7 +802,7 @@ window.nkCanvasGLContext =
         gc.attachShader(pg, sh);
     },
 
-    GetProgramInfoLog: function (uid, d)
+    GetProgramInfoLog: function(uid, d)
     {        
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -810,7 +810,7 @@ window.nkCanvasGLContext =
         return gc.getProgramInfoLog(pg);
     },
 
-    GetShaderInfoLog: function (uid, d)
+    GetShaderInfoLog: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var shuid = Module.HEAP32[(d+ 0)>>2];
@@ -818,7 +818,7 @@ window.nkCanvasGLContext =
         return gc.getShaderInfoLog(sh);
     },
 
-    LinkProgram: function (uid, d)
+    LinkProgram: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -826,7 +826,7 @@ window.nkCanvasGLContext =
         gc.linkProgram(pg);
     },
 
-    BufferData: function (uid, d)
+    BufferData: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -835,7 +835,7 @@ window.nkCanvasGLContext =
         gc.bufferData(bt, sz, us);
     },
 
-    BufferData1: function (uid, d)
+    BufferData1: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -850,7 +850,7 @@ window.nkCanvasGLContext =
         gc.bufferData(bt, dt, us);
     },
 
-    BufferSubData: function (uid, d)
+    BufferSubData: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -866,7 +866,7 @@ window.nkCanvasGLContext =
         gc.bufferSubData(bt, of, dt);
     },
 
-    VertexAttribPointer: function (uid, d)
+    VertexAttribPointer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ix = Module.HEAP32[(d+ 0)>>2];
@@ -878,21 +878,21 @@ window.nkCanvasGLContext =
         gc.vertexAttribPointer(ix, sz, tp, nr, st, of);
     },
 
-    EnableVertexAttribArray: function (uid, d)
+    EnableVertexAttribArray: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ix = Module.HEAP32[(d+ 0)>>2];
         gc.enableVertexAttribArray(ix);
     },
 
-    DisableVertexAttribArray: function (uid, d)
+    DisableVertexAttribArray: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ix = Module.HEAP32[(d+ 0)>>2];
         gc.disableVertexAttribArray(ix);
     },
 
-    UseProgram: function (uid, d)
+    UseProgram: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var pguid = Module.HEAP32[(d+ 0)>>2];
@@ -900,7 +900,7 @@ window.nkCanvasGLContext =
         gc.useProgram(pg);
     },
 
-    DrawArrays: function (uid, d)
+    DrawArrays: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var md = Module.HEAP32[(d+ 0)>>2];
@@ -910,7 +910,7 @@ window.nkCanvasGLContext =
         gc.drawArrays(md, of, ct);
     },
 
-    DrawElements: function (uid, d)
+    DrawElements: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var md = Module.HEAP32[(d+ 0)>>2];
@@ -921,7 +921,7 @@ window.nkCanvasGLContext =
         gc.drawElements(md, ct, tp, of);
     },
 
-    ActiveTexture: function (uid, d)
+    ActiveTexture: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var tu = Module.HEAP32[(d+ 0)>>2];
@@ -929,32 +929,32 @@ window.nkCanvasGLContext =
         gc.activeTexture(tu);
     },
 
-    Flush: function (uid, d)
+    Flush: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         gc.flush();
     },
-    Finish: function (uid, d)
+    Finish: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         gc.finish();
     },
     
-    IsContextLost: function (uid, d)
+    IsContextLost: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
 
         return gc.isContextLost();
     },
 
-    GetExtension: function (uid, d)
+    GetExtension: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var nm = nkJSObject.ReadString(d+ 0);
 
         return gc.getExtension(nm) !== null;
     },
-    GetExtension1: function (uid, d)
+    GetExtension1: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var nm = nkJSObject.ReadString(d+ 0);
@@ -964,7 +964,7 @@ window.nkCanvasGLContext =
         return nkJSObject.RegisterObject(ex);
     },
 
-    GetError: function (uid, d)
+    GetError: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         return gc.getError();
@@ -973,7 +973,7 @@ window.nkCanvasGLContext =
 
 window.nkCanvasGL2Context =
 {
-    InvalidateFramebuffer: function (uid, d)
+    InvalidateFramebuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ft = Module.HEAP32[(d+ 0)>>2];        
@@ -988,7 +988,7 @@ window.nkCanvasGL2Context =
 
         gc.invalidateFramebuffer(ft, ar);
     },
-    BlitFramebuffer: function (uid, d)
+    BlitFramebuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var sX0 = Module.HEAP32[(d+ 0)>>2];
@@ -1007,7 +1007,7 @@ window.nkCanvasGL2Context =
             dX0, dY0, dX1, dY1,
             mk, fr);
     },    
-    ReadBuffer: function (uid, d)
+    ReadBuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ap = Module.HEAP32[(d+ 0)>>2];
@@ -1015,7 +1015,7 @@ window.nkCanvasGL2Context =
         gc.readBuffer(ap);
 
     },
-    DrawBuffer: function (uid, d)
+    DrawBuffer: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var ap = Module.HEAP32[(d+ 0)>>2];
@@ -1023,7 +1023,7 @@ window.nkCanvasGL2Context =
         gc.drawBuffers([ap]);
 
     },
-    DrawBuffers: function (uid, d)
+    DrawBuffers: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var si = Module.HEAP32[(d+ 0)>>2];
@@ -1039,7 +1039,7 @@ window.nkCanvasGL2Context =
         gc.drawBuffers(ar);
 
     },
-    DrawRangeElements: function (uid, d)
+    DrawRangeElements: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var md = Module.HEAP32[(d+ 0)>>2];
@@ -1051,7 +1051,7 @@ window.nkCanvasGL2Context =
 
         gc.drawRangeElements(md, st, en, ct, tp, of);
     },
-    GetBufferSubData: function (uid, d)
+    GetBufferSubData: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -1065,7 +1065,7 @@ window.nkCanvasGL2Context =
 
         gc.getBufferSubData(bt, of, dt);
     },
-    GetBufferSubData1: function (uid, d)
+    GetBufferSubData1: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -1080,7 +1080,7 @@ window.nkCanvasGL2Context =
 
         gc.getBufferSubData(bt, of, dt, si*st);
     },
-    GetBufferSubData2: function (uid, d)
+    GetBufferSubData2: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -1096,7 +1096,7 @@ window.nkCanvasGL2Context =
 
         gc.getBufferSubData(bt, of, dt, si*st, ln*st);
     },
-    RenderbufferStorageMultisample: function (uid, d)
+    RenderbufferStorageMultisample: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var bt = Module.HEAP32[(d+ 0)>>2];
@@ -1106,68 +1106,70 @@ window.nkCanvasGL2Context =
         var h  = Module.HEAP32[(d+16)>>2];
         gc.renderbufferStorageMultisample(bt, sm, fm, w, h);
     },
-    VertexAttribDivisor: function (uid, d) {
+    VertexAttribDivisor: function (uid, d)
+    {
         var gc = nkJSObject.GetObject(uid);
-        var ix = Module.HEAP32[(d + 0) >> 2];
-        var di = Module.HEAP32[(d + 4) >> 2];
+        var ix = Module.HEAP32[(d + 0)>>2];
+        var di = Module.HEAP32[(d + 4)>>2];
         gc.vertexAttribDivisor(ix, di);
     },
-    DrawElementsInstanced: function (uid, d) {
+    DrawElementsInstanced: function (uid, d)
+    {
         var gc = nkJSObject.GetObject(uid);
-        var md = Module.HEAP32[(d + 0) >> 2];
-        var ct = Module.HEAP32[(d + 4) >> 2];
-        var tp = Module.HEAP32[(d + 8) >> 2];
-        var of = Module.HEAP32[(d + 12) >> 2];
-        var ic = Module.HEAP32[(d + 16) >> 2];
+        var md = Module.HEAP32[(d + 0)>>2];
+        var ct = Module.HEAP32[(d + 4)>>2];
+        var tp = Module.HEAP32[(d + 8)>>2];
+        var of = Module.HEAP32[(d +12)>>2];
+        var ic = Module.HEAP32[(d +16)>>2];
         gc.drawElementsInstanced(md, ct, tp, of, ic);
     },
-    CreateQuery: function (uid)
+    CreateQuery: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
         var q = gc.createQuery();
         return nkJSObject.RegisterObject(q);
     },
-    DeleteQuery: function (uid, d)
+    DeleteQuery: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var quid = Module.HEAP32[(d + 0) >> 2];
+        var quid = Module.HEAP32[(d + 0)>>2];
         var q = nkJSObject.GetObject(quid);
         gc.deleteQuery(q);
     },
-    IsQuery: function (uid, d)
+    IsQuery: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var quid = Module.HEAP32[(d + 0) >> 2];
+        var quid = Module.HEAP32[(d + 0)>>2];
         var q = nkJSObject.GetObject(quid);
         return gc.isQuery(q);
     },
-    BeginQuery: function (uid, d)
+    BeginQuery: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var t = Module.HEAP32[(d + 0) >> 2];
-        var quid = Module.HEAP32[(d + 4) >> 2];
+        var t = Module.HEAP32[(d + 0)>>2];
+        var quid = Module.HEAP32[(d + 4)>>2];
         var q = nkJSObject.GetObject(quid);
         gc.beginQuery(t, q);
     },
-    EndQuery: function (uid, d)
+    EndQuery: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var t = Module.HEAP32[(d + 0) >> 2];
+        var t = Module.HEAP32[(d + 0)>>2];
         gc.endQuery(t);
     },
-    GetQuery: function (uid, d)
+    GetQuery: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var t = Module.HEAP32[(d + 0) >> 2];
-        var p = Module.HEAP32[(d + 4) >> 2];
+        var t = Module.HEAP32[(d + 0)>>2];
+        var p = Module.HEAP32[(d + 4)>>2];
         var q = gc.getQuery(t, p);
         return (q?.nkUid != null) ? q.nkUid : -1;
     },
-    GetQueryParameter: function (uid, d)
+    GetQueryParameter: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
-        var quid = Module.HEAP32[(d + 0) >> 2];
-        var p = Module.HEAP32[(d + 4) >> 2];
+        var quid = Module.HEAP32[(d + 0)>>2];
+        var p = Module.HEAP32[(d + 4)>>2];
         var q = nkJSObject.GetObject(quid);
         var r = gc.getQueryParameter(q, p);
         if (typeof r === 'boolean')
@@ -1178,13 +1180,13 @@ window.nkCanvasGL2Context =
 
 window.nkCanvasLoseContextExtension =
 {
-    LoseContext: function (uid, d)
+    LoseContext: function(uid, d)
     {
         var ex = nkJSObject.GetObject(uid);
 
         ex.loseContext();
     },
-    RestoreContext: function (uid, d)
+    RestoreContext: function(uid, d)
     {
         var ex = nkJSObject.GetObject(uid);
 

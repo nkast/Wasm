@@ -5,7 +5,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.fillStyle;
     },
-    SetFillStyle: function(uid,d)
+    SetFillStyle: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.fillStyle = nkJSObject.ReadString(d+ 0);
@@ -16,7 +16,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.strokeStyle;
     },
-    SetStrokeStyle: function(uid,d)
+    SetStrokeStyle: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.strokeStyle = nkJSObject.ReadString(d+ 0);
@@ -27,7 +27,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.font;
     },
-    SetFont: function (uid,d)
+    SetFont: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.font = nkJSObject.ReadString(d+ 0);
@@ -38,7 +38,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.textAlign;
     },
-    SetTextAlign: function(uid,d)
+    SetTextAlign: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.textAlign = nkJSObject.ReadString(d+ 0);
@@ -49,7 +49,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.textBaseline;
     },
-    SetTextBaseline: function(uid,d)
+    SetTextBaseline: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.textBaseline = nkJSObject.ReadString(d+ 0);
@@ -60,7 +60,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.lineWidth;
     },
-    SetLineWidth: function (uid,d)
+    SetLineWidth: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.lineWidth = Module.HEAPF32[(d+ 0)>>2];
@@ -71,7 +71,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.lineCap;
     },
-    SetLineCap: function(uid,d)
+    SetLineCap: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.lineCap = nkJSObject.ReadString(d+ 0);
@@ -82,7 +82,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.miterLimit;
     },
-    SetMiterLimit: function(uid,d)
+    SetMiterLimit: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.miterLimit = Module.HEAPF32[(d+ 0)>>2];
@@ -93,7 +93,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.globalAlpha;
     },
-    SetGlobalAlpha: function(uid,d)
+    SetGlobalAlpha: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.globalAlpha = Module.HEAPF32[(d+ 0)>>2];
@@ -104,7 +104,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.globalCompositeOperation;
     },
-    SetGlobalCompositeOperation: function (uid,d)
+    SetGlobalCompositeOperation: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.globalCompositeOperation = nkJSObject.ReadString(d+ 0);
@@ -115,7 +115,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.imageSmoothingEnabled;
     },
-    SetImageSmoothingEnabled: function (uid,d)
+    SetImageSmoothingEnabled: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var s = Module.HEAP32[(d+ 0)>>2];
@@ -127,7 +127,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.shadowBlur;
     },
-    SetShadowBlur: function (uid,d)
+    SetShadowBlur: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.shadowBlur = Module.HEAPF32[(d+ 0)>>2];
@@ -138,7 +138,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.shadowColor;
     },
-    SetShadowColor: function (uid,d)
+    SetShadowColor: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.shadowColor = nkJSObject.ReadString(d+ 0);
@@ -149,7 +149,7 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.shadowOffsetX;
     },
-    SetShadowOffsetX: function (uid,d)
+    SetShadowOffsetX: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.shadowOffsetX = Module.HEAPF32[(d+ 0)>>2];
@@ -160,13 +160,13 @@ window.nkCanvas2dContext =
         var dc = nkJSObject.GetObject(uid);
         return dc.shadowOffsetY;
     },
-    SetShadowOffsetY: function (uid,d)
+    SetShadowOffsetY: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.shadowOffsetY = Module.HEAPF32[(d+ 0)>>2];
     },
 
-    ClearRect: function(uid,d)
+    ClearRect: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -175,7 +175,7 @@ window.nkCanvas2dContext =
         var h = Module.HEAPF32[(d+12)>>2];
         dc.clearRect(x, y, w, h);
     },
-    FillRect: function(uid,d)
+    FillRect: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -184,7 +184,7 @@ window.nkCanvas2dContext =
         var h = Module.HEAPF32[(d+12)>>2];
         dc.fillRect(x, y, w, h);
     },
-    StrokeRect: function(uid,d)
+    StrokeRect: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -194,7 +194,7 @@ window.nkCanvas2dContext =
         dc.strokeRect(x, y, w, h);
     },
 
-    DrawImage: function(uid,d)
+    DrawImage: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var id = nkJSObject.ReadString(d+ 0);
@@ -204,7 +204,7 @@ window.nkCanvas2dContext =
         dc.drawImage(img, dx, dy);
     },
 
-    DrawImage1: function(uid,d)
+    DrawImage1: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var id = nkJSObject.ReadString(d+ 0);
@@ -216,7 +216,7 @@ window.nkCanvas2dContext =
         dc.drawImage(img, dx, dy, dw, dh);
     },
 
-    DrawImage2: function(uid,d)
+    DrawImage2: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var id = nkJSObject.ReadString(d+ 0);
@@ -232,7 +232,7 @@ window.nkCanvas2dContext =
         dc.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
     },
 
-    FillText: function(uid,d)
+    FillText: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
@@ -240,7 +240,7 @@ window.nkCanvas2dContext =
         var y = Module.HEAPF32[(d+ 8)>>2];
         dc.fillText(t, x, y);
     },
-    FillText1: function (uid,d)
+    FillText1: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
@@ -249,7 +249,7 @@ window.nkCanvas2dContext =
         var w = Module.HEAPF32[(d+12)>>2];
         dc.fillText(t, x, y, w);
     },
-    StrokeText: function(uid,d)
+    StrokeText: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
@@ -257,7 +257,7 @@ window.nkCanvas2dContext =
         var y = Module.HEAPF32[(d+ 8)>>2];
         dc.strokeText(t, x, y);
     },
-    StrokeText1: function (uid,d)
+    StrokeText1: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
@@ -266,7 +266,7 @@ window.nkCanvas2dContext =
         var w = Module.HEAPF32[(d+12)>>2];
         dc.strokeText(t, x, y, w);
     },
-    MeasureText: function (uid,d)
+    MeasureText: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var t = nkJSObject.ReadString(d+ 0);
@@ -280,7 +280,7 @@ window.nkCanvas2dContext =
         var ds = dc.getLineDash();
         return ds.toString();
     },
-    SetLineDash: function(uid,d)
+    SetLineDash: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var arr = Module.HEAP32[(d+ 0)>>2];
@@ -308,7 +308,7 @@ window.nkCanvas2dContext =
         dc.closePath();
     },
 
-    IsPointInPath: function(uid,d)
+    IsPointInPath: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -316,7 +316,7 @@ window.nkCanvas2dContext =
         var e = Module.HEAP32[(d+ 8)>>2];
         return dc.isPointInPath(x, y, e === 0 ? "nonzero" : "evenodd");
     },
-    IsPointInStroke: function(uid,d)
+    IsPointInStroke: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -324,21 +324,21 @@ window.nkCanvas2dContext =
         return dc.isPointInStroke(x, y);
     },
 
-    MoveTo: function(uid,d)
+    MoveTo: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
         var y = Module.HEAPF32[(d+ 4)>>2];
         dc.moveTo(x, y);
     },
-    LineTo: function(uid,d)
+    LineTo: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
         var y = Module.HEAPF32[(d+ 4)>>2];
         dc.lineTo(x, y);
     },
-    BezierCurveTo: function(uid,d)
+    BezierCurveTo: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var cp1X = Module.HEAPF32[(d+ 0)>>2];
@@ -349,7 +349,7 @@ window.nkCanvas2dContext =
         var y    = Module.HEAPF32[(d+20)>>2];
         dc.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, x, y);
     },
-    QuadraticCurveTo: function (uid,d)
+    QuadraticCurveTo: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var cpX = Module.HEAPF32[(d+ 0)>>2];
@@ -358,7 +358,7 @@ window.nkCanvas2dContext =
         var y = Module.HEAPF32[(d+12)>>2];
         dc.quadraticCurveTo(cpX, cpY, x, y);
     },
-    Arc: function(uid,d)
+    Arc: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -369,7 +369,7 @@ window.nkCanvas2dContext =
         var a = Module.HEAP32[(d+20)>>2];
         dc.arc(x, y, r, s, e, a !== 0);
     },
-    ArcTo: function(uid,d)
+    ArcTo: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x1 = Module.HEAPF32[(d+ 0)>>2];
@@ -379,7 +379,7 @@ window.nkCanvas2dContext =
         var r  = Module.HEAPF32[(d+16)>>2];
         dc.arcTo(x1, y1, x2, y2, r);
     },
-    Rect: function (uid,d)
+    Rect: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
@@ -388,7 +388,7 @@ window.nkCanvas2dContext =
         var h = Module.HEAPF32[(d+12)>>2];
         dc.rect(x, y, w, h);
     },
-    Ellipse: function(uid,d)
+    Ellipse: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x  = Module.HEAPF32[(d+ 0)>>2];
@@ -418,26 +418,26 @@ window.nkCanvas2dContext =
         dc.clip();
     },
 
-    Rotate: function(uid,d)
+    Rotate: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         dc.rotate(Module.HEAPF32[(d+ 0)>>2]);
     },
-    Scale: function(uid,d)
+    Scale: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
         var y = Module.HEAPF32[(d+ 4)>>2];
         dc.scale(x, y);
     },
-    Translate: function(uid,d)
+    Translate: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var x = Module.HEAPF32[(d+ 0)>>2];
         var y = Module.HEAPF32[(d+ 4)>>2];
         dc.translate(x, y);
     },
-    Transform: function(uid,d)
+    Transform: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var m11 = Module.HEAPF32[(d+ 0)>>2];
@@ -448,7 +448,7 @@ window.nkCanvas2dContext =
         var dy  = Module.HEAPF32[(d+20)>>2];
         dc.transform(m11, m12, m21, m22, dx, dy);
     },
-    SetTransform: function(uid,d)
+    SetTransform: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
         var m11 = Module.HEAPF32[(d+ 0)>>2];

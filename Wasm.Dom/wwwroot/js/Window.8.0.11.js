@@ -55,20 +55,20 @@
         var w = nkJSObject.GetObject(uid);
         return w.innerHeight;
     },
-    GetDevicePixelRatio: function (uid)
+    GetDevicePixelRatio: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
         return w.devicePixelRatio;
     },
-    GetIsSecureContext: function (uid)
+    GetIsSecureContext: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
         return w.isSecureContext;
     },
-    RequestAnimationFrame: function (uid, d)
+    RequestAnimationFrame: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d + 0) >> 2];
+        var ci = Module.HEAP32[(d + 0)>>2];
 
         var callback = nkWindow.RequestAnimationFrameCallback;
         var handle = w.requestAnimationFrame((time) =>
@@ -82,14 +82,14 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnAnimationFrame', uid, ci, time);
     },
-    CancelAnimationFrame: function (uid, d)
+    CancelAnimationFrame: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
-        var rq = Module.HEAP32[(d + 0) >> 2];
+        var rq = Module.HEAP32[(d + 0)>>2];
 
         w.cancelAnimationFrame(rq);
     },    
-    SetTimeout: function (uid, d)
+    SetTimeout: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
         var ci = Module.HEAP32[(d+ 0)>>2];
@@ -107,7 +107,7 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnTimeout', uid, ci);
     },
-    ClearTimeout: function (uid, d)
+    ClearTimeout: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
         var hd = Module.HEAP32[(d+ 0)>>2];
@@ -115,7 +115,7 @@
         w.clearTimeout(hd);
     },
 
-    SetInterval: function (uid, d)
+    SetInterval: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
         var ci = Module.HEAP32[(d+ 0)>>2];
@@ -133,7 +133,7 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnInterval', uid, ci);
     },
-    ClearInterval: function (uid, d)
+    ClearInterval: function(uid, d)
     {
         var w  = nkJSObject.GetObject(uid);
         var hd = Module.HEAP32[(d+ 0)>>2];
@@ -179,9 +179,11 @@
                 event.deltaX, event.deltaY, event.deltaZ,  event.deltaMode);
         });
 
-        window.addEventListener('keydown', (event) => {
+        window.addEventListener('keydown', (event) =>
+        {
             var char;
-            switch (event.key) {
+            switch (event.key)
+            {
                 case "Enter":
                     char = 13;
                     break;
@@ -261,31 +263,31 @@
 
 window.nkStorage =
 {
-    GetLength: function (uid)
+    GetLength: function(uid)
     {
         var st = nkJSObject.GetObject(uid);
         return st.length;
     },
-    Clear: function (uid, d)
+    Clear: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
         st.clear();
     },
     
-    SetItem: function (uid, d)
+    SetItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(d+ 0);
         var va = nkJSObject.ReadString(d+ 4);
         st.setItem(ke, va);
     },    
-    GetItem: function (uid, d)
+    GetItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(d+ 0);
         return st.getItem(ke);
     },    
-    RemoveItem: function (uid, d)
+    RemoveItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(d+ 0);
@@ -295,33 +297,33 @@ window.nkStorage =
 
 window.nkMessagePort =
 {
-    Start: function (uid, d)
+    Start: function(uid, d)
     {
         var mp = nkJSObject.GetObject(uid);
         mp.start();
     },
 
-    Close: function (uid, d)
+    Close: function(uid, d)
     {
         var mp = nkJSObject.GetObject(uid);
         mp.close();
     },
 
-    PostMessagei: function (uid, d)
+    PostMessagei: function(uid, d)
     {
         var mp = nkJSObject.GetObject(uid);
         var ms = Module.HEAP32[(d+ 0)>>2];
 
         mp.postMessage(ms);
     },
-    PostMessagef64: function (uid, d)
+    PostMessagef64: function(uid, d)
     {
         var mp = nkJSObject.GetObject(uid);
         var ms = Module.HEAPF64[(d+ 0)>>3];
 
         mp.postMessage(ms);
     },
-    PostMessageUInt8Array: function (uid, d)
+    PostMessageUInt8Array: function(uid, d)
     {
         var mp = nkJSObject.GetObject(uid);
         var arr = Module.HEAP32[(d+ 0)>>2];
@@ -335,7 +337,7 @@ window.nkMessagePort =
         mp.postMessage(msCopy, [msCopy.buffer]);
     },
 
-    RegisterEvents: function (uid)
+    RegisterEvents: function(uid)
     {
         var mp = nkJSObject.GetObject(uid);
 
@@ -357,7 +359,7 @@ window.nkMessagePort =
             }
         };
     },
-    UnregisterEvents: function (uid)
+    UnregisterEvents: function(uid)
     {
         var mp = nkJSObject.GetObject(uid);
         mp.onmessage = null;

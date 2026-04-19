@@ -1,11 +1,11 @@
 ﻿window.nkNavigator =
 {
-    GetUserAgent: function (uid)
+    GetUserAgent: function(uid)
     {
         var nv = nkJSObject.GetObject(uid);
         return nv.userAgent;
     },
-    GetMaxTouchPoints: function (uid)
+    GetMaxTouchPoints: function(uid)
     {
         var nv = nkJSObject.GetObject(uid);
         return nv.maxTouchPoints;
@@ -21,7 +21,7 @@
 
         return nkJSObject.RegisterObject(gps);
     },
-    Vibrate: function (uid, d)
+    Vibrate: function(uid, d)
     {
         var nv = nkJSObject.GetObject(uid);
         var ms = Module.HEAP32[(d+ 0)>>2];

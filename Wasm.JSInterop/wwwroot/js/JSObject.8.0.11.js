@@ -103,32 +103,32 @@
         let func = nkJSObject.funcMap[fid];
         return func();
     },
-    JSInvoke1Void: function(fid, uid)
+    JSInvoke1Void: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         func(uid);
     },
-    JSInvoke1Bool: function(fid, uid)
+    JSInvoke1Bool: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
-    JSInvoke1Int: function(fid, uid)
+    JSInvoke1Int: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
-    JSInvoke1Float: function(fid, uid)
+    JSInvoke1Float: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
-    JSInvoke1Double: function (fid, uid)
+    JSInvoke1Double: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid);
     },
-    JSInvoke1String: function(fid, uid)
+    JSInvoke1String: function(fid,uid)
     {
         let func = nkJSObject.funcMap[fid];
         return func(uid);
@@ -162,15 +162,15 @@
 
 window.nkJSArray =
 {
-    GetLength: function (uid, d)
+    GetLength: function(uid, d)
     {
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
     },
-    GetItem: function (uid, d)
+    GetItem: function(uid, d)
     {
         var ar = nkJSObject.GetObject(uid);
-        var id = Module.HEAP32[(d + 0 >> 2)];
+        var id = Module.HEAP32[(d + 0>>2)];
 
         var it = ar[id];
         var uid = nkJSObject.GetUid(it);
@@ -183,12 +183,12 @@ window.nkJSArray =
 
 window.nkJSUInt8Array =
 {
-    GetLength: function (uid, d)
+    GetLength: function(uid, d)
     {
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
     },
-    CopyTo: function (uid, d)
+    CopyTo: function(uid, d)
     {
         var ar = nkJSObject.GetObject(uid);
         var si = Module.HEAP32[(d+ 0)>>2];
@@ -204,17 +204,17 @@ window.nkJSUInt8Array =
 
 window.nkPromise =
 {
-    GetValueBoolean: function (uid)
+    GetValueBoolean: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
         return pr.AsyncValue;
     },
-    GetValueString: function (uid)
+    GetValueString: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
         return pr.AsyncValue;
     },
-    GetValueJSObject: function (uid)
+    GetValueJSObject: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
 
@@ -225,7 +225,7 @@ window.nkPromise =
 
         return nkJSObject.RegisterObject(ob);
     },
-    GetErrorType: function (uid)
+    GetErrorType: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
 
@@ -261,7 +261,7 @@ window.nkPromise =
             return 0;
         }
     },
-    GetErrorMessage: function (uid)
+    GetErrorMessage: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
 
@@ -283,7 +283,7 @@ window.nkPromise =
         }
     },
 
-    RegisterEvents: function (uid)
+    RegisterEvents: function(uid)
     {
         var pr = nkJSObject.GetObject(uid);
 

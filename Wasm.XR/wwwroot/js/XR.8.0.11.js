@@ -16,7 +16,7 @@ window.nkXRSystem =
         else
             return nkJSObject.RegisterObject(null);
     },
-    MakeXRCompatible: function (uid)
+    MakeXRCompatible: function(uid)
     {
         var gl = nkJSObject.GetObject(uid);
 
@@ -161,7 +161,7 @@ window.nkXRSession =
 
         return nkJSObject.RegisterObject(rs);
     },
-    GetInputSources: function (uid, d)
+    GetInputSources: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
 
@@ -172,7 +172,7 @@ window.nkXRSession =
 
         return nkJSObject.RegisterObject(is);
     },
-    GetIsSystemKeyboardSupported: function (uid, d)
+    GetIsSystemKeyboardSupported: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
 
@@ -181,7 +181,7 @@ window.nkXRSession =
         else
             return false;
     },
-    End: function (uid, d)
+    End: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
 
@@ -208,7 +208,7 @@ window.nkXRSession =
     RequestAnimationFrame: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d+ 0) >> 2];
+        var ci = Module.HEAP32[(d+ 0)>>2];
 
         var callback = nkXRSession.RequestAnimationFrameCallback;
         var handle = ss.requestAnimationFrame((time, xrFrame) => 
@@ -230,15 +230,15 @@ window.nkXRSession =
 
         DotNet.invokeMethod('nkast.Wasm.XR', 'JsXRSessionOnAnimationFrame', uid, ci, time, xrFrameUid);
     },
-    CancelAnimationFrame: function (uid, d)
+    CancelAnimationFrame: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
-        var rq = Module.HEAP32[(d+ 0) >> 2];
+        var rq = Module.HEAP32[(d+ 0)>>2];
 
         ss.cancelAnimationFrame(rq);
     },
 
-    RegisterEvents: function (uid)
+    RegisterEvents: function(uid)
     {
         var ss = nkJSObject.GetObject(uid);
 
@@ -251,7 +251,7 @@ window.nkXRSession =
             DotNet.invokeMethod('nkast.Wasm.XR', 'JsXRSessionOnEnd', uid);
         };
     },
-    UnregisterEvents: function (uid)
+    UnregisterEvents: function(uid)
     {
         var ss = nkJSObject.GetObject(uid);
         ss.oninputsourceschange = null;
@@ -400,11 +400,11 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
-    GetJointPose: function (uid, d)
+    GetJointPose: function(uid, d)
     {
         var fr = nkJSObject.GetObject(uid);
-        var spid = Module.HEAP32[(d + 0) >> 2];
-        var bsid = Module.HEAP32[(d + 4) >> 2];
+        var spid = Module.HEAP32[(d + 0)>>2];
+        var bsid = Module.HEAP32[(d + 4)>>2];
 
         var sp = nkJSObject.GetObject(spid);
         var bs = nkJSObject.GetObject(bsid);
@@ -413,7 +413,7 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
-    CreateAnchor: function (uid, d)
+    CreateAnchor: function(uid, d)
     {
         var fr = nkJSObject.GetObject(uid);
         var pt = Module.HEAP32[(d+ 0)>>2];
@@ -510,7 +510,7 @@ window.nkXRPose =
 
 window.XRJointPose =
 {
-    GetRadius: function (uid, d)
+    GetRadius: function(uid, d)
     {
         var ps = nkJSObject.GetObject(uid);
         return ps.radius;
@@ -606,7 +606,7 @@ window.nkXRView =
 
 window.nkXRInputSource =
 {
-    GetGripSpace: function (uid, d)
+    GetGripSpace: function(uid, d)
     {
         var is = nkJSObject.GetObject(uid);
 
@@ -618,7 +618,7 @@ window.nkXRInputSource =
 
         return nkJSObject.RegisterObject(gs);
     },
-    GetTargetRaySpace: function (uid, d)
+    GetTargetRaySpace: function(uid, d)
     {
         var is = nkJSObject.GetObject(uid);
 
@@ -630,7 +630,7 @@ window.nkXRInputSource =
 
         return nkJSObject.RegisterObject(ps);
     },
-    GetHandedness: function (uid, d)
+    GetHandedness: function(uid, d)
     {
         var is = nkJSObject.GetObject(uid);
 
@@ -643,7 +643,7 @@ window.nkXRInputSource =
 
         return 0;
     },
-    GetGamepad: function (uid, d)
+    GetGamepad: function(uid, d)
     {
         var is = nkJSObject.GetObject(uid);
 
@@ -656,7 +656,7 @@ window.nkXRInputSource =
         return nkJSObject.RegisterObject(gp);
     },
 
-    GetHand: function (uid, d)
+    GetHand: function(uid, d)
     {
         var is = nkJSObject.GetObject(uid);
 
@@ -673,7 +673,7 @@ window.nkXRInputSource =
 
 window.nkXRAnchor =
 {
-    GetAnchorSpace: function (uid, d)
+    GetAnchorSpace: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
 
@@ -685,7 +685,7 @@ window.nkXRAnchor =
 
         return nkJSObject.RegisterObject(as);
     },
-    Delete: function (uid, d)
+    Delete: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
 
@@ -695,12 +695,12 @@ window.nkXRAnchor =
 
 window.nkXRHand =
 {
-    GetSize: function (uid, d)
+    GetSize: function(uid, d)
     {
         var hd = nkJSObject.GetObject(uid);
         return hd.size;
     },
-    Get: function (uid, d)
+    Get: function(uid, d)
     {
         var hd = nkJSObject.GetObject(uid);
         var ky = nkJSObject.ReadString(d + 0);

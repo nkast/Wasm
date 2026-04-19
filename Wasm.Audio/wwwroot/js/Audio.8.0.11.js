@@ -14,7 +14,7 @@
         return nkJSObject.RegisterObject(ac);
     },
 
-    Resume: function(uid,d)
+    Resume: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
 
@@ -22,7 +22,7 @@
         return nkJSObject.RegisterObject(pr);
     },
 
-    Suspend: function(uid,d)
+    Suspend: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
 
@@ -30,7 +30,7 @@
         return nkJSObject.RegisterObject(pr);
     },
 
-    Close1: function(uid,d)
+    Close1: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
 
@@ -38,16 +38,16 @@
         return nkJSObject.RegisterObject(pr);
     },
 
-    Close: function(uid,d)
+    Close: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         ac.close();
     },
 
-    CreateMediaStreamSource: function (uid, d)
+    CreateMediaStreamSource: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var sid = Module.HEAP32[(d + 0) >> 2];
+        var sid = Module.HEAP32[(d + 0)>>2];
         var ms = nkJSObject.GetObject(sid);
         var sn = ac.createMediaStreamSource(ms);
         return nkJSObject.RegisterObject(sn);
@@ -56,25 +56,25 @@
 
 window.nkAudioBaseContext =
 {
-    GetSampleRate: function (uid, d)
+    GetSampleRate: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var sr = ac.sampleRate;
         return sr;
     },
-    GetDestination: function (uid, d)
+    GetDestination: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var ds = ac.destination;        
         return  nkJSObject.RegisterObject(ds);
     },
-    GetListener: function (uid, d)
+    GetListener: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var lr = ac.listener;
         return  nkJSObject.RegisterObject(lr);
     },
-    GetAudioWorklet: function (uid, d)
+    GetAudioWorklet: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
 
@@ -87,7 +87,7 @@ window.nkAudioBaseContext =
         return nkJSObject.RegisterObject(aw);
     },
     
-    GetState: function (uid)
+    GetState: function(uid)
     {
         var ac = nkJSObject.GetObject(uid);
         switch (ac.state)
@@ -100,7 +100,7 @@ window.nkAudioBaseContext =
         }
     },
 
-    CreateBuffer: function (uid, d)
+    CreateBuffer: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var nc = Module.HEAP32[(d+ 0)>>2];
@@ -109,31 +109,31 @@ window.nkAudioBaseContext =
         var ab = ac.createBuffer(nc, le, sr);
         return  nkJSObject.RegisterObject(ab);
     },
-    CreateBufferSource: function (uid, d)
+    CreateBufferSource: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var bs = ac.createBufferSource();
         return nkJSObject.RegisterObject(bs);
     },
-    CreateOscillator: function (uid, d)
+    CreateOscillator: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var os = ac.createOscillator();
         return nkJSObject.RegisterObject(os);
     },
-    CreateGain: function (uid, d)
+    CreateGain: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var gn = ac.createGain();         
         return nkJSObject.RegisterObject(gn);
     },
-    CreateStereoPanner: function (uid, d)
+    CreateStereoPanner: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var sp = ac.createStereoPanner();
         return nkJSObject.RegisterObject(sp);
     },
-    CreateMediaElementSource: function (uid, d)
+    CreateMediaElementSource: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var mid= Module.HEAP32[(d+ 0)>>2];
@@ -141,7 +141,7 @@ window.nkAudioBaseContext =
         var ms = ac.createMediaElementSource(me);
         return nkJSObject.RegisterObject(ms);
     },
-    CreateWorklet: function (uid, d)
+    CreateWorklet: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var na = nkJSObject.ReadString(d + 0);
@@ -154,7 +154,7 @@ window.nkAudioBaseContext =
 
 window.nkAudioBuffer =
 {
-    CopyToChannel: function (uid, d)
+    CopyToChannel: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
         var ch = Module.HEAP32[(d+ 0)>>2];
@@ -166,19 +166,19 @@ window.nkAudioBuffer =
 
         ab.copyToChannel(sr, ch);
     },    
-    GetSampleRate: function (uid, d)
+    GetSampleRate: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
         var sr = ab.sampleRate;
         return sr;
     },
-    GetLength: function (uid, d)
+    GetLength: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
         var ln = ab.length;
         return ln;
     },
-    GetNumberOfChannels: function (uid, d)
+    GetNumberOfChannels: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
         var nc = ab.numberOfChannels;
@@ -188,57 +188,57 @@ window.nkAudioBuffer =
 
 window.nkAudioListener =
 {
-    SetPositionX: function (uid, d)
+    SetPositionX: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var px = Module.HEAP32[(d+ 0)>>2];
         lr.positionX = px;
     },
-    SetPositionY: function (uid, d)
+    SetPositionY: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var py = Module.HEAP32[(d+ 0)>>2];
         lr.positionY = py;
     },
-    SetPositionZ: function (uid, d)
+    SetPositionZ: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var pz = Module.HEAP32[(d+ 0)>>2];
         lr.positionZ = pz;
     },
 
-    SetForwardX: function (uid, d)
+    SetForwardX: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var fx = Module.HEAP32[(d+ 0)>>2];
         lr.forwardX = fx;
     },
-    SetForwardY: function (uid, d)
+    SetForwardY: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var fy = Module.HEAP32[(d+ 0)>>2];
         lr.forwardY = fy;
     },
-    SetForwardZ: function (uid, d)
+    SetForwardZ: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var fz = Module.HEAP32[(d+ 0)>>2];
         lr.forwardZ = fz;
     },
 
-    SetUpX: function (uid, d)
+    SetUpX: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var ux = Module.HEAP32[(d+ 0)>>2];
         lr.upX = ux;
     },
-    SetUpY: function (uid, d)
+    SetUpY: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var uy = Module.HEAP32[(d+ 0)>>2];
         lr.upY = uy;
     },
-    SetUpZ: function (uid, d)
+    SetUpZ: function(uid, d)
     {
         var lr = nkJSObject.GetObject(uid);
         var uz = Module.HEAP32[(d+ 0)>>2];
@@ -248,7 +248,7 @@ window.nkAudioListener =
 
 window.nkAudioBufferSourceNode =
 {
-    SetBuffer: function (uid, d)
+    SetBuffer: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         var bid= Module.HEAP32[(d+ 0)>>2];
@@ -256,18 +256,18 @@ window.nkAudioBufferSourceNode =
         bs.buffer = ab;
     },
 
-    GetLoop: function (uid, d)
+    GetLoop: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         return bs.loop;
     },
-    SetLoop: function (uid, d)
+    SetLoop: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         var lp = Module.HEAP32[(d+ 0)>>2];
         bs.loop = lp !== 0;
     },
-    GetPlaybackRate: function (uid, d)
+    GetPlaybackRate: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         var pr = bs.playbackRate;
@@ -277,18 +277,18 @@ window.nkAudioBufferSourceNode =
 
 window.nkAudioScheduledSourceNode =
 {
-    Start: function (uid, d)
+    Start: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         bs.start();
     },
-    Stop: function (uid, d)
+    Stop: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         bs.stop();
     },
     
-    RegisterEvents: function (uid)
+    RegisterEvents: function(uid)
     {
         var bs = nkJSObject.GetObject(uid);
 
@@ -297,7 +297,7 @@ window.nkAudioScheduledSourceNode =
             DotNet.invokeMethod('nkast.Wasm.Audio', 'JsAudioScheduledSourceNodeOnEnded', uid);
         };
     },    
-    UnregisterEvents: function (uid)
+    UnregisterEvents: function(uid)
     {
         var bs = nkJSObject.GetObject(uid);
         bs.onended = null;
@@ -306,7 +306,7 @@ window.nkAudioScheduledSourceNode =
 
 window.nkAudioDestinationNode =
 {
-    GetMaxChannelCount: function (uid, d)
+    GetMaxChannelCount: function(uid, d)
     {
         var gn = nkJSObject.GetObject(uid);
         return gn.maxChannelCount;
@@ -315,22 +315,22 @@ window.nkAudioDestinationNode =
 
 window.nkAudioNode =
 {
-    GetNumberOfInputs: function (uid, d)
+    GetNumberOfInputs: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         return an.numberOfInputs;
     },
-    GetNumberOfOutputs: function (uid, d)
+    GetNumberOfOutputs: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         return an.numberOfOutputs;
     },
-    GetChannelCount: function (uid, d)
+    GetChannelCount: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         return an.channelCount;
     },
-    GetChannelCountMode: function (uid, d)
+    GetChannelCountMode: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         switch (an.channelCountMode)
@@ -342,19 +342,19 @@ window.nkAudioNode =
                 throw new Error("Unknown channelCountMode: " + an.channelCountMode);
         }
     },
-    Connect: function (uid, d)
+    Connect: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         var did= Module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.connect(ds);
     },
-    Disconnect: function (uid, d)
+    Disconnect: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         an.disconnect();
     },
-    Disconnect1: function (uid, d)
+    Disconnect1: function(uid, d)
     {
         var an = nkJSObject.GetObject(uid);
         var did = Module.HEAP32[(d+ 0)>>2];
@@ -365,14 +365,14 @@ window.nkAudioNode =
 
 window.nkAudioOscillatorNode =
 {
-    GetFrequency: function (uid, d)
+    GetFrequency: function(uid, d)
     {
         var os = nkJSObject.GetObject(uid);
         var ap = os.frequency;
         return  nkJSObject.RegisterObject(ap);
     },
 
-    GetType: function (uid)
+    GetType: function(uid)
     {
         var os = nkJSObject.GetObject(uid);
         switch (os.type)
@@ -386,7 +386,7 @@ window.nkAudioOscillatorNode =
                 throw new Error("Unknown OscillatorNode type: " + os.type);
         }
     },
-    SetType: function (uid, d)
+    SetType: function(uid, d)
     {
         var os = nkJSObject.GetObject(uid);
         var ty = Module.HEAP32[(d+ 0)>>2];
@@ -406,7 +406,7 @@ window.nkAudioOscillatorNode =
 
 window.nkAudioGainNode =
 {
-    GetGain: function (uid, d)
+    GetGain: function(uid, d)
     {
         var gn = nkJSObject.GetObject(uid);
         var ap = gn.gain;
@@ -416,7 +416,7 @@ window.nkAudioGainNode =
 
 window.nkAudioStereoPannerNode =
 {
-    GetPan: function (uid, d)
+    GetPan: function(uid, d)
     {
         var sp = nkJSObject.GetObject(uid);
         var ap = sp.pan;
@@ -426,7 +426,7 @@ window.nkAudioStereoPannerNode =
 
 window.nkAudioWorkletNode =
 {
-    GetPort: function (uid, d)
+    GetPort: function(uid, d)
     {
         var wn = nkJSObject.GetObject(uid);
 
@@ -438,7 +438,7 @@ window.nkAudioWorkletNode =
 
         return nkJSObject.RegisterObject(po);
     },
-    GetParameters: function (uid, d)
+    GetParameters: function(uid, d)
     {
         var wn = nkJSObject.GetObject(uid);
 
@@ -454,56 +454,56 @@ window.nkAudioWorkletNode =
 
 window.nkAudioParam =
 {  
-    GetDefaultValue: function (uid, d)
+    GetDefaultValue: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         return ap.defaultValue;
     },
-    GetMinValue: function (uid, d)
+    GetMinValue: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         return ap.minValue;
     },
-    GetMaxValue: function (uid, d)
+    GetMaxValue: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         return ap.maxValue;
     },
 
-    GetValue: function (uid, d)
+    GetValue: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         return ap.value;
     },
-    SetValue: function (uid, d)
+    SetValue: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var vl = Module.HEAPF32[(d+ 0)>>2];
         ap.value = vl;
     },
     
-    SetValueAtTime: function (uid, d)
+    SetValueAtTime: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var vl = Module.HEAPF32[(d+ 0)>>2];
         var st = Module.HEAPF32[(d+ 4)>>2];
         ap.setValueAtTime(vl, st);
     },
-    LinearRampToValueAtTime: function (uid, d)
+    LinearRampToValueAtTime: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var vl = Module.HEAPF32[(d+ 0)>>2];
         var et = Module.HEAPF32[(d+ 4)>>2];
         ap.linearRampToValueAtTime(vl, et);
     },
-    ExponentialRampToValueAtTime: function (uid, d)
+    ExponentialRampToValueAtTime: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var vl = Module.HEAPF32[(d+ 0)>>2];
         var et = Module.HEAPF32[(d+ 4)>>2];
         ap.exponentialRampToValueAtTime(vl, et);
     },
-    SetTargetAtTime: function (uid, d)
+    SetTargetAtTime: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var tg = Module.HEAPF32[(d+ 0)>>2];
@@ -511,7 +511,7 @@ window.nkAudioParam =
         var tc = Module.HEAPF32[(d+ 8)>>2];
         ap.setTargetAtTime(tg, st, tc);
     },
-    SetValueCurveAtTime: function (uid, d)
+    SetValueCurveAtTime: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var st = Module.HEAPF32[(d+ 0)>>2];
@@ -525,7 +525,7 @@ window.nkAudioParam =
         ap.setValueCurveAtTime(vs, st, dt);
     },
 
-    CancelScheduledValues: function (uid, d)
+    CancelScheduledValues: function(uid, d)
     {
         var ap = nkJSObject.GetObject(uid);
         var st = Module.HEAPF32[(d+ 0)>>2];
@@ -535,12 +535,12 @@ window.nkAudioParam =
 
 window.nkAudioParamMap =
 {
-    GetSize: function (uid, d)
+    GetSize: function(uid, d)
     {
         var pm = nkJSObject.GetObject(uid);
         return pm.size;
     },
-    Get: function (uid, d)
+    Get: function(uid, d)
     {
         var pm = nkJSObject.GetObject(uid);
         var ky = nkJSObject.ReadString(d + 0);
@@ -557,7 +557,7 @@ window.nkAudioParamMap =
 
 window.nkAudioWorklet =
 {
-    AddModule: function (uid, d)
+    AddModule: function(uid, d)
     {
         var aw = nkJSObject.GetObject(uid);
         var mu = nkJSObject.ReadString(d + 0);
@@ -569,7 +569,7 @@ window.nkAudioWorklet =
 
 window.nkMediaDevices =
 {
-    Create: function (uid)
+    Create: function(uid)
     {
         var nv = nkJSObject.GetObject(uid);
         if ("mediaDevices" in nv)
@@ -585,7 +585,7 @@ window.nkMediaDevices =
             return nkJSObject.RegisterObject(null);
     },
 
-    GetUserMedia: function (uid, d)
+    GetUserMedia: function(uid, d)
     {
         var md = nkJSObject.GetObject(uid);
         var bi = Module.HEAP32[(d+ 0)>>2];

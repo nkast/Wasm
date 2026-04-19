@@ -6,7 +6,7 @@
         return nkJSObject.RegisterObject(xhr);
     },
 
-    Open: function(uid,d)
+    Open: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         var md = nkJSObject.ReadString(d+ 0);
@@ -14,43 +14,43 @@
         var ac = Module.HEAP32[(d+ 8)>>2] !== 0;
         xhr.open(md,ul,ac);
     },
-    OverrideMimeType: function(uid,d)
+    OverrideMimeType: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         var mt = nkJSObject.ReadString(d+ 0);
         xhr.overrideMimeType(mt);
     },
-    SetRequestHeader: function(uid,d)
+    SetRequestHeader: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         var hd = nkJSObject.ReadString(d+ 0);
         var vl = nkJSObject.ReadString(d+ 4);
         xhr.setRequestHeader(hd,vl);
     },
-    Send: function (uid, d)
+    Send: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         xhr.send(null);
     },
-    GetStatus: function(uid,d)
+    GetStatus: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         var status = xhr.status;
         return status;
     },
-    GetResponseText: function(uid,d)
+    GetResponseText: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         return xhr.responseText;
     },
-    GetReadyState: function(uid,d)
+    GetReadyState: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
         var readyState = xhr.readyState;
         return readyState;
     },
 
-    DecompressBrotliStream: function (uid, d)
+    DecompressBrotliStream: function(uid, d)
     {
         var gc = nkJSObject.GetObject(uid);
         var cl = Module.HEAP32[(d+ 0)>>2];
@@ -68,7 +68,7 @@
         ddt.set(decompressedArray);
     },
     
-    RegisterEvents: function (uid)
+    RegisterEvents: function(uid)
     {
         var bs = nkJSObject.GetObject(uid);
 
@@ -81,7 +81,7 @@
             DotNet.invokeMethod('nkast.Wasm.XHR', 'JsXMLHttpRequestOnError', uid);
         };
     },
-    UnregisterEvents: function (uid)
+    UnregisterEvents: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         me.onload = null;

@@ -17,32 +17,32 @@
         else 
         return -1;
     },
-    GetId: function (uid)
+    GetId: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.id;
     },
-    GetIndex: function (uid, d)
+    GetIndex: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.index;
     },
-    GetConnected: function (uid, d)
+    GetConnected: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.connected;
     },
-    GetMapping: function (uid, d)
+    GetMapping: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.mapping;
     },
-    GetTimestamp: function (uid, d)
+    GetTimestamp: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         return Math.floor(gp.timestamp*1000);
     },
-    GetButtons: function (uid, d)
+    GetButtons: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         var ct = Module.HEAP32[(d+ 0)>>2];
@@ -63,7 +63,7 @@
 
         return buttons.length;
     },
-    GetAxes: function (uid, d)
+    GetAxes: function(uid, d)
     {
         var gp = nkJSObject.GetObject(uid);
         var ct = Module.HEAP32[(d+ 0)>>2];
@@ -85,7 +85,7 @@
 
 window.nkGamepadHapticActuator =
 {
-    PlayEffect: function (uid, d)
+    PlayEffect: function(uid, d)
     {
         var ha = nkJSObject.GetObject(uid);
         var sd = Module.HEAPF32[(d+ 0)>>2];
@@ -110,7 +110,7 @@ window.nkGamepadHapticActuator =
         }
         return false;
     },
-    Pulse: function (uid, d)
+    Pulse: function(uid, d)
     {
         var ha = nkJSObject.GetObject(uid);
         var va = Module.HEAPF32[(d+ 0)>>2];
@@ -123,7 +123,7 @@ window.nkGamepadHapticActuator =
         }
         return false;
     },
-    Reset: function (uid, d)
+    Reset: function(uid, d)
     {
         var ha = nkJSObject.GetObject(uid);
 
