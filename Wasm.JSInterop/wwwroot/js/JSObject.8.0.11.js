@@ -64,15 +64,17 @@
         return nkJSObject.RegisterObject(window);
     },
 
+    utf16Decoder: new TextDecoder("utf-16le"),
     ReadString: function(d)
     {
         const pt = Module.HEAP32[(d)>>2];
-        var str = BINDING.conv_string(pt);
+        var len = Module.HEAP32[(pt+ 8)>>2];
+        const memory = new Uint16Array(Module.HEAPU16.buffer, pt+12, len);
+        var str = nkJSObject.utf16Decoder.decode(memory);
         return str;
     },
 
     funcMap: [null],
-    utf16Decoder: new TextDecoder("utf-16le"),
     ToJSString: function (pidentifier, length)
     {   
         const memory = new Uint16Array(Module.HEAPU16.buffer, pidentifier, length);
