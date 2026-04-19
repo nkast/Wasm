@@ -144,7 +144,7 @@ window.nkAudioBaseContext =
     CreateWorklet: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
-        var na = nkJSObject.ReadString(d + 0);
+        var na = nkJSObject.ReadString(Module, d+ 0);
 
         var wn = new AudioWorkletNode(ac, na);
 
@@ -543,7 +543,7 @@ window.nkAudioParamMap =
     Get: function(uid, d)
     {
         var pm = nkJSObject.GetObject(uid);
-        var ky = nkJSObject.ReadString(d + 0);
+        var ky = nkJSObject.ReadString(Module, d+ 0);
 
         var ap = pm.get(ky);
 
@@ -560,7 +560,7 @@ window.nkAudioWorklet =
     AddModule: function(uid, d)
     {
         var aw = nkJSObject.GetObject(uid);
-        var mu = nkJSObject.ReadString(d + 0);
+        var mu = nkJSObject.ReadString(Module, d+ 0);
 
         var pr = aw.addModule(mu);
         return nkJSObject.RegisterObject(pr);

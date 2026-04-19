@@ -9,22 +9,22 @@
     Open: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(d+ 0);
-        var ul = nkJSObject.ReadString(d+ 4);
+        var md = nkJSObject.ReadString(Module, d+ 0);
+        var ul = nkJSObject.ReadString(Module, d+ 4);
         var ac = Module.HEAP32[(d+ 8)>>2] !== 0;
         xhr.open(md,ul,ac);
     },
     OverrideMimeType: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
-        var mt = nkJSObject.ReadString(d+ 0);
+        var mt = nkJSObject.ReadString(Module, d+ 0);
         xhr.overrideMimeType(mt);
     },
     SetRequestHeader: function(uid, d)
     {
         var xhr = nkJSObject.GetObject(uid);
-        var hd = nkJSObject.ReadString(d+ 0);
-        var vl = nkJSObject.ReadString(d+ 4);
+        var hd = nkJSObject.ReadString(Module, d+ 0);
+        var vl = nkJSObject.ReadString(Module, d+ 4);
         xhr.setRequestHeader(hd,vl);
     },
     Send: function(uid, d)

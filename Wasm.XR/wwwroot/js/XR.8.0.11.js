@@ -27,7 +27,7 @@ window.nkXRSystem =
     IsSessionSupported: function(uid, d)
     {
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(d, 0);
+        var md = nkJSObject.ReadString(Module, d, 0);
 
         var pr = xr.isSessionSupported(md);
         return nkJSObject.RegisterObject(pr);
@@ -35,7 +35,7 @@ window.nkXRSystem =
     RequestSession: function(uid, d)
     {
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(d, 0);
+        var md = nkJSObject.ReadString(Module, d, 0);
 
         var pr = xr.requestSession(md);
         return nkJSObject.RegisterObject(pr);
@@ -43,7 +43,7 @@ window.nkXRSystem =
     RequestSession1: function(uid, d)
     {
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(d, 0);
+        var md = nkJSObject.ReadString(Module, d, 0);
                 
         var refs = Module.HEAP32[(d+ 4)>>2];
         var opfs = Module.HEAP32[(d+ 8)>>2];
@@ -200,7 +200,7 @@ window.nkXRSession =
     RequestReferenceSpace: function(uid, d)
     {
         var ss = nkJSObject.GetObject(uid);
-        var rs = nkJSObject.ReadString(d, 0);
+        var rs = nkJSObject.ReadString(Module, d, 0);
 
         var pr = ss.requestReferenceSpace(rs);
         return nkJSObject.RegisterObject(pr);
@@ -703,7 +703,7 @@ window.nkXRHand =
     Get: function(uid, d)
     {
         var hd = nkJSObject.GetObject(uid);
-        var ky = nkJSObject.ReadString(d + 0);
+        var ky = nkJSObject.ReadString(Module, d+ 0);
 
         var js = hd.get(ky);
 

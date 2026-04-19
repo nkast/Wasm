@@ -8,13 +8,13 @@
     SetTitle: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var tl = nkJSObject.ReadString(d+ 0);
+        var tl = nkJSObject.ReadString(Module, d+ 0);
         dc.title = tl;
     },
     GetElementById: function(uid, d)
     {
         var dc = nkJSObject.GetObject(uid);
-        var id = nkJSObject.ReadString(d+ 0);
+        var id = nkJSObject.ReadString(Module, d+ 0);
         var el = dc.getElementById(id);
         return nkJSObject.RegisterObject(el);
     },
@@ -90,7 +90,7 @@ window.nkStyleDeclaration =
     GetPropertyValue: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
-        var pr = nkJSObject.ReadString(d + 0);
+        var pr = nkJSObject.ReadString(Module, d+ 0);
 
         return st.getPropertyValue(pr);
     },
@@ -98,8 +98,8 @@ window.nkStyleDeclaration =
     SetProperty: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
-        var pr = nkJSObject.ReadString(d + 0);
-        var va = nkJSObject.ReadString(d + 4);
+        var pr = nkJSObject.ReadString(Module, d+ 0);
+        var va = nkJSObject.ReadString(Module, d+ 4);
 
         st.setProperty(pr, va);
     },
@@ -162,7 +162,7 @@ window.nkInput =
     SetValue: function(uid, d)
     {
         var it = nkJSObject.GetObject(uid);
-        var va = nkJSObject.ReadString(d+ 0);
+        var va = nkJSObject.ReadString(Module, d+ 0);
         it.value = va;
     },
     GetValueAsNumber: function(uid)

@@ -277,20 +277,20 @@ window.nkStorage =
     SetItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(d+ 0);
-        var va = nkJSObject.ReadString(d+ 4);
+        var ke = nkJSObject.ReadString(Module, d+ 0);
+        var va = nkJSObject.ReadString(Module, d+ 4);
         st.setItem(ke, va);
     },    
     GetItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(d+ 0);
+        var ke = nkJSObject.ReadString(Module, d+ 0);
         return st.getItem(ke);
     },    
     RemoveItem: function(uid, d)
     {
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(d+ 0);
+        var ke = nkJSObject.ReadString(Module, d+ 0);
         st.removeItem(ke);
     },
 };

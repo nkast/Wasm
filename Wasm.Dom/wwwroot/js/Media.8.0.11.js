@@ -32,7 +32,7 @@
     SetSrc: function(uid, d)
     {
         var me = nkJSObject.GetObject(uid);
-        var sr = nkJSObject.ReadString(d+ 0);
+        var sr = nkJSObject.ReadString(Module, d+ 0);
         me.src = sr;
     },
     

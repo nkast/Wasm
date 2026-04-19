@@ -65,24 +65,24 @@
     },
 
     utf16Decoder: new TextDecoder("utf-16le"),
-    ReadString: function(d)
+    ReadString: function (module, d)
     {
-        const pt = Module.HEAP32[(d)>>2];
-        var len = Module.HEAP32[(pt+ 8)>>2];
-        const memory = new Uint16Array(Module.HEAPU16.buffer, pt+12, len);
+        const pt = module.HEAP32[(d)>>2];
+        var len = module.HEAP32[(pt+ 8)>>2];
+        const memory = new Uint16Array(module.HEAPU16.buffer, pt+12, len);
         var str = nkJSObject.utf16Decoder.decode(memory);
         return str;
     },
 
     funcMap: [null],
-    ToJSString: function (pidentifier, length)
+    ToJSString: function(module, pidentifier, length)
     {   
-        const memory = new Uint16Array(Module.HEAPU16.buffer, pidentifier, length);
+        const memory = new Uint16Array(module.HEAPU16.buffer, pidentifier, length);
         return nkJSObject.utf16Decoder.decode(memory);
     },
     JSRegisterFunction: function (pidentifier, length)
     {
-        const identifier = nkJSObject.ToJSString(pidentifier, length);
+        const identifier = nkJSObject.ToJSString(Module, pidentifier, length);
 
         const parts = identifier.split('.');
 
