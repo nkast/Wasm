@@ -82,7 +82,8 @@
     },
     JSRegisterFunction: function (pidentifier, length)
     {
-        const identifier = nkJSObject.ToJSString(Module, pidentifier, length);
+        var module = Module;
+        const identifier = nkJSObject.ToJSString(module, pidentifier, length);
 
         const parts = identifier.split('.');
 
@@ -171,8 +172,9 @@ window.nkJSArray =
     },
     GetItem: function(uid, d)
     {
+        var module = Module;
         var ar = nkJSObject.GetObject(uid);
-        var id = Module.HEAP32[(d + 0>>2)];
+        var id = module.HEAP32[(d + 0>>2)];
 
         var it = ar[id];
         var uid = nkJSObject.GetUid(it);
@@ -192,14 +194,15 @@ window.nkJSUInt8Array =
     },
     CopyTo: function(uid, d)
     {
+        var module = Module;
         var ar = nkJSObject.GetObject(uid);
-        var si = Module.HEAP32[(d+ 0)>>2];
-        var arr = Module.HEAP32[(d+ 4)>>2];
-        var di  = Module.HEAP32[(d+ 8)>>2];
-        var cn  = Module.HEAP32[(d+12)>>2];
+        var si = module.HEAP32[(d+ 0)>>2];
+        var arr = module.HEAP32[(d+ 4)>>2];
+        var di  = module.HEAP32[(d+ 8)>>2];
+        var cn  = module.HEAP32[(d+12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
-        var dest = new Uint8Array(Module.HEAPU8.buffer, arrPtr+di, cn);
+        var dest = new Uint8Array(module.HEAPU8.buffer, arrPtr+di, cn);
         dest.set(ar.subarray(si, si+cn));
     },
 };

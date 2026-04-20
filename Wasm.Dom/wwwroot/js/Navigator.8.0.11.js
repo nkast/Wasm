@@ -23,8 +23,9 @@
     },
     Vibrate: function(uid, d)
     {
+        var module = Module;
         var nv = nkJSObject.GetObject(uid);
-        var ms = Module.HEAP32[(d+ 0)>>2];
+        var ms = module.HEAP32[(d+ 0)>>2];
 
         if ('vibrate' in nv)
         {

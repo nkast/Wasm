@@ -8,23 +8,26 @@
 
     Open: function(uid, d)
     {
+        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(Module, d+ 0);
-        var ul = nkJSObject.ReadString(Module, d+ 4);
-        var ac = Module.HEAP32[(d+ 8)>>2] !== 0;
+        var md = nkJSObject.ReadString(module, d+ 0);
+        var ul = nkJSObject.ReadString(module, d+ 4);
+        var ac = module.HEAP32[(d+ 8)>>2] !== 0;
         xhr.open(md,ul,ac);
     },
     OverrideMimeType: function(uid, d)
     {
+        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
-        var mt = nkJSObject.ReadString(Module, d+ 0);
+        var mt = nkJSObject.ReadString(module, d+ 0);
         xhr.overrideMimeType(mt);
     },
     SetRequestHeader: function(uid, d)
     {
+        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
-        var hd = nkJSObject.ReadString(Module, d+ 0);
-        var vl = nkJSObject.ReadString(Module, d+ 4);
+        var hd = nkJSObject.ReadString(module, d+ 0);
+        var vl = nkJSObject.ReadString(module, d+ 4);
         xhr.setRequestHeader(hd,vl);
     },
     Send: function(uid, d)
@@ -52,17 +55,18 @@
 
     DecompressBrotliStream: function(uid, d)
     {
+        var module = Module;
         var gc = nkJSObject.GetObject(uid);
-        var cl = Module.HEAP32[(d+ 0)>>2];
-        var dl = Module.HEAP32[(d+ 4)>>2];
-        var carr = Module.HEAP32[(d+ 8)>>2];
-        var darr = Module.HEAP32[(d+12)>>2];
+        var cl = module.HEAP32[(d+ 0)>>2];
+        var dl = module.HEAP32[(d+ 4)>>2];
+        var carr = module.HEAP32[(d+ 8)>>2];
+        var darr = module.HEAP32[(d+12)>>2];
 
         var carrPtr = Blazor.platform.getArrayEntryPtr(carr, 0, 4);
         var darrPtr = Blazor.platform.getArrayEntryPtr(darr, 0, 4);
         
-        var cdt = new Int8Array(Module.HEAPU8.buffer, carrPtr, cl);
-        var ddt = new Int8Array(Module.HEAPU8.buffer, darrPtr, dl);
+        var cdt = new Int8Array(module.HEAPU8.buffer, carrPtr, cl);
+        var ddt = new Int8Array(module.HEAPU8.buffer, darrPtr, dl);
         
         var decompressedArray = BrotliDecode(cdt);
         ddt.set(decompressedArray);

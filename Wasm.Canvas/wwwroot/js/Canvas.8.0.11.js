@@ -7,8 +7,9 @@
     },
     SetWidth: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        c.width = Module.HEAP32[(d+ 0)>>2];
+        c.width = module.HEAP32[(d+ 0)>>2];
     },
     GetHeight: function(uid)
     {
@@ -17,8 +18,9 @@
     },
     SetHeight: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        c.height = Module.HEAP32[(d+ 0)>>2];
+        c.height = module.HEAP32[(d+ 0)>>2];
     },
     Create2DContext: function(uid)
     {
@@ -28,8 +30,9 @@
     },
     Create2DContext1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -51,8 +54,9 @@
     },
     CreateWebGLContext1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -100,8 +104,9 @@
     },
     CreateWebGL2Context1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -178,8 +183,9 @@ window.nkOffscreenCanvas =
     },
     SetWidth: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        c.width = Module.HEAP32[(d+ 0)>>2];
+        c.width = module.HEAP32[(d+ 0)>>2];
     },
     GetHeight: function(uid)
     {
@@ -188,8 +194,9 @@ window.nkOffscreenCanvas =
     },
     SetHeight: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        c.height = Module.HEAP32[(d+ 0)>>2];
+        c.height = module.HEAP32[(d+ 0)>>2];
     },
     Create2DContext: function(uid)
     {
@@ -199,8 +206,9 @@ window.nkOffscreenCanvas =
     },
     Create2DContext1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -222,8 +230,9 @@ window.nkOffscreenCanvas =
     },
     CreateWebGLContext1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;
@@ -271,8 +280,9 @@ window.nkOffscreenCanvas =
     },
     CreateWebGL2Context1: function(uid, d)
     {
+        var module = Module;
         var c = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var al = (bi >>  0) & 3;
         var de = (bi >>  2) & 3;

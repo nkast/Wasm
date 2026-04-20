@@ -67,8 +67,9 @@
     },
     RequestAnimationFrame: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d + 0)>>2];
+        var ci = module.HEAP32[(d + 0)>>2];
 
         var callback = nkWindow.RequestAnimationFrameCallback;
         var handle = w.requestAnimationFrame((time) =>
@@ -84,16 +85,18 @@
     },
     CancelAnimationFrame: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var rq = Module.HEAP32[(d + 0)>>2];
+        var rq = module.HEAP32[(d + 0)>>2];
 
         w.cancelAnimationFrame(rq);
     },    
     SetTimeout: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d+ 0)>>2];
-        var dl = Module.HEAP32[(d+ 4)>>2];
+        var ci = module.HEAP32[(d+ 0)>>2];
+        var dl = module.HEAP32[(d+ 4)>>2];
 
         var callback = nkWindow.TimeoutCallback;
         var hd = w.setTimeout(() =>
@@ -109,17 +112,19 @@
     },
     ClearTimeout: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var hd = Module.HEAP32[(d+ 0)>>2];
+        var hd = module.HEAP32[(d+ 0)>>2];
 
         w.clearTimeout(hd);
     },
 
     SetInterval: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d+ 0)>>2];
-        var dl = Module.HEAP32[(d+ 4)>>2];
+        var ci = module.HEAP32[(d+ 0)>>2];
+        var dl = module.HEAP32[(d+ 4)>>2];
 
         var callback = nkWindow.IntervalCallback;
         var hd = w.setInterval(() =>
@@ -135,8 +140,9 @@
     },
     ClearInterval: function(uid, d)
     {
+        var module = Module;
         var w  = nkJSObject.GetObject(uid);
-        var hd = Module.HEAP32[(d+ 0)>>2];
+        var hd = module.HEAP32[(d+ 0)>>2];
 
         w.clearInterval(hd);
     },
@@ -276,21 +282,24 @@ window.nkStorage =
     
     SetItem: function(uid, d)
     {
+        var module = Module;
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(Module, d+ 0);
-        var va = nkJSObject.ReadString(Module, d+ 4);
+        var ke = nkJSObject.ReadString(module, d+ 0);
+        var va = nkJSObject.ReadString(module, d+ 4);
         st.setItem(ke, va);
     },    
     GetItem: function(uid, d)
     {
+        var module = Module;
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(Module, d+ 0);
+        var ke = nkJSObject.ReadString(module, d+ 0);
         return st.getItem(ke);
     },    
     RemoveItem: function(uid, d)
     {
+        var module = Module;
         var st = nkJSObject.GetObject(uid);
-        var ke = nkJSObject.ReadString(Module, d+ 0);
+        var ke = nkJSObject.ReadString(module, d+ 0);
         st.removeItem(ke);
     },
 };
@@ -311,27 +320,30 @@ window.nkMessagePort =
 
     PostMessagei: function(uid, d)
     {
+        var module = Module;
         var mp = nkJSObject.GetObject(uid);
-        var ms = Module.HEAP32[(d+ 0)>>2];
+        var ms = module.HEAP32[(d+ 0)>>2];
 
         mp.postMessage(ms);
     },
     PostMessagef64: function(uid, d)
     {
+        var module = Module;
         var mp = nkJSObject.GetObject(uid);
-        var ms = Module.HEAPF64[(d+ 0)>>3];
+        var ms = module.HEAPF64[(d+ 0)>>3];
 
         mp.postMessage(ms);
     },
     PostMessageUInt8Array: function(uid, d)
     {
+        var module = Module;
         var mp = nkJSObject.GetObject(uid);
-        var arr = Module.HEAP32[(d+ 0)>>2];
-        var id  = Module.HEAP32[(d+ 4)>>2];
-        var cn  = Module.HEAP32[(d+ 8)>>2];
+        var arr = module.HEAP32[(d+ 0)>>2];
+        var id  = module.HEAP32[(d+ 4)>>2];
+        var cn  = module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
-        var ms = new Uint8Array(Module.HEAPU8.buffer, arrPtr+id, cn);
+        var ms = new Uint8Array(module.HEAPU8.buffer, arrPtr+id, cn);
 
         var msCopy = new Uint8Array(ms);
         mp.postMessage(msCopy, [msCopy.buffer]);

@@ -26,27 +26,30 @@ window.nkXRSystem =
 
     IsSessionSupported: function(uid, d)
     {
+        var module = Module;
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(Module, d, 0);
+        var md = nkJSObject.ReadString(module, d, 0);
 
         var pr = xr.isSessionSupported(md);
         return nkJSObject.RegisterObject(pr);
     },
     RequestSession: function(uid, d)
     {
+        var module = Module;
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(Module, d, 0);
+        var md = nkJSObject.ReadString(module, d, 0);
 
         var pr = xr.requestSession(md);
         return nkJSObject.RegisterObject(pr);
     },
     RequestSession1: function(uid, d)
     {
+        var module = Module;
         var xr = nkJSObject.GetObject(uid);
-        var md = nkJSObject.ReadString(Module, d, 0);
+        var md = nkJSObject.ReadString(module, d, 0);
                 
-        var refs = Module.HEAP32[(d+ 4)>>2];
-        var opfs = Module.HEAP32[(d+ 8)>>2];
+        var refs = module.HEAP32[(d+ 4)>>2];
+        var opfs = module.HEAP32[(d+ 8)>>2];
 
         var requiredFeatures = nkXRSystem.GetSessionFeatures(refs);
         var optionalFeatures = nkXRSystem .GetSessionFeatures(opfs);
@@ -112,8 +115,9 @@ window.nkXRSession =
 {
     CreateWebGLLayer: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var gcuid = Module.HEAP32[(d+ 0)>>2];
+        var gcuid = module.HEAP32[(d+ 0)>>2];
 
         var gc = nkJSObject.GetObject(gcuid);
 
@@ -122,9 +126,10 @@ window.nkXRSession =
     },
     CreateWebGLLayer1: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var gcuid = Module.HEAP32[(d+ 0)>>2];
-        var bi = Module.HEAP32[(d+ 4)>>2];
+        var gcuid = module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 4)>>2];
         
         var al = (bi >>  0) & 3;
         var dp = (bi >>  2) & 3;
@@ -190,8 +195,9 @@ window.nkXRSession =
     },
     UpdateRenderState: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var xl = Module.HEAP32[(d+ 0)>>2];
+        var xl = module.HEAP32[(d+ 0)>>2];
 
         var xlo = nkJSObject.GetObject(xl);
 
@@ -199,16 +205,18 @@ window.nkXRSession =
     },
     RequestReferenceSpace: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var rs = nkJSObject.ReadString(Module, d, 0);
+        var rs = nkJSObject.ReadString(module, d, 0);
 
         var pr = ss.requestReferenceSpace(rs);
         return nkJSObject.RegisterObject(pr);
     },
     RequestAnimationFrame: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var ci = Module.HEAP32[(d+ 0)>>2];
+        var ci = module.HEAP32[(d+ 0)>>2];
 
         var callback = nkXRSession.RequestAnimationFrameCallback;
         var handle = ss.requestAnimationFrame((time, xrFrame) => 
@@ -232,8 +240,9 @@ window.nkXRSession =
     },
     CancelAnimationFrame: function(uid, d)
     {
+        var module = Module;
         var ss = nkJSObject.GetObject(uid);
-        var rq = Module.HEAP32[(d+ 0)>>2];
+        var rq = module.HEAP32[(d+ 0)>>2];
 
         ss.cancelAnimationFrame(rq);
     },
@@ -263,30 +272,33 @@ window.nkXRRenderState =
 {
     GetDepthNear: function(uid, d)
     {
+        var module = Module;
         var rs = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
         
         var dn = -1;
         if ('depthNear' in rs)
             dn = rs.depthNear;
 
-        Module.HEAPF32[(pt+ 0)>>2] = dn;
+        module.HEAPF32[(pt+ 0)>>2] = dn;
     },
     GetDepthFar: function(uid, d)
     {
+        var module = Module;
         var rs = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var df = -1;
         if ('depthFar' in rs)
             df = rs.depthFar;
 
-        Module.HEAPF32[(pt+ 0)>>2] = df;
+        module.HEAPF32[(pt+ 0)>>2] = df;
     },
     GetInlineVerticalFieldOfView: function(uid, d)
     {
+        var module = Module;
         var rs = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var fo = -1;
         if ('inlineVerticalFieldOfView' in rs)
@@ -294,7 +306,7 @@ window.nkXRRenderState =
          if (fo === null)
              fo = -1;
 
-        Module.HEAPF32[(pt+ 0)>>2] = fo;
+        module.HEAPF32[(pt+ 0)>>2] = fo;
     },
     GetBaseLayer: function(uid, d)
     {
@@ -346,18 +358,19 @@ window.nkXRWebGLLayer =
     },
     GetViewport: function(uid, d)
     {
+        var module = Module;
         var xl = nkJSObject.GetObject(uid);
-        var veuid = Module.HEAP32[(d+ 0)>>2];
-        var pt = Module.HEAP32[(d+ 4)>>2];
+        var veuid = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
                 
         var ve = nkJSObject.GetObject(veuid);
 
         var vp = xl.getViewport(ve);
 
-        Module.HEAP32[(pt+ 0)>>2] = vp.x;
-        Module.HEAP32[(pt+ 4)>>2] = vp.y;
-        Module.HEAP32[(pt+ 8)>>2] = vp.width;
-        Module.HEAP32[(pt+12)>>2] = vp.height;
+        module.HEAP32[(pt+ 0)>>2] = vp.x;
+        module.HEAP32[(pt+ 4)>>2] = vp.y;
+        module.HEAP32[(pt+ 8)>>2] = vp.width;
+        module.HEAP32[(pt+12)>>2] = vp.height;
 
         return;
     },
@@ -378,8 +391,9 @@ window.nkXRFrame =
     },
     GetViewerPose: function(uid, d)
     {
+        var module = Module;
         var fr = nkJSObject.GetObject(uid);
-        var rfid = Module.HEAP32[(d+ 0)>>2];
+        var rfid = module.HEAP32[(d+ 0)>>2];
 
         var rf = nkJSObject.GetObject(rfid);
 
@@ -389,9 +403,10 @@ window.nkXRFrame =
     },
     GetPose: function(uid, d)
     {
+        var module = Module;
         var fr = nkJSObject.GetObject(uid);
-        var spid = Module.HEAP32[(d+ 0)>>2];
-        var bsid = Module.HEAP32[(d+ 4)>>2];
+        var spid = module.HEAP32[(d+ 0)>>2];
+        var bsid = module.HEAP32[(d+ 4)>>2];
         
         var sp = nkJSObject.GetObject(spid);
         var bs = nkJSObject.GetObject(bsid);
@@ -402,9 +417,10 @@ window.nkXRFrame =
     },
     GetJointPose: function(uid, d)
     {
+        var module = Module;
         var fr = nkJSObject.GetObject(uid);
-        var spid = Module.HEAP32[(d + 0)>>2];
-        var bsid = Module.HEAP32[(d + 4)>>2];
+        var spid = module.HEAP32[(d + 0)>>2];
+        var bsid = module.HEAP32[(d + 4)>>2];
 
         var sp = nkJSObject.GetObject(spid);
         var bs = nkJSObject.GetObject(bsid);
@@ -415,24 +431,25 @@ window.nkXRFrame =
     },
     CreateAnchor: function(uid, d)
     {
+        var module = Module;
         var fr = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
-        var bsid = Module.HEAP32[(d+ 4)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
+        var bsid = module.HEAP32[(d+ 4)>>2];
 
         var bs = nkJSObject.GetObject(bsid);
 
         var orientation = 
         {
-            x: Module.HEAPF32[(pt+ 0)>>2],
-            y: Module.HEAPF32[(pt+ 4)>>2],
-            z: Module.HEAPF32[(pt+ 8)>>2],
-            w: Module.HEAPF32[(pt+12)>>2],
+            x: module.HEAPF32[(pt+ 0)>>2],
+            y: module.HEAPF32[(pt+ 4)>>2],
+            z: module.HEAPF32[(pt+ 8)>>2],
+            w: module.HEAPF32[(pt+12)>>2],
         };
         var position = 
         {
-            x: Module.HEAPF32[(pt+16)>>2],
-            y: Module.HEAPF32[(pt+20)>>2],
-            z: Module.HEAPF32[(pt+24)>>2],
+            x: module.HEAPF32[(pt+16)>>2],
+            y: module.HEAPF32[(pt+20)>>2],
+            z: module.HEAPF32[(pt+24)>>2],
         };
         var tf = new XRRigidTransform(position, orientation);
 
@@ -454,17 +471,18 @@ window.nkXRPose =
     },
     GetAngularVelocity: function(uid, d)
     {
+        var module = Module;
         var ps = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var av = ps.angularVelocity;
                 
         if (av !== null && av !== undefined)
         {
-            Module.HEAPF32[(pt+ 0)>>2] = av.x;
-            Module.HEAPF32[(pt+ 4)>>2] = av.y;
-            Module.HEAPF32[(pt+ 8)>>2] = av.z;
-            Module.HEAPF32[(pt+12)>>2] = av.w;
+            module.HEAPF32[(pt+ 0)>>2] = av.x;
+            module.HEAPF32[(pt+ 4)>>2] = av.y;
+            module.HEAPF32[(pt+ 8)>>2] = av.z;
+            module.HEAPF32[(pt+12)>>2] = av.w;
             return true;
         }
         else
@@ -472,17 +490,18 @@ window.nkXRPose =
     },
     GetLinearVelocity: function(uid, d)
     {
+        var module = Module;
         var ps = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var lv = ps.linearVelocity;
 
         if (lv !== null && lv !== undefined)
         {
-            Module.HEAPF32[(pt+ 0)>>2] = lv.x;
-            Module.HEAPF32[(pt+ 4)>>2] = lv.y;
-            Module.HEAPF32[(pt+ 8)>>2] = lv.z;
-            Module.HEAPF32[(pt+12)>>2] = lv.w;
+            module.HEAPF32[(pt+ 0)>>2] = lv.x;
+            module.HEAPF32[(pt+ 4)>>2] = lv.y;
+            module.HEAPF32[(pt+ 8)>>2] = lv.z;
+            module.HEAPF32[(pt+12)>>2] = lv.w;
             return true;
         }
         else
@@ -490,21 +509,22 @@ window.nkXRPose =
     },
     GetTransform: function(uid, d)
     {
+        var module = Module;
         var ps = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var tf = ps.transform;
         
         var or = tf.orientation;
-        Module.HEAPF32[(pt+ 0)>>2] = or.x;
-        Module.HEAPF32[(pt+ 4)>>2] = or.y;
-        Module.HEAPF32[(pt+ 8)>>2] = or.z;
-        Module.HEAPF32[(pt+12)>>2] = or.w;            
+        module.HEAPF32[(pt+ 0)>>2] = or.x;
+        module.HEAPF32[(pt+ 4)>>2] = or.y;
+        module.HEAPF32[(pt+ 8)>>2] = or.z;
+        module.HEAPF32[(pt+12)>>2] = or.w;            
         var ps = tf.position;
-        Module.HEAPF32[(pt+16)>>2] = ps.x;
-        Module.HEAPF32[(pt+20)>>2] = ps.y;
-        Module.HEAPF32[(pt+24)>>2] = ps.z;
-        Module.HEAPF32[(pt+28)>>2] = ps.w;
+        module.HEAPF32[(pt+16)>>2] = ps.x;
+        module.HEAPF32[(pt+20)>>2] = ps.y;
+        module.HEAPF32[(pt+24)>>2] = ps.z;
+        module.HEAPF32[(pt+28)>>2] = ps.w;
     },
 };
 
@@ -521,8 +541,9 @@ window.nkXRViewerPose =
 {
     GetViews: function(uid, d)
     {
+        var module = Module;
         var vp = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var vs = vp.views;
 
@@ -533,7 +554,7 @@ window.nkXRViewerPose =
             if (vid === -1)
                 vid = nkJSObject.RegisterObject(view);
 
-            Module.HEAP32[(pt+ i*4)>>2] = vid;
+            module.HEAP32[(pt+ i*4)>>2] = vid;
         }
 
         return vs.length;
@@ -544,48 +565,50 @@ window.nkXRView =
 {
     GetTransform: function(uid, d)
     {
+        var module = Module;
         var ve = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var tf = ve.transform;
 
         var or = tf.orientation;
-        Module.HEAPF32[(pt+ 0)>>2] = or.x;
-        Module.HEAPF32[(pt+ 4)>>2] = or.y;
-        Module.HEAPF32[(pt+ 8)>>2] = or.z;
-        Module.HEAPF32[(pt+12)>>2] = or.w;            
+        module.HEAPF32[(pt+ 0)>>2] = or.x;
+        module.HEAPF32[(pt+ 4)>>2] = or.y;
+        module.HEAPF32[(pt+ 8)>>2] = or.z;
+        module.HEAPF32[(pt+12)>>2] = or.w;            
         var ps = tf.position;
-        Module.HEAPF32[(pt+16)>>2] = ps.x;
-        Module.HEAPF32[(pt+20)>>2] = ps.y;
-        Module.HEAPF32[(pt+24)>>2] = ps.z;
-        Module.HEAPF32[(pt+28)>>2] = ps.w;
+        module.HEAPF32[(pt+16)>>2] = ps.x;
+        module.HEAPF32[(pt+20)>>2] = ps.y;
+        module.HEAPF32[(pt+24)>>2] = ps.z;
+        module.HEAPF32[(pt+28)>>2] = ps.w;
     },
     GetProjectionMatrix: function(uid, d)
     {
+        var module = Module;
         var ve = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
 
         var mt = ve.projectionMatrix;
 
-        Module.HEAPF32[(pt+ 0)>>2] = mt[00];
-        Module.HEAPF32[(pt+ 4)>>2] = mt[01];
-        Module.HEAPF32[(pt+ 8)>>2] = mt[02];
-        Module.HEAPF32[(pt+12)>>2] = mt[03];
+        module.HEAPF32[(pt+ 0)>>2] = mt[00];
+        module.HEAPF32[(pt+ 4)>>2] = mt[01];
+        module.HEAPF32[(pt+ 8)>>2] = mt[02];
+        module.HEAPF32[(pt+12)>>2] = mt[03];
 
-        Module.HEAPF32[(pt+16)>>2] = mt[04];
-        Module.HEAPF32[(pt+20)>>2] = mt[05];
-        Module.HEAPF32[(pt+24)>>2] = mt[06];
-        Module.HEAPF32[(pt+28)>>2] = mt[07];
+        module.HEAPF32[(pt+16)>>2] = mt[04];
+        module.HEAPF32[(pt+20)>>2] = mt[05];
+        module.HEAPF32[(pt+24)>>2] = mt[06];
+        module.HEAPF32[(pt+28)>>2] = mt[07];
 
-        Module.HEAPF32[(pt+32)>>2] = mt[08];
-        Module.HEAPF32[(pt+36)>>2] = mt[09];
-        Module.HEAPF32[(pt+40)>>2] = mt[10];
-        Module.HEAPF32[(pt+44)>>2] = mt[11];
+        module.HEAPF32[(pt+32)>>2] = mt[08];
+        module.HEAPF32[(pt+36)>>2] = mt[09];
+        module.HEAPF32[(pt+40)>>2] = mt[10];
+        module.HEAPF32[(pt+44)>>2] = mt[11];
 
-        Module.HEAPF32[(pt+48)>>2] = mt[12];
-        Module.HEAPF32[(pt+52)>>2] = mt[13];
-        Module.HEAPF32[(pt+56)>>2] = mt[14];
-        Module.HEAPF32[(pt+60)>>2] = mt[15];
+        module.HEAPF32[(pt+48)>>2] = mt[12];
+        module.HEAPF32[(pt+52)>>2] = mt[13];
+        module.HEAPF32[(pt+56)>>2] = mt[14];
+        module.HEAPF32[(pt+60)>>2] = mt[15];
 
         return;
     },
@@ -702,8 +725,9 @@ window.nkXRHand =
     },
     Get: function(uid, d)
     {
+        var module = Module;
         var hd = nkJSObject.GetObject(uid);
-        var ky = nkJSObject.ReadString(Module, d+ 0);
+        var ky = nkJSObject.ReadString(module, d+ 0);
 
         var js = hd.get(ky);
 

@@ -31,8 +31,9 @@
     },
     SetSrc: function(uid, d)
     {
+        var module = Module;
         var me = nkJSObject.GetObject(uid);
-        var sr = nkJSObject.ReadString(Module, d+ 0);
+        var sr = nkJSObject.ReadString(module, d+ 0);
         me.src = sr;
     },
     
@@ -43,8 +44,9 @@
     },
     SetMuted: function(uid, d)
     {
+        var module = Module;
         var me = nkJSObject.GetObject(uid);
-        var mu = Module.HEAP32[(d+ 0)>>2];
+        var mu = module.HEAP32[(d+ 0)>>2];
         me.muted = mu !== 0;
     },
     
@@ -55,8 +57,9 @@
     },
     SetLoop: function(uid, d)
     {
+        var module = Module;
         var me = nkJSObject.GetObject(uid);
-        var lo = Module.HEAP32[(d+ 0)>>2];
+        var lo = module.HEAP32[(d+ 0)>>2];
         me.loop = lo !== 0;
     },
     
@@ -67,8 +70,9 @@
     },
     SetVolume: function(uid, d)
     {
+        var module = Module;
         var me = nkJSObject.GetObject(uid);
-        var vo = Module.HEAPF32[(d+ 0)>>2];
+        var vo = module.HEAPF32[(d+ 0)>>2];
         me.volume = vo;
     },
     

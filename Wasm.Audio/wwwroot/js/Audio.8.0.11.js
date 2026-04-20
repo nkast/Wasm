@@ -46,8 +46,9 @@
 
     CreateMediaStreamSource: function(uid, d)
     {
+        var module = Module;
         var ac = nkJSObject.GetObject(uid);
-        var sid = Module.HEAP32[(d + 0)>>2];
+        var sid = module.HEAP32[(d + 0)>>2];
         var ms = nkJSObject.GetObject(sid);
         var sn = ac.createMediaStreamSource(ms);
         return nkJSObject.RegisterObject(sn);
@@ -102,10 +103,11 @@ window.nkAudioBaseContext =
 
     CreateBuffer: function(uid, d)
     {
+        var module = Module;
         var ac = nkJSObject.GetObject(uid);
-        var nc = Module.HEAP32[(d+ 0)>>2];
-        var le = Module.HEAP32[(d+ 4)>>2];
-        var sr = Module.HEAP32[(d+ 8)>>2];
+        var nc = module.HEAP32[(d+ 0)>>2];
+        var le = module.HEAP32[(d+ 4)>>2];
+        var sr = module.HEAP32[(d+ 8)>>2];
         var ab = ac.createBuffer(nc, le, sr);
         return  nkJSObject.RegisterObject(ab);
     },
@@ -135,16 +137,18 @@ window.nkAudioBaseContext =
     },
     CreateMediaElementSource: function(uid, d)
     {
+        var module = Module;
         var ac = nkJSObject.GetObject(uid);
-        var mid= Module.HEAP32[(d+ 0)>>2];
+        var mid= module.HEAP32[(d+ 0)>>2];
         var me = nkJSObject.GetObject(mid);
         var ms = ac.createMediaElementSource(me);
         return nkJSObject.RegisterObject(ms);
     },
     CreateWorklet: function(uid, d)
     {
+        var module = Module;
         var ac = nkJSObject.GetObject(uid);
-        var na = nkJSObject.ReadString(Module, d+ 0);
+        var na = nkJSObject.ReadString(module, d+ 0);
 
         var wn = new AudioWorkletNode(ac, na);
 
@@ -156,13 +160,14 @@ window.nkAudioBuffer =
 {
     CopyToChannel: function(uid, d)
     {
+        var module = Module;
         var ab = nkJSObject.GetObject(uid);
-        var ch = Module.HEAP32[(d+ 0)>>2];
-        var arr = Module.HEAP32[(d+ 4)>>2];
-        var cn  = Module.HEAP32[(d+ 8)>>2];
+        var ch = module.HEAP32[(d+ 0)>>2];
+        var arr = module.HEAP32[(d+ 4)>>2];
+        var cn  = module.HEAP32[(d+ 8)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var sr = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn);
+        var sr = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
 
         ab.copyToChannel(sr, ch);
     },    
@@ -190,58 +195,67 @@ window.nkAudioListener =
 {
     SetPositionX: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var px = Module.HEAP32[(d+ 0)>>2];
+        var px = module.HEAP32[(d+ 0)>>2];
         lr.positionX = px;
     },
     SetPositionY: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var py = Module.HEAP32[(d+ 0)>>2];
+        var py = module.HEAP32[(d+ 0)>>2];
         lr.positionY = py;
     },
     SetPositionZ: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var pz = Module.HEAP32[(d+ 0)>>2];
+        var pz = module.HEAP32[(d+ 0)>>2];
         lr.positionZ = pz;
     },
 
     SetForwardX: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var fx = Module.HEAP32[(d+ 0)>>2];
+        var fx = module.HEAP32[(d+ 0)>>2];
         lr.forwardX = fx;
     },
     SetForwardY: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var fy = Module.HEAP32[(d+ 0)>>2];
+        var fy = module.HEAP32[(d+ 0)>>2];
         lr.forwardY = fy;
     },
     SetForwardZ: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var fz = Module.HEAP32[(d+ 0)>>2];
+        var fz = module.HEAP32[(d+ 0)>>2];
         lr.forwardZ = fz;
     },
 
     SetUpX: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var ux = Module.HEAP32[(d+ 0)>>2];
+        var ux = module.HEAP32[(d+ 0)>>2];
         lr.upX = ux;
     },
     SetUpY: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var uy = Module.HEAP32[(d+ 0)>>2];
+        var uy = module.HEAP32[(d+ 0)>>2];
         lr.upY = uy;
     },
     SetUpZ: function(uid, d)
     {
+        var module = Module;
         var lr = nkJSObject.GetObject(uid);
-        var uz = Module.HEAP32[(d+ 0)>>2];
+        var uz = module.HEAP32[(d+ 0)>>2];
         lr.upZ = uz;
     }
 };
@@ -250,8 +264,9 @@ window.nkAudioBufferSourceNode =
 {
     SetBuffer: function(uid, d)
     {
+        var module = Module;
         var bs = nkJSObject.GetObject(uid);
-        var bid= Module.HEAP32[(d+ 0)>>2];
+        var bid= module.HEAP32[(d+ 0)>>2];
         var ab = nkJSObject.GetObject(bid);
         bs.buffer = ab;
     },
@@ -263,8 +278,9 @@ window.nkAudioBufferSourceNode =
     },
     SetLoop: function(uid, d)
     {
+        var module = Module;
         var bs = nkJSObject.GetObject(uid);
-        var lp = Module.HEAP32[(d+ 0)>>2];
+        var lp = module.HEAP32[(d+ 0)>>2];
         bs.loop = lp !== 0;
     },
     GetPlaybackRate: function(uid, d)
@@ -344,8 +360,9 @@ window.nkAudioNode =
     },
     Connect: function(uid, d)
     {
+        var module = Module;
         var an = nkJSObject.GetObject(uid);
-        var did= Module.HEAP32[(d+ 0)>>2];
+        var did= module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.connect(ds);
     },
@@ -356,8 +373,9 @@ window.nkAudioNode =
     },
     Disconnect1: function(uid, d)
     {
+        var module = Module;
         var an = nkJSObject.GetObject(uid);
-        var did = Module.HEAP32[(d+ 0)>>2];
+        var did = module.HEAP32[(d+ 0)>>2];
         var ds = nkJSObject.GetObject(did);
         an.disconnect(ds);
     },
@@ -388,8 +406,9 @@ window.nkAudioOscillatorNode =
     },
     SetType: function(uid, d)
     {
+        var module = Module;
         var os = nkJSObject.GetObject(uid);
-        var ty = Module.HEAP32[(d+ 0)>>2];
+        var ty = module.HEAP32[(d+ 0)>>2];
         switch (ty)
         {
             case 1: os.type = "sine"; break;
@@ -477,58 +496,65 @@ window.nkAudioParam =
     },
     SetValue: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var vl = Module.HEAPF32[(d+ 0)>>2];
+        var vl = module.HEAPF32[(d+ 0)>>2];
         ap.value = vl;
     },
     
     SetValueAtTime: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var vl = Module.HEAPF32[(d+ 0)>>2];
-        var st = Module.HEAPF32[(d+ 4)>>2];
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var st = module.HEAPF32[(d+ 4)>>2];
         ap.setValueAtTime(vl, st);
     },
     LinearRampToValueAtTime: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var vl = Module.HEAPF32[(d+ 0)>>2];
-        var et = Module.HEAPF32[(d+ 4)>>2];
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var et = module.HEAPF32[(d+ 4)>>2];
         ap.linearRampToValueAtTime(vl, et);
     },
     ExponentialRampToValueAtTime: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var vl = Module.HEAPF32[(d+ 0)>>2];
-        var et = Module.HEAPF32[(d+ 4)>>2];
+        var vl = module.HEAPF32[(d+ 0)>>2];
+        var et = module.HEAPF32[(d+ 4)>>2];
         ap.exponentialRampToValueAtTime(vl, et);
     },
     SetTargetAtTime: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var tg = Module.HEAPF32[(d+ 0)>>2];
-        var st = Module.HEAPF32[(d+ 4)>>2];
-        var tc = Module.HEAPF32[(d+ 8)>>2];
+        var tg = module.HEAPF32[(d+ 0)>>2];
+        var st = module.HEAPF32[(d+ 4)>>2];
+        var tc = module.HEAPF32[(d+ 8)>>2];
         ap.setTargetAtTime(tg, st, tc);
     },
     SetValueCurveAtTime: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var st = Module.HEAPF32[(d+ 0)>>2];
-        var dt = Module.HEAPF32[(d+ 4)>>2];
-        var arr = Module.HEAP32[(d+ 8)>>2];
-        var cn  = Module.HEAP32[(d+ 12)>>2];
+        var st = module.HEAPF32[(d+ 0)>>2];
+        var dt = module.HEAPF32[(d+ 4)>>2];
+        var arr = module.HEAP32[(d+ 8)>>2];
+        var cn  = module.HEAP32[(d+ 12)>>2];
 
         var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
-        var vs = new Float32Array(Module.HEAPU8.buffer, arrPtr, cn);
+        var vs = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
 
         ap.setValueCurveAtTime(vs, st, dt);
     },
 
     CancelScheduledValues: function(uid, d)
     {
+        var module = Module;
         var ap = nkJSObject.GetObject(uid);
-        var st = Module.HEAPF32[(d+ 0)>>2];
+        var st = module.HEAPF32[(d+ 0)>>2];
         ap.cancelScheduledValues(st);
     }
 };
@@ -542,8 +568,9 @@ window.nkAudioParamMap =
     },
     Get: function(uid, d)
     {
+        var module = Module;
         var pm = nkJSObject.GetObject(uid);
-        var ky = nkJSObject.ReadString(Module, d+ 0);
+        var ky = nkJSObject.ReadString(module, d+ 0);
 
         var ap = pm.get(ky);
 
@@ -559,8 +586,9 @@ window.nkAudioWorklet =
 {
     AddModule: function(uid, d)
     {
+        var module = Module;
         var aw = nkJSObject.GetObject(uid);
-        var mu = nkJSObject.ReadString(Module, d+ 0);
+        var mu = nkJSObject.ReadString(module, d+ 0);
 
         var pr = aw.addModule(mu);
         return nkJSObject.RegisterObject(pr);
@@ -587,8 +615,9 @@ window.nkMediaDevices =
 
     GetUserMedia: function(uid, d)
     {
+        var module = Module;
         var md = nkJSObject.GetObject(uid);
-        var bi = Module.HEAP32[(d+ 0)>>2];
+        var bi = module.HEAP32[(d+ 0)>>2];
 
         var au = (bi >>  0) & 3;
         var vi = (bi >>  2) & 3;

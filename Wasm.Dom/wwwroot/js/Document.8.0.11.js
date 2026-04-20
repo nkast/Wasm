@@ -7,14 +7,16 @@
     },
     SetTitle: function(uid, d)
     {
+        var module = Module;
         var dc = nkJSObject.GetObject(uid);
-        var tl = nkJSObject.ReadString(Module, d+ 0);
+        var tl = nkJSObject.ReadString(module, d+ 0);
         dc.title = tl;
     },
     GetElementById: function(uid, d)
     {
+        var module = Module;
         var dc = nkJSObject.GetObject(uid);
-        var id = nkJSObject.ReadString(Module, d+ 0);
+        var id = nkJSObject.ReadString(module, d+ 0);
         var el = dc.getElementById(id);
         return nkJSObject.RegisterObject(el);
     },
@@ -49,13 +51,14 @@ window.nkElement =
     },
     GetBoundingClientRect: function(uid, d)
     {
+        var module = Module;
         var e = nkJSObject.GetObject(uid);
-        var pt = Module.HEAP32[(d + 0)>>2];
+        var pt = module.HEAP32[(d+ 0)>>2];
         var r = e.getBoundingClientRect();
-        Module.HEAPF64[(pt + 0) >> 3] = r.x;
-        Module.HEAPF64[(pt + 8) >> 3] = r.y;
-        Module.HEAPF64[(pt + 16) >> 3] = r.width;
-        Module.HEAPF64[(pt + 24) >> 3] = r.height;
+        module.HEAPF64[(pt + 0) >> 3] = r.x;
+        module.HEAPF64[(pt + 8) >> 3] = r.y;
+        module.HEAPF64[(pt + 16) >> 3] = r.width;
+        module.HEAPF64[(pt + 24) >> 3] = r.height;
     },
 };
 
@@ -89,17 +92,19 @@ window.nkStyleDeclaration =
 {
     GetPropertyValue: function(uid, d)
     {
+        var module = Module;
         var st = nkJSObject.GetObject(uid);
-        var pr = nkJSObject.ReadString(Module, d+ 0);
+        var pr = nkJSObject.ReadString(module, d+ 0);
 
         return st.getPropertyValue(pr);
     },
 
     SetProperty: function(uid, d)
     {
+        var module = Module;
         var st = nkJSObject.GetObject(uid);
-        var pr = nkJSObject.ReadString(Module, d+ 0);
-        var va = nkJSObject.ReadString(Module, d+ 4);
+        var pr = nkJSObject.ReadString(module, d+ 0);
+        var va = nkJSObject.ReadString(module, d+ 4);
 
         st.setProperty(pr, va);
     },
@@ -136,8 +141,9 @@ window.nkInput =
     },
     SetType: function(uid, d)
     {
+        var module = Module;
         var it = nkJSObject.GetObject(uid);
-        var ty = Module.HEAP32[(d+ 0)>>2];
+        var ty = module.HEAP32[(d+ 0)>>2];
 
         switch (ty)
         {
@@ -161,8 +167,9 @@ window.nkInput =
     },
     SetValue: function(uid, d)
     {
+        var module = Module;
         var it = nkJSObject.GetObject(uid);
-        var va = nkJSObject.ReadString(Module, d+ 0);
+        var va = nkJSObject.ReadString(module, d+ 0);
         it.value = va;
     },
     GetValueAsNumber: function(uid)
@@ -172,8 +179,9 @@ window.nkInput =
     },
     SetValueAsNumber: function(uid, d)
     {
+        var module = Module;
         var it = nkJSObject.GetObject(uid);
-        var va = Module.HEAPF64[(d+ 0)>>3];
+        var va = module.HEAPF64[(d+ 0)>>3];
         it.valueAsNumber = va;
     },
 };
