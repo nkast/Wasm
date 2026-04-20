@@ -161,6 +161,37 @@
         let func = nkJSObject.funcMap[fid];
         return func(uid, d);
     },
+
+    DotNetVersionFixups: function ()
+    {
+        if (globalThis.Module === undefined)
+            globalThis.Module = Blazor.runtime.Module;
+
+        if (globalThis.BINDING === undefined)
+        {
+            globalThis.BINDING =
+            {
+                conv_string: function (pt)
+                {
+                    var len = Module.HEAP32[(pt + 8) >> 2];
+                    var str = nkJSObject.ToJSString(pt + 12, len);
+                    return str;
+                }
+            };
+        }
+
+        if (Blazor.platform.getArrayLength === undefined)
+        {
+            Object.assign(Blazor.platform,
+                {
+                    getArrayLength: function (arr)
+                    {
+                        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+                        return Module.HEAP32[(arrPtr - 4) >> 2];
+                    }
+                });
+        }
+    },
 }
 
 window.nkJSArray =
