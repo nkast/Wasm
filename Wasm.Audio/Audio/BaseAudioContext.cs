@@ -98,6 +98,12 @@ namespace nkast.Wasm.Audio
             return new GainNode(uid, this);
         }
 
+        public PannerNode CreatePanner()
+        {
+            int uid = InvokeRetInt("nkAudioBaseContext.CreatePanner");
+            return new PannerNode(uid, this);
+        }
+
         public StereoPannerNode CreateStereoPanner()
         {
             int uid = InvokeRetInt("nkAudioBaseContext.CreateStereoPanner");
