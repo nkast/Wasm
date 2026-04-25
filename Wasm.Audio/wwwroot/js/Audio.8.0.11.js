@@ -129,6 +129,12 @@ window.nkAudioBaseContext =
         var gn = ac.createGain();         
         return nkJSObject.RegisterObject(gn);
     },
+    CreatePanner: function(uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var pn = ac.createPanner();
+        return nkJSObject.RegisterObject(pn);
+    },
     CreateStereoPanner: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
@@ -430,6 +436,162 @@ window.nkAudioGainNode =
         var gn = nkJSObject.GetObject(uid);
         var ap = gn.gain;
         return nkJSObject.RegisterObject(ap);
+    }
+};
+
+window.nkAudioPannerNode =
+{
+    GetPanningModel: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pm = pn.panningModel;
+        switch (pm)
+        {
+            case "equalpower": return 1;
+            case "HRTF": return 2;
+            default:
+                throw new Error("Unknown PanningModel state: " + pm);
+        }
+    },
+    SetPanningModel: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pm = Module.HEAP32[(d+ 0) >> 2];
+        switch (pm)
+        {
+            case 1: pn.panningModel = "equalpower"; break;
+            case 2: pn.panningModel = "HRTF"; break;
+            default:
+                throw new Error("Unknown PanningModel state: " + pm);
+        }
+    },
+    GetPositionX: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var px = pn.positionX;
+        return nkJSObject.RegisterObject(px);
+    },
+    GetPositionY: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var py = pn.positionY;
+        return nkJSObject.RegisterObject(py);
+    },
+    GetPositionZ: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var pz = pn.positionZ;
+        return nkJSObject.RegisterObject(pz);
+    },
+    GetOrientationX: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var ox = pn.orientationX;
+        return nkJSObject.RegisterObject(ox);
+    },
+    GetOrientationY: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var oy = pn.orientationY;
+        return nkJSObject.RegisterObject(oy);
+    },
+    GetOrientationZ: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var oz = pn.orientationZ;
+        return nkJSObject.RegisterObject(oz);
+    },
+    GetDistanceModel: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var dm = pn.distanceModel;
+        switch (dm)
+        {
+            case "linear": return 1;
+            case "inverse": return 2;
+            case "exponential": return 3;
+            default:
+                throw new Error("Unknown DistanceModel state: " + dm);
+        }
+    },
+    SetDistanceModel: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var dm = Module.HEAP32[(d+ 0) >> 2];
+        switch (dm)
+        {
+            case 1: pn.distanceModel = "linear"; break;
+            case 2: pn.distanceModel = "inverse"; break;
+            case 3: pn.distanceModel = "exponential"; break;
+            default:
+                throw new Error("Unknown DistanceModel state: " + dm);
+        }
+    },
+    GetRefDistance: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.refDistance;
+    },
+    SetRefDistance: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var rd = Module.HEAPF64[(d+ 0) >> 3];
+        pn.refDistance = rd;
+    },
+    GetMaxDistance: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.maxDistance;
+    },
+    SetMaxDistance: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var md = Module.HEAPF64[(d+ 0) >> 3];
+        pn.maxDistance = md;
+    },
+    GetRolloffFactor: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.rolloffFactor;
+    },
+    SetRolloffFactor: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var rf = Module.HEAPF64[(d+ 0) >> 3];
+        pn.rolloffFactor = rf;
+    },
+    GetConeInnerAngle: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneInnerAngle;
+    },
+    SetConeInnerAngle: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var ci = Module.HEAPF64[(d+ 0) >> 3];
+        pn.coneInnerAngle = ci;
+    },
+    GetConeOuterAngle: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneOuterAngle;
+    },
+    SetConeOuterAngle: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var co = Module.HEAPF64[(d+ 0) >> 3];
+        pn.coneOuterAngle = co;
+    },
+    GetConeOuterGain: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        return pn.coneOuterGain;
+    },
+    SetConeOuterGain: function(uid, d)
+    {
+        var pn = nkJSObject.GetObject(uid);
+        var cg = Module.HEAPF64[(d+ 0) >> 3];
+        pn.coneOuterGain = cg;
     }
 };
 
