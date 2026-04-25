@@ -22,6 +22,15 @@ namespace nkast.Wasm.Audio
             }
         }
 
+        public double CurrentTime
+        {
+            get
+            {
+                double currentTime = InvokeRetDouble("nkAudioBaseContext.GetCurrentTime");
+                return currentTime;
+            }
+        }
+
         public AudioDestinationNode Destination
         {
             get

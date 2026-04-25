@@ -63,6 +63,12 @@ window.nkAudioBaseContext =
         var sr = ac.sampleRate;
         return sr;
     },
+    GetCurrentTime: function (uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var ct = ac.currentTime;
+        return ct;
+    },
     GetDestination: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
