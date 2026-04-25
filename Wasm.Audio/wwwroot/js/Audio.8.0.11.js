@@ -189,6 +189,12 @@ window.nkAudioBuffer =
         var ln = ab.length;
         return ln;
     },
+    GetDuration: function (uid, d)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var du = ab.duration;
+        return du;
+    },
     GetNumberOfChannels: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);

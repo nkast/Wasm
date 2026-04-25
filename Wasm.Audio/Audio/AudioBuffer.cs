@@ -22,6 +22,11 @@ namespace nkast.Wasm.Audio
             get { return InvokeRetInt("nkAudioBuffer.GetLength"); }
         }
 
+        public double Duration
+        {
+            get { return InvokeRetDouble("nkAudioBuffer.GetDuration"); }
+        }
+
         public int NumberOfChannels
         {
             get { return InvokeRetInt("nkAudioBuffer.GetNumberOfChannels"); }
