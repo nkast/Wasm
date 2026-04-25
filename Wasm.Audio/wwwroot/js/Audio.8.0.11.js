@@ -2,7 +2,7 @@
 {
     Create: function()
     {
-        var ac = new AudioContext();         
+        var ac = new AudioContext();
         return nkJSObject.RegisterObject(ac);
     },
     Create1: function(sampleRate)
@@ -63,7 +63,7 @@ window.nkAudioBaseContext =
         var sr = ac.sampleRate;
         return sr;
     },
-    GetCurrentTime: function (uid, d)
+    GetCurrentTime: function(uid, d)
     {
         var ac = nkJSObject.GetObject(uid);
         var ct = ac.currentTime;
@@ -189,7 +189,7 @@ window.nkAudioBuffer =
         var ln = ab.length;
         return ln;
     },
-    GetDuration: function (uid, d)
+    GetDuration: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
         var du = ab.duration;
@@ -301,7 +301,7 @@ window.nkAudioBufferSourceNode =
         var pr = bs.playbackRate;
         return nkJSObject.RegisterObject(pr);
     },
-    Start: function (uid, d)
+    Start: function(uid, d)
     {
         var bs = nkJSObject.GetObject(uid);
         var wh = Module.HEAPF64[(d+ 0) >> 3];
