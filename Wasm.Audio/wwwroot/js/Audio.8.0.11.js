@@ -149,9 +149,23 @@ window.nkAudioBaseContext =
         var module = Module;
         var ac = nkJSObject.GetObject(uid);
         var na = nkJSObject.ReadString(module, d+ 0);
+        var ni = module.HEAP32[(d+ 4)>>2];
+        var no = module.HEAP32[(d+ 8)>>2];
+        var arr = module.HEAP32[(d+ 12)>>2];
+        var cn = module.HEAP32[(d+ 16)>>2];
 
-        var wn = new AudioWorkletNode(ac, na);
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var oc = new Uint32Array(module.HEAPU8.buffer, arrPtr, cn);
 
+        var options = {};
+        if (ni >= 0)
+            options.numberOfInputs = ni;
+        if (no >= 0)
+            options.numberOfOutputs = no;
+        if (cn > 0)
+            options.outputChannelCount = oc;
+
+        var wn = new AudioWorkletNode(ac, na, options);
         return nkJSObject.RegisterObject(wn);
     }
 };
