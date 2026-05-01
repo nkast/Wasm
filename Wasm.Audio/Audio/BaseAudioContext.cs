@@ -104,9 +104,13 @@ namespace nkast.Wasm.Audio
             return new StereoPannerNode(uid, this);
         }
 
-        public AudioWorkletNode CreateWorklet(string name)
+        public AudioWorkletNode CreateWorklet(string name, AudioWorkletNodeOptions? options = null)
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet", name);
+            int numberOfInputs = options?.NumberOfInputs ?? -1;
+            int numberOfOutputs = options?.NumberOfOutputs ?? -1;
+            int[] outputChannelCount = options?.OutputChannelCount ?? new int[0];
+
+            int uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet", name, numberOfInputs, numberOfOutputs, outputChannelCount, outputChannelCount.Length);
             return new AudioWorkletNode(uid, this);
         }
 
