@@ -37,6 +37,11 @@ namespace nkast.Wasm.Audio
             }
         }
 
+        public void Start(double when = 0d, double offset = 0d, double duration = 0d)
+        {
+            Invoke("nkAudioBufferSourceNode.Start", when, offset, duration);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

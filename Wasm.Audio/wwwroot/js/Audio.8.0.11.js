@@ -2,7 +2,7 @@
 {
     Create: function()
     {
-        var ac = new AudioContext();         
+        var ac = new AudioContext();
         return nkJSObject.RegisterObject(ac);
     },
     Create1: function(sampleRate)
@@ -62,6 +62,12 @@ window.nkAudioBaseContext =
         var ac = nkJSObject.GetObject(uid);
         var sr = ac.sampleRate;
         return sr;
+    },
+    GetCurrentTime: function(uid, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var ct = ac.currentTime;
+        return ct;
     },
     GetDestination: function(uid, d)
     {
@@ -183,6 +189,12 @@ window.nkAudioBuffer =
         var ln = ab.length;
         return ln;
     },
+    GetDuration: function(uid, d)
+    {
+        var ab = nkJSObject.GetObject(uid);
+        var du = ab.duration;
+        return du;
+    },
     GetNumberOfChannels: function(uid, d)
     {
         var ab = nkJSObject.GetObject(uid);
@@ -288,6 +300,17 @@ window.nkAudioBufferSourceNode =
         var bs = nkJSObject.GetObject(uid);
         var pr = bs.playbackRate;
         return nkJSObject.RegisterObject(pr);
+    },
+    Start: function(uid, d)
+    {
+        var bs = nkJSObject.GetObject(uid);
+        var wh = Module.HEAPF64[(d+ 0) >> 3];
+        var os = Module.HEAPF64[(d+ 8) >> 3];
+        var du = Module.HEAPF64[(d+ 16) >> 3];
+        if (du > 0)
+            bs.start(wh, os, du);
+        else
+            bs.start(wh, os);
     }
 };
 
