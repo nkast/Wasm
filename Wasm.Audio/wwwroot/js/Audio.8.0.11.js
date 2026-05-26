@@ -323,10 +323,11 @@ window.nkAudioBufferSourceNode =
     },
     Start: function(uid, d)
     {
+        var module = Module;
         var bs = nkJSObject.GetObject(uid);
-        var wh = Module.HEAPF64[(d+ 0) >> 3];
-        var os = Module.HEAPF64[(d+ 8) >> 3];
-        var du = Module.HEAPF64[(d+ 16) >> 3];
+        var wh = module.HEAPF64[(d+ 0)>>3];
+        var os = module.HEAPF64[(d+ 8)>>3];
+        var du = module.HEAPF64[(d+16)>>3];
         if (du > 0)
             bs.start(wh, os, du);
         else
@@ -492,8 +493,9 @@ window.nkAudioPannerNode =
     },
     SetPanningModel: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var pm = Module.HEAP32[(d+ 0) >> 2];
+        var pm = module.HEAP32[(d+ 0)>>2];
         switch (pm)
         {
             case 1: pn.panningModel = "equalpower"; break;
@@ -553,8 +555,9 @@ window.nkAudioPannerNode =
     },
     SetDistanceModel: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var dm = Module.HEAP32[(d+ 0) >> 2];
+        var dm = module.HEAP32[(d+ 0)>>2];
         switch (dm)
         {
             case 1: pn.distanceModel = "linear"; break;
@@ -571,8 +574,9 @@ window.nkAudioPannerNode =
     },
     SetRefDistance: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var rd = Module.HEAPF64[(d+ 0) >> 3];
+        var rd = module.HEAPF64[(d+ 0)>>3];
         pn.refDistance = rd;
     },
     GetMaxDistance: function(uid, d)
@@ -582,8 +586,9 @@ window.nkAudioPannerNode =
     },
     SetMaxDistance: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var md = Module.HEAPF64[(d+ 0) >> 3];
+        var md = module.HEAPF64[(d+ 0)>>3];
         pn.maxDistance = md;
     },
     GetRolloffFactor: function(uid, d)
@@ -593,8 +598,9 @@ window.nkAudioPannerNode =
     },
     SetRolloffFactor: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var rf = Module.HEAPF64[(d+ 0) >> 3];
+        var rf = module.HEAPF64[(d+ 0)>>3];
         pn.rolloffFactor = rf;
     },
     GetConeInnerAngle: function(uid, d)
@@ -604,8 +610,9 @@ window.nkAudioPannerNode =
     },
     SetConeInnerAngle: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var ci = Module.HEAPF64[(d+ 0) >> 3];
+        var ci = module.HEAPF64[(d+ 0)>>3];
         pn.coneInnerAngle = ci;
     },
     GetConeOuterAngle: function(uid, d)
@@ -615,8 +622,9 @@ window.nkAudioPannerNode =
     },
     SetConeOuterAngle: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var co = Module.HEAPF64[(d+ 0) >> 3];
+        var co = module.HEAPF64[(d+ 0)>>3];
         pn.coneOuterAngle = co;
     },
     GetConeOuterGain: function(uid, d)
@@ -626,8 +634,9 @@ window.nkAudioPannerNode =
     },
     SetConeOuterGain: function(uid, d)
     {
+        var module = Module;
         var pn = nkJSObject.GetObject(uid);
-        var cg = Module.HEAPF64[(d+ 0) >> 3];
+        var cg = module.HEAPF64[(d+ 0)>>3];
         pn.coneOuterGain = cg;
     }
 };
