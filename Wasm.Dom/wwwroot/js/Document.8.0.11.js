@@ -64,7 +64,7 @@ window.nkElement =
 
 window.nkHTMLElement =
 {
-    GetStyle: function(uid, d)
+    GetStyle: function(uid)
     {
         var he = nkJSObject.GetObject(uid);
 
@@ -76,12 +76,12 @@ window.nkHTMLElement =
 
         return nkJSObject.RegisterObject(st);
     },
-    Focus: function(uid, d)
+    Focus: function(uid)
     {
         var he = nkJSObject.GetObject(uid);
         var st = he.focus();
     },
-    Blur: function(uid, d)
+    Blur: function(uid)
     {
         var he = nkJSObject.GetObject(uid);
         var st = he.blur();

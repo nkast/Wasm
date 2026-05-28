@@ -165,7 +165,7 @@
 
 window.nkJSArray =
 {
-    GetLength: function(uid, d)
+    GetLength: function(uid)
     {
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
@@ -187,7 +187,7 @@ window.nkJSArray =
 
 window.nkJSUInt8Array =
 {
-    GetLength: function(uid, d)
+    GetLength: function(uid)
     {
         var ar = nkJSObject.GetObject(uid);
         return ar.length;

@@ -22,22 +22,22 @@
         var gp = nkJSObject.GetObject(uid);
         return gp.id;
     },
-    GetIndex: function(uid, d)
+    GetIndex: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.index;
     },
-    GetConnected: function(uid, d)
+    GetConnected: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.connected;
     },
-    GetMapping: function(uid, d)
+    GetMapping: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
         return gp.mapping;
     },
-    GetTimestamp: function(uid, d)
+    GetTimestamp: function(uid)
     {
         var gp = nkJSObject.GetObject(uid);
         return Math.floor(gp.timestamp*1000);
@@ -127,7 +127,7 @@ window.nkGamepadHapticActuator =
         }
         return false;
     },
-    Reset: function(uid, d)
+    Reset: function(uid)
     {
         var ha = nkJSObject.GetObject(uid);
 

@@ -12,13 +12,13 @@
         return me.currentTime;
     },
     
-    GetEnded: function(uid, d)
+    GetEnded: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         return me.ended;
     },
     
-    GetPaused: function(uid, d)
+    GetPaused: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         return me.paused;
@@ -37,7 +37,7 @@
         me.src = sr;
     },
     
-    GetMuted: function(uid, d)
+    GetMuted: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         return me.muted;
@@ -50,7 +50,7 @@
         me.muted = mu !== 0;
     },
     
-    GetLoop: function(uid, d)
+    GetLoop: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         return me.loop;
@@ -63,7 +63,7 @@
         me.loop = lo !== 0;
     },
     
-    GetVolume: function(uid, d)
+    GetVolume: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         return me.volume;
@@ -76,17 +76,17 @@
         me.volume = vo;
     },
     
-    Load: function(uid, d)
+    Load: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         me.load();
     },
-    Play: function(uid, d)
+    Play: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
         var pm = me.play();
     },
-    Pause: function(uid, d)
+    Pause: function(uid)
     {
         var me = nkJSObject.GetObject(uid);
          me.pause();

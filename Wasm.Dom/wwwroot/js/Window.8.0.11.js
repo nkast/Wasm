@@ -274,7 +274,7 @@ window.nkStorage =
         var st = nkJSObject.GetObject(uid);
         return st.length;
     },
-    Clear: function(uid, d)
+    Clear: function(uid)
     {
         var st = nkJSObject.GetObject(uid);
         st.clear();
@@ -306,13 +306,13 @@ window.nkStorage =
 
 window.nkMessagePort =
 {
-    Start: function(uid, d)
+    Start: function(uid)
     {
         var mp = nkJSObject.GetObject(uid);
         mp.start();
     },
 
-    Close: function(uid, d)
+    Close: function(uid)
     {
         var mp = nkJSObject.GetObject(uid);
         mp.close();

@@ -30,23 +30,23 @@
         var vl = nkJSObject.ReadString(module, d+ 4);
         xhr.setRequestHeader(hd,vl);
     },
-    Send: function(uid, d)
+    Send: function(uid)
     {
         var xhr = nkJSObject.GetObject(uid);
         xhr.send(null);
     },
-    GetStatus: function(uid, d)
+    GetStatus: function(uid)
     {
         var xhr = nkJSObject.GetObject(uid);
         var status = xhr.status;
         return status;
     },
-    GetResponseText: function(uid, d)
+    GetResponseText: function(uid)
     {
         var xhr = nkJSObject.GetObject(uid);
         return xhr.responseText;
     },
-    GetReadyState: function(uid, d)
+    GetReadyState: function(uid)
     {
         var xhr = nkJSObject.GetObject(uid);
         var readyState = xhr.readyState;

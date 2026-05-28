@@ -289,7 +289,7 @@ window.nkCanvasGLContext =
         gc.deleteFramebuffer(bf);
     },
     
-    CreateRenderbuffer: function(uid, d)
+    CreateRenderbuffer: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
         var bf = gc.createRenderbuffer();
@@ -1015,18 +1015,18 @@ window.nkCanvasGLContext =
         gc.activeTexture(tu);
     },
 
-    Flush: function(uid, d)
+    Flush: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
         gc.flush();
     },
-    Finish: function(uid, d)
+    Finish: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
         gc.finish();
     },
     
-    IsContextLost: function(uid, d)
+    IsContextLost: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
 
@@ -1052,7 +1052,7 @@ window.nkCanvasGLContext =
         return nkJSObject.RegisterObject(ex);
     },
 
-    GetError: function(uid, d)
+    GetError: function(uid)
     {
         var gc = nkJSObject.GetObject(uid);
         return gc.getError();
@@ -1286,13 +1286,13 @@ window.nkCanvasGL2Context =
 
 window.nkCanvasLoseContextExtension =
 {
-    LoseContext: function(uid, d)
+    LoseContext: function(uid)
     {
         var ex = nkJSObject.GetObject(uid);
 
         ex.loseContext();
     },
-    RestoreContext: function(uid, d)
+    RestoreContext: function(uid)
     {
         var ex = nkJSObject.GetObject(uid);
 
