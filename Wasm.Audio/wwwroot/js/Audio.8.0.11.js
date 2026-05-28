@@ -38,12 +38,6 @@
         return nkJSObject.RegisterObject(pr);
     },
 
-    Close: function(uid, d)
-    {
-        var ac = nkJSObject.GetObject(uid);
-        ac.close();
-    },
-
     CreateMediaStreamSource: function(uid, d)
     {
         var module = Module;
