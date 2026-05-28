@@ -21,9 +21,8 @@
 
         return nkJSObject.RegisterObject(gps);
     },
-    Vibrate: function(uid, d)
+    Vibrate: function(uid, module, d)
     {
-        var module = Module;
         var nv = nkJSObject.GetObject(uid);
         var ms = module.HEAP32[(d+ 0)>>2];
 

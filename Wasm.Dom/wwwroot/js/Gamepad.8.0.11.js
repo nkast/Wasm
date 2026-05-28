@@ -42,9 +42,8 @@
         var gp = nkJSObject.GetObject(uid);
         return Math.floor(gp.timestamp*1000);
     },
-    GetButtons: function(uid, d)
+    GetButtons: function(uid, module, d)
     {
-        var module = Module;
         var gp = nkJSObject.GetObject(uid);
         var ct = module.HEAP32[(d+ 0)>>2];
         var st = module.HEAP32[(d+ 4)>>2];
@@ -64,9 +63,8 @@
 
         return buttons.length;
     },
-    GetAxes: function(uid, d)
+    GetAxes: function(uid, module, d)
     {
-        var module = Module;
         var gp = nkJSObject.GetObject(uid);
         var ct = module.HEAP32[(d+ 0)>>2];
         var pt = module.HEAP32[(d+ 4)>>2];
@@ -87,9 +85,8 @@
 
 window.nkGamepadHapticActuator =
 {
-    PlayEffect: function(uid, d)
+    PlayEffect: function(uid, module, d)
     {
-        var module = Module;
         var ha = nkJSObject.GetObject(uid);
         var sd = module.HEAPF32[(d+ 0)>>2];
         var du = module.HEAPF32[(d+ 4)>>2];
@@ -113,9 +110,8 @@ window.nkGamepadHapticActuator =
         }
         return false;
     },
-    Pulse: function(uid, d)
+    Pulse: function(uid, module, d)
     {
-        var module = Module;
         var ha = nkJSObject.GetObject(uid);
         var va = module.HEAPF32[(d+ 0)>>2];
         var du = module.HEAPF32[(d+ 4)>>2];

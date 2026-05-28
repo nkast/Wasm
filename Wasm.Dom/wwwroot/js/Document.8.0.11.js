@@ -5,16 +5,14 @@
         var dc = nkJSObject.GetObject(uid);
         return dc.title;
     },
-    SetTitle: function(uid, d)
+    SetTitle: function(uid, module, d)
     {
-        var module = Module;
         var dc = nkJSObject.GetObject(uid);
         var tl = nkJSObject.ReadString(module, d+ 0);
         dc.title = tl;
     },
-    GetElementById: function(uid, d)
+    GetElementById: function(uid, module, d)
     {
-        var module = Module;
         var dc = nkJSObject.GetObject(uid);
         var id = nkJSObject.ReadString(module, d+ 0);
         var el = dc.getElementById(id);
@@ -49,9 +47,8 @@ window.nkElement =
         var e = nkJSObject.GetObject(uid);
         return e.clientHeight;
     },
-    GetBoundingClientRect: function(uid, d)
+    GetBoundingClientRect: function(uid, module, d)
     {
-        var module = Module;
         var e = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
         var r = e.getBoundingClientRect();
@@ -90,18 +87,16 @@ window.nkHTMLElement =
 
 window.nkStyleDeclaration =
 {
-    GetPropertyValue: function(uid, d)
+    GetPropertyValue: function(uid, module, d)
     {
-        var module = Module;
         var st = nkJSObject.GetObject(uid);
         var pr = nkJSObject.ReadString(module, d+ 0);
 
         return st.getPropertyValue(pr);
     },
 
-    SetProperty: function(uid, d)
+    SetProperty: function(uid, module, d)
     {
-        var module = Module;
         var st = nkJSObject.GetObject(uid);
         var pr = nkJSObject.ReadString(module, d+ 0);
         var va = nkJSObject.ReadString(module, d+ 4);
@@ -139,9 +134,8 @@ window.nkInput =
                 throw new Error("Invalid input type: " + ty);
         }
     },
-    SetType: function(uid, d)
+    SetType: function(uid, module, d)
     {
-        var module = Module;
         var it = nkJSObject.GetObject(uid);
         var ty = module.HEAP32[(d+ 0)>>2];
 
@@ -165,9 +159,8 @@ window.nkInput =
         var it = nkJSObject.GetObject(uid);
         return it.value;
     },
-    SetValue: function(uid, d)
+    SetValue: function(uid, module, d)
     {
-        var module = Module;
         var it = nkJSObject.GetObject(uid);
         var va = nkJSObject.ReadString(module, d+ 0);
         it.value = va;
@@ -177,9 +170,8 @@ window.nkInput =
         var it = nkJSObject.GetObject(uid);
         return it.valueAsNumber;
     },
-    SetValueAsNumber: function(uid, d)
+    SetValueAsNumber: function(uid, module, d)
     {
-        var module = Module;
         var it = nkJSObject.GetObject(uid);
         var va = module.HEAPF64[(d+ 0)>>3];
         it.valueAsNumber = va;

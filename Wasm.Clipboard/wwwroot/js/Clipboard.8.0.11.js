@@ -24,10 +24,10 @@ window.nkClipboard =
         var pr = cb.readText();
         return nkJSObject.RegisterObject(pr);
     },
-    WriteText: function (uid, d)
+    WriteText: function(uid, module, d)
     {
         var cb = nkJSObject.GetObject(uid);
-        var ct = nkJSObject.ReadString(d+ 0);
+        var ct = nkJSObject.ReadString(module, d+ 0);
 
         var pr = cb.writeText(ct);
         return nkJSObject.RegisterObject(pr);

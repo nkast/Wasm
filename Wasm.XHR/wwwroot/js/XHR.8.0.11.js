@@ -6,25 +6,22 @@
         return nkJSObject.RegisterObject(xhr);
     },
 
-    Open: function(uid, d)
+    Open: function(uid, module, d)
     {
-        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
         var md = nkJSObject.ReadString(module, d+ 0);
         var ul = nkJSObject.ReadString(module, d+ 4);
         var ac = module.HEAP32[(d+ 8)>>2] !== 0;
         xhr.open(md,ul,ac);
     },
-    OverrideMimeType: function(uid, d)
+    OverrideMimeType: function(uid, module, d)
     {
-        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
         var mt = nkJSObject.ReadString(module, d+ 0);
         xhr.overrideMimeType(mt);
     },
-    SetRequestHeader: function(uid, d)
+    SetRequestHeader: function(uid, module, d)
     {
-        var module = Module;
         var xhr = nkJSObject.GetObject(uid);
         var hd = nkJSObject.ReadString(module, d+ 0);
         var vl = nkJSObject.ReadString(module, d+ 4);
@@ -53,9 +50,8 @@
         return readyState;
     },
 
-    DecompressBrotliStream: function(uid, d)
+    DecompressBrotliStream: function(uid, module, d)
     {
-        var module = Module;
         var gc = nkJSObject.GetObject(uid);
         var cl = module.HEAP32[(d+ 0)>>2];
         var dl = module.HEAP32[(d+ 4)>>2];

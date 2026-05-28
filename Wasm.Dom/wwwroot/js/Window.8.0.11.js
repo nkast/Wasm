@@ -65,9 +65,8 @@
         var w = nkJSObject.GetObject(uid);
         return w.isSecureContext;
     },
-    RequestAnimationFrame: function(uid, d)
+    RequestAnimationFrame: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var ci = module.HEAP32[(d + 0)>>2];
 
@@ -83,17 +82,15 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnAnimationFrame', uid, ci, time);
     },
-    CancelAnimationFrame: function(uid, d)
+    CancelAnimationFrame: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var rq = module.HEAP32[(d + 0)>>2];
 
         w.cancelAnimationFrame(rq);
     },    
-    SetTimeout: function(uid, d)
+    SetTimeout: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var ci = module.HEAP32[(d+ 0)>>2];
         var dl = module.HEAP32[(d+ 4)>>2];
@@ -110,18 +107,16 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnTimeout', uid, ci);
     },
-    ClearTimeout: function(uid, d)
+    ClearTimeout: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var hd = module.HEAP32[(d+ 0)>>2];
 
         w.clearTimeout(hd);
     },
 
-    SetInterval: function(uid, d)
+    SetInterval: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var ci = module.HEAP32[(d+ 0)>>2];
         var dl = module.HEAP32[(d+ 4)>>2];
@@ -138,9 +133,8 @@
     {
         DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowOnInterval', uid, ci);
     },
-    ClearInterval: function(uid, d)
+    ClearInterval: function(uid, module, d)
     {
-        var module = Module;
         var w  = nkJSObject.GetObject(uid);
         var hd = module.HEAP32[(d+ 0)>>2];
 
@@ -280,24 +274,21 @@ window.nkStorage =
         st.clear();
     },
     
-    SetItem: function(uid, d)
+    SetItem: function(uid, module, d)
     {
-        var module = Module;
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(module, d+ 0);
         var va = nkJSObject.ReadString(module, d+ 4);
         st.setItem(ke, va);
     },    
-    GetItem: function(uid, d)
+    GetItem: function(uid, module, d)
     {
-        var module = Module;
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(module, d+ 0);
         return st.getItem(ke);
     },    
-    RemoveItem: function(uid, d)
+    RemoveItem: function(uid, module, d)
     {
-        var module = Module;
         var st = nkJSObject.GetObject(uid);
         var ke = nkJSObject.ReadString(module, d+ 0);
         st.removeItem(ke);
@@ -318,25 +309,22 @@ window.nkMessagePort =
         mp.close();
     },
 
-    PostMessagei: function(uid, d)
+    PostMessagei: function(uid, module, d)
     {
-        var module = Module;
         var mp = nkJSObject.GetObject(uid);
         var ms = module.HEAP32[(d+ 0)>>2];
 
         mp.postMessage(ms);
     },
-    PostMessagef64: function(uid, d)
+    PostMessagef64: function(uid, module, d)
     {
-        var module = Module;
         var mp = nkJSObject.GetObject(uid);
         var ms = module.HEAPF64[(d+ 0)>>3];
 
         mp.postMessage(ms);
     },
-    PostMessageUInt8Array: function(uid, d)
+    PostMessageUInt8Array: function(uid, module, d)
     {
-        var module = Module;
         var mp = nkJSObject.GetObject(uid);
         var arr = module.HEAP32[(d+ 0)>>2];
         var id  = module.HEAP32[(d+ 4)>>2];

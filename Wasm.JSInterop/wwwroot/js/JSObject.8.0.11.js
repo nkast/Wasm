@@ -139,27 +139,32 @@
     JSInvoke2Void: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
-        func(uid, d);
+        let module = Module;
+        func(uid, module, d);
     },
     JSInvoke2Bool: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
-        return func(uid, d);
+        let module = Module;
+        return func(uid, module, d);
     },
     JSInvoke2Int: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
-        return func(uid, d);
+        let module = Module;
+        return func(uid, module, d);
     },
     JSInvoke2Float: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
-        return func(uid, d);
+        let module = Module;
+        return func(uid, module, d);
     },
     JSInvoke2String: function(fid, uid, d)
     {
         let func = nkJSObject.funcMap[fid];
-        return func(uid, d);
+        let module = Module;
+        return func(uid, module, d);
     },
 }
 
@@ -170,9 +175,8 @@ window.nkJSArray =
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
     },
-    GetItem: function(uid, d)
+    GetItem: function(uid, module, d)
     {
-        var module = Module;
         var ar = nkJSObject.GetObject(uid);
         var id = module.HEAP32[(d + 0>>2)];
 
@@ -192,9 +196,8 @@ window.nkJSUInt8Array =
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
     },
-    CopyTo: function(uid, d)
+    CopyTo: function(uid, module, d)
     {
-        var module = Module;
         var ar = nkJSObject.GetObject(uid);
         var si = module.HEAP32[(d+ 0)>>2];
         var arr = module.HEAP32[(d+ 4)>>2];

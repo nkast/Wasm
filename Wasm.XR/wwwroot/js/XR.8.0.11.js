@@ -24,27 +24,24 @@ window.nkXRSystem =
         return nkJSObject.RegisterObject(pr);
     },
 
-    IsSessionSupported: function(uid, d)
+    IsSessionSupported: function(uid, module, d)
     {
-        var module = Module;
         var xr = nkJSObject.GetObject(uid);
         var md = nkJSObject.ReadString(module, d, 0);
 
         var pr = xr.isSessionSupported(md);
         return nkJSObject.RegisterObject(pr);
     },
-    RequestSession: function(uid, d)
+    RequestSession: function(uid, module, d)
     {
-        var module = Module;
         var xr = nkJSObject.GetObject(uid);
         var md = nkJSObject.ReadString(module, d, 0);
 
         var pr = xr.requestSession(md);
         return nkJSObject.RegisterObject(pr);
     },
-    RequestSession1: function(uid, d)
+    RequestSession1: function(uid, module, d)
     {
-        var module = Module;
         var xr = nkJSObject.GetObject(uid);
         var md = nkJSObject.ReadString(module, d, 0);
                 
@@ -113,9 +110,8 @@ window.nkXRSystem =
 
 window.nkXRSession =
 {
-    CreateWebGLLayer: function(uid, d)
+    CreateWebGLLayer: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var gcuid = module.HEAP32[(d+ 0)>>2];
 
@@ -124,9 +120,8 @@ window.nkXRSession =
         var xl = new XRWebGLLayer(ss, gc);
         return nkJSObject.RegisterObject(xl);
     },
-    CreateWebGLLayer1: function(uid, d)
+    CreateWebGLLayer1: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var gcuid = module.HEAP32[(d+ 0)>>2];
         var bi = module.HEAP32[(d+ 4)>>2];
@@ -193,9 +188,8 @@ window.nkXRSession =
         var pr = ss.end();
         return nkJSObject.RegisterObject(pr);
     },
-    UpdateRenderState: function(uid, d)
+    UpdateRenderState: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var xl = module.HEAP32[(d+ 0)>>2];
 
@@ -203,18 +197,16 @@ window.nkXRSession =
 
         ss.updateRenderState({ baseLayer: xlo });
     },
-    RequestReferenceSpace: function(uid, d)
+    RequestReferenceSpace: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var rs = nkJSObject.ReadString(module, d, 0);
 
         var pr = ss.requestReferenceSpace(rs);
         return nkJSObject.RegisterObject(pr);
     },
-    RequestAnimationFrame: function(uid, d)
+    RequestAnimationFrame: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var ci = module.HEAP32[(d+ 0)>>2];
 
@@ -238,9 +230,8 @@ window.nkXRSession =
 
         DotNet.invokeMethod('nkast.Wasm.XR', 'JsXRSessionOnAnimationFrame', uid, ci, time, xrFrameUid);
     },
-    CancelAnimationFrame: function(uid, d)
+    CancelAnimationFrame: function(uid, module, d)
     {
-        var module = Module;
         var ss = nkJSObject.GetObject(uid);
         var rq = module.HEAP32[(d+ 0)>>2];
 
@@ -270,9 +261,8 @@ window.nkXRSession =
 
 window.nkXRRenderState =
 {
-    GetDepthNear: function(uid, d)
+    GetDepthNear: function(uid, module, d)
     {
-        var module = Module;
         var rs = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
         
@@ -282,9 +272,8 @@ window.nkXRRenderState =
 
         module.HEAPF32[(pt+ 0)>>2] = dn;
     },
-    GetDepthFar: function(uid, d)
+    GetDepthFar: function(uid, module, d)
     {
-        var module = Module;
         var rs = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -294,9 +283,8 @@ window.nkXRRenderState =
 
         module.HEAPF32[(pt+ 0)>>2] = df;
     },
-    GetInlineVerticalFieldOfView: function(uid, d)
+    GetInlineVerticalFieldOfView: function(uid, module, d)
     {
-        var module = Module;
         var rs = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -356,9 +344,8 @@ window.nkXRWebGLLayer =
 
         return nkJSObject.RegisterObject(fb);
     },
-    GetViewport: function(uid, d)
+    GetViewport: function(uid, module, d)
     {
-        var module = Module;
         var xl = nkJSObject.GetObject(uid);
         var veuid = module.HEAP32[(d+ 0)>>2];
         var pt = module.HEAP32[(d+ 4)>>2];
@@ -389,9 +376,8 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ss);
     },
-    GetViewerPose: function(uid, d)
+    GetViewerPose: function(uid, module, d)
     {
-        var module = Module;
         var fr = nkJSObject.GetObject(uid);
         var rfid = module.HEAP32[(d+ 0)>>2];
 
@@ -401,9 +387,8 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(vp);
     },
-    GetPose: function(uid, d)
+    GetPose: function(uid, module, d)
     {
-        var module = Module;
         var fr = nkJSObject.GetObject(uid);
         var spid = module.HEAP32[(d+ 0)>>2];
         var bsid = module.HEAP32[(d+ 4)>>2];
@@ -415,9 +400,8 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
-    GetJointPose: function(uid, d)
+    GetJointPose: function(uid, module, d)
     {
-        var module = Module;
         var fr = nkJSObject.GetObject(uid);
         var spid = module.HEAP32[(d + 0)>>2];
         var bsid = module.HEAP32[(d + 4)>>2];
@@ -429,9 +413,8 @@ window.nkXRFrame =
 
         return nkJSObject.RegisterObject(ps);
     },
-    CreateAnchor: function(uid, d)
+    CreateAnchor: function(uid, module, d)
     {
-        var module = Module;
         var fr = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
         var bsid = module.HEAP32[(d+ 4)>>2];
@@ -469,9 +452,8 @@ window.nkXRPose =
 
         return ep;
     },
-    GetAngularVelocity: function(uid, d)
+    GetAngularVelocity: function(uid, module, d)
     {
-        var module = Module;
         var ps = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -488,9 +470,8 @@ window.nkXRPose =
         else
             return false;
     },
-    GetLinearVelocity: function(uid, d)
+    GetLinearVelocity: function(uid, module, d)
     {
-        var module = Module;
         var ps = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -507,9 +488,8 @@ window.nkXRPose =
         else
             return false;
     },
-    GetTransform: function(uid, d)
+    GetTransform: function(uid, module, d)
     {
-        var module = Module;
         var ps = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -539,9 +519,8 @@ window.XRJointPose =
 
 window.nkXRViewerPose =
 {
-    GetViews: function(uid, d)
+    GetViews: function(uid, module, d)
     {
-        var module = Module;
         var vp = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -563,9 +542,8 @@ window.nkXRViewerPose =
 
 window.nkXRView =
 {
-    GetTransform: function(uid, d)
+    GetTransform: function(uid, module, d)
     {
-        var module = Module;
         var ve = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -582,9 +560,8 @@ window.nkXRView =
         module.HEAPF32[(pt+24)>>2] = ps.z;
         module.HEAPF32[(pt+28)>>2] = ps.w;
     },
-    GetProjectionMatrix: function(uid, d)
+    GetProjectionMatrix: function(uid, module, d)
     {
-        var module = Module;
         var ve = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
@@ -723,9 +700,8 @@ window.nkXRHand =
         var hd = nkJSObject.GetObject(uid);
         return hd.size;
     },
-    Get: function(uid, d)
+    Get: function(uid, module, d)
     {
-        var module = Module;
         var hd = nkJSObject.GetObject(uid);
         var ky = nkJSObject.ReadString(module, d+ 0);
 

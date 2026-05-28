@@ -5,9 +5,8 @@
         var c = nkJSObject.GetObject(uid);
         return c.width;
     },
-    SetWidth: function(uid, d)
+    SetWidth: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         c.width = module.HEAP32[(d+ 0)>>2];
     },
@@ -16,9 +15,8 @@
         var c = nkJSObject.GetObject(uid);
         return c.height;
     },
-    SetHeight: function(uid, d)
+    SetHeight: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         c.height = module.HEAP32[(d+ 0)>>2];
     },
@@ -28,9 +26,8 @@
         var cx = c.getContext("2d");
         return nkJSObject.RegisterObject(cx);
     },
-    Create2DContext1: function(uid, d)
+    Create2DContext1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
@@ -52,9 +49,8 @@
         var glx = c.getContext("webgl");
         return nkJSObject.RegisterObject(glx);
     },
-    CreateWebGLContext1: function(uid, d)
+    CreateWebGLContext1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
@@ -102,9 +98,8 @@
             return 0;
         return nkJSObject.RegisterObject(glx);
     },
-    CreateWebGL2Context1: function(uid, d)
+    CreateWebGL2Context1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
@@ -146,7 +141,7 @@
             return 0;
         return nkJSObject.RegisterObject(glx);
     },
-        
+
     RegisterEvents: function(uid)
     {
         var c = nkJSObject.GetObject(uid);
@@ -181,9 +176,8 @@ window.nkOffscreenCanvas =
         var c = nkJSObject.GetObject(uid);
         return c.width;
     },
-    SetWidth: function(uid, d)
+    SetWidth: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         c.width = module.HEAP32[(d+ 0)>>2];
     },
@@ -192,9 +186,8 @@ window.nkOffscreenCanvas =
         var c = nkJSObject.GetObject(uid);
         return c.height;
     },
-    SetHeight: function(uid, d)
+    SetHeight: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         c.height = module.HEAP32[(d+ 0)>>2];
     },
@@ -204,9 +197,8 @@ window.nkOffscreenCanvas =
         var cx = c.getContext("2d");
         return nkJSObject.RegisterObject(cx);
     },
-    Create2DContext1: function(uid, d)
+    Create2DContext1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
@@ -228,9 +220,8 @@ window.nkOffscreenCanvas =
         var glx = c.getContext("webgl");
         return nkJSObject.RegisterObject(glx);
     },
-    CreateWebGLContext1: function(uid, d)
+    CreateWebGLContext1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
@@ -278,9 +269,8 @@ window.nkOffscreenCanvas =
             return 0;
         return nkJSObject.RegisterObject(glx);
     },
-    CreateWebGL2Context1: function(uid, d)
+    CreateWebGL2Context1: function(uid, module, d)
     {
-        var module = Module;
         var c = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 

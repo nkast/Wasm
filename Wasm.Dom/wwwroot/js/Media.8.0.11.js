@@ -29,9 +29,8 @@
         var me = nkJSObject.GetObject(uid);
         return me.src;
     },
-    SetSrc: function(uid, d)
+    SetSrc: function(uid, module, d)
     {
-        var module = Module;
         var me = nkJSObject.GetObject(uid);
         var sr = nkJSObject.ReadString(module, d+ 0);
         me.src = sr;
@@ -42,9 +41,8 @@
         var me = nkJSObject.GetObject(uid);
         return me.muted;
     },
-    SetMuted: function(uid, d)
+    SetMuted: function(uid, module, d)
     {
-        var module = Module;
         var me = nkJSObject.GetObject(uid);
         var mu = module.HEAP32[(d+ 0)>>2];
         me.muted = mu !== 0;
@@ -55,9 +53,8 @@
         var me = nkJSObject.GetObject(uid);
         return me.loop;
     },
-    SetLoop: function(uid, d)
+    SetLoop: function(uid, module, d)
     {
-        var module = Module;
         var me = nkJSObject.GetObject(uid);
         var lo = module.HEAP32[(d+ 0)>>2];
         me.loop = lo !== 0;
@@ -68,9 +65,8 @@
         var me = nkJSObject.GetObject(uid);
         return me.volume;
     },
-    SetVolume: function(uid, d)
+    SetVolume: function(uid, module, d)
     {
-        var module = Module;
         var me = nkJSObject.GetObject(uid);
         var vo = module.HEAPF32[(d+ 0)>>2];
         me.volume = vo;
