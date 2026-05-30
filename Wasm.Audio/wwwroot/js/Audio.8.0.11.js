@@ -151,6 +151,15 @@ window.nkAudioBaseContext =
     {
         var ac = nkJSObject.GetObject(uid);
         var na = nkJSObject.ReadString(module, d+ 0);
+
+        var wn = new AudioWorkletNode(ac, na);
+
+        return nkJSObject.RegisterObject(wn);
+    },
+    CreateWorklet1: function(uid, module, d)
+    {
+        var ac = nkJSObject.GetObject(uid);
+        var na = nkJSObject.ReadString(module, d+ 0);
         var ni = module.HEAP32[(d+ 4)>>2];
         var no = module.HEAP32[(d+ 8)>>2];
         var arr = module.HEAP32[(d+ 12)>>2];
