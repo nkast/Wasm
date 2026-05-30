@@ -82,7 +82,7 @@
     },
     JSRegisterFunction: function (pidentifier, length)
     {
-        var module = Module;
+        var module = globalThis.Module || Blazor.runtime.Module;
         const identifier = nkJSObject.ToJSString(module, pidentifier, length);
 
         const parts = identifier.split('.');
@@ -138,32 +138,32 @@
     },
     JSInvoke2Void: function(fid, uid, d)
     {
+        var module = globalThis.Module || Blazor.runtime.Module;
         let func = nkJSObject.funcMap[fid];
-        let module = Module;
         func(uid, module, d);
     },
     JSInvoke2Bool: function(fid, uid, d)
     {
+        var module = globalThis.Module || Blazor.runtime.Module;
         let func = nkJSObject.funcMap[fid];
-        let module = Module;
         return func(uid, module, d);
     },
     JSInvoke2Int: function(fid, uid, d)
     {
+        var module = globalThis.Module || Blazor.runtime.Module;
         let func = nkJSObject.funcMap[fid];
-        let module = Module;
         return func(uid, module, d);
     },
     JSInvoke2Float: function(fid, uid, d)
     {
+        var module = globalThis.Module || Blazor.runtime.Module;
         let func = nkJSObject.funcMap[fid];
-        let module = Module;
         return func(uid, module, d);
     },
     JSInvoke2String: function(fid, uid, d)
     {
+        var module = globalThis.Module || Blazor.runtime.Module;
         let func = nkJSObject.funcMap[fid];
-        let module = Module;
         return func(uid, module, d);
     },
 }
