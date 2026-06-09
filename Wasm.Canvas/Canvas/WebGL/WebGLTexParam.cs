@@ -10,6 +10,11 @@ namespace nkast.Wasm.Canvas.WebGL
         TEXTURE_WRAP_T             = 0x2803,
 
         TEXTURE_MAX_ANISOTROPY_EXT = 0x84FE,
+
+        // WebGL2
+        TEXTURE_WRAP_R             = 0x8072,
+        TEXTURE_MIN_LOD            = 0x813A,
+        TEXTURE_MAX_LOD            = 0x813B,
     }
 
     public enum WebGLTexParam
