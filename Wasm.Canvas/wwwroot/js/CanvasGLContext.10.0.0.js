@@ -701,6 +701,15 @@ window.nkCanvasGLContext =
         gc.texParameteri(tg, pn, pm);
     },
 
+    TexParameterf: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var tg = module.HEAP32[(d+ 0)>>2];
+        var pn = module.HEAP32[(d+ 4)>>2];
+        var pm = module.HEAPF32[(d+ 8)>>2];
+        gc.texParameterf(tg, pn, pm);
+    },
+
     PixelStorei: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);

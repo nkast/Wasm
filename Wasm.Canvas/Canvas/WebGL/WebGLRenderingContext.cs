@@ -272,6 +272,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.TexParameteri", (int)target, (int)pname, (int)param);
         }
 
+        public void TexParameter(WebGLTextureTarget target, WebGLTexParamName pname, float param)
+        {
+            Invoke("nkCanvasGLContext.TexParameterf", (int)target, (int)pname, param);
+        }
+
         public void PixelStore(WebGLPixelParameter pname, int param)
         {
             Invoke("nkCanvasGLContext.PixelStorei", (int)pname, param);

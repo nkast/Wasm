@@ -53,6 +53,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels) where TData : struct;
         void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count) where TData : struct;
         void TexParameter(WebGLTextureTarget target, WebGLTexParamName pname, WebGLTexParam param);
+        void TexParameter(WebGLTextureTarget target, WebGLTexParamName pname, float param);
         void PixelStore(WebGLPixelParameter pname, int param);
         void BindTexture(WebGLTextureTarget target, WebGLTexture texture);
         void BindBuffer(WebGLBufferType type, WebGLBuffer buffer);
