@@ -1018,7 +1018,19 @@ window.nkCanvasGL2Context =
             sX0, sY0, sX1, sY1,
             dX0, dY0, dX1, dY1,
             mk, fr);
-    },    
+    },
+    FramebufferTextureLayer: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var ft = module.HEAP32[(d+ 0)>>2];
+        var at = module.HEAP32[(d+ 4)>>2];
+        var txuid = module.HEAP32[(d+ 8) >> 2];
+        var tx = (txuid != -1) ? nkJSObject.GetObject(txuid) : null;
+        var lv = module.HEAP32[(d+12)>>2];
+        var ly = module.HEAP32[(d+16)>>2];
+
+        gc.framebufferTextureLayer(ft, at, tx, lv, ly);
+    },
     ReadBuffer: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
