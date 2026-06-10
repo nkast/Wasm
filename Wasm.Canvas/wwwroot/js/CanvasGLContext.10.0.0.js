@@ -673,7 +673,29 @@ window.nkCanvasGLContext =
 
         gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
     },
-  
+
+    TexSubImage2D2: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var tg = module.HEAP32[(d+ 0)>>2];
+        var lv = module.HEAP32[(d+ 4)>>2];
+        var xo = module.HEAP32[(d+ 8)>>2];
+        var yo = module.HEAP32[(d+12)>>2];
+        var wh = module.HEAP32[(d+16)>>2];
+        var ht = module.HEAP32[(d+20)>>2];
+        var ft = module.HEAP32[(d+24)>>2];
+        var tp = module.HEAP32[(d+28)>>2];
+        var st = module.HEAP32[(d+32)>>2];
+        var arr = module.HEAP32[(d+36)>>2];
+        var ix = module.HEAP32[(d+40)>>2];
+        var ot = module.HEAP32[(d+44)>>2];
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+
+        gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
+    },
+
     CompressedTexImage2D: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);

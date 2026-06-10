@@ -246,6 +246,14 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.TexSubImage2D1", (int)target, level, position, width, height, (int)format, (int)type, stride, pixels, pixels.Length);
         }
 
+        public void TexSubImage2D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            var position = ValueTuple.Create<int, int>(xoffset, yoffset);
+            Invoke("nkCanvasGLContext.TexSubImage2D2", (int)target, level, position, width, height, (int)format, (int)type, stride, pixels, index, count);
+        }
+
         public void CompressedTexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, TData[] pixels)
             where TData : struct
         {
