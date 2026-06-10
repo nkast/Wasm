@@ -467,6 +467,76 @@ namespace nkast.Wasm.JSInterop
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
+
+        protected unsafe void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            JSInvoke2Void(fid, Uid, (int)&args);
+        }
+
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            return JSInvoke2Bool(fid, Uid, (int)&args);
+        }
+
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            return JSInvoke2Int(fid, Uid, (int)&args);
+        }
+
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            return JSInvoke2Float(fid, Uid, (int)&args);
+        }
+
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            return JSInvoke2String(fid, Uid, (int)&args);
+        }
+
+        protected unsafe void Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
+            JSInvoke2Void(fid, Uid, (int)&args);
+        }
+
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
+            return JSInvoke2Bool(fid, Uid, (int)&args);
+        }
+
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
+            return JSInvoke2Int(fid, Uid, (int)&args);
+        }
+
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
+            return JSInvoke2Float(fid, Uid, (int)&args);
+        }
+
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        {
+            int fid = RegisterFunction(identifier);
+            var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
+            return JSInvoke2String(fid, Uid, (int)&args);
+        }
     }
 
     internal struct FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>
@@ -544,6 +614,68 @@ namespace nkast.Wasm.JSInterop
             Value8 = value8;
             Value9 = value9;
             ValueA = valueA;
+        }
+    }
+
+    internal struct FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>
+    {
+        public readonly T1 Value1;
+        public readonly T2 Value2;
+        public readonly T3 Value3;
+        public readonly T4 Value4;
+        public readonly T5 Value5;
+        public readonly T6 Value6;
+        public readonly T7 Value7;
+        public readonly T8 Value8;
+        public readonly T9 Value9;
+        public readonly TA ValueA;
+        public readonly TB ValueB;
+
+        public FixedStructB(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7, T8 value8, T9 value9, TA valueA, TB valueB) : this()
+        {
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Value4 = value4;
+            Value5 = value5;
+            Value6 = value6;
+            Value7 = value7;
+            Value8 = value8;
+            Value9 = value9;
+            ValueA = valueA;
+            ValueB = valueB;
+        }
+    }
+
+    internal struct FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>
+    {
+        public readonly T1 Value1;
+        public readonly T2 Value2;
+        public readonly T3 Value3;
+        public readonly T4 Value4;
+        public readonly T5 Value5;
+        public readonly T6 Value6;
+        public readonly T7 Value7;
+        public readonly T8 Value8;
+        public readonly T9 Value9;
+        public readonly TA ValueA;
+        public readonly TB ValueB;
+        public readonly TC ValueC;
+
+        public FixedStructC(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7, T8 value8, T9 value9, TA valueA, TB valueB, TC valueC) : this()
+        {
+            Value1 = value1;
+            Value2 = value2;
+            Value3 = value3;
+            Value4 = value4;
+            Value5 = value5;
+            Value6 = value6;
+            Value7 = value7;
+            Value8 = value8;
+            Value9 = value9;
+            ValueA = valueA;
+            ValueB = valueB;
+            ValueC = valueC;
         }
     }
 }
