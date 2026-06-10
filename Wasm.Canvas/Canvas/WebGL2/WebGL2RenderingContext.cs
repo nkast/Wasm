@@ -126,6 +126,22 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, pixels, index, count);
         }
 
+        public void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
+            Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, pixels, 0, pixels.Length);
+        }
+
+        public void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
+            Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, pixels, index, count);
+        }
+
         public void VertexAttribDivisor(int index, int divisor)
         {
             Invoke("nkCanvasGL2Context.VertexAttribDivisor", index, divisor);
