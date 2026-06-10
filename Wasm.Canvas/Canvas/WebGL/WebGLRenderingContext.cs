@@ -226,6 +226,13 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.TexImage2D1", (int)target, level, (int)internalFormat, width, height, (int)format, (int)type, stride, pixels, pixels.Length);
         }
 
+        public void TexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGLContext.TexImage2D3", (int)target, level, (int)internalFormat, width, height, (int)format, (int)type, stride, pixels, index, count);
+        }
+
         public void TexImage2D(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, WebGLFormat format, WebGLTexelType type, Video video)
         {
             Invoke("nkCanvasGLContext.TexImage2D2", (int)target, level, (int)internalFormat,  (int)format, (int)type, video.Uid);
