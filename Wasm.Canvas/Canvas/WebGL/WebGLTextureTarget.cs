@@ -13,5 +13,9 @@ namespace nkast.Wasm.Canvas.WebGL
         TEXTURE_CUBE_MAP_NEGATIVE_Y = 0x8518,
         TEXTURE_CUBE_MAP_POSITIVE_Z = 0x8519,
         TEXTURE_CUBE_MAP_NEGATIVE_Z = 0x851A,
+
+        // WebGL2
+        TEXTURE_2D_ARRAY            = 0x8C1A,
+        TEXTURE_3D                  = 0x806F,
     }
 }
