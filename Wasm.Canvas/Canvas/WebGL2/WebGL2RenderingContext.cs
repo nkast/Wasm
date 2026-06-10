@@ -107,6 +107,25 @@ namespace nkast.Wasm.Canvas.WebGL
             return (WebGL2FramebufferStatus)base.CheckFramebufferStatus((WebGLFramebufferType)target);
         }
 
+        public void TexImage3D(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type)
+        {
+            Invoke("nkCanvasGL2Context.TexImage3D", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type);
+        }
+
+        public void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, pixels, 0, pixels.Length);
+        }
+
+        public void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, pixels, index, count);
+        }
+
         public void VertexAttribDivisor(int index, int divisor)
         {
             Invoke("nkCanvasGL2Context.VertexAttribDivisor", index, divisor);
