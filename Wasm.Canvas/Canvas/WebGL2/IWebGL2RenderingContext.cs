@@ -31,6 +31,8 @@ namespace nkast.Wasm.Canvas.WebGL
         void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count) where TData : struct;
         void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels) where TData : struct;
         void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels, int index, int count) where TData : struct;
+        void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels) where TData : struct;
+        void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels, int index, int count) where TData : struct;
         void VertexAttribDivisor(int index, int divisor);
         void DrawElementsInstanced(WebGLPrimitiveType mode, int count, WebGLDataType type, int offset, int instanceCount);
         WebGL2Query CreateQuery();

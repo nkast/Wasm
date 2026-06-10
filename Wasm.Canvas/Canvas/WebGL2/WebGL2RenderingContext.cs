@@ -156,6 +156,22 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.CompressedTexImage3D", (int)target, level, (int)internalFormat, width, height, depth, stride, pixels, index, count);
         }
 
+        public void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
+            Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, pixels, 0, pixels.Length);
+        }
+
+        public void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels, int index, int count)
+            where TData : struct
+        {
+            var stride = Marshal.SizeOf<TData>();
+            var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
+            Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, pixels, index, count);
+        }
+
         public void VertexAttribDivisor(int index, int divisor)
         {
             Invoke("nkCanvasGL2Context.VertexAttribDivisor", index, divisor);
