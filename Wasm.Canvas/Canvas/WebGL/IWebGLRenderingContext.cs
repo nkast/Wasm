@@ -60,6 +60,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void BindRenderbuffer(WebGLRenderbufferType target, WebGLRenderbuffer renderbuffer);
         void FramebufferRenderbuffer(WebGLFramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLRenderbufferType renderbuffertarget, WebGLRenderbuffer renderbuffer);
         void FramebufferTexture2D(WebGLFramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture);
+        void FramebufferTexture2D(WebGLFramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture, int level);
         void RenderbufferStorage(WebGLRenderbufferType target, WebGLRenderbufferInternalFormat internalFormat, int width, int height);
         WebGLFramebufferStatus CheckFramebufferStatus(WebGLFramebufferType target);
         void GenerateMipmap(WebGLTextureTarget target);
