@@ -1228,6 +1228,25 @@ window.nkCanvasGL2Context =
 
         gc.texSubImage3D(tg, lv, xo, yo, zo, wh, ht, de, ft, tp, dt);
     },
+    CompressedTexImage3D: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var tg = module.HEAP32[(d+ 0)>>2];
+        var lv = module.HEAP32[(d+ 4)>>2];
+        var it = module.HEAP32[(d+ 8)>>2];
+        var wh = module.HEAP32[(d+12)>>2];
+        var ht = module.HEAP32[(d+16)>>2];
+        var de = module.HEAP32[(d+20)>>2];
+        var st = module.HEAP32[(d+24)>>2];
+        var arr = module.HEAP32[(d+28)>>2];
+        var ix = module.HEAP32[(d+32)>>2];
+        var ot = module.HEAP32[(d+36)>>2];
+
+        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
+        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+
+        gc.compressedTexImage3D(tg, lv, it, wh, ht, de, 0, dt);
+    },
     VertexAttribDivisor: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
