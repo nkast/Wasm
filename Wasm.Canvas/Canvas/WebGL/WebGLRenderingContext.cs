@@ -341,6 +341,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.FramebufferTexture2D", (int)target, (int)attachment, (int)texturetarget, texture.Uid);
         }
 
+        public void FramebufferTexture2D(WebGLFramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture, int level)
+        {
+            Invoke("nkCanvasGLContext.FramebufferTexture2D1", (int)target, (int)attachment, (int)texturetarget, texture.Uid, level);
+        }
+
         public void RenderbufferStorage(WebGLRenderbufferType target, WebGLRenderbufferInternalFormat internalFormat, int width, int height)
         {
             Invoke("nkCanvasGLContext.RenderbufferStorage", (int)target, (int)internalFormat, width, height);
