@@ -44,12 +44,10 @@ namespace nkast.Wasm.JSInterop
             {
                 if (disposing)
                 {
-
+                    Invoke("nkJSObject.DisposeObject", Uid);
                 }
-
-                Invoke("nkJSObject.DisposeObject", Uid);
                 Uid = -1;
-
+                // finalizer path: do nothing (avoid JS interop from GC thread)
                 _isDisposed = true;
             }
             else
