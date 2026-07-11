@@ -40,6 +40,14 @@ namespace nkast.Wasm.Audio
             }
         }
 
+        public unsafe void CopyToChannel(Span<float> source, int channelNumber)
+        {
+            fixed (float* pSource = source)
+            {
+                Invoke("nkAudioBuffer.CopyToChannel", channelNumber, (int)pSource, source.Length);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

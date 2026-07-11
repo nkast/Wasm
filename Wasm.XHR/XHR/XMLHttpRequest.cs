@@ -113,5 +113,14 @@ namespace nkast.Wasm.XHR
                     Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
             }
         }
+
+        public unsafe void DecompressBrotliStream(Span<byte> compressedBuffer, uint compressedDataSize, Span<byte> decompressedBuffer, uint decompressedDataSize)
+        {
+            fixed (byte* pCompressedBuffer = compressedBuffer)
+            fixed (byte* pDecompressedBuffer = decompressedBuffer)
+            {
+                    Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
+            }
+        }
     }
 }

@@ -30,6 +30,19 @@ namespace nkast.Wasm.ChannelMessaging
             }
         }
 
+        public unsafe void CopyTo(Span<byte> bytes)
+        {
+            CopyTo(0, bytes);
+        }
+
+        public unsafe void CopyTo(int sourceIndex, Span<byte> bytes)
+        {
+            fixed (byte* pBytes = bytes)
+            {
+                InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, (int)pBytes, 0, bytes.Length);
+            }
+        }
+
         public byte[] ToArray()
         {
             byte[] bytes = new byte[Count];

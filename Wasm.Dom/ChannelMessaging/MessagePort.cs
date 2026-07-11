@@ -48,6 +48,14 @@ namespace nkast.Wasm.ChannelMessaging
             }
         }
 
+        public unsafe void PostMessage(Span<byte> message)
+        {
+            fixed (byte* pMessage = message)
+            {
+                Invoke("nkMessagePort.PostMessageUInt8Array", (int)pMessage, 0, message.Length);
+            }
+        }
+
 
         [JSInvokable]
         public static void JsMessagePortOnMessagef64(int uid, double data)
