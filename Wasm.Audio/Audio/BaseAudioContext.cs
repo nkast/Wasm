@@ -126,13 +126,17 @@ namespace nkast.Wasm.Audio
         }
 
         private static int[] _emptyOutputChannelCount = new int[0];
-        public AudioWorkletNode CreateWorklet(string name, AudioWorkletNodeOptions options)
+        public unsafe AudioWorkletNode CreateWorklet(string name, AudioWorkletNodeOptions options)
         {
             int numberOfInputs = options.NumberOfInputs ?? -1;
             int numberOfOutputs = options.NumberOfOutputs ?? -1;
             int[] outputChannelCount = options.OutputChannelCount ?? _emptyOutputChannelCount;
 
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet1", name, numberOfInputs, numberOfOutputs, outputChannelCount, outputChannelCount.Length);
+            int uid;
+            fixed (int* pOutputChannelCount = outputChannelCount)
+            {
+                uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet1", name, numberOfInputs, numberOfOutputs, (int)pOutputChannelCount, outputChannelCount.Length);
+            }
             return new AudioWorkletNode(uid, this);
         }
 

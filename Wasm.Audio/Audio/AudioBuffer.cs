@@ -32,9 +32,12 @@ namespace nkast.Wasm.Audio
             get { return InvokeRetInt("nkAudioBuffer.GetNumberOfChannels"); }
         }
 
-        public void CopyToChannel(float[] source, int channelNumber)
+        public unsafe void CopyToChannel(float[] source, int channelNumber)
         {
-            Invoke("nkAudioBuffer.CopyToChannel", channelNumber, source, source.Length);
+            fixed (float* pSource = source)
+            {
+                Invoke("nkAudioBuffer.CopyToChannel", channelNumber, (int)pSource, source.Length);
+            }
         }
 
         protected override void Dispose(bool disposing)

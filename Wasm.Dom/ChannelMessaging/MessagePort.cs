@@ -40,9 +40,12 @@ namespace nkast.Wasm.ChannelMessaging
             PostMessage(message, 0, message.Length);
         }
 
-        public void PostMessage(byte[] message, int index, int count)
+        public unsafe void PostMessage(byte[] message, int index, int count)
         {
-            Invoke<byte[], int, int>("nkMessagePort.PostMessageUInt8Array", message, index, count);
+            fixed (byte* pMessage = message)
+            {
+                Invoke("nkMessagePort.PostMessageUInt8Array", (int)pMessage, index, count);
+            }
         }
 
 

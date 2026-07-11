@@ -162,10 +162,9 @@ window.nkAudioBaseContext =
         var na = nkJSObject.ReadString(module, d+ 0);
         var ni = module.HEAP32[(d+ 4)>>2];
         var no = module.HEAP32[(d+ 8)>>2];
-        var arr = module.HEAP32[(d+ 12)>>2];
+        var arrPtr = module.HEAP32[(d+ 12)>>2];
         var cn = module.HEAP32[(d+ 16)>>2];
 
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var oc = new Uint32Array(module.HEAPU8.buffer, arrPtr, cn);
 
         var options = {};
@@ -187,10 +186,9 @@ window.nkAudioBuffer =
     {
         var ab = nkJSObject.GetObject(uid);
         var ch = module.HEAP32[(d+ 0)>>2];
-        var arr = module.HEAP32[(d+ 4)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
         var cn  = module.HEAP32[(d+ 8)>>2];
 
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var sr = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
 
         ab.copyToChannel(sr, ch);
@@ -718,10 +716,9 @@ window.nkAudioParam =
         var ap = nkJSObject.GetObject(uid);
         var st = module.HEAPF32[(d+ 0)>>2];
         var dt = module.HEAPF32[(d+ 4)>>2];
-        var arr = module.HEAP32[(d+ 8)>>2];
+        var arrPtr = module.HEAP32[(d+ 8)>>2];
         var cn  = module.HEAP32[(d+ 12)>>2];
 
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 4);
         var vs = new Float32Array(module.HEAPU8.buffer, arrPtr, cn);
 
         ap.setValueCurveAtTime(vs, st, dt);

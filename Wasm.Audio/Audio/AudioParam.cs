@@ -51,9 +51,12 @@ namespace nkast.Wasm.Audio
             Invoke("nkAudioParam.SetTargetAtTime", target, startTime, timeConstant);
         }
 
-        public void SetValueCurveAtTime(float[] values, float startTime, float duration)
+        public unsafe void SetValueCurveAtTime(float[] values, float startTime, float duration)
         {
-            Invoke("nkAudioParam.SetValueCurveAtTime", startTime, duration, values, values.Length);
+            fixed (float* pValues = values)
+            {
+                Invoke("nkAudioParam.SetValueCurveAtTime", startTime, duration, (int)pValues, values.Length);
+            }
         }
 
         public void CancelScheduledValues(float startTime)

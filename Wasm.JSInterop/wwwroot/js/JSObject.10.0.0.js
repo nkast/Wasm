@@ -200,11 +200,10 @@ window.nkJSUInt8Array =
     {
         var ar = nkJSObject.GetObject(uid);
         var si = module.HEAP32[(d+ 0)>>2];
-        var arr = module.HEAP32[(d+ 4)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
         var di  = module.HEAP32[(d+ 8)>>2];
         var cn  = module.HEAP32[(d+12)>>2];
 
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
         var dest = new Uint8Array(module.HEAPU8.buffer, arrPtr+di, cn);
         dest.set(ar.subarray(si, si+cn));
     },

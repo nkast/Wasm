@@ -22,9 +22,12 @@ namespace nkast.Wasm.ChannelMessaging
             CopyTo(0, bytes, destinationIndex, count);
         }
 
-        public void CopyTo(int sourceIndex, byte[] bytes, int destinationIndex, int count)
+        public unsafe void CopyTo(int sourceIndex, byte[] bytes, int destinationIndex, int count)
         {
-            InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, bytes, destinationIndex, count);
+            fixed (byte* pBytes = bytes)
+            {
+                InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, (int)pBytes, destinationIndex, count);
+            }
         }
 
         public byte[] ToArray()

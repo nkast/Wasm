@@ -31,14 +31,20 @@ namespace nkast.Wasm.Canvas.WebGL
             base.FramebufferTexture2D((WebGLFramebufferType)target, attachment, texturetarget, texture);
         }
 
-        public void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments)
+        public unsafe void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments)
         {
-            Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, 0, attachments.Length, attachments);
+            fixed (WebGLFramebufferAttachmentPoint* pAttachments = attachments)
+            {
+                Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, 0, attachments.Length, (int)pAttachments);
+            }
         }
 
-        public void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments, int startIndex, int length)
+        public unsafe void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments, int startIndex, int length)
         {
-            Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, startIndex, length, attachments);
+            fixed (WebGLFramebufferAttachmentPoint* pAttachments = attachments)
+            {
+                Invoke("nkCanvasGL2Context.InvalidateFramebuffer", (int)target, startIndex, length, (int)pAttachments);
+            }
         }
 
         public void BlitFramebuffer(int srcX0, int srcY0, int srcX1, int srcY1, int dstX0, int dstY0, int dstX1, int dstY1, WebGLBufferBits mask, WebGLTexParam filter)
@@ -64,14 +70,20 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.DrawBuffer", (int)buffer);
         }
 
-        public void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers)
+        public unsafe void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers)
         {
-            Invoke("nkCanvasGL2Context.DrawBuffers", 0, buffers.Length, buffers);
+            fixed (WebGL2DrawBufferAttachmentPoint* pBuffers = buffers)
+            {
+                Invoke("nkCanvasGL2Context.DrawBuffers", 0, buffers.Length, (int)pBuffers);
+            }
         }
 
-        public void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers, int startIndex, int length)
+        public unsafe void DrawBuffers(WebGL2DrawBufferAttachmentPoint[] buffers, int startIndex, int length)
         {
-            Invoke("nkCanvasGL2Context.DrawBuffers", startIndex, length, buffers);
+            fixed (WebGL2DrawBufferAttachmentPoint* pBuffers = buffers)
+            {
+                Invoke("nkCanvasGL2Context.DrawBuffers", startIndex, length, (int)pBuffers);
+            }
         }
 
         public void DrawRangeElements(WebGLPrimitiveType mode, int start, int end, int count, WebGLDataType type, int offset)
@@ -80,22 +92,31 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.DrawRangeElements", (int)mode, start, end, count, (int)type, offset);
         }
 
-        public void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData) where TData : struct
+        public unsafe void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData) where TData : struct
         {
             int stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.GetBufferSubData", (int)target, offset, stride, dstData, dstData.Length);
+            fixed (TData* pDstData = dstData)
+            {
+                Invoke("nkCanvasGL2Context.GetBufferSubData", (int)target, offset, stride, (int)pDstData, dstData.Length);
+            }
         }
 
-        public void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex) where TData : struct
+        public unsafe void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex) where TData : struct
         {
             int stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.GetBufferSubData1", (int)target, offset, startIndex, stride, dstData, dstData.Length);
+            fixed (TData* pDstData = dstData)
+            {
+                Invoke("nkCanvasGL2Context.GetBufferSubData1", (int)target, offset, startIndex, stride, (int)pDstData, dstData.Length);
+            }
         }
 
-        public void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex, int length) where TData : struct
+        public unsafe void GetBufferSubData<TData>(WebGLBufferType target, int offset, TData[] dstData, int startIndex, int length) where TData : struct
         {
             int stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.GetBufferSubData2", (int)target, offset, startIndex, length, stride, dstData, dstData.Length);
+            fixed (TData* pDstData = dstData)
+            {
+                Invoke("nkCanvasGL2Context.GetBufferSubData2", (int)target, offset, startIndex, length, stride, (int)pDstData, dstData.Length);
+            }
         }
 
         public void RenderbufferStorage(WebGLRenderbufferType target, WebGL2RenderbufferInternalFormat internalFormat, int width, int height)
@@ -118,64 +139,88 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGL2Context.TexImage3D", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type);
         }
 
-        public void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
+        public unsafe void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, pixels, 0, pixels.Length);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, (int)pPixels, 0, pixels.Length);
+            }
         }
 
-        public void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+        public unsafe void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, pixels, index, count);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.TexImage3D1", (int)target, level, (int)internalFormat, width, height, depth, (int)format, (int)type, stride, (int)pPixels, index, count);
+            }
         }
 
-        public void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
+        public unsafe void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
-            Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, pixels, 0, pixels.Length);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, (int)pPixels, 0, pixels.Length);
+            }
         }
 
-        public void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
+        public unsafe void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, TData[] pixels, int index, int count)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
-            Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, pixels, index, count);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.TexSubImage3D", (int)target, level, position, width, height, depth, (int)format, (int)type, stride, (int)pPixels, index, count);
+            }
         }
 
-        public void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels)
+        public unsafe void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.CompressedTexImage3D", (int)target, level, (int)internalFormat, width, height, depth, stride, pixels, 0, pixels.Length);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.CompressedTexImage3D", (int)target, level, (int)internalFormat, width, height, depth, stride, (int)pPixels, 0, pixels.Length);
+            }
         }
 
-        public void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels, int index, int count)
+        public unsafe void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, TData[] pixels, int index, int count)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
-            Invoke("nkCanvasGL2Context.CompressedTexImage3D", (int)target, level, (int)internalFormat, width, height, depth, stride, pixels, index, count);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.CompressedTexImage3D", (int)target, level, (int)internalFormat, width, height, depth, stride, (int)pPixels, index, count);
+            }
         }
 
-        public void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels)
+        public unsafe void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
-            Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, pixels, 0, pixels.Length);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, (int)pPixels, 0, pixels.Length);
+            }
         }
 
-        public void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels, int index, int count)
+        public unsafe void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, TData[] pixels, int index, int count)
             where TData : struct
         {
             var stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
-            Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, pixels, index, count);
+            fixed (TData* pPixels = pixels)
+            {
+                Invoke("nkCanvasGL2Context.CompressedTexSubImage3D", (int)target, level, position, width, height, depth, (int)format, stride, (int)pPixels, index, count);
+            }
         }
 
         public void VertexAttribDivisor(int index, int divisor)

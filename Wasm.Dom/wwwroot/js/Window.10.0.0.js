@@ -326,11 +326,10 @@ window.nkMessagePort =
     PostMessageUInt8Array: function(uid, module, d)
     {
         var mp = nkJSObject.GetObject(uid);
-        var arr = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 0)>>2];
         var id  = module.HEAP32[(d+ 4)>>2];
         var cn  = module.HEAP32[(d+ 8)>>2];
 
-        var arrPtr = Blazor.platform.getArrayEntryPtr(arr, 0, 1);
         var ms = new Uint8Array(module.HEAPU8.buffer, arrPtr+id, cn);
 
         var msCopy = new Uint8Array(ms);

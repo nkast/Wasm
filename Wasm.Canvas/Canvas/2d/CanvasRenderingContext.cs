@@ -188,9 +188,12 @@ namespace nkast.Wasm.Canvas
             return ret;
         }
 
-        public void SetLineDash(float[] segments)
+        public unsafe void SetLineDash(float[] segments)
         {
-            Invoke("nkCanvas2dContext.SetLineDash", segments, segments.Length);
+            fixed (float* pSegments = segments)
+            {
+                Invoke("nkCanvas2dContext.SetLineDash", (int)pSegments, segments.Length);
+            }
         }
 
         public void BeginPath()

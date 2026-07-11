@@ -55,12 +55,9 @@
         var gc = nkJSObject.GetObject(uid);
         var cl = module.HEAP32[(d+ 0)>>2];
         var dl = module.HEAP32[(d+ 4)>>2];
-        var carr = module.HEAP32[(d+ 8)>>2];
-        var darr = module.HEAP32[(d+12)>>2];
+        var carrPtr = module.HEAP32[(d+ 8)>>2];
+        var darrPtr = module.HEAP32[(d+12)>>2];
 
-        var carrPtr = Blazor.platform.getArrayEntryPtr(carr, 0, 4);
-        var darrPtr = Blazor.platform.getArrayEntryPtr(darr, 0, 4);
-        
         var cdt = new Int8Array(module.HEAPU8.buffer, carrPtr, cl);
         var ddt = new Int8Array(module.HEAPU8.buffer, darrPtr, dl);
         
