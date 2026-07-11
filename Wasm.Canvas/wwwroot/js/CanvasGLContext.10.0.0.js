@@ -1106,7 +1106,7 @@ window.nkCanvasGL2Context =
         var arrPtr = module.HEAP32[(d+ 8)>>2];
 
         //debugger;
-        var db = new Uint32Array(module.HEAPU8.buffer, arrPtr, ln);
+        var db = new Uint32Array(module.HEAPU8.buffer, arrPtr + si*4, ln);
         var ar = Array.prototype.slice.call(db);
 
         gc.drawBuffers(ar);
