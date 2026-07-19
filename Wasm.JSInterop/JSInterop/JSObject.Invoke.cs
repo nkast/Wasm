@@ -75,10 +75,11 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke1Int(fid, uid);
         }
 
-        protected static int StaticInvokeRetInt(string identifier, int arg1, int arg2)
+        protected unsafe static int StaticInvokeRetInt<T1, T2>(string identifier, T1 arg1, T2 arg2)
         {
             int fid = RegisterFunction(identifier);
-            return JSInvoke2Int(fid, uid: arg1, d: arg2);
+            var args = ValueTuple.Create(arg1, arg2);
+            return JSInvoke2Int(fid, -1, (int)&args);
         }
 
         protected void Invoke(string identifier)

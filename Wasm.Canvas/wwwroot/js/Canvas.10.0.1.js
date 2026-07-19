@@ -165,9 +165,11 @@
 
 window.nkOffscreenCanvas =
 {
-    Create: function (width, module, height)
+    Create: function (uid, module, d)
     {
-        var oc = new OffscreenCanvas(width, height);
+        var wi = module.HEAP32[(d + 0) >> 2];
+        var he = module.HEAP32[(d + 4) >> 2];
+        var oc = new OffscreenCanvas(wi, he);
         return nkJSObject.RegisterObject(oc);
     },
 
