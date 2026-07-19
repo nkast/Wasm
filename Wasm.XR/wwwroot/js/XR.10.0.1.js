@@ -1,9 +1,11 @@
 ﻿
 window.nkXRSystem =
 {
-    Create: function(uid)
+    Create: function (uid, module, d)
     {
-        var nv = nkJSObject.GetObject(uid);
+        var nid = module.HEAP32[(d+ 0)>>2];
+
+        var nv = nkJSObject.GetObject(nid);
         if ("xr" in nv)
         {
             var xr = nv.xr;

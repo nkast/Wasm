@@ -5,11 +5,13 @@
         var ac = new AudioContext();
         return nkJSObject.RegisterObject(ac);
     },
-    Create1: function(sampleRate)
+    Create1: function (uid, module, d)
     {
+        var sr = module.HEAP32[(d + 0)>>2];
+
         var options = {};
-        if (sampleRate != 0)
-            options.sampleRate = sampleRate;
+        if (sr != 0)
+            options.sampleRate = sr;
         var ac = new AudioContext(options);
         return nkJSObject.RegisterObject(ac);
     },
@@ -768,9 +770,11 @@ window.nkAudioWorklet =
 
 window.nkMediaDevices =
 {
-    Create: function(uid)
+    Create: function(uid, module, d)
     {
-        var nv = nkJSObject.GetObject(uid);
+        var nid = module.HEAP32[(d + 0)>>2];
+
+        var nv = nkJSObject.GetObject(nid);
         if ("mediaDevices" in nv)
         {
             var md = nv.mediaDevices;
