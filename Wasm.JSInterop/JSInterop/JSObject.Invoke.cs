@@ -78,7 +78,7 @@ namespace nkast.Wasm.JSInterop
         protected static int StaticInvokeRetInt(string identifier, int arg1, int arg2)
         {
             int fid = RegisterFunction(identifier);
-            return JSInvoke2Int(fid, arg1, arg2);
+            return JSInvoke2Int(fid, uid: arg1, d: arg2);
         }
 
         protected void Invoke(string identifier)
