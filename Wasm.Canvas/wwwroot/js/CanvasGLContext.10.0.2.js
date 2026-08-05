@@ -600,7 +600,8 @@ window.nkCanvasGLContext =
         var arrPtr = module.HEAP32[(d+32)>>2];
         var cn  = module.HEAP32[(d+36)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr, cn * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, dt);
     },
@@ -635,7 +636,8 @@ window.nkCanvasGLContext =
         var ix = module.HEAP32[(d+36)>>2];
         var ot = module.HEAP32[(d+40)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.texImage2D(tg, lv, it, wh, ht, 0, ft, tp, dt);
     },
@@ -655,7 +657,8 @@ window.nkCanvasGLContext =
         var arrPtr = module.HEAP32[(d+36)>>2];
         var cn  = module.HEAP32[(d+40)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr, cn * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr, cn * st);
 
         gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
     },
@@ -676,7 +679,8 @@ window.nkCanvasGLContext =
         var ix = module.HEAP32[(d+40)>>2];
         var ot = module.HEAP32[(d+44)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.texSubImage2D(tg, lv, xo, yo, wh, ht, ft, tp, dt);
     },
@@ -733,7 +737,8 @@ window.nkCanvasGLContext =
         var ix = module.HEAP32[(d+32)>>2];
         var ot = module.HEAP32[(d+36)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.readPixels(x, y, w, h, ft, tp, dt);
     },
@@ -1034,6 +1039,24 @@ window.nkCanvasGLContext =
         var gc = nkJSObject.GetObject(uid);
         return gc.getError();
     },
+
+    GetTypedArrayForTexelType: function (gc, tp)
+    {
+        switch (tp)
+        {
+            case gc.UNSIGNED_BYTE:
+                return Uint8Array;
+            case gc.FLOAT:
+                return Float32Array;
+            case gc.HALF_FLOAT:
+            case gc.UNSIGNED_SHORT_4_4_4_4:
+            case gc.UNSIGNED_SHORT_5_5_5_1:
+            case gc.UNSIGNED_SHORT_5_6_5:
+                return Uint16Array;
+            default:
+                throw new Error("Unknown texel type: " + tp);
+        }
+    },
 };
 
 window.nkCanvasGL2Context =
@@ -1206,7 +1229,8 @@ window.nkCanvasGL2Context =
         var ix = module.HEAP32[(d+40) >> 2];
         var ot = module.HEAP32[(d+44) >> 2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.texImage3D(tg, lv, it, wh, ht, de, 0, ft, tp, dt);
     },
@@ -1228,7 +1252,8 @@ window.nkCanvasGL2Context =
         var ix = module.HEAP32[(d+48)>>2];
         var ot = module.HEAP32[(d+52)>>2];
 
-        var dt = new Uint8Array(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
+        var tArr = nkCanvasGLContext.GetTypedArrayForTexelType(gc, tp);
+        var dt = new tArr(module.HEAPU8.buffer, arrPtr + ix * st, ot * st);
 
         gc.texSubImage3D(tg, lv, xo, yo, zo, wh, ht, de, ft, tp, dt);
     },
