@@ -105,6 +105,17 @@ window.nkCanvasGLContext =
         gc.stencilFunc(fc, rf, mk);
     },
 
+    StencilFuncSeparate: function(uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = module.HEAP32[(d+ 0)>>2];
+        var fc = module.HEAP32[(d+ 4)>>2];
+        var rf = module.HEAP32[(d+ 8)>>2];
+        var mk = module.HEAP32[(d+12)>>2];
+
+        gc.stencilFuncSeparate(md, fc, rf, mk);
+    },
+
     StencilOp: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
