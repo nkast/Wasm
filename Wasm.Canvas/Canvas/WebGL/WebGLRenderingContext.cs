@@ -67,6 +67,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.StencilMask", mask);
         }
 
+        public void StencilMaskSeparate(WebGLCullFaceMode mode, int mask)
+        {
+            Invoke("nkCanvasGLContext.StencilMaskSeparate", (int)mode, mask);
+        }
+
         public void DepthFunc(WebGLDepthComparisonFunc func)
         {
             Invoke("nkCanvasGLContext.DepthFunc", (int)func);
