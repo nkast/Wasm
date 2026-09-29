@@ -846,6 +846,9 @@ namespace nkast.Wasm.Canvas.WebGL
                 case "WEBGL_lose_context":
                     return (TExtension)(WebGLExtension)new WebGLLoseContextExtension(uid);
 
+                case "OES_draw_buffers_indexed":
+                    return (TExtension)(WebGLExtension)new WebGL2DrawBuffersIndexedExtension(uid);
+
                 default:
                     return (TExtension)new WebGLExtension(uid);
             }
