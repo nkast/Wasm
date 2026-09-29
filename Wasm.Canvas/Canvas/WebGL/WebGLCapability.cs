@@ -14,5 +14,9 @@ namespace nkast.Wasm.Canvas.WebGL
         DITHER          = 0x0BD0,
 
         POLYGON_OFFSET_FILL = 0x8037,
+
+        // WebGL PolygonModeExtension
+        POLYGON_MODE_WEBGL        = 0x0B40,
+        POLYGON_OFFSET_LINE_WEBGL = 0x2A02,
     }
 }

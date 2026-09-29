@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     public interface IWebGLRenderingContext : IRenderingContext
     {
+        WebGLPolygonModeExtension PolygonModeExtension { get; }
 
         void Enable(WebGLCapability cap);
         void Disable(WebGLCapability cap);

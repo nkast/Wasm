@@ -1383,3 +1383,14 @@ window.nkCanvasLoseContextExtension =
         ex.restoreContext();
     },
 };
+
+window.nkCanvasPolygonModeExtension =
+{
+    PolygonMode: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var fa = module.HEAP32[(d+ 0)>>2];
+        var mo = module.HEAP32[(d+ 4)>>2];
+        ex.polygonModeWEBGL(fa, mo);
+    },
+};
