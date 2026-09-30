@@ -13,12 +13,12 @@ namespace nkast.Wasm.XHR
 
         public XMLHttpRequest() : base(Register())
         {
-            Invoke("nkXHR.RegisterEvents");
+            Invoke(RegisterFunction("nkXHR.RegisterEvents"));
         }
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt("nkXHR.Create");
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkXHR.Create"));
             return uid;
         }
 
@@ -48,29 +48,29 @@ namespace nkast.Wasm.XHR
 
         public void Open(string method, string url, bool async = true)
         {
-            Invoke("nkXHR.Open", method, url, async?1:0);
+            Invoke(RegisterFunction("nkXHR.Open"), method, url, async?1:0);
         }
 
         public void OverrideMimeType(string mimeType)
         {
-            Invoke("nkXHR.OverrideMimeType", mimeType);
+            Invoke(RegisterFunction("nkXHR.OverrideMimeType"), mimeType);
         }
 
         public void SetRequestHeader(string header, string value)
         {
-            Invoke("nkXHR.SetRequestHeader", header, value);
+            Invoke(RegisterFunction("nkXHR.SetRequestHeader"), header, value);
         }
 
         public void Send()
         {
-            Invoke("nkXHR.Send");
+            Invoke(RegisterFunction("nkXHR.Send"));
         }
 
         public int Status
         {
             get
             {
-                int status = InvokeRetInt("nkXHR.GetStatus");
+                int status = InvokeRetInt(RegisterFunction("nkXHR.GetStatus"));
                 return status;
             }
         }
@@ -79,7 +79,7 @@ namespace nkast.Wasm.XHR
         {
             get
             {
-                string responseText = InvokeRetString("nkXHR.GetResponseText");
+                string responseText = InvokeRetString(RegisterFunction("nkXHR.GetResponseText"));
                 return responseText;
             }
         }
@@ -88,7 +88,7 @@ namespace nkast.Wasm.XHR
         {
             get
             {
-                int readyState = InvokeRetInt("nkXHR.GetReadyState");
+                int readyState = InvokeRetInt(RegisterFunction("nkXHR.GetReadyState"));
                 return (ReadyState) readyState;
             }
         }
@@ -100,7 +100,7 @@ namespace nkast.Wasm.XHR
 
             }
 
-            Invoke("nkXHR.UnregisterEvents");
+            Invoke(RegisterFunction("nkXHR.UnregisterEvents"));
 
             base.Dispose(disposing);
         }
@@ -110,7 +110,7 @@ namespace nkast.Wasm.XHR
             fixed (byte* pCompressedBuffer = compressedBuffer)
             fixed (byte* pDecompressedBuffer = decompressedBuffer)
             {
-                    Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
+                    Invoke(RegisterFunction("nkXHR.DecompressBrotliStream"), compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
             }
         }
 
@@ -119,7 +119,7 @@ namespace nkast.Wasm.XHR
             fixed (byte* pCompressedBuffer = compressedBuffer)
             fixed (byte* pDecompressedBuffer = decompressedBuffer)
             {
-                    Invoke("nkXHR.DecompressBrotliStream", compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
+                    Invoke(RegisterFunction("nkXHR.DecompressBrotliStream"), compressedDataSize, decompressedDataSize, (int)pCompressedBuffer, (int)pDecompressedBuffer);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace nkast.Wasm.Dom
         {
             get 
             { 
-                int type = InvokeRetInt("nkInput.GetType");
+                int type = InvokeRetInt(RegisterFunction("nkInput.GetType"));
                 switch(type)
                 {
                     case 1: return HTMLInputType.Button;
@@ -38,20 +38,20 @@ namespace nkast.Wasm.Dom
 
                     default: throw new NotSupportedException($"Unknown input type {value}");
                 }
-                Invoke("nkInput.SetType", type);
+                Invoke(RegisterFunction("nkInput.SetType"), type);
             }
         }
 
         public string Value
         {
-            get { return InvokeRetString("nkInput.GetValue"); }
-            set { Invoke<string>("nkInput.SetValue",value); }
+            get { return InvokeRetString(RegisterFunction("nkInput.GetValue")); }
+            set { Invoke<string>(RegisterFunction("nkInput.SetValue"),value); }
         }
 
         public double ValueAsNumber
         {
-            get { return InvokeRetDouble("nkInput.GetValueAsNumber"); }
-            set { Invoke<double>("nkInput.SetValueAsNumber", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkInput.GetValueAsNumber")); }
+            set { Invoke<double>(RegisterFunction("nkInput.SetValueAsNumber"), value); }
         }
 
         private Input(int uid) : base(uid)
@@ -64,7 +64,7 @@ namespace nkast.Wasm.Dom
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt("nkInput.Create");
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkInput.Create"));
             return uid;
         }
     }

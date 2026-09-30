@@ -11,7 +11,7 @@ namespace nkast.Wasm.Media
 
         public static MediaDevices FromNavigator(Navigator navigator)
         {
-            int uid = JSObject.StaticInvokeRetInt("nkMediaDevices.Create", navigator.Uid);
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkMediaDevices.Create"), navigator.Uid);
             if (uid == -1)
                 return null;
 
@@ -29,7 +29,7 @@ namespace nkast.Wasm.Media
 
         public Task<MediaStream> GetUserMediaAsync(UserMediaConstraints constraints)
         {
-            int uid = InvokeRetInt<int>("nkMediaDevices.GetUserMedia", (int)constraints.ToBit());
+            int uid = InvokeRetInt<int>(RegisterFunction("nkMediaDevices.GetUserMedia"), (int)constraints.ToBit());
 
             PromiseJSObject<MediaStream> promise = new PromiseJSObject<MediaStream>(uid, (int newuid) => new MediaStream(newuid));
             return promise.GetTask();

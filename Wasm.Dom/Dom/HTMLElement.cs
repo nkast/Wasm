@@ -13,7 +13,7 @@ namespace nkast.Wasm.Dom
         {
             get
             {
-                int uid = InvokeRetInt("nkHTMLElement.GetStyle");
+                int uid = InvokeRetInt(RegisterFunction("nkHTMLElement.GetStyle"));
 
                 CSSStyleDeclaration style = CSSStyleDeclaration.FromUid(uid);
                 if (style != null)
@@ -29,12 +29,12 @@ namespace nkast.Wasm.Dom
 
         public void Focus()
         {
-            Invoke("nkHTMLElement.Focus");
+            Invoke(RegisterFunction("nkHTMLElement.Focus"));
         }
 
         public void Blur()
         {
-            Invoke("nkHTMLElement.Blur");
+            Invoke(RegisterFunction("nkHTMLElement.Blur"));
         }
 
 

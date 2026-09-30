@@ -15,55 +15,55 @@ namespace nkast.Wasm.Audio
         public float PositionX
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetPositionX", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetPositionX"), value); }
         }
 
         public float PositionY
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetPositionY", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetPositionY"), value); }
         }
 
         public float PositionZ
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetPositionZ", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetPositionZ"), value); }
         }
         
         public float ForwardX
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetForwardX", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetForwardX"), value); }
         }
 
         public float ForwardY
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetForwardY", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetForwardY"), value); }
         }
 
         public float ForwardZ
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetForwardZ", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetForwardZ"), value); }
         }
 
         public float UpX
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetUpX", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetUpX"), value); }
         }
 
         public float UpY
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetUpY", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetUpY"), value); }
         }
 
         public float UpZ
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkAudioListener.SetUpZ", value); }
+            set { Invoke(RegisterFunction("nkAudioListener.SetUpZ"), value); }
         }
 
         protected override void Dispose(bool disposing)

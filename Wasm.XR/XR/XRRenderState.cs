@@ -16,7 +16,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                Invoke<IntPtr>("nkXRRenderState.GetDepthNear", new IntPtr(&result));
+                Invoke<IntPtr>(RegisterFunction("nkXRRenderState.GetDepthNear"), new IntPtr(&result));
                 if (result.X == -1)
                     return null;
 
@@ -29,7 +29,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                Invoke<IntPtr>("nkXRRenderState.GetDepthFar", new IntPtr(&result));
+                Invoke<IntPtr>(RegisterFunction("nkXRRenderState.GetDepthFar"), new IntPtr(&result));
                 if (result.X == -1)
                     return null;
 
@@ -41,7 +41,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                Invoke<IntPtr>("nkXRRenderState.GetInlineVerticalFieldOfView", new IntPtr(&result));
+                Invoke<IntPtr>(RegisterFunction("nkXRRenderState.GetInlineVerticalFieldOfView"), new IntPtr(&result));
                 if (result.X == -1)
                     return null;
 
@@ -53,7 +53,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt("nkXRRenderState.GetBaseLayer");
+                int uid = InvokeRetInt(RegisterFunction("nkXRRenderState.GetBaseLayer"));
                 XRWebGLLayer glLayer = XRWebGLLayer.FromUid<XRWebGLLayer>(uid);
                 if (glLayer != null)
                     return glLayer;

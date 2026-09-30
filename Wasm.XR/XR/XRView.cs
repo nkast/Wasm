@@ -17,7 +17,7 @@ namespace nkast.Wasm.XR
             get
             {
                 XRRigidTransform result = default;
-                Invoke<IntPtr>("nkXRView.GetTransform", new IntPtr(&result));
+                Invoke<IntPtr>(RegisterFunction("nkXRView.GetTransform"), new IntPtr(&result));
                 return result;
             }
         }
@@ -27,7 +27,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Matrix4x4 result = default;
-                Invoke<IntPtr>("nkXRView.GetProjectionMatrix", new IntPtr(&result));
+                Invoke<IntPtr>(RegisterFunction("nkXRView.GetProjectionMatrix"), new IntPtr(&result));
                 return result;
             }
         }
@@ -36,7 +36,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int eye = InvokeRetInt("nkXRView.GetEye");
+                int eye = InvokeRetInt(RegisterFunction("nkXRView.GetEye"));
                 return (XREye)eye;
             }
         }

@@ -21,10 +21,10 @@ namespace nkast.Wasm.Audio
 
         internal AudioWorkletNode(int uid, BaseAudioContext context) : base(uid, context)
         {
-            int mpuid = InvokeRetInt("nkAudioWorkletNode.GetPort");
+            int mpuid = InvokeRetInt(RegisterFunction("nkAudioWorkletNode.GetPort"));
             _messagePort = new MessagePort(mpuid);
 
-            int pmuid = InvokeRetInt("nkAudioWorkletNode.GetParameters");
+            int pmuid = InvokeRetInt(RegisterFunction("nkAudioWorkletNode.GetParameters"));
             _parameters = new AudioParamMap(pmuid, this);
         }
 

@@ -12,7 +12,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt("nkXRFrame.GetSession");
+                int uid = InvokeRetInt(RegisterFunction("nkXRFrame.GetSession"));
                 if (uid == -1)
                     return null;
 
@@ -30,7 +30,7 @@ namespace nkast.Wasm.XR
 
         public XRViewerPose GetViewerPose(XRReferenceSpace referenceSpace)
         {
-            int uid = InvokeRetInt<int>("nkXRFrame.GetViewerPose", referenceSpace.Uid);
+            int uid = InvokeRetInt<int>(RegisterFunction("nkXRFrame.GetViewerPose"), referenceSpace.Uid);
             if (uid == -1)
                 return null;
 
@@ -39,7 +39,7 @@ namespace nkast.Wasm.XR
 
         public XRPose GetPose(XRSpace space, XRSpace baseSpace)
         {
-            int uid = InvokeRetInt<int, int>("nkXRFrame.GetPose", space.Uid, baseSpace.Uid);
+            int uid = InvokeRetInt<int, int>(RegisterFunction("nkXRFrame.GetPose"), space.Uid, baseSpace.Uid);
             if (uid == -1)
                 return null;
 
@@ -48,7 +48,7 @@ namespace nkast.Wasm.XR
 
         public XRJointPose GetJointPose(XRJointSpace space, XRSpace baseSpace)
         {
-            int uid = InvokeRetInt<int, int>("nkXRFrame.GetJointPose", space.Uid, baseSpace.Uid);
+            int uid = InvokeRetInt<int, int>(RegisterFunction("nkXRFrame.GetJointPose"), space.Uid, baseSpace.Uid);
             if (uid == -1)
                 return null;
 
@@ -57,7 +57,7 @@ namespace nkast.Wasm.XR
 
         public unsafe Task<XRAnchor> CreateAnchorAsync(XRRigidTransform pose, XRSpace baseSpace)
         {
-            int uid = InvokeRetInt<IntPtr, int>("nkXRFrame.CreateAnchor", new IntPtr(&pose), baseSpace.Uid);
+            int uid = InvokeRetInt<IntPtr, int>(RegisterFunction("nkXRFrame.CreateAnchor"), new IntPtr(&pose), baseSpace.Uid);
 
             PromiseJSObject<XRAnchor> promise = new PromiseJSObject<XRAnchor>(uid,
                 (int newuid) =>

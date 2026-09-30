@@ -11,7 +11,7 @@ namespace nkast.Wasm.XR
 
         public static XRSystem FromNavigator(Navigator navigator)
         {
-            int uid = JSObject.StaticInvokeRetInt("nkXRSystem.Create", navigator.Uid);
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkXRSystem.Create"), navigator.Uid);
             if (uid == -1)
                 return null;
 
@@ -30,7 +30,7 @@ namespace nkast.Wasm.XR
 
         public Task<bool> IsSessionSupportedAsync(string mode)
         {
-            int uid = InvokeRetInt<string>("nkXRSystem.IsSessionSupported", mode);
+            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSystem.IsSessionSupported"), mode);
 
             PromiseBoolean promise = new PromiseBoolean(uid);
             return promise.GetTask();
@@ -38,7 +38,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRSession> RequestSessionAsync(string mode)
         {
-            int uid = InvokeRetInt<string>("nkXRSystem.RequestSession", mode);
+            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSystem.RequestSession"), mode);
 
             PromiseJSObject<XRSession> promise = new PromiseJSObject<XRSession>(uid, (int newuid) => new XRSession(newuid) );
             return promise.GetTask();
@@ -46,7 +46,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRSession> RequestSessionAsync(string mode, XRSessionOptions options)
         {
-            int uid = InvokeRetInt<string, int, int>("nkXRSystem.RequestSession1", mode, (int)options.RequiredFeatures, (int)options.OptionalFeatures);
+            int uid = InvokeRetInt<string, int, int>(RegisterFunction("nkXRSystem.RequestSession1"), mode, (int)options.RequiredFeatures, (int)options.OptionalFeatures);
 
             PromiseJSObject<XRSession> promise = new PromiseJSObject<XRSession>(uid, (int newuid) => new XRSession(newuid));
             return promise.GetTask();

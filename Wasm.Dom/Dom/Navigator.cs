@@ -15,12 +15,12 @@ namespace nkast.Wasm.Dom
 
         public string UserAgent
         {
-            get { return InvokeRetString("nkNavigator.GetUserAgent"); }
+            get { return InvokeRetString(RegisterFunction("nkNavigator.GetUserAgent")); }
         }
 
         public int MaxTouchPoints
         {
-            get { return InvokeRetInt("nkNavigator.GetMaxTouchPoints"); }
+            get { return InvokeRetInt(RegisterFunction("nkNavigator.GetMaxTouchPoints")); }
         }
 
         internal Navigator(Window window, int uid) : base(uid)
@@ -59,7 +59,7 @@ namespace nkast.Wasm.Dom
 
         private GamepadArray GetGamepadArray()
         {
-            int uid = InvokeRetInt("nkNavigator.GetGamepads");
+            int uid = InvokeRetInt(RegisterFunction("nkNavigator.GetGamepads"));
 
             GamepadArray gamepadArray = GamepadArray.FromUid(uid);
             if (gamepadArray != null)
@@ -70,12 +70,12 @@ namespace nkast.Wasm.Dom
 
         public void Vibrate(int duration)
         {
-            Invoke<int>("nkNavigator.Vibrate", duration);
+            Invoke<int>(RegisterFunction("nkNavigator.Vibrate"), duration);
         }
 
         public void Vibrate(TimeSpan duration)
         {
-            Invoke<int>("nkNavigator.Vibrate", (int)duration.TotalMilliseconds);
+            Invoke<int>(RegisterFunction("nkNavigator.Vibrate"), (int)duration.TotalMilliseconds);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_frequency == null)
                 {
-                    int uid = InvokeRetInt("nkAudioOscillatorNode.GetFrequency");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioOscillatorNode.GetFrequency"));
                     _frequency = new AudioParam(uid, this);
                 }
 
@@ -27,8 +27,8 @@ namespace nkast.Wasm.Audio
 
         public OscillatorType Type
         {
-            get { return (OscillatorType)InvokeRetInt("nkAudioOscillatorNode.GetType"); }
-            set { Invoke("nkAudioOscillatorNode.SetType", (int)value); }
+            get { return (OscillatorType)InvokeRetInt(RegisterFunction("nkAudioOscillatorNode.GetType")); }
+            set { Invoke(RegisterFunction("nkAudioOscillatorNode.SetType"), (int)value); }
         }
 
         protected override void Dispose(bool disposing)

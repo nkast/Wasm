@@ -14,48 +14,48 @@ namespace nkast.Wasm.Audio
 
         public double DefaultValue
         {
-            get { return InvokeRetDouble("nkAudioParam.GetDefaultValue"); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioParam.GetDefaultValue")); }
         }
         public double MinValue
         {
-            get { return InvokeRetDouble("nkAudioParam.GetMinValue"); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioParam.GetMinValue")); }
         }
         public double MaxValue
         {
-            get { return InvokeRetDouble("nkAudioParam.GetMaxValue"); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioParam.GetMaxValue")); }
         }
 
         public float Value
         {
-            get { return InvokeRetFloat("nkAudioParam.GetValue"); }
-            set { Invoke("nkAudioParam.SetValue", value); }
+            get { return InvokeRetFloat(RegisterFunction("nkAudioParam.GetValue")); }
+            set { Invoke(RegisterFunction("nkAudioParam.SetValue"), value); }
         }
 
         public void SetValueAtTime(float value, float startTime)
         {
-            Invoke("nkAudioParam.SetValueAtTime", value, startTime);
+            Invoke(RegisterFunction("nkAudioParam.SetValueAtTime"), value, startTime);
         }
 
         public void LinearRampToValueAtTime(float value, float endTime)
         {
-            Invoke("nkAudioParam.LinearRampToValueAtTime", value, endTime);
+            Invoke(RegisterFunction("nkAudioParam.LinearRampToValueAtTime"), value, endTime);
         }
 
         public void ExponentialRampToValueAtTime(float value, float endTime)
         {
-            Invoke("nkAudioParam.ExponentialRampToValueAtTime", value, endTime);
+            Invoke(RegisterFunction("nkAudioParam.ExponentialRampToValueAtTime"), value, endTime);
         }
 
         public void SetTargetAtTime(float target, float startTime, float timeConstant)
         {
-            Invoke("nkAudioParam.SetTargetAtTime", target, startTime, timeConstant);
+            Invoke(RegisterFunction("nkAudioParam.SetTargetAtTime"), target, startTime, timeConstant);
         }
 
         public unsafe void SetValueCurveAtTime(float[] values, float startTime, float duration)
         {
             fixed (float* pValues = values)
             {
-                Invoke("nkAudioParam.SetValueCurveAtTime", startTime, duration, (int)pValues, values.Length);
+                Invoke(RegisterFunction("nkAudioParam.SetValueCurveAtTime"), startTime, duration, (int)pValues, values.Length);
             }
         }
 
@@ -63,13 +63,13 @@ namespace nkast.Wasm.Audio
         {
             fixed (float* pValues = values)
             {
-                Invoke("nkAudioParam.SetValueCurveAtTime", startTime, duration, (int)pValues, values.Length);
+                Invoke(RegisterFunction("nkAudioParam.SetValueCurveAtTime"), startTime, duration, (int)pValues, values.Length);
             }
         }
 
         public void CancelScheduledValues(float startTime)
         {
-            Invoke("nkAudioParam.CancelScheduledValues", startTime);
+            Invoke(RegisterFunction("nkAudioParam.CancelScheduledValues"), startTime);
         }
 
 

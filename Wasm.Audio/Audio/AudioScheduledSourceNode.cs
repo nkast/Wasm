@@ -12,7 +12,7 @@ namespace nkast.Wasm.Audio
 
         internal AudioScheduledSourceNode(int uid, BaseAudioContext context) : base(uid, context)
         {
-            Invoke("nkAudioScheduledSourceNode.RegisterEvents");
+            Invoke(RegisterFunction("nkAudioScheduledSourceNode.RegisterEvents"));
         }
 
         [JSInvokable]
@@ -29,12 +29,12 @@ namespace nkast.Wasm.Audio
 
         public void Start()
         {
-            Invoke("nkAudioScheduledSourceNode.Start");
+            Invoke(RegisterFunction("nkAudioScheduledSourceNode.Start"));
         }
 
         public void Stop()
         {
-            Invoke("nkAudioScheduledSourceNode.Stop");
+            Invoke(RegisterFunction("nkAudioScheduledSourceNode.Stop"));
         }
 
         protected override void Dispose(bool disposing)
@@ -44,7 +44,7 @@ namespace nkast.Wasm.Audio
 
             }
 
-            Invoke("nkAudioScheduledSourceNode.UnregisterEvents");
+            Invoke(RegisterFunction("nkAudioScheduledSourceNode.UnregisterEvents"));
 
             base.Dispose(disposing);
         }

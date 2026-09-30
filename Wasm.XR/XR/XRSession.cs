@@ -23,7 +23,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt("nkXRSession.GetRenderState");
+                int uid = InvokeRetInt(RegisterFunction("nkXRSession.GetRenderState"));
                 XRRenderState renderState = XRRenderState.FromUid(uid);
                 if (renderState != null)
                     return renderState;
@@ -36,7 +36,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt("nkXRSession.GetInputSources");
+                int uid = InvokeRetInt(RegisterFunction("nkXRSession.GetInputSources"));
 
                 XRInputSourceArray inputSourceArray = XRInputSourceArray.FromUid(uid);
                 if (inputSourceArray != null)
@@ -48,12 +48,12 @@ namespace nkast.Wasm.XR
 
         public bool IsSystemKeyboardSupported
         {
-            get { return InvokeRetBool("nkXRSession.GetIsSystemKeyboardSupported"); }
+            get { return InvokeRetBool(RegisterFunction("nkXRSession.GetIsSystemKeyboardSupported")); }
         }
 
         internal XRSession(int uid) : base(uid)
         {
-            Invoke("nkXRSession.RegisterEvents");
+            Invoke(RegisterFunction("nkXRSession.RegisterEvents"));
         }
 
         [JSInvokable]
@@ -105,7 +105,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRReferenceSpace> RequestReferenceSpaceAsync(string referenceSpaceType)
         {
-            int uid = InvokeRetInt<string>("nkXRSession.RequestReferenceSpace", referenceSpaceType);
+            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSession.RequestReferenceSpace"), referenceSpaceType);
 
             PromiseJSObject<XRReferenceSpace> promise = new PromiseJSObject<XRReferenceSpace>(uid,
                 (int newuid) =>
@@ -117,7 +117,7 @@ namespace nkast.Wasm.XR
 
         public Task End()
         {
-            int uid = InvokeRetInt("nkXRSession.End");
+            int uid = InvokeRetInt(RegisterFunction("nkXRSession.End"));
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -125,7 +125,7 @@ namespace nkast.Wasm.XR
 
         public void UpdateRenderState(RenderStateAttributes attributes)
         {
-            Invoke("nkXRSession.UpdateRenderState", attributes.BaseLayer.Uid);
+            Invoke(RegisterFunction("nkXRSession.UpdateRenderState"), attributes.BaseLayer.Uid);
         }
 
         public int RequestAnimationFrame(XRAnimationFrameCallback animationFrameCallback)
@@ -133,7 +133,7 @@ namespace nkast.Wasm.XR
             unchecked { _animationFrameCallbackId++; }
             int callbackId = _animationFrameCallbackId;
 
-            int handle = InvokeRetInt<int>("nkXRSession.RequestAnimationFrame", callbackId);
+            int handle = InvokeRetInt<int>(RegisterFunction("nkXRSession.RequestAnimationFrame"), callbackId);
 
             _animationFrameCallbacks.Add(callbackId, animationFrameCallback);
             _animationFrameRequestHandles.Add(callbackId, handle);
@@ -149,21 +149,21 @@ namespace nkast.Wasm.XR
             _animationFrameCallbacks.Remove(callbackId);
             _animationFrameRequestHandles.Remove(callbackId);
 
-            Invoke<int>("nkXRSession.CancelAnimationFrame", requestID);
+            Invoke<int>(RegisterFunction("nkXRSession.CancelAnimationFrame"), requestID);
 
             return;
         }
 
         internal int CreateWebGLLayer(IWebGLRenderingContext glContext)
         {
-            int uid = InvokeRetInt<int>("nkXRSession.CreateWebGLLayer", ((JSObject)glContext).Uid);
+            int uid = InvokeRetInt<int>(RegisterFunction("nkXRSession.CreateWebGLLayer"), ((JSObject)glContext).Uid);
 
             return uid;
         }
 
         internal int CreateWebGLLayer(IWebGLRenderingContext glContext, XRWebGLLayerOptions options)
         {
-            int uid = InvokeRetInt<int, int>("nkXRSession.CreateWebGLLayer1", ((JSObject)glContext).Uid, options.ToBit());
+            int uid = InvokeRetInt<int, int>(RegisterFunction("nkXRSession.CreateWebGLLayer1"), ((JSObject)glContext).Uid, options.ToBit());
 
             return uid;
         }
@@ -175,7 +175,7 @@ namespace nkast.Wasm.XR
 
             }
 
-            Invoke("nkXRSession.UnregisterEvents");
+            Invoke(RegisterFunction("nkXRSession.UnregisterEvents"));
 
             base.Dispose(disposing);
         }

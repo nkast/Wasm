@@ -13,55 +13,55 @@ namespace nkast.Wasm.Dom
 
         public string CurrentSrc
         {
-            get { return InvokeRetString("nkMedia.GetCurrentSrc"); }
+            get { return InvokeRetString(RegisterFunction("nkMedia.GetCurrentSrc")); }
         }
 
         public TimeSpan CurrentTime
         {
             get
             {
-                double currentTime = InvokeRetDouble("nkMedia.GetCurrentTime");
+                double currentTime = InvokeRetDouble(RegisterFunction("nkMedia.GetCurrentTime"));
                 return TimeSpan.FromSeconds(currentTime);
             }
         }
 
         public string Src
         {
-            get { return InvokeRetString("nkMedia.GetSrc"); }
-            set { Invoke("nkMedia.SetSrc", value); }
+            get { return InvokeRetString(RegisterFunction("nkMedia.GetSrc")); }
+            set { Invoke(RegisterFunction("nkMedia.SetSrc"), value); }
         }
 
         public bool Ended
         {
-            get { return InvokeRetBool("nkMedia.GetEnded"); }
+            get { return InvokeRetBool(RegisterFunction("nkMedia.GetEnded")); }
         }
 
         public bool Paused
         {
-            get { return InvokeRetBool("nkMedia.GetPaused"); }
+            get { return InvokeRetBool(RegisterFunction("nkMedia.GetPaused")); }
         }
 
         public bool Muted
         {
-            get { return InvokeRetBool("nkMedia.GetMuted"); }
-            set { Invoke("nkMedia.SetMuted", value); }
+            get { return InvokeRetBool(RegisterFunction("nkMedia.GetMuted")); }
+            set { Invoke(RegisterFunction("nkMedia.SetMuted"), value); }
         }
 
         public bool Loop
         {
-            get { return InvokeRetBool("nkMedia.GetLoop"); }
-            set { Invoke("nkMedia.SetLoop", value); }
+            get { return InvokeRetBool(RegisterFunction("nkMedia.GetLoop")); }
+            set { Invoke(RegisterFunction("nkMedia.SetLoop"), value); }
         }
 
         public float Volume
         {
             get { throw new NotImplementedException(); }
-            set { Invoke("nkMedia.SetVolume", value); }
+            set { Invoke(RegisterFunction("nkMedia.SetVolume"), value); }
         }
 
         internal HTMLMediaElement(int uid) : base(uid)
         {
-            Invoke("nkMedia.RegisterEvents");
+            Invoke(RegisterFunction("nkMedia.RegisterEvents"));
         }
 
 
@@ -103,14 +103,14 @@ namespace nkast.Wasm.Dom
 
         public void Load()
         {
-            Invoke("nkMedia.Load");
+            Invoke(RegisterFunction("nkMedia.Load"));
         }
 
         public void Play()
         {
             try
             {
-                Invoke("nkMedia.Play");
+                Invoke(RegisterFunction("nkMedia.Play"));
             }
             catch(Exception e)
             {
@@ -120,7 +120,7 @@ namespace nkast.Wasm.Dom
 
         public void Pause()
         {
-            Invoke("nkMedia.Pause");
+            Invoke(RegisterFunction("nkMedia.Pause"));
         }
 
         protected override void Dispose(bool disposing)
@@ -131,7 +131,7 @@ namespace nkast.Wasm.Dom
             }
 
             Pause();
-            Invoke("nkMedia.UnregisterEvents");
+            Invoke(RegisterFunction("nkMedia.UnregisterEvents"));
 
             base.Dispose(disposing);
         }

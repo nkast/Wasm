@@ -18,8 +18,8 @@ namespace nkast.Wasm.Audio
 
         public PanningModelType PanningModel
         {
-            get { return (PanningModelType)InvokeRetInt("nkAudioPannerNode.GetPanningModel"); }
-            set { Invoke("nkAudioPannerNode.SetPanningModel", (int)value); }
+            get { return (PanningModelType)InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetPanningModel")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetPanningModel"), (int)value); }
         }
 
         public AudioParam PositionX
@@ -28,7 +28,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_positionX == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetPositionX");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetPositionX"));
                     _positionX = new AudioParam(uid, this);
                 }
 
@@ -42,7 +42,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_positionY == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetPositionY");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetPositionY"));
                     _positionY = new AudioParam(uid, this);
                 }
 
@@ -56,7 +56,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_positionZ == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetPositionZ");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetPositionZ"));
                     _positionZ = new AudioParam(uid, this);
                 }
 
@@ -70,7 +70,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_orientationX == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetOrientationX");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetOrientationX"));
                     _orientationX = new AudioParam(uid, this);
                 }
 
@@ -84,7 +84,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_orientationY == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetOrientationY");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetOrientationY"));
                     _orientationY = new AudioParam(uid, this);
                 }
 
@@ -98,7 +98,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_orientationZ == null)
                 {
-                    int uid = InvokeRetInt("nkAudioPannerNode.GetOrientationZ");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetOrientationZ"));
                     _orientationZ = new AudioParam(uid, this);
                 }
 
@@ -108,44 +108,44 @@ namespace nkast.Wasm.Audio
 
         public DistanceModelType DistanceModel
         {
-            get { return (DistanceModelType)InvokeRetInt("nkAudioPannerNode.GetDistanceModel"); }
-            set { Invoke("nkAudioPannerNode.SetDistanceModel", (int)value); }
+            get { return (DistanceModelType)InvokeRetInt(RegisterFunction("nkAudioPannerNode.GetDistanceModel")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetDistanceModel"), (int)value); }
         }
 
         public double RefDistance
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetRefDistance"); }
-            set { Invoke("nkAudioPannerNode.SetRefDistance", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetRefDistance")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetRefDistance"), value); }
         }
 
         public double MaxDistance
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetMaxDistance"); }
-            set { Invoke("nkAudioPannerNode.SetMaxDistance", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetMaxDistance")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetMaxDistance"), value); }
         }
 
         public double RolloffFactor
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetRolloffFactor"); }
-            set { Invoke("nkAudioPannerNode.SetRolloffFactor", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetRolloffFactor")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetRolloffFactor"), value); }
         }
 
         public double ConeInnerAngle
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetConeInnerAngle"); }
-            set { Invoke("nkAudioPannerNode.SetConeInnerAngle", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetConeInnerAngle")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetConeInnerAngle"), value); }
         }
 
         public double ConeOuterAngle
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetConeOuterAngle"); }
-            set { Invoke("nkAudioPannerNode.SetConeOuterAngle", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetConeOuterAngle")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetConeOuterAngle"), value); }
         }
 
         public double ConeOuterGain
         {
-            get { return InvokeRetDouble("nkAudioPannerNode.GetConeOuterGain"); }
-            set { Invoke("nkAudioPannerNode.SetConeOuterGain", value); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioPannerNode.GetConeOuterGain")); }
+            set { Invoke(RegisterFunction("nkAudioPannerNode.SetConeOuterGain"), value); }
         }
 
         protected override void Dispose(bool disposing)

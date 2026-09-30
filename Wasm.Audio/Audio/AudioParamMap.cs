@@ -21,7 +21,7 @@ namespace nkast.Wasm.Audio
                 if (_paramMap.TryGetValue(key, out AudioParam param))
                     return param;
 
-                int uid = InvokeRetInt<string>("nkAudioParamMap.Get", key);
+                int uid = InvokeRetInt<string>(RegisterFunction("nkAudioParamMap.Get"), key);
                 if (uid == -1)
                     return null;
 
@@ -36,7 +36,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                int count = InvokeRetInt("nkAudioParamMap.GetSize");
+                int count = InvokeRetInt(RegisterFunction("nkAudioParamMap.GetSize"));
                 return count;
             }
         }

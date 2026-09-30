@@ -11,39 +11,39 @@ namespace nkast.Wasm.Input
 
         public bool Connected
         {
-            get { return InvokeRetBool("nkGamepad.GetConnected"); }
+            get { return InvokeRetBool(RegisterFunction("nkGamepad.GetConnected")); }
         }
 
         public string Id
         {
-            get { return InvokeRetString("nkGamepad.GetId"); }
+            get { return InvokeRetString(RegisterFunction("nkGamepad.GetId")); }
         }
 
         public int Index
         {
-            get { return InvokeRetInt("nkGamepad.GetIndex"); }
+            get { return InvokeRetInt(RegisterFunction("nkGamepad.GetIndex")); }
         }
 
         public string Mapping
         {
-            get { return InvokeRetString("nkGamepad.GetMapping"); }
+            get { return InvokeRetString(RegisterFunction("nkGamepad.GetMapping")); }
         }
 
         public int Timestamp
         {
-            get { return InvokeRetInt("nkGamepad.GetTimestamp"); }
+            get { return InvokeRetInt(RegisterFunction("nkGamepad.GetTimestamp")); }
         }
 
         public unsafe GamepadButton[] Buttons
         {
             get
             {
-                int count = -InvokeRetInt<int, int, IntPtr>("nkGamepad.GetButtons", -1, 0, IntPtr.Zero);
+                int count = -InvokeRetInt<int, int, IntPtr>(RegisterFunction("nkGamepad.GetButtons"), -1, 0, IntPtr.Zero);
                 GamepadButton[] ret = new GamepadButton[count];
 
                 fixed (GamepadButton* pret = ret)
                 {
-                    count = InvokeRetInt<int, int, IntPtr>("nkGamepad.GetButtons", count, sizeof(GamepadButton), new IntPtr(pret));
+                    count = InvokeRetInt<int, int, IntPtr>(RegisterFunction("nkGamepad.GetButtons"), count, sizeof(GamepadButton), new IntPtr(pret));
                 }
 
                 return ret;
@@ -54,12 +54,12 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int count = -InvokeRetInt<int, IntPtr>("nkGamepad.GetAxes", -1, IntPtr.Zero);
+                int count = -InvokeRetInt<int, IntPtr>(RegisterFunction("nkGamepad.GetAxes"), -1, IntPtr.Zero);
                 float[] ret = new float[count];
 
                 fixed (float* pret = ret)
                 {
-                    count = -InvokeRetInt<int, IntPtr>("nkGamepad.GetAxes", count, new IntPtr(pret));
+                    count = -InvokeRetInt<int, IntPtr>(RegisterFunction("nkGamepad.GetAxes"), count, new IntPtr(pret));
                 }
 
                 return ret;
@@ -70,7 +70,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int uid = InvokeRetInt("nkGamepad.GetVibrationActuator");
+                int uid = InvokeRetInt(RegisterFunction("nkGamepad.GetVibrationActuator"));
                 GamepadHapticActuator gamepadHapticActuator = GamepadHapticActuator.FromUid(uid);
                 if (gamepadHapticActuator != null)
                     return gamepadHapticActuator;

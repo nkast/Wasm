@@ -13,29 +13,29 @@ namespace nkast.Wasm.XR
 
         public int FramebufferWidth
         {
-            get { return InvokeRetInt("nkXRWebGLLayer.GetFramebufferWidth"); }
+            get { return InvokeRetInt(RegisterFunction("nkXRWebGLLayer.GetFramebufferWidth")); }
         }
 
         public int FramebufferHeight
         {
-            get { return InvokeRetInt("nkXRWebGLLayer.GetFramebufferHeight"); }
+            get { return InvokeRetInt(RegisterFunction("nkXRWebGLLayer.GetFramebufferHeight")); }
         }
 
         public bool IgnoreDepthValues
         {
-            get { return InvokeRetBool("nkXRWebGLLayer.GetIgnoreDepthValues"); }
+            get { return InvokeRetBool(RegisterFunction("nkXRWebGLLayer.GetIgnoreDepthValues")); }
         }
 
         public bool Antialias
         {
-            get { return InvokeRetBool("nkXRWebGLLayer.GetAntialias"); }
+            get { return InvokeRetBool(RegisterFunction("nkXRWebGLLayer.GetAntialias")); }
         }
 
         public WebGLFramebuffer Framebuffer
         {
             get
             {
-                int uid = InvokeRetInt("nkXRWebGLLayer.GetFramebuffer");
+                int uid = InvokeRetInt(RegisterFunction("nkXRWebGLLayer.GetFramebuffer"));
                 XRWebGLFramebuffer framebuffer = XRWebGLFramebuffer.FromUid<XRWebGLFramebuffer>(uid);
                 if (framebuffer != null)
                     return framebuffer;
@@ -74,7 +74,7 @@ namespace nkast.Wasm.XR
         public unsafe XRViewport GetViewport(XRView view)
         {
             XRViewport result = default;
-            Invoke<int, IntPtr>("nkXRWebGLLayer.GetViewport", view.Uid, new IntPtr(&result));
+            Invoke<int, IntPtr>(RegisterFunction("nkXRWebGLLayer.GetViewport"), view.Uid, new IntPtr(&result));
             return result;
         }
 
