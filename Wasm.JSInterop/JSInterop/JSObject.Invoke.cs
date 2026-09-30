@@ -49,7 +49,7 @@ namespace nkast.Wasm.JSInterop
         private static partial string JSInvoke2String(int fid, int uid, int d);
 
 
-        private static unsafe int RegisterFunction(string identifier)
+        protected static unsafe int RegisterFunction(string identifier)
         {
             if (_fidMap.TryGetValue(identifier, out int fid))
                 return fid;
