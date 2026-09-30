@@ -176,16 +176,14 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2>(string identifier, T1 arg1, T2 arg2)
+        protected unsafe float InvokeRetFloat<T1, T2>(int fid, T1 arg1, T2 arg2)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2>(string identifier, T1 arg1, T2 arg2)
+        protected unsafe string InvokeRetString<T1, T2>(int fid, T1 arg1, T2 arg2)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -211,16 +209,14 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3>(string identifier, T1 arg1, T2 arg2, T3 arg3)
+        protected unsafe float InvokeRetFloat<T1, T2, T3>(int fid, T1 arg1, T2 arg2, T3 arg3)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3>(string identifier, T1 arg1, T2 arg2, T3 arg3)
+        protected unsafe string InvokeRetString<T1, T2, T3>(int fid, T1 arg1, T2 arg2, T3 arg3)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -232,9 +228,8 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
@@ -246,16 +241,14 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -267,9 +260,8 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
@@ -281,16 +273,14 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -309,23 +299,20 @@ namespace nkast.Wasm.JSInterop
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -337,30 +324,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
         {
-            int fid = RegisterFunction(identifier);
             var args = ValueTuple.Create(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -372,30 +355,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct8<T1, T2, T3, T4, T5, T6, T7, T8>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -407,30 +386,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStruct9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -442,30 +417,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructA<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -477,30 +448,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructB<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
@@ -512,30 +479,26 @@ namespace nkast.Wasm.JSInterop
             JSInvoke2Void(fid, Uid, (int)&args);
         }
 
-        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        protected unsafe bool InvokeRetBool<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
             return JSInvoke2Bool(fid, Uid, (int)&args);
         }
 
-        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        protected unsafe int InvokeRetInt<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
             return JSInvoke2Int(fid, Uid, (int)&args);
         }
 
-        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        protected unsafe float InvokeRetFloat<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
             return JSInvoke2Float(fid, Uid, (int)&args);
         }
 
-        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(string identifier, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
+        protected unsafe string InvokeRetString<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(int fid, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, TA argA, TB argB, TC argC)
         {
-            int fid = RegisterFunction(identifier);
             var args = new FixedStructC<T1, T2, T3, T4, T5, T6, T7, T8, T9, TA, TB, TC>(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB, argC);
             return JSInvoke2String(fid, Uid, (int)&args);
         }
