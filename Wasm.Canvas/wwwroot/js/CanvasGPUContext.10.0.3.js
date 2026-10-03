@@ -28,4 +28,33 @@ window.nkGPU =
 
 window.nkGPUAdapter =
 {
+    GetInfo: function (uid)
+    {
+        var adapter = nkJSObject.GetObject(uid);
+        var info = adapter.info;
+        var iid = nkJSObject.GetUid(info);
+        if (iid !== -1)
+            return iid;
+
+        return nkJSObject.RegisterObject(info);
+    },
+};
+window.nkGPUAdapterInfo =
+{
+    GetDevice: function (uid)
+    {
+        return nkJSObject.GetObject(uid).device;
+    },
+    GetDescription: function (uid)
+    {
+        return nkJSObject.GetObject(uid).description;
+    },
+    GetVendor: function (uid)
+    {
+        return nkJSObject.GetObject(uid).vendor;
+    },
+    GetArchitecture: function (uid)
+    {
+        return nkJSObject.GetObject(uid).architecture;
+    },
 };

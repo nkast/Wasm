@@ -47,6 +47,11 @@ namespace CanvasGPU.Pages
         {
             GPUAdapter adapter = await gpu.RequestAdapterAsync();
             Console.WriteLine("WebGPU adapter: " + (adapter != null));
+            GPUAdapterInfo adapterInfo = adapter.GetInfo();
+            Console.WriteLine("WebGPU adapter device: " + adapterInfo.Device);
+            Console.WriteLine("WebGPU adapter description: " + adapterInfo.Description);
+            Console.WriteLine("WebGPU adapter vendor: " + adapterInfo.Vendor);
+            Console.WriteLine("WebGPU adapter architecture: " + adapterInfo.Architecture);
             // TODO: request device.
 
         }

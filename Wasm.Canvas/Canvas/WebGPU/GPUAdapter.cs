@@ -10,5 +10,15 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public GPUAdapterInfo GetInfo()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUAdapter.GetInfo"));
+
+            GPUAdapterInfo info = GPUAdapterInfo.FromUid(uid);
+            if (info != null)
+                return info;
+
+            return new GPUAdapterInfo(uid);
+        }
     }
 }
