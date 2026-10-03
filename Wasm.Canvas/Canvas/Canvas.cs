@@ -28,6 +28,7 @@ namespace nkast.Wasm.Canvas
         CanvasRenderingContext _canvasRenderingContext;
         WebGL.WebGLRenderingContext _webglRenderingContext;
         WebGL.WebGL2RenderingContext _webgl2RenderingContext;
+        WebGPU.GPUCanvasContext _gpuCanvasContext;
 
 
         private Canvas(int uid) : base(uid)
@@ -108,6 +109,22 @@ namespace nkast.Wasm.Canvas
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(this, uid);
 
                 return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
+            }
+
+            if (typeof(TContext) == typeof(WebGPU.IGPUCanvasContext))
+            {
+                //TODO: implement a Disposed event in IRenderingContext
+                if (_gpuCanvasContext != null && _gpuCanvasContext.IsDisposed)
+                    _gpuCanvasContext = null;
+
+                if (_gpuCanvasContext != null)
+                    return (TContext)(WebGPU.IGPUCanvasContext)_gpuCanvasContext;
+
+                int uid = InvokeRetInt(RegisterFunction("nkCanvas.CreateGPUContext"));
+                if (uid > 0)
+                    _gpuCanvasContext = new WebGPU.GPUCanvasContext(this, uid);
+
+                return (TContext)(WebGPU.IGPUCanvasContext)_gpuCanvasContext;
             }
 
             throw new NotSupportedException();

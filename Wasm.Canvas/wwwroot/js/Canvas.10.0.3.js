@@ -90,6 +90,14 @@
         var glx = c.getContext("webgl", attribs);
         return nkJSObject.RegisterObject(glx);
     },
+    CreateGPUContext: function(uid)
+    {
+        var c = nkJSObject.GetObject(uid);
+        var gpx = c.getContext("webgpu");
+        if (gpx == null)
+            return 0;
+        return nkJSObject.RegisterObject(gpx);
+    },
     CreateWebGL2Context: function(uid)
     {
         var c = nkJSObject.GetObject(uid);
