@@ -5,6 +5,7 @@ using System.Numerics;
 using Microsoft.JSInterop;
 using nkast.Wasm.Dom;
 using nkast.Wasm.Canvas;
+using nkast.Wasm.Canvas.WebGPU;
 using CanvasGPU;
 using CanvasGPU.Engine;
 
@@ -42,6 +43,13 @@ namespace CanvasGPU.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
+        async void InitGPUAsync(GPU gpu)
+        {
+            // TODO: request adapter.
+            // TODO: request device.
+
+        }
+
         private void BeginFrame()
         {
             //TODO: get current texture from context and create view.
@@ -64,7 +72,10 @@ namespace CanvasGPU.Pages
             {
                 cs = Window.Current.Document.GetElementById<Canvas>("theCanvas");
 
-                //TODO: check if WebGPU is supported and initialize it.
+                GPU gpu = GPU.FromNavigator(Window.Current.Navigator);
+                Console.WriteLine("WebGPU supported: " + (gpu != null));
+                if (gpu != null)
+                    InitGPUAsync(gpu);
 
                 Window.Current.OnResize += this.OnResize;
                 Window.Current.OnFocus += this.OnFocus;
