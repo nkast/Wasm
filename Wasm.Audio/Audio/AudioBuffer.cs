@@ -14,29 +14,29 @@ namespace nkast.Wasm.Audio
 
         public int SampleRate
         {
-            get { return InvokeRetInt("nkAudioBuffer.GetSampleRate"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioBuffer.GetSampleRate")); }
         }
 
         public int Length
         {
-            get { return InvokeRetInt("nkAudioBuffer.GetLength"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioBuffer.GetLength")); }
         }
 
         public double Duration
         {
-            get { return InvokeRetDouble("nkAudioBuffer.GetDuration"); }
+            get { return InvokeRetDouble(RegisterFunction("nkAudioBuffer.GetDuration")); }
         }
 
         public int NumberOfChannels
         {
-            get { return InvokeRetInt("nkAudioBuffer.GetNumberOfChannels"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioBuffer.GetNumberOfChannels")); }
         }
 
         public unsafe void CopyToChannel(float[] source, int channelNumber)
         {
             fixed (float* pSource = source)
             {
-                Invoke("nkAudioBuffer.CopyToChannel", channelNumber, (int)pSource, source.Length);
+                Invoke(RegisterFunction("nkAudioBuffer.CopyToChannel"), channelNumber, (int)pSource, source.Length);
             }
         }
 
@@ -44,7 +44,7 @@ namespace nkast.Wasm.Audio
         {
             fixed (float* pSource = source)
             {
-                Invoke("nkAudioBuffer.CopyToChannel", channelNumber, (int)pSource, source.Length);
+                Invoke(RegisterFunction("nkAudioBuffer.CopyToChannel"), channelNumber, (int)pSource, source.Length);
             }
         }
 

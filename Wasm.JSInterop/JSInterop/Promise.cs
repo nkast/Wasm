@@ -12,7 +12,7 @@ namespace nkast.Wasm.JSInterop
         internal Promise(int uid) : base(uid)
         {
             _uidMap.Add(uid, this);
-            Invoke("nkPromise.RegisterEvents");
+            Invoke(RegisterFunction("nkPromise.RegisterEvents"));
         }
 
         [JSInvokable]
@@ -62,8 +62,8 @@ namespace nkast.Wasm.JSInterop
 
         protected override void OnError()
         {
-            string message = InvokeRetString("nkPromise.GetErrorMessage");
-            int errorType = InvokeRetInt("nkPromise.GetErrorType");
+            string message = InvokeRetString(RegisterFunction("nkPromise.GetErrorMessage"));
+            int errorType = InvokeRetInt(RegisterFunction("nkPromise.GetErrorType)"));
 
             Exception ex;
             switch (errorType)
@@ -126,8 +126,8 @@ namespace nkast.Wasm.JSInterop
 
         protected override void OnError()
         {
-            string message = InvokeRetString("nkPromise.GetErrorMessage");
-            int errorType = InvokeRetInt("nkPromise.GetErrorType");
+            string message = InvokeRetString(RegisterFunction("nkPromise.GetErrorMessage"));
+            int errorType = InvokeRetInt(RegisterFunction("nkPromise.GetErrorType"));
 
             Exception ex;
             switch (errorType)
@@ -182,7 +182,7 @@ namespace nkast.Wasm.JSInterop
 
         protected override void OnCompleted()
         {
-            bool result = InvokeRetBool("nkPromise.GetValueBoolean");
+            bool result = InvokeRetBool(RegisterFunction("nkPromise.GetValueBoolean"));
             _tcs.SetResult(result);
         }
     }
@@ -195,7 +195,7 @@ namespace nkast.Wasm.JSInterop
 
         protected override void OnCompleted()
         {
-            string result = InvokeRetString("nkPromise.GetValueString");
+            string result = InvokeRetString(RegisterFunction("nkPromise.GetValueString"));
             _tcs.SetResult(result);
         }
     }
@@ -212,7 +212,7 @@ namespace nkast.Wasm.JSInterop
 
         protected override void OnCompleted()
         {
-            int uid = InvokeRetInt("nkPromise.GetValueJSObject");
+            int uid = InvokeRetInt(RegisterFunction("nkPromise.GetValueJSObject"));
 
             TResult result = (TResult)_objectFactory(uid);
             _objectFactory = null;

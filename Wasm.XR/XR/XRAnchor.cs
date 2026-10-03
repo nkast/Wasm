@@ -15,7 +15,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt("nkXRAnchor.GetAnchorSpace");
+                int uid = InvokeRetInt(RegisterFunction("nkXRAnchor.GetAnchorSpace"));
                 if (uid == -1)
                     return null;
 
@@ -29,7 +29,7 @@ namespace nkast.Wasm.XR
 
         private void Delete()
         {
-            Invoke("nkXRAnchor.Delete");
+            Invoke(RegisterFunction("nkXRAnchor.Delete"));
         }
 
         protected override void Dispose(bool disposing)

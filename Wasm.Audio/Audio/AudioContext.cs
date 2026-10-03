@@ -18,7 +18,7 @@ namespace nkast.Wasm.Audio
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create");
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkAudioContext.Create"));
             return uid;
         }
 
@@ -28,13 +28,13 @@ namespace nkast.Wasm.Audio
                 throw new ArgumentException("SampleRate cannot be zero.", nameof(options.SampleRate));
 
             int sampleRate = options.SampleRate ?? 0;
-            int uid = JSObject.StaticInvokeRetInt("nkAudioContext.Create1", sampleRate);
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkAudioContext.Create1"), sampleRate);
             return uid;
         }
 
         public Task ResumeAsync()
         {
-            int uid = InvokeRetInt("nkAudioContext.Resume");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Resume"));
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -42,7 +42,7 @@ namespace nkast.Wasm.Audio
 
         public Task SuspendAsync()
         {
-            int uid = InvokeRetInt("nkAudioContext.Suspend");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Suspend"));
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -50,7 +50,7 @@ namespace nkast.Wasm.Audio
 
         public Task CloseAsync()
         {
-            int uid = InvokeRetInt("nkAudioContext.Close1");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Close1"));
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -58,7 +58,7 @@ namespace nkast.Wasm.Audio
 
         public MediaStreamSourceNode CreateMediaStreamSource(MediaStream stream)
         {
-            int uid = InvokeRetInt<int>("nkAudioContext.CreateMediaStreamSource", ((JSObject)stream).Uid);
+            int uid = InvokeRetInt<int>(RegisterFunction("nkAudioContext.CreateMediaStreamSource"), ((JSObject)stream).Uid);
             return new MediaStreamSourceNode(uid, this);
         }
 

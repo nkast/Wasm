@@ -12,27 +12,27 @@ namespace nkast.Wasm.ChannelMessaging
 
         public MessagePort(int uid) : base(uid)
         {
-            Invoke("nkMessagePort.RegisterEvents");
+            Invoke(RegisterFunction("nkMessagePort.RegisterEvents"));
         }
 
         public void Start()
         {
-            Invoke("nkMessagePort.Start");
+            Invoke(RegisterFunction("nkMessagePort.Start"));
         }
 
         public void close()
         {
-            Invoke("nkMessagePort.Close");
+            Invoke(RegisterFunction("nkMessagePort.Close"));
         }
 
         public void PostMessage(int message)
         {
-            Invoke<int>("nkMessagePort.PostMessagei", message);
+            Invoke<int>(RegisterFunction("nkMessagePort.PostMessagei"), message);
         }
 
         public void PostMessage(double message)
         {
-            Invoke<double>("nkMessagePort.PostMessagef64", message);
+            Invoke<double>(RegisterFunction("nkMessagePort.PostMessagef64"), message);
         }
 
         public void PostMessage(byte[] message)
@@ -44,7 +44,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pMessage = message)
             {
-                Invoke("nkMessagePort.PostMessageUInt8Array", (int)pMessage, index, count);
+                Invoke(RegisterFunction("nkMessagePort.PostMessageUInt8Array"), (int)pMessage, index, count);
             }
         }
 
@@ -52,7 +52,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pMessage = message)
             {
-                Invoke("nkMessagePort.PostMessageUInt8Array", (int)pMessage, 0, message.Length);
+                Invoke(RegisterFunction("nkMessagePort.PostMessageUInt8Array"), (int)pMessage, 0, message.Length);
             }
         }
 
@@ -93,7 +93,7 @@ namespace nkast.Wasm.ChannelMessaging
 
             }
 
-            Invoke("nkMessagePort.UnregisterEvents");
+            Invoke(RegisterFunction("nkMessagePort.UnregisterEvents"));
 
             base.Dispose(disposing);
         }

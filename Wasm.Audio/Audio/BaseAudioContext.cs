@@ -17,7 +17,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                int sampleRate = InvokeRetInt("nkAudioBaseContext.GetSampleRate");
+                int sampleRate = InvokeRetInt(RegisterFunction("nkAudioBaseContext.GetSampleRate"));
                 return sampleRate;
             }
         }
@@ -26,7 +26,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                double currentTime = InvokeRetDouble("nkAudioBaseContext.GetCurrentTime");
+                double currentTime = InvokeRetDouble(RegisterFunction("nkAudioBaseContext.GetCurrentTime"));
                 return currentTime;
             }
         }
@@ -37,7 +37,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_destination == null)
                 {
-                    int uid = InvokeRetInt("nkAudioBaseContext.GetDestination");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.GetDestination"));
                     _destination = new AudioDestinationNode(uid, this);
                 }
 
@@ -51,7 +51,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_listener == null)
                 {
-                    int uid = InvokeRetInt("nkAudioBaseContext.GetListener");
+                    int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.GetListener"));
                     _listener = new AudioListener(uid, this);
                 }
 
@@ -63,7 +63,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                int uid = InvokeRetInt("nkAudioBaseContext.GetAudioWorklet");
+                int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.GetAudioWorklet"));
                 AudioWorklet audioWorklet = AudioWorklet.FromUid(uid);
                 if (audioWorklet != null)
                     return audioWorklet;
@@ -74,54 +74,54 @@ namespace nkast.Wasm.Audio
 
         public ContextState State
         {
-            get { return (ContextState)InvokeRetInt("nkAudioBaseContext.GetState"); }
+            get { return (ContextState)InvokeRetInt(RegisterFunction("nkAudioBaseContext.GetState")); }
         }
 
         public AudioBuffer CreateBuffer(int numOfChannels, int  length, int sampleRate)
         {
-            int uid = InvokeRetInt<int, int, int>("nkAudioBaseContext.CreateBuffer", numOfChannels, length, sampleRate);
+            int uid = InvokeRetInt<int, int, int>(RegisterFunction("nkAudioBaseContext.CreateBuffer"), numOfChannels, length, sampleRate);
             return new AudioBuffer(uid, this);
         }
 
         public AudioBufferSourceNode CreateBufferSource()
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateBufferSource");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateBufferSource"));
             return new AudioBufferSourceNode(uid, this);
         }
 
         public OscillatorNode CreateOscillator()
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateOscillator");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateOscillator"));
             return new OscillatorNode(uid, this);
         }        
 
         public MediaElementAudioSourceNode CreateMediaElementSource(IHTMLMediaElement media)
         {
-            int uid = InvokeRetInt<int>("nkAudioBaseContext.CreateMediaElementSource", ((JSObject)media).Uid);
+            int uid = InvokeRetInt<int>(RegisterFunction("nkAudioBaseContext.CreateMediaElementSource"), ((JSObject)media).Uid);
             return new MediaElementAudioSourceNode(uid, this, media);
         }
 
         public GainNode CreateGain()
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateGain");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateGain"));
             return new GainNode(uid, this);
         }
 
         public PannerNode CreatePanner()
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreatePanner");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreatePanner"));
             return new PannerNode(uid, this);
         }
 
         public StereoPannerNode CreateStereoPanner()
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateStereoPanner");
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateStereoPanner"));
             return new StereoPannerNode(uid, this);
         }
 
         public AudioWorkletNode CreateWorklet(string name)
         {
-            int uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet", name);
+            int uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateWorklet"), name);
             return new AudioWorkletNode(uid, this);
         }
 
@@ -135,7 +135,7 @@ namespace nkast.Wasm.Audio
             int uid;
             fixed (int* pOutputChannelCount = outputChannelCount)
             {
-                uid = InvokeRetInt("nkAudioBaseContext.CreateWorklet1", name, numberOfInputs, numberOfOutputs, (int)pOutputChannelCount, outputChannelCount.Length);
+                uid = InvokeRetInt(RegisterFunction("nkAudioBaseContext.CreateWorklet1"), name, numberOfInputs, numberOfOutputs, (int)pOutputChannelCount, outputChannelCount.Length);
             }
             return new AudioWorkletNode(uid, this);
         }

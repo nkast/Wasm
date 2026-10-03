@@ -11,19 +11,19 @@ namespace nkast.Wasm.Audio
 
         public int NumberOfInputs
         {
-            get { return InvokeRetInt("nkAudioNode.GetNumberOfInputs"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioNode.GetNumberOfInputs")); }
         }
         public int NumberOfOutputs
         {
-            get { return InvokeRetInt("nkAudioNode.GetNumberOfOutputs"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioNode.GetNumberOfOutputs")); }
         }
         public int ChannelCount
         {
-            get { return InvokeRetInt("nkAudioNode.GetChannelCount"); }
+            get { return InvokeRetInt(RegisterFunction("nkAudioNode.GetChannelCount")); }
         }
         public ChannelCountMode ChannelCountMode
         {
-            get { return (ChannelCountMode)InvokeRetInt("nkAudioNode.GetChannelCountMode"); }
+            get { return (ChannelCountMode)InvokeRetInt(RegisterFunction("nkAudioNode.GetChannelCountMode")); }
         }
 
 
@@ -34,17 +34,17 @@ namespace nkast.Wasm.Audio
 
         public void Connect(AudioNode destination)
         {
-            Invoke("nkAudioNode.Connect", destination.Uid);
+            Invoke(RegisterFunction("nkAudioNode.Connect"), destination.Uid);
         }
 
         public void Disconnect()
         {
-            Invoke("nkAudioNode.Disconnect");
+            Invoke(RegisterFunction("nkAudioNode.Disconnect"));
         }
 
         public void Disconnect(AudioNode destination)
         {
-            Invoke("nkAudioNode.Disconnect1", destination.Uid);
+            Invoke(RegisterFunction("nkAudioNode.Disconnect1"), destination.Uid);
         }
 
         protected override void Dispose(bool disposing)

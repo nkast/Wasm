@@ -15,8 +15,8 @@ namespace nkast.Wasm.Dom
 
         public string Title
         {
-            get { return InvokeRetString("nkDocument.GetTitle"); }
-            set { Invoke("nkDocument.SetTitle", value); }
+            get { return InvokeRetString(RegisterFunction("nkDocument.GetTitle")); }
+            set { Invoke(RegisterFunction("nkDocument.SetTitle"), value); }
         }
 
         internal Document(Window window, int uid) : base(uid)
@@ -44,7 +44,7 @@ namespace nkast.Wasm.Dom
             if (element != null)
                 return element;
 
-            int uid = InvokeRetInt<string>("nkDocument.GetElementById", id);
+            int uid = InvokeRetInt<string>(RegisterFunction("nkDocument.GetElementById"), id);
             if (uid != -1)
             {
                 element = CreateInstance<TElement>(uid);
@@ -68,7 +68,7 @@ namespace nkast.Wasm.Dom
 
         public bool HasFocus()
         {
-            return InvokeRetBool("nkDocument.HasFocus");
+            return InvokeRetBool(RegisterFunction("nkDocument.HasFocus"));
         }
     }
 }

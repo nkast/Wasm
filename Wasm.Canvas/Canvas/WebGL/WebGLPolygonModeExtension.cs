@@ -8,7 +8,7 @@
 
         public void PolygonMode(WebGLCullFaceMode face, WebGLPolygonMode mode)
         {
-            Invoke("nkCanvasPolygonModeExtension.PolygonMode", (int)face, (int)mode);
+            Invoke(RegisterFunction("nkCanvasPolygonModeExtension.PolygonMode"), (int)face, (int)mode);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace nkast.Wasm.JSInterop
 
                 }
 
-                Invoke("nkJSObject.DisposeObject", Uid);
+                Invoke(RegisterFunction("nkJSObject.DisposeObject"), Uid);
                 Uid = -1;
 
                 _isDisposed = true;

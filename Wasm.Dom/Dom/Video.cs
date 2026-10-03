@@ -15,7 +15,7 @@ namespace nkast.Wasm.Dom
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt("nkVideo.Create");
+            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkVideo.Create"));
             return uid;
         }
     }

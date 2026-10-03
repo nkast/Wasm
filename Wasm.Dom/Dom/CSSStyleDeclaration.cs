@@ -17,12 +17,12 @@ namespace nkast.Wasm.Dom
 
         public string GetPropertyValue(string propertyName)
         {
-            return InvokeRetString("nkStyleDeclaration.GetPropertyValue", propertyName);
+            return InvokeRetString(RegisterFunction("nkStyleDeclaration.GetPropertyValue"), propertyName);
         }
 
         public void SetProperty(string propertyName, string value)
         {
-            Invoke("nkStyleDeclaration.SetProperty", propertyName, value);
+            Invoke(RegisterFunction("nkStyleDeclaration.SetProperty"), propertyName, value);
         }
     }
 }

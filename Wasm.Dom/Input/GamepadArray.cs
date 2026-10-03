@@ -19,7 +19,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int uid = InvokeRetInt<int>("nkJSArray.GetItem", index);
+                int uid = InvokeRetInt<int>(RegisterFunction("nkJSArray.GetItem"), index);
                 Gamepad gamepad = Gamepad.FromUid(uid);
                 if (gamepad != null)
                     return gamepad;
@@ -39,7 +39,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int count = InvokeRetInt("nkJSArray.GetLength");
+                int count = InvokeRetInt(RegisterFunction("nkJSArray.GetLength"));
                 return count;
             }
         }

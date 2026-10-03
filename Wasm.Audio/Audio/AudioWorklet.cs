@@ -12,7 +12,7 @@ namespace nkast.Wasm.Audio
 
         public Task AddModuleAsync(string moduleURL)
         {
-            int uid = InvokeRetInt("nkAudioWorklet.AddModule", moduleURL);
+            int uid = InvokeRetInt(RegisterFunction("nkAudioWorklet.AddModule"), moduleURL);
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();

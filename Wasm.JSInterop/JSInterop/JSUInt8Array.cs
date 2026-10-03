@@ -10,7 +10,7 @@ namespace nkast.Wasm.ChannelMessaging
     {
         public int Count
         {
-            get { return InvokeRetInt("nkJSUInt8Array.GetLength"); }
+            get { return InvokeRetInt(RegisterFunction("nkJSUInt8Array.GetLength")); }
         }
 
         public JSUInt8Array(int uid) : base(uid)
@@ -26,7 +26,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pBytes = bytes)
             {
-                InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, (int)pBytes, destinationIndex, count);
+                InvokeRetInt(RegisterFunction("nkJSUInt8Array.CopyTo"), sourceIndex, (int)pBytes, destinationIndex, count);
             }
         }
 
@@ -39,7 +39,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pBytes = bytes)
             {
-                InvokeRetInt("nkJSUInt8Array.CopyTo", sourceIndex, (int)pBytes, 0, bytes.Length);
+                InvokeRetInt(RegisterFunction("nkJSUInt8Array.CopyTo"), sourceIndex, (int)pBytes, 0, bytes.Length);
             }
         }
 

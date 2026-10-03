@@ -8,12 +8,12 @@
 
         public void LoseContext()
         {
-            Invoke("nkCanvasLoseContextExtension.LoseContext");
+            Invoke(RegisterFunction("nkCanvasLoseContextExtension.LoseContext"));
         }
 
         public void RestoreContext()
         {
-            Invoke("nkCanvasLoseContextExtension.RestoreContext");
+            Invoke(RegisterFunction("nkCanvasLoseContextExtension.RestoreContext"));
         }
 
     }
