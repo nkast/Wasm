@@ -1413,3 +1413,49 @@ window.nkCanvasLoseContextExtension =
         ex.restoreContext();
     },
 };
+
+window.nkCanvasDrawBuffersIndexedExtension =
+{
+    Enablei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var cp = module.HEAP32[(d+ 0)>>2];
+        var ix = module.HEAP32[(d+ 4)>>2];
+        ex.enableiOES(cp, ix);
+    },
+    Disablei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var cp = module.HEAP32[(d+ 0)>>2];
+        var ix = module.HEAP32[(d+ 4)>>2];
+        ex.disableiOES(cp, ix);
+    },
+    BlendEquationSeparatei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var cr = module.HEAP32[(d+ 4)>>2];
+        var aa = module.HEAP32[(d+ 8)>>2];
+        ex.blendEquationSeparateiOES(bf, cr, aa);
+    },
+    BlendFuncSeparatei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var sc = module.HEAP32[(d+ 4)>>2];
+        var dc = module.HEAP32[(d+ 8)>>2];
+        var sa = module.HEAP32[(d+12)>>2];
+        var da = module.HEAP32[(d+16)>>2];
+        ex.blendFuncSeparateiOES(bf, sc, dc, sa, da);
+    },
+    ColorMaski: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var r = module.HEAP32[(d+ 4)>>2] !== 0;
+        var g = module.HEAP32[(d+ 8)>>2] !== 0;
+        var b = module.HEAP32[(d+12)>>2] !== 0;
+        var a = module.HEAP32[(d+16)>>2] !== 0;
+        ex.colorMaskiOES(bf, r, g, b, a);
+    },
+};
