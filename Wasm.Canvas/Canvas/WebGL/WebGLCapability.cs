@@ -15,6 +15,10 @@ namespace nkast.Wasm.Canvas.WebGL
 
         POLYGON_OFFSET_FILL = 0x8037,
 
+        // WebGL PolygonModeExtension
+        POLYGON_MODE_WEBGL        = 0x0B40,
+        POLYGON_OFFSET_LINE_WEBGL = 0x2A02,
+
         DEPTH_CLAMP_EXT     = 0x864F,
     }
 }

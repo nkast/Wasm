@@ -7,9 +7,21 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     internal class WebGLRenderingContext : RenderingContext, IWebGLRenderingContext, IDisposable
     {
+        WebGLPolygonModeExtension _polygonModeExtension;
 
         internal WebGLRenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
+        }
+
+        public WebGLPolygonModeExtension PolygonModeExtension
+        {
+            get
+            {
+                if (_polygonModeExtension == null)
+                    _polygonModeExtension = GetExtension<WebGLPolygonModeExtension>("WEBGL_polygon_mode");
+
+                return _polygonModeExtension;
+            }
         }
 
         public void Enable(WebGLCapability cap)
@@ -860,6 +872,9 @@ namespace nkast.Wasm.Canvas.WebGL
             {
                 case "WEBGL_lose_context":
                     return (TExtension)(WebGLExtension)new WebGLLoseContextExtension(uid);
+
+                case "WEBGL_polygon_mode":
+                    return (TExtension)(WebGLExtension)new WebGLPolygonModeExtension(uid);
 
                 case "OES_draw_buffers_indexed":
                     return (TExtension)(WebGLExtension)new WebGL2DrawBuffersIndexedExtension(uid);
