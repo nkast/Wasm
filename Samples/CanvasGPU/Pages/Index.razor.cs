@@ -43,6 +43,8 @@ namespace CanvasGPU.Pages
         TouchState currTouchState;
         TouchState prevTouchState;
 
+        IGPUCanvasContext context;
+
         async void InitGPUAsync(GPU gpu)
         {
             GPUAdapter adapter = await gpu.RequestAdapterAsync();
@@ -55,6 +57,8 @@ namespace CanvasGPU.Pages
             GPUSupportedLimits adapterLimits = adapter.GetLimits();
             Console.WriteLine("WebGPU adapter maxTextureDimension2D: " + adapterLimits.MaxTextureDimension2D);
             Console.WriteLine("WebGPU adapter maxBufferSize: " + adapterLimits.MaxBufferSize);
+            context = cs.GetContext<IGPUCanvasContext>();
+            Console.WriteLine("WebGPU canvas context: " + (context != null));
             // TODO: request device.
 
         }

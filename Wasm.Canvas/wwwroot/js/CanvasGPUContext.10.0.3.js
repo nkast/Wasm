@@ -104,3 +104,7 @@ window.nkGPUAdapterInfo =
         return nkJSObject.GetObject(uid).architecture;
     },
 };
+
+window.nkGPUCanvasContext =
+{
+};
