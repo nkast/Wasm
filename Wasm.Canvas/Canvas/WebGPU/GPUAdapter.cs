@@ -20,5 +20,13 @@ namespace nkast.Wasm.Canvas.WebGPU
 
             return new GPUAdapterInfo(uid);
         }
+
+        public unsafe GPUSupportedLimits GetLimits()
+        {
+            GPUSupportedLimits limits = new GPUSupportedLimits();
+            Invoke<IntPtr>(RegisterFunction("nkGPUAdapter.GetLimits"), new IntPtr(&limits));
+            return limits;
+        }
+
     }
 }

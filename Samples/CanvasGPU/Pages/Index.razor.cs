@@ -52,6 +52,9 @@ namespace CanvasGPU.Pages
             Console.WriteLine("WebGPU adapter description: " + adapterInfo.Description);
             Console.WriteLine("WebGPU adapter vendor: " + adapterInfo.Vendor);
             Console.WriteLine("WebGPU adapter architecture: " + adapterInfo.Architecture);
+            GPUSupportedLimits adapterLimits = adapter.GetLimits();
+            Console.WriteLine("WebGPU adapter maxTextureDimension2D: " + adapterLimits.MaxTextureDimension2D);
+            Console.WriteLine("WebGPU adapter maxBufferSize: " + adapterLimits.MaxBufferSize);
             // TODO: request device.
 
         }
