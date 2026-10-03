@@ -9,6 +9,13 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public unsafe GPUSupportedLimits GetLimits()
+        {
+            GPUSupportedLimits limits = new GPUSupportedLimits();
+            Invoke<IntPtr>(RegisterFunction("nkGPUDevice.GetLimits"), new IntPtr(&limits));
+            return limits;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

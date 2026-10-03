@@ -145,6 +145,13 @@ window.nkGPUCanvasContext =
 
 window.nkGPUDevice =
 {
+    GetLimits: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        nkGPUAdapter.WriteLimits(module, pt, dv.limits);
+    },
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
