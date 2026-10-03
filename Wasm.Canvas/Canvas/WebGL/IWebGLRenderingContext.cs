@@ -20,6 +20,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void DepthMask(bool enable);
         void StencilMask(int stencilWriteMask);
         void StencilFunc(WebGLDepthComparisonFunc func, int StencilRef, int stencilMask);
+        void StencilFuncSeparate(WebGLCullFaceMode mode, WebGLDepthComparisonFunc func, int stencilRef, int stencilMask);
         void StencilOp(WebGLStencilOpFunc fail, WebGLStencilOpFunc zfail, WebGLStencilOpFunc zpass);
 
         void Viewport(int x, int y, int width, int height);
