@@ -8,13 +8,18 @@ namespace nkast.Wasm.ChannelMessaging
 {
     public class JSUInt8Array : JSObject
     {
+        private readonly int _fid_GetLength;
+        private readonly int _fid_CopyTo;
+
         public int Count
         {
-            get { return InvokeRetInt(RegisterFunction("nkJSUInt8Array.GetLength")); }
+            get { return InvokeRetInt(_fid_GetLength); }
         }
 
         public JSUInt8Array(int uid) : base(uid)
         {
+            _fid_GetLength = RegisterFunction("nkJSUInt8Array.GetLength");
+            _fid_CopyTo = _fid_CopyTo;
         }
 
         public void CopyTo(byte[] bytes, int destinationIndex, int count)
@@ -26,7 +31,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pBytes = bytes)
             {
-                InvokeRetInt(RegisterFunction("nkJSUInt8Array.CopyTo"), sourceIndex, (int)pBytes, destinationIndex, count);
+                InvokeRetInt(_fid_CopyTo, sourceIndex, (int)pBytes, destinationIndex, count);
             }
         }
 
@@ -39,7 +44,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pBytes = bytes)
             {
-                InvokeRetInt(RegisterFunction("nkJSUInt8Array.CopyTo"), sourceIndex, (int)pBytes, 0, bytes.Length);
+                InvokeRetInt(_fid_CopyTo, sourceIndex, (int)pBytes, 0, bytes.Length);
             }
         }
 

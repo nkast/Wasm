@@ -6,16 +6,21 @@ namespace nkast.Wasm.XR
 {
     public class XRAnchor : CachedJSObject<XRAnchor>
     {
+        private readonly int _fid_GetAnchorSpace;
+        private readonly int _fid_Delete;
+
 
         internal XRAnchor(int uid) : base(uid)
         {
+            _fid_GetAnchorSpace = RegisterFunction("nkXRAnchor.GetAnchorSpace");
+            _fid_Delete = RegisterFunction("nkXRAnchor.Delete");
         }
 
         public XRSpace AnchorSpace
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRAnchor.GetAnchorSpace"));
+                int uid = InvokeRetInt(_fid_GetAnchorSpace);
                 if (uid == -1)
                     return null;
 
@@ -29,7 +34,7 @@ namespace nkast.Wasm.XR
 
         private void Delete()
         {
-            Invoke(RegisterFunction("nkXRAnchor.Delete"));
+            Invoke(_fid_Delete);
         }
 
         protected override void Dispose(bool disposing)

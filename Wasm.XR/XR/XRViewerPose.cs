@@ -7,11 +7,14 @@ namespace nkast.Wasm.XR
 {
     public class XRViewerPose : XRPose
     {
+        private readonly int _fid_GetViews;
+
         List<XRView> _views = new List<XRView>();
         IReadOnlyList<XRView> _readOnlyViews;
 
         internal XRViewerPose(int uid) : base(uid)
         {
+            _fid_GetViews = RegisterFunction("nkXRViewerPose.GetViews");
             _readOnlyViews = new ReadOnlyCollection<XRView>(_views);
         }
 
@@ -21,7 +24,7 @@ namespace nkast.Wasm.XR
             {
                 int* puids = stackalloc int[2];
 
-                int count = InvokeRetInt<IntPtr>(RegisterFunction("nkXRViewerPose.GetViews"), new IntPtr(puids));
+                int count = InvokeRetInt<IntPtr>(_fid_GetViews, new IntPtr(puids));
                 _views.Clear();
 
                 for (int i = 0; i < count; i++)

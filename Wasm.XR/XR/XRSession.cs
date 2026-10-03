@@ -9,6 +9,19 @@ namespace nkast.Wasm.XR
 {
     public class XRSession : CachedJSObject<XRSession>
     {
+        private readonly int _fid_GetRenderState;
+        private readonly int _fid_GetInputSources;
+        private readonly int _fid_GetIsSystemKeyboardSupported;
+        private readonly int _fid_RegisterEvents;
+        private readonly int _fid_RequestReferenceSpace;
+        private readonly int _fid_End;
+        private readonly int _fid_UpdateRenderState;
+        private readonly int _fid_RequestAnimationFrame;
+        private readonly int _fid_CancelAnimationFrame;
+        private readonly int _fid_CreateWebGLLayer;
+        private readonly int _fid_CreateWebGLLayer1;
+        private readonly int _fid_UnregisterEvents;
+
 
         public event EventHandler<EventArgs> Ended;
         public event EventHandler<InputSourcesChangedEventArgs> InputSourcesChanged;
@@ -23,7 +36,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRSession.GetRenderState"));
+                int uid = InvokeRetInt(_fid_GetRenderState);
                 XRRenderState renderState = XRRenderState.FromUid(uid);
                 if (renderState != null)
                     return renderState;
@@ -36,7 +49,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRSession.GetInputSources"));
+                int uid = InvokeRetInt(_fid_GetInputSources);
 
                 XRInputSourceArray inputSourceArray = XRInputSourceArray.FromUid(uid);
                 if (inputSourceArray != null)
@@ -48,12 +61,24 @@ namespace nkast.Wasm.XR
 
         public bool IsSystemKeyboardSupported
         {
-            get { return InvokeRetBool(RegisterFunction("nkXRSession.GetIsSystemKeyboardSupported")); }
+            get { return InvokeRetBool(_fid_GetIsSystemKeyboardSupported); }
         }
 
         internal XRSession(int uid) : base(uid)
         {
-            Invoke(RegisterFunction("nkXRSession.RegisterEvents"));
+            _fid_GetRenderState = RegisterFunction("nkXRSession.GetRenderState");
+            _fid_GetInputSources = RegisterFunction("nkXRSession.GetInputSources");
+            _fid_GetIsSystemKeyboardSupported = RegisterFunction("nkXRSession.GetIsSystemKeyboardSupported");
+            _fid_RegisterEvents = RegisterFunction("nkXRSession.RegisterEvents");
+            _fid_RequestReferenceSpace = RegisterFunction("nkXRSession.RequestReferenceSpace");
+            _fid_End = RegisterFunction("nkXRSession.End");
+            _fid_UpdateRenderState = RegisterFunction("nkXRSession.UpdateRenderState");
+            _fid_RequestAnimationFrame = RegisterFunction("nkXRSession.RequestAnimationFrame");
+            _fid_CancelAnimationFrame = RegisterFunction("nkXRSession.CancelAnimationFrame");
+            _fid_CreateWebGLLayer = RegisterFunction("nkXRSession.CreateWebGLLayer");
+            _fid_CreateWebGLLayer1 = RegisterFunction("nkXRSession.CreateWebGLLayer1");
+            _fid_UnregisterEvents = RegisterFunction("nkXRSession.UnregisterEvents");
+            Invoke(_fid_RegisterEvents);
         }
 
         [JSInvokable]
@@ -105,7 +130,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRReferenceSpace> RequestReferenceSpaceAsync(string referenceSpaceType)
         {
-            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSession.RequestReferenceSpace"), referenceSpaceType);
+            int uid = InvokeRetInt<string>(_fid_RequestReferenceSpace, referenceSpaceType);
 
             PromiseJSObject<XRReferenceSpace> promise = new PromiseJSObject<XRReferenceSpace>(uid,
                 (int newuid) =>
@@ -117,7 +142,7 @@ namespace nkast.Wasm.XR
 
         public Task End()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkXRSession.End"));
+            int uid = InvokeRetInt(_fid_End);
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -125,7 +150,7 @@ namespace nkast.Wasm.XR
 
         public void UpdateRenderState(RenderStateAttributes attributes)
         {
-            Invoke(RegisterFunction("nkXRSession.UpdateRenderState"), attributes.BaseLayer.Uid);
+            Invoke(_fid_UpdateRenderState, attributes.BaseLayer.Uid);
         }
 
         public int RequestAnimationFrame(XRAnimationFrameCallback animationFrameCallback)
@@ -133,7 +158,7 @@ namespace nkast.Wasm.XR
             unchecked { _animationFrameCallbackId++; }
             int callbackId = _animationFrameCallbackId;
 
-            int handle = InvokeRetInt<int>(RegisterFunction("nkXRSession.RequestAnimationFrame"), callbackId);
+            int handle = InvokeRetInt<int>(_fid_RequestAnimationFrame, callbackId);
 
             _animationFrameCallbacks.Add(callbackId, animationFrameCallback);
             _animationFrameRequestHandles.Add(callbackId, handle);
@@ -149,21 +174,21 @@ namespace nkast.Wasm.XR
             _animationFrameCallbacks.Remove(callbackId);
             _animationFrameRequestHandles.Remove(callbackId);
 
-            Invoke<int>(RegisterFunction("nkXRSession.CancelAnimationFrame"), requestID);
+            Invoke<int>(_fid_CancelAnimationFrame, requestID);
 
             return;
         }
 
         internal int CreateWebGLLayer(IWebGLRenderingContext glContext)
         {
-            int uid = InvokeRetInt<int>(RegisterFunction("nkXRSession.CreateWebGLLayer"), ((JSObject)glContext).Uid);
+            int uid = InvokeRetInt<int>(_fid_CreateWebGLLayer, ((JSObject)glContext).Uid);
 
             return uid;
         }
 
         internal int CreateWebGLLayer(IWebGLRenderingContext glContext, XRWebGLLayerOptions options)
         {
-            int uid = InvokeRetInt<int, int>(RegisterFunction("nkXRSession.CreateWebGLLayer1"), ((JSObject)glContext).Uid, options.ToBit());
+            int uid = InvokeRetInt<int, int>(_fid_CreateWebGLLayer1, ((JSObject)glContext).Uid, options.ToBit());
 
             return uid;
         }
@@ -175,7 +200,7 @@ namespace nkast.Wasm.XR
 
             }
 
-            Invoke(RegisterFunction("nkXRSession.UnregisterEvents"));
+            Invoke(_fid_UnregisterEvents);
 
             base.Dispose(disposing);
         }

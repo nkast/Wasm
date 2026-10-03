@@ -9,6 +9,23 @@ namespace nkast.Wasm.Dom
 {
     public class Window : JSObject
     {
+        private static readonly int _fid_GetWindow = RegisterFunction("nkJSObject.GetWindow");
+        private readonly int _fid_GetDocument;
+        private readonly int _fid_GetNavigator;
+        private readonly int _fid_GetInnerWidth;
+        private readonly int _fid_GetInnerHeight;
+        private readonly int _fid_GetDevicePixelRatio;
+        private readonly int _fid_GetIsSecureContext;
+        private readonly int _fid_GetSessionStorage;
+        private readonly int _fid_GetLocalStorage;
+        private readonly int _fid_RegisterEvents;
+        private readonly int _fid_RequestAnimationFrame;
+        private readonly int _fid_CancelAnimationFrame;
+        private readonly int _fid_SetTimeout;
+        private readonly int _fid_ClearTimeout;
+        private readonly int _fid_SetInterval;
+        private readonly int _fid_ClearInterval;
+
         static Window _current;
         private Document _document;
         private Navigator _navigator;
@@ -72,7 +89,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_current == null)
                 {
-                    int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkJSObject.GetWindow"));
+                    int uid = JSObject.StaticInvokeRetInt(_fid_GetWindow);
                     _current = new Window(uid);
                 }
 
@@ -86,7 +103,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_document == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkWindow.GetDocument"));
+                    int uid = InvokeRetInt(_fid_GetDocument);
                     _document = new Document(this, uid);
                 }
 
@@ -100,7 +117,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_navigator == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkWindow.GetNavigator"));
+                    int uid = InvokeRetInt(_fid_GetNavigator);
                     _navigator = new Navigator(this, uid);
                 }
 
@@ -110,22 +127,22 @@ namespace nkast.Wasm.Dom
 
         public int InnerWidth
         {
-            get { return InvokeRetInt(RegisterFunction("nkWindow.GetInnerWidth")); }
+            get { return InvokeRetInt(_fid_GetInnerWidth); }
         }
 
         public int InnerHeight
         {
-            get { return InvokeRetInt(RegisterFunction("nkWindow.GetInnerHeight")); }
+            get { return InvokeRetInt(_fid_GetInnerHeight); }
         }
         
         public double DevicePixelRatio
         {
-            get { return InvokeRetDouble(RegisterFunction("nkWindow.GetDevicePixelRatio")); }
+            get { return InvokeRetDouble(_fid_GetDevicePixelRatio); }
         }
 
         public bool IsSecureContext
         {
-            get { return InvokeRetBool(RegisterFunction("nkWindow.GetIsSecureContext")); }
+            get { return InvokeRetBool(_fid_GetIsSecureContext); }
         }
 
         public Storage SessionStorage
@@ -134,7 +151,7 @@ namespace nkast.Wasm.Dom
             {
                 if (_sessionStorage == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkWindow.GetSessionStorage"));
+                    int uid = InvokeRetInt(_fid_GetSessionStorage);
                     if (uid == -1)
                         return null;
                     _sessionStorage = new Storage(uid);
@@ -150,7 +167,7 @@ namespace nkast.Wasm.Dom
 
                 if (_localStorage == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkWindow.GetLocalStorage"));
+                    int uid = InvokeRetInt(_fid_GetLocalStorage);
                     if (uid == -1)
                         return null;
                     _localStorage = new Storage(uid);
@@ -162,7 +179,22 @@ namespace nkast.Wasm.Dom
 
         private Window(int uid) : base(uid)
         {
-            Invoke(RegisterFunction("nkWindow.RegisterEvents"));
+            _fid_GetDocument = RegisterFunction("nkWindow.GetDocument");
+            _fid_GetNavigator = RegisterFunction("nkWindow.GetNavigator");
+            _fid_GetInnerWidth = RegisterFunction("nkWindow.GetInnerWidth");
+            _fid_GetInnerHeight = RegisterFunction("nkWindow.GetInnerHeight");
+            _fid_GetDevicePixelRatio = RegisterFunction("nkWindow.GetDevicePixelRatio");
+            _fid_GetIsSecureContext = RegisterFunction("nkWindow.GetIsSecureContext");
+            _fid_GetSessionStorage = RegisterFunction("nkWindow.GetSessionStorage");
+            _fid_GetLocalStorage = RegisterFunction("nkWindow.GetLocalStorage");
+            _fid_RegisterEvents = RegisterFunction("nkWindow.RegisterEvents");
+            _fid_RequestAnimationFrame = RegisterFunction("nkWindow.RequestAnimationFrame");
+            _fid_CancelAnimationFrame = RegisterFunction("nkWindow.CancelAnimationFrame");
+            _fid_SetTimeout = RegisterFunction("nkWindow.SetTimeout");
+            _fid_ClearTimeout = RegisterFunction("nkWindow.ClearTimeout");
+            _fid_SetInterval = RegisterFunction("nkWindow.SetInterval");
+            _fid_ClearInterval = RegisterFunction("nkWindow.ClearInterval");
+            Invoke(_fid_RegisterEvents);
         }
         
         private static Window WindowFromUid(int uid)
@@ -193,7 +225,7 @@ namespace nkast.Wasm.Dom
             unchecked { _animationFrameCallbackId++; }
             int callbackId = _animationFrameCallbackId;
 
-            int handle = InvokeRetInt<int>(RegisterFunction("nkWindow.RequestAnimationFrame"), callbackId);
+            int handle = InvokeRetInt<int>(_fid_RequestAnimationFrame, callbackId);
 
             _animationFrameCallbacks.Add(callbackId, animationFrameCallback);
             _animationFrameRequestHandles.Add(callbackId, handle);
@@ -209,7 +241,7 @@ namespace nkast.Wasm.Dom
             _animationFrameCallbacks.Remove(callbackId);
             _animationFrameRequestHandles.Remove(callbackId);
 
-            Invoke<int>(RegisterFunction("nkWindow.CancelAnimationFrame"), requestID);
+            Invoke<int>(_fid_CancelAnimationFrame, requestID);
 
             return;
         }
@@ -235,7 +267,7 @@ namespace nkast.Wasm.Dom
             unchecked { _timeoutCallbackId++; }
             int callbackId = _timeoutCallbackId;
 
-            int handle = InvokeRetInt<int, int>(RegisterFunction("nkWindow.SetTimeout"), callbackId, 0);
+            int handle = InvokeRetInt<int, int>(_fid_SetTimeout, callbackId, 0);
 
             _timeoutCallbacks.Add(callbackId, timeoutCallback);
             _timeoutHandles.Add(callbackId, handle);
@@ -248,7 +280,7 @@ namespace nkast.Wasm.Dom
             unchecked { _timeoutCallbackId++; }
             int callbackId = _timeoutCallbackId;
 
-            int handle = InvokeRetInt<int, int>(RegisterFunction("nkWindow.SetTimeout"), callbackId, (int)delay.TotalMilliseconds);
+            int handle = InvokeRetInt<int, int>(_fid_SetTimeout, callbackId, (int)delay.TotalMilliseconds);
 
             _timeoutCallbacks.Add(callbackId, timeoutCallback);
             _timeoutHandles.Add(callbackId, handle);
@@ -264,7 +296,7 @@ namespace nkast.Wasm.Dom
             _timeoutCallbacks.Remove(callbackId);
             _timeoutHandles.Remove(callbackId);
 
-            Invoke<int>(RegisterFunction("nkWindow.ClearTimeout"), timeoutID);
+            Invoke<int>(_fid_ClearTimeout, timeoutID);
         }
 
         [JSInvokable]
@@ -286,7 +318,7 @@ namespace nkast.Wasm.Dom
             unchecked { _intervalCallbackId++; }
             int intervalId = _intervalCallbackId;
 
-            int handle = InvokeRetInt<int, int>(RegisterFunction("nkWindow.SetInterval"), intervalId, 0);
+            int handle = InvokeRetInt<int, int>(_fid_SetInterval, intervalId, 0);
 
             _intervalCallbacks.Add(intervalId, intervalCallback);
             _intervalHandles.Add(intervalId, handle);
@@ -299,7 +331,7 @@ namespace nkast.Wasm.Dom
             unchecked { _intervalCallbackId++; }
             int intervalId = _intervalCallbackId;
 
-            int handle = InvokeRetInt<int, int>(RegisterFunction("nkWindow.SetInterval"), intervalId, (int)delay.TotalMilliseconds);
+            int handle = InvokeRetInt<int, int>(_fid_SetInterval, intervalId, (int)delay.TotalMilliseconds);
 
             _intervalCallbacks.Add(intervalId, intervalCallback);
             _intervalHandles.Add(intervalId, handle);
@@ -315,7 +347,7 @@ namespace nkast.Wasm.Dom
             _intervalCallbacks.Remove(callbackId);
             _intervalHandles.Remove(callbackId);
 
-            Invoke<int>(RegisterFunction("nkWindow.ClearInterval"), intervalID);
+            Invoke<int>(_fid_ClearInterval, intervalID);
         }
 
         [JSInvokable]

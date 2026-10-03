@@ -5,6 +5,8 @@ namespace nkast.Wasm.Dom
 {
     public class Audio : HTMLMediaElement, IHTMLMediaElement
     {
+        private static readonly int _fid_Create = RegisterFunction("nkAudio.Create");
+
         private Audio(int uid) : base(uid)
         {
         }
@@ -15,7 +17,7 @@ namespace nkast.Wasm.Dom
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkAudio.Create"));
+            int uid = JSObject.StaticInvokeRetInt(_fid_Create);
             return uid;
         }
     }
