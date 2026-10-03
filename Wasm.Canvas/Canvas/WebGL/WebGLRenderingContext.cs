@@ -87,6 +87,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.StencilOp", (int)fail, (int)zfail, (int)zpass);
         }
 
+        public void StencilOpSeparate(WebGLCullFaceMode mode, WebGLStencilOpFunc fail, WebGLStencilOpFunc zfail, WebGLStencilOpFunc zpass)
+        {
+            Invoke("nkCanvasGLContext.StencilOpSeparate", (int)mode, (int)fail, (int)zfail, (int)zpass);
+        }
+
         public void Viewport(int x, int y, int width, int height)
         {
             Invoke("nkCanvasGLContext.Viewport", x, y, width, height);
