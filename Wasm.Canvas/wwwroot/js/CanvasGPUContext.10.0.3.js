@@ -17,5 +17,15 @@ window.nkGPU =
         else
             return nkJSObject.RegisterObject(null);
     },
+    RequestAdapter: function (uid, module, d)
+    {
+        var gpu = nkJSObject.GetObject(uid);
 
+        var pr = gpu.requestAdapter();
+        return nkJSObject.RegisterObject(pr);
+    },
+};
+
+window.nkGPUAdapter =
+{
 };

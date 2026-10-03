@@ -24,6 +24,14 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public Task<GPUAdapter> RequestAdapterAsync()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPU.RequestAdapter"));
+
+            PromiseJSObject<GPUAdapter> promise = new PromiseJSObject<GPUAdapter>(uid, (int newuid) => new GPUAdapter(newuid));
+            return promise.GetTask();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
