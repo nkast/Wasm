@@ -1,12 +1,14 @@
 using System;
 using System.Numerics;
 using nkast.Wasm.Canvas;
+using nkast.Wasm.Canvas.WebGPU;
 
 namespace CanvasGPU.Engine
 {
     public class DrawContext
     {
         public ICanvasRenderingContext CanvasContext;
+        public GPUDevice GPUDevice;
         public int Layer;
         public TimeSpan t, dt;
 
