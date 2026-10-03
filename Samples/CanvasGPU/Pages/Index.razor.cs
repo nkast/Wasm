@@ -47,7 +47,9 @@ namespace CanvasGPU.Pages
 
         async void InitGPUAsync(GPU gpu)
         {
-            GPUAdapter adapter = await gpu.RequestAdapterAsync();
+            GPUAdapterOptions adapterOptions = new GPUAdapterOptions();
+            adapterOptions.PowerPreference = GPUAdapterOptions.PowerPreferenceType.HighPerformance;
+            GPUAdapter adapter = await gpu.RequestAdapterAsync(adapterOptions);
             Console.WriteLine("WebGPU adapter: " + (adapter != null));
             GPUAdapterInfo adapterInfo = adapter.GetInfo();
             Console.WriteLine("WebGPU adapter device: " + adapterInfo.Device);

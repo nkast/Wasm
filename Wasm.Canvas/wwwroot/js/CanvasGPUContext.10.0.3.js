@@ -24,6 +24,29 @@ window.nkGPU =
         var pr = gpu.requestAdapter();
         return nkJSObject.RegisterObject(pr);
     },
+    RequestAdapter1: function (uid, module, d)
+    {
+        var a = nkJSObject.GetObject(uid);
+        var bi = module.HEAP32[(d+ 0)>>2];
+
+        var pp = (bi >> 0) & 3;
+        var fl = (bi >> 2) & 3;
+
+        var options = {};
+        if (pp !== 3)
+            options.powerPreference = (pp === 1) ? 'high-performance'
+                                    : (pp === 2) ? 'low-power'
+                                    : undefined
+                                    ;
+        if (fl !== 3)
+            options.featureLevel = (fl === 1) ? 'core'
+                                 : (fl === 2) ? 'compatibility'
+                                 : undefined
+                                 ;
+
+        var pr = a.requestAdapter(options);
+        return nkJSObject.RegisterObject(pr);
+    },
 };
 
 window.nkGPUAdapter =
