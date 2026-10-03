@@ -63,7 +63,9 @@ namespace CanvasGPU.Pages
             context = cs.GetContext<IGPUCanvasContext>();
             Console.WriteLine("WebGPU canvas context: " + (context != null));
 
-            device = await adapter.RequestDeviceAsync();
+            GPURequiredLimits requiredLimits = new GPURequiredLimits();
+            requiredLimits.MaxTextureDimension2D = adapterLimits.MaxTextureDimension2D;
+            device = await adapter.RequestDeviceAsync(requiredLimits);
             GPUSupportedLimits deviceLimits = device.GetLimits();
             Console.WriteLine("WebGPU device maxTextureDimension2D: " + deviceLimits.MaxTextureDimension2D);
             Console.WriteLine("WebGPU device maxBufferSize: " + deviceLimits.MaxBufferSize);
