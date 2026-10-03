@@ -22,5 +22,7 @@
         RENDERER = 0x1F01,
         VERSION  = 0x1F02,
         SHADING_LANGUAGE_VERSION = 0x8B8C,
+        UNMASKED_VENDOR_WEBGL    = 0x9245,
+        UNMASKED_RENDERER_WEBGL  = 0x9246,
     }
 }
