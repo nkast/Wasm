@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using nkast.Wasm.Canvas.WebGPU;
 using CanvasGPU.Engine;
 
 namespace CanvasGPU.Pages
@@ -33,6 +34,7 @@ namespace CanvasGPU.Pages
 
         private void DrawTriangle(DrawContext dc)
         {
+            GPUDevice device = dc.GPUDevice;
 
             // TODO: create shader module
             // TODO: create render pipeline

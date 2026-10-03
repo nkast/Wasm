@@ -1,12 +1,14 @@
 using System;
 using System.Numerics;
 using nkast.Wasm.Canvas;
+using nkast.Wasm.Canvas.WebGPU;
 
 
 namespace CanvasGPU.Engine
 {
     public class UpdateContext
     {
+        public GPUDevice GPUDevice;
         public TimeSpan t, dt;
         internal Matrix4x4 tx;
         public MouseState CurrMouseState;
@@ -14,8 +16,9 @@ namespace CanvasGPU.Engine
         public TouchState CurrTouchState;
         public TouchState PrevTouchState;
 
-        public UpdateContext(TimeSpan t, TimeSpan dt, MouseState currMouseState, MouseState prevMouseState, TouchState currTouchState, TouchState prevTouchState)
+        public UpdateContext(GPUDevice device, TimeSpan t, TimeSpan dt, MouseState currMouseState, MouseState prevMouseState, TouchState currTouchState, TouchState prevTouchState)
         {
+            this.GPUDevice = device;
             this.t = t;
             this.dt = dt;
             this.tx = Matrix4x4.Identity;

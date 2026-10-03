@@ -107,6 +107,13 @@ window.nkGPUAdapter =
         dv.setBigInt64(pt+ 132, BigInt(limits.maxStorageBufferBindingSize), true);
         dv.setBigInt64(pt+ 140, BigInt(limits.maxBufferSize), true);
     },
+    RequestDevice: function (uid, module, d)
+    {
+        var adapter = nkJSObject.GetObject(uid);
+
+        var pr = adapter.requestDevice();
+        return nkJSObject.RegisterObject(pr);
+    },
 };
 window.nkGPUAdapterInfo =
 {
@@ -130,4 +137,13 @@ window.nkGPUAdapterInfo =
 
 window.nkGPUCanvasContext =
 {
+};
+
+window.nkGPUDevice =
+{
+    Destroy: function (uid)
+    {
+        var device = nkJSObject.GetObject(uid);
+        device.destroy();
+    },
 };

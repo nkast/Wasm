@@ -28,5 +28,13 @@ namespace nkast.Wasm.Canvas.WebGPU
             return limits;
         }
 
+        public Task<GPUDevice> RequestDeviceAsync()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUAdapter.RequestDevice"));
+
+            PromiseJSObject<GPUDevice> promise = new PromiseJSObject<GPUDevice>(uid, (int newuid) => new GPUDevice(newuid));
+            return promise.GetTask();
+        }
+        
     }
 }
