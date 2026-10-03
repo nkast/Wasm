@@ -79,6 +79,11 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.StencilMask", mask);
         }
 
+        public void StencilMaskSeparate(WebGLCullFaceMode mode, int mask)
+        {
+            Invoke("nkCanvasGLContext.StencilMaskSeparate", (int)mode, mask);
+        }
+
         public void DepthFunc(WebGLDepthComparisonFunc func)
         {
             Invoke("nkCanvasGLContext.DepthFunc", (int)func);
@@ -89,9 +94,19 @@ namespace nkast.Wasm.Canvas.WebGL
             Invoke("nkCanvasGLContext.StencilFunc", (int)func, StencilRef, stencilMask);
         }
 
+        public void StencilFuncSeparate(WebGLCullFaceMode mode, WebGLDepthComparisonFunc func, int stencilRef, int stencilMask)
+        {
+            Invoke("nkCanvasGLContext.StencilFuncSeparate", (int)mode, (int)func, stencilRef, stencilMask);
+        }
+
         public void StencilOp(WebGLStencilOpFunc fail, WebGLStencilOpFunc zfail, WebGLStencilOpFunc zpass)
         {
             Invoke("nkCanvasGLContext.StencilOp", (int)fail, (int)zfail, (int)zpass);
+        }
+
+        public void StencilOpSeparate(WebGLCullFaceMode mode, WebGLStencilOpFunc fail, WebGLStencilOpFunc zfail, WebGLStencilOpFunc zpass)
+        {
+            Invoke("nkCanvasGLContext.StencilOpSeparate", (int)mode, (int)fail, (int)zfail, (int)zpass);
         }
 
         public void Viewport(int x, int y, int width, int height)
@@ -860,6 +875,9 @@ namespace nkast.Wasm.Canvas.WebGL
 
                 case "WEBGL_polygon_mode":
                     return (TExtension)(WebGLExtension)new WebGLPolygonModeExtension(uid);
+
+                case "OES_draw_buffers_indexed":
+                    return (TExtension)(WebGLExtension)new WebGL2DrawBuffersIndexedExtension(uid);
 
                 default:
                     return (TExtension)new WebGLExtension(uid);

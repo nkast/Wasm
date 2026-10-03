@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     public interface IWebGL2RenderingContext : IWebGLRenderingContext
     {
+        WebGL2DrawBuffersIndexedExtension DrawBuffersIndexedExtension { get; }
         int GetParameter(WebGL2PNameInteger pname);
         void BindFramebuffer(WebGL2FramebufferType target, WebGLFramebuffer framebuffer);
         void FramebufferRenderbuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLRenderbufferType renderbuffertarget, WebGLRenderbuffer renderbuffer);

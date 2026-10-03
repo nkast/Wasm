@@ -88,6 +88,14 @@ window.nkCanvasGLContext =
         gc.stencilMask(ms);
     },
 
+    StencilMaskSeparate: function(uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = module.HEAP32[(d+ 0)>>2];
+        var ms = module.HEAP32[(d+ 4)>>2];
+        gc.stencilMaskSeparate(md, ms);
+    },
+
     DepthFunc: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
@@ -105,6 +113,17 @@ window.nkCanvasGLContext =
         gc.stencilFunc(fc, rf, mk);
     },
 
+    StencilFuncSeparate: function(uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = module.HEAP32[(d+ 0)>>2];
+        var fc = module.HEAP32[(d+ 4)>>2];
+        var rf = module.HEAP32[(d+ 8)>>2];
+        var mk = module.HEAP32[(d+12)>>2];
+
+        gc.stencilFuncSeparate(md, fc, rf, mk);
+    },
+
     StencilOp: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
@@ -113,6 +132,17 @@ window.nkCanvasGLContext =
         var zp = module.HEAP32[(d+ 8)>>2];
 
         gc.stencilOp(fl, zf, zp);
+    },
+
+    StencilOpSeparate: function(uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = module.HEAP32[(d+ 0)>>2];
+        var fl = module.HEAP32[(d+ 4)>>2];
+        var zf = module.HEAP32[(d+ 8)>>2];
+        var zp = module.HEAP32[(d+12)>>2];
+
+        gc.stencilOpSeparate(md, fl, zf, zp);
     },
 
     Viewport: function(uid, module, d)
@@ -1392,5 +1422,50 @@ window.nkCanvasPolygonModeExtension =
         var fa = module.HEAP32[(d+ 0)>>2];
         var mo = module.HEAP32[(d+ 4)>>2];
         ex.polygonModeWEBGL(fa, mo);
+    }
+};
+window.nkCanvasDrawBuffersIndexedExtension =
+{
+    Enablei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var cp = module.HEAP32[(d+ 0)>>2];
+        var ix = module.HEAP32[(d+ 4)>>2];
+        ex.enableiOES(cp, ix);
+    },
+    Disablei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var cp = module.HEAP32[(d+ 0)>>2];
+        var ix = module.HEAP32[(d+ 4)>>2];
+        ex.disableiOES(cp, ix);
+    },
+    BlendEquationSeparatei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var cr = module.HEAP32[(d+ 4)>>2];
+        var aa = module.HEAP32[(d+ 8)>>2];
+        ex.blendEquationSeparateiOES(bf, cr, aa);
+    },
+    BlendFuncSeparatei: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var sc = module.HEAP32[(d+ 4)>>2];
+        var dc = module.HEAP32[(d+ 8)>>2];
+        var sa = module.HEAP32[(d+12)>>2];
+        var da = module.HEAP32[(d+16)>>2];
+        ex.blendFuncSeparateiOES(bf, sc, dc, sa, da);
+    },
+    ColorMaski: function(uid, module, d)
+    {
+        var ex = nkJSObject.GetObject(uid);
+        var bf = module.HEAP32[(d+ 0)>>2];
+        var r = module.HEAP32[(d+ 4)>>2] !== 0;
+        var g = module.HEAP32[(d+ 8)>>2] !== 0;
+        var b = module.HEAP32[(d+12)>>2] !== 0;
+        var a = module.HEAP32[(d+16)>>2] !== 0;
+        ex.colorMaskiOES(bf, r, g, b, a);
     },
 };

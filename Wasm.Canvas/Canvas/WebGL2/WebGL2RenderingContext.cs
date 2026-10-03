@@ -7,8 +7,21 @@ namespace nkast.Wasm.Canvas.WebGL
 {
     internal class WebGL2RenderingContext : WebGLRenderingContext, IWebGL2RenderingContext, IDisposable
     {
+        WebGL2DrawBuffersIndexedExtension _drawBuffersIndexedExtension;
+
         internal WebGL2RenderingContext(Canvas canvas, int uid) : base(canvas, uid)
         {
+        }
+
+        public WebGL2DrawBuffersIndexedExtension DrawBuffersIndexedExtension
+        {
+            get
+            {
+                if (_drawBuffersIndexedExtension == null)
+                    _drawBuffersIndexedExtension = GetExtension<WebGL2DrawBuffersIndexedExtension>("OES_draw_buffers_indexed");
+
+                return _drawBuffersIndexedExtension;
+            }
         }
 
         public int GetParameter(WebGL2PNameInteger pname)
