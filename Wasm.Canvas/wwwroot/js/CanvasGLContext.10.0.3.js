@@ -88,6 +88,14 @@ window.nkCanvasGLContext =
         gc.stencilMask(ms);
     },
 
+    StencilMaskSeparate: function(uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var md = module.HEAP32[(d+ 0)>>2];
+        var ms = module.HEAP32[(d+ 4)>>2];
+        gc.stencilMaskSeparate(md, ms);
+    },
+
     DepthFunc: function(uid, module, d)
     {
         var gc = nkJSObject.GetObject(uid);
