@@ -14,5 +14,7 @@ namespace nkast.Wasm.Canvas.WebGL
         DITHER          = 0x0BD0,
 
         POLYGON_OFFSET_FILL = 0x8037,
+
+        DEPTH_CLAMP_EXT     = 0x864F,
     }
 }
