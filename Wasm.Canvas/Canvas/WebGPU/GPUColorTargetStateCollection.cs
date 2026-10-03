@@ -7,10 +7,18 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUColorTargetStateCollection : JSObject, IList<GPUColorTargetState>
     {
+        private readonly int _fid_GetLength;
+        private readonly int _fid_Set;
+        private readonly int _fid_Add;
+        private readonly int _fid_Insert;
+        private readonly int _fid_RemoveAt;
+        private readonly int _fid_Clear;
+        private readonly int _fid_Get;
+
 
         public int Count
         {
-            get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } 
+            get { return InvokeRetInt(_fid_GetLength); } 
         }
 
         public bool IsReadOnly
@@ -27,16 +35,30 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 GPUColorTargetStateData data = GPUColorTargetStateData.FromState(value);
-                unsafe { Invoke<int, IntPtr>(RegisterFunction("nkGPUColorTargetStateCollection.Set"), index, new IntPtr(&data)); }
+                unsafe { Invoke<int, IntPtr>(_fid_Set, index, new IntPtr(&data)); }
             }
         }
 
         public GPUColorTargetStateCollection() : base(Register())
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUColorTargetStateCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUColorTargetStateCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUColorTargetStateCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkGPUColorTargetStateCollection.RemoveAt");
+            _fid_Clear = RegisterFunction("nkGPUColorTargetStateCollection.Clear");
+            _fid_Get = RegisterFunction("nkGPUColorTargetStateCollection.Get");
         }
 
         public GPUColorTargetStateCollection(int count) : base(Register(count))
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUColorTargetStateCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUColorTargetStateCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUColorTargetStateCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkGPUColorTargetStateCollection.RemoveAt");
+            _fid_Clear = RegisterFunction("nkGPUColorTargetStateCollection.Clear");
+            _fid_Get = RegisterFunction("nkGPUColorTargetStateCollection.Get");
         }
 
         private static int Register()
@@ -52,18 +74,18 @@ namespace nkast.Wasm.Canvas.WebGPU
         public void Add(GPUColorTargetState item)
         {
             GPUColorTargetStateData data = GPUColorTargetStateData.FromState(item);
-            unsafe { Invoke<IntPtr>(RegisterFunction("nkGPUColorTargetStateCollection.Add"), new IntPtr(&data)); }
+            unsafe { Invoke<IntPtr>(_fid_Add, new IntPtr(&data)); }
         }
 
         public void Insert(int index, GPUColorTargetState item)
         {
             GPUColorTargetStateData data = GPUColorTargetStateData.FromState(item);
-            unsafe { Invoke<int, IntPtr>(RegisterFunction("nkGPUColorTargetStateCollection.Insert"), index, new IntPtr(&data)); }
+            unsafe { Invoke<int, IntPtr>(_fid_Insert, index, new IntPtr(&data)); }
         }
 
         public void RemoveAt(int index)
         {
-            Invoke(RegisterFunction("nkGPUColorTargetStateCollection.RemoveAt"), index);
+            Invoke(_fid_RemoveAt, index);
         }
 
         public bool Remove(GPUColorTargetState item)
@@ -78,7 +100,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Clear()
         {
-            Invoke(RegisterFunction("nkGPUColorTargetStateCollection.Clear"));
+            Invoke(_fid_Clear);
         }
 
         public int IndexOf(GPUColorTargetState item)
@@ -106,7 +128,7 @@ namespace nkast.Wasm.Canvas.WebGPU
         private unsafe GPUColorTargetStateData GetItemData(int index)
         {
             GPUColorTargetStateData data = new GPUColorTargetStateData();
-            Invoke<int, IntPtr>(RegisterFunction("nkGPUColorTargetStateCollection.Get"), index, new IntPtr(&data));
+            Invoke<int, IntPtr>(_fid_Get, index, new IntPtr(&data));
             return data;
         }
 

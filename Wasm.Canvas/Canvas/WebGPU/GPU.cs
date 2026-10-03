@@ -7,6 +7,10 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPU : CachedJSObject<GPU>
     {
+        private readonly int _fid_RequestAdapter;
+        private readonly int _fid_RequestAdapter1;
+        private readonly int _fid_GetPreferredCanvasFormat;
+
         public static GPU FromNavigator(Navigator navigator)
         {
             int uid = JSObject.StaticInvokeRetInt(RegisterFunction("nkGPU.Create"), navigator.Uid);
@@ -22,11 +26,14 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         internal GPU(Navigator navigator, int uid) : base(uid)
         {
+            _fid_RequestAdapter = RegisterFunction("nkGPU.RequestAdapter");
+            _fid_RequestAdapter1 = RegisterFunction("nkGPU.RequestAdapter1");
+            _fid_GetPreferredCanvasFormat = RegisterFunction("nkGPU.GetPreferredCanvasFormat");
         }
 
         public Task<GPUAdapter> RequestAdapterAsync()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkGPU.RequestAdapter"));
+            int uid = InvokeRetInt(_fid_RequestAdapter);
 
             PromiseJSObject<GPUAdapter> promise = new PromiseJSObject<GPUAdapter>(uid, (int newuid) => new GPUAdapter(newuid));
             return promise.GetTask();
@@ -34,7 +41,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public Task<GPUAdapter> RequestAdapterAsync(GPUAdapterOptions options)
         {
-            int uid = InvokeRetInt<int>(RegisterFunction("nkGPU.RequestAdapter1"), options.ToBit());
+            int uid = InvokeRetInt<int>(_fid_RequestAdapter1, options.ToBit());
 
             PromiseJSObject<GPUAdapter> promise = new PromiseJSObject<GPUAdapter>(uid, (int newuid) => new GPUAdapter(newuid));
             return promise.GetTask();
@@ -48,7 +55,7 @@ namespace nkast.Wasm.Canvas.WebGPU
         /// <returns>The preferred GPUTextureFormat for the current platform.</returns>
         public GPUTextureFormat GetPreferredCanvasFormat()
         {
-            int format = InvokeRetInt(RegisterFunction("nkGPU.GetPreferredCanvasFormat"));
+            int format = InvokeRetInt(_fid_GetPreferredCanvasFormat);
             GPUTextureFormat textureFormat = (GPUTextureFormat)format;
 
             return textureFormat;

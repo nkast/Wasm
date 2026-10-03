@@ -8,6 +8,8 @@ namespace nkast.Wasm.Media
 {
     public class MediaDevices : CachedJSObject<MediaDevices>
     {
+        private readonly int _fid_GetUserMedia;
+
 
         public static MediaDevices FromNavigator(Navigator navigator)
         {
@@ -24,12 +26,13 @@ namespace nkast.Wasm.Media
 
         internal MediaDevices(Navigator navigator, int uid) : base(uid)
         {
+            _fid_GetUserMedia = RegisterFunction("nkMediaDevices.GetUserMedia");
             //_navigator = navigator;
         }
 
         public Task<MediaStream> GetUserMediaAsync(UserMediaConstraints constraints)
         {
-            int uid = InvokeRetInt<int>(RegisterFunction("nkMediaDevices.GetUserMedia"), (int)constraints.ToBit());
+            int uid = InvokeRetInt<int>(_fid_GetUserMedia, (int)constraints.ToBit());
 
             PromiseJSObject<MediaStream> promise = new PromiseJSObject<MediaStream>(uid, (int newuid) => new MediaStream(newuid));
             return promise.GetTask();

@@ -5,10 +5,19 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     internal class GPUCanvasContext : RenderingContext, IGPUCanvasContext
     {
+        private readonly int _fid_Configure;
+        private readonly int _fid_GetConfiguration;
+        private readonly int _fid_GetCurrentTexture;
+        private readonly int _fid_Unconfigure;
+
         private GPUDevice _device;
 
         internal GPUCanvasContext(Canvas canvas, int uid) : base(canvas, uid)
         {
+            _fid_Configure = RegisterFunction("nkGPUCanvasContext.Configure");
+            _fid_GetConfiguration = RegisterFunction("nkGPUCanvasContext.GetConfiguration");
+            _fid_GetCurrentTexture = RegisterFunction("nkGPUCanvasContext.GetCurrentTexture");
+            _fid_Unconfigure = RegisterFunction("nkGPUCanvasContext.Unconfigure");
         }
 
         public unsafe void Configure(GPUCanvasConfiguration configuration)
@@ -20,14 +29,14 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.ToneMappingMode = ((int?)configuration.ToneMappingMode) ?? -1;
             data.ColorSpace      = ((int?)configuration.ColorSpace) ?? -1;
             data.Usage           = ((int?)configuration.Usage) ?? -1;
-            Invoke<IntPtr>(RegisterFunction("nkGPUCanvasContext.Configure"), new IntPtr(&data));
+            Invoke<IntPtr>(_fid_Configure, new IntPtr(&data));
             _device = configuration.Device;
         }
 
         public unsafe GPUCanvasConfiguration GetConfiguration()
         {
             GPUCanvasConfigurationData data = new GPUCanvasConfigurationData();
-            bool configured = InvokeRetBool<IntPtr>(RegisterFunction("nkGPUCanvasContext.GetConfiguration"), new IntPtr(&data));
+            bool configured = InvokeRetBool<IntPtr>(_fid_GetConfiguration, new IntPtr(&data));
             if (!configured)
                 return null;
 
@@ -46,13 +55,13 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public IGPUTexture GetCurrentTexture()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkGPUCanvasContext.GetCurrentTexture"));
+            int uid = InvokeRetInt(_fid_GetCurrentTexture);
             return new GPUCanvasTexture(uid, _device);
         }
 
         public void Unconfigure()
         {
-            Invoke(RegisterFunction("nkGPUCanvasContext.Unconfigure"));
+            Invoke(_fid_Unconfigure);
             _device = null;
         }
 

@@ -7,12 +7,18 @@ namespace nkast.Wasm.XR
 {
     public class XRInputSource : CachedJSObject<XRInputSource>
     {
+        private readonly int _fid_GetGripSpace;
+        private readonly int _fid_GetTargetRaySpace;
+        private readonly int _fid_GetHandedness;
+        private readonly int _fid_GetGamepad;
+        private readonly int _fid_GetHand;
+
 
         public XRSpace GripSpace
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRInputSource.GetGripSpace"));
+                int uid = InvokeRetInt(_fid_GetGripSpace);
                 if (uid == -1)
                     return null;
 
@@ -28,7 +34,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRInputSource.GetTargetRaySpace"));
+                int uid = InvokeRetInt(_fid_GetTargetRaySpace);
                 if (uid == -1)
                     return null;
 
@@ -44,7 +50,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int hand = InvokeRetInt(RegisterFunction("nkXRInputSource.GetHandedness"));
+                int hand = InvokeRetInt(_fid_GetHandedness);
                 return (XRHandedness)hand;
             }
         }
@@ -53,7 +59,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt(RegisterFunction("nkXRInputSource.GetGamepad"));
+                int uid = InvokeRetInt(_fid_GetGamepad);
                 if (uid == -1)
                     return null;
 
@@ -70,7 +76,7 @@ namespace nkast.Wasm.XR
             get
             {
                 //int uid = InvokeRetInt("nkXRInputSource.GetGripSpace");
-                int uid = InvokeRetInt(RegisterFunction("nkXRInputSource.GetHand"));
+                int uid = InvokeRetInt(_fid_GetHand);
                 if (uid == -1)
                     return null;
 
@@ -85,6 +91,11 @@ namespace nkast.Wasm.XR
 
         internal XRInputSource(int uid) : base(uid)
         {
+            _fid_GetGripSpace = RegisterFunction("nkXRInputSource.GetGripSpace");
+            _fid_GetTargetRaySpace = RegisterFunction("nkXRInputSource.GetTargetRaySpace");
+            _fid_GetHandedness = RegisterFunction("nkXRInputSource.GetHandedness");
+            _fid_GetGamepad = RegisterFunction("nkXRInputSource.GetGamepad");
+            _fid_GetHand = RegisterFunction("nkXRInputSource.GetHand");
         }
 
 

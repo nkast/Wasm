@@ -5,10 +5,13 @@ namespace nkast.Wasm.Audio
 {
     public class StereoPannerNode : AudioNode
     {
+        private readonly int _fid_GetPan;
+
         AudioParam _pan;
 
         internal StereoPannerNode(int uid, BaseAudioContext context) : base(uid, context)
         {
+            _fid_GetPan = RegisterFunction("nkAudioStereoPannerNode.GetPan");
         }
 
         public AudioParam Pan
@@ -17,7 +20,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_pan == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkAudioStereoPannerNode.GetPan"));
+                    int uid = InvokeRetInt(_fid_GetPan);
                     _pan = new AudioParam(uid, this);
                 }
 

@@ -8,6 +8,10 @@ namespace nkast.Wasm.XR
 {
     public class XRSystem : CachedJSObject<XRSystem>
     {
+        private readonly int _fid_IsSessionSupported;
+        private readonly int _fid_RequestSession;
+        private readonly int _fid_RequestSession1;
+
 
         public static XRSystem FromNavigator(Navigator navigator)
         {
@@ -25,12 +29,15 @@ namespace nkast.Wasm.XR
 
         internal XRSystem(Navigator navigator, int uid) : base(uid)
         {
+            _fid_IsSessionSupported = RegisterFunction("nkXRSystem.IsSessionSupported");
+            _fid_RequestSession = RegisterFunction("nkXRSystem.RequestSession");
+            _fid_RequestSession1 = RegisterFunction("nkXRSystem.RequestSession1");
             //_navigator = navigator;
         }
 
         public Task<bool> IsSessionSupportedAsync(string mode)
         {
-            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSystem.IsSessionSupported"), mode);
+            int uid = InvokeRetInt<string>(_fid_IsSessionSupported, mode);
 
             PromiseBoolean promise = new PromiseBoolean(uid);
             return promise.GetTask();
@@ -38,7 +45,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRSession> RequestSessionAsync(string mode)
         {
-            int uid = InvokeRetInt<string>(RegisterFunction("nkXRSystem.RequestSession"), mode);
+            int uid = InvokeRetInt<string>(_fid_RequestSession, mode);
 
             PromiseJSObject<XRSession> promise = new PromiseJSObject<XRSession>(uid, (int newuid) => new XRSession(newuid) );
             return promise.GetTask();
@@ -46,7 +53,7 @@ namespace nkast.Wasm.XR
 
         public Task<XRSession> RequestSessionAsync(string mode, XRSessionOptions options)
         {
-            int uid = InvokeRetInt<string, int, int>(RegisterFunction("nkXRSystem.RequestSession1"), mode, (int)options.RequiredFeatures, (int)options.OptionalFeatures);
+            int uid = InvokeRetInt<string, int, int>(_fid_RequestSession1, mode, (int)options.RequiredFeatures, (int)options.OptionalFeatures);
 
             PromiseJSObject<XRSession> promise = new PromiseJSObject<XRSession>(uid, (int newuid) => new XRSession(newuid));
             return promise.GetTask();

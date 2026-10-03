@@ -8,12 +8,25 @@ namespace nkast.Wasm.Audio
 {
     public class AudioContext : BaseAudioContext
     {
+        private readonly int _fid_Resume;
+        private readonly int _fid_Suspend;
+        private readonly int _fid_Close1;
+        private readonly int _fid_CreateMediaStreamSource;
+
         public AudioContext() : base(Register())
         {
+            _fid_Resume = RegisterFunction("nkAudioContext.Resume");
+            _fid_Suspend = RegisterFunction("nkAudioContext.Suspend");
+            _fid_Close1 = RegisterFunction("nkAudioContext.Close1");
+            _fid_CreateMediaStreamSource = RegisterFunction("nkAudioContext.CreateMediaStreamSource");
         }
 
         public AudioContext(AudioContextOptions options) : base(Register(options))
         {
+            _fid_Resume = RegisterFunction("nkAudioContext.Resume");
+            _fid_Suspend = RegisterFunction("nkAudioContext.Suspend");
+            _fid_Close1 = RegisterFunction("nkAudioContext.Close1");
+            _fid_CreateMediaStreamSource = RegisterFunction("nkAudioContext.CreateMediaStreamSource");
         }
 
         private static int Register()
@@ -34,7 +47,7 @@ namespace nkast.Wasm.Audio
 
         public Task ResumeAsync()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Resume"));
+            int uid = InvokeRetInt(_fid_Resume);
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -42,7 +55,7 @@ namespace nkast.Wasm.Audio
 
         public Task SuspendAsync()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Suspend"));
+            int uid = InvokeRetInt(_fid_Suspend);
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -50,7 +63,7 @@ namespace nkast.Wasm.Audio
 
         public Task CloseAsync()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkAudioContext.Close1"));
+            int uid = InvokeRetInt(_fid_Close1);
 
             PromiseVoid promise = new PromiseVoid(uid);
             return promise.GetTask();
@@ -58,7 +71,7 @@ namespace nkast.Wasm.Audio
 
         public MediaStreamSourceNode CreateMediaStreamSource(MediaStream stream)
         {
-            int uid = InvokeRetInt<int>(RegisterFunction("nkAudioContext.CreateMediaStreamSource"), ((JSObject)stream).Uid);
+            int uid = InvokeRetInt<int>(_fid_CreateMediaStreamSource, ((JSObject)stream).Uid);
             return new MediaStreamSourceNode(uid, this);
         }
 
