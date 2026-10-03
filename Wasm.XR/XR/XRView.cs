@@ -7,9 +7,16 @@ namespace nkast.Wasm.XR
 {
     public class XRView : CachedJSObject<XRView>
     {
+        private readonly int _fid_GetTransform;
+        private readonly int _fid_GetProjectionMatrix;
+        private readonly int _fid_GetEye;
+
 
         internal XRView(int uid) : base(uid)
         {
+            _fid_GetTransform = RegisterFunction("nkXRView.GetTransform");
+            _fid_GetProjectionMatrix = RegisterFunction("nkXRView.GetProjectionMatrix");
+            _fid_GetEye = RegisterFunction("nkXRView.GetEye");
         }
 
         public unsafe XRRigidTransform Transform
@@ -17,7 +24,7 @@ namespace nkast.Wasm.XR
             get
             {
                 XRRigidTransform result = default;
-                Invoke<IntPtr>(RegisterFunction("nkXRView.GetTransform"), new IntPtr(&result));
+                Invoke<IntPtr>(_fid_GetTransform, new IntPtr(&result));
                 return result;
             }
         }
@@ -27,7 +34,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Matrix4x4 result = default;
-                Invoke<IntPtr>(RegisterFunction("nkXRView.GetProjectionMatrix"), new IntPtr(&result));
+                Invoke<IntPtr>(_fid_GetProjectionMatrix, new IntPtr(&result));
                 return result;
             }
         }
@@ -36,7 +43,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int eye = InvokeRetInt(RegisterFunction("nkXRView.GetEye"));
+                int eye = InvokeRetInt(_fid_GetEye);
                 return (XREye)eye;
             }
         }

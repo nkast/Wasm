@@ -8,31 +8,46 @@ namespace nkast.Wasm.ChannelMessaging
 {
     public class MessagePort : CachedJSObject<MessagePort>
     {
+        private readonly int _fid_RegisterEvents;
+        private readonly int _fid_Start;
+        private readonly int _fid_Close;
+        private readonly int _fid_PostMessagei;
+        private readonly int _fid_PostMessagef64;
+        private readonly int _fid_PostMessageUInt8Array;
+        private readonly int _fid_UnregisterEvents;
+
         public event EventHandler<MessageEventArgs> Message;
 
         public MessagePort(int uid) : base(uid)
         {
-            Invoke(RegisterFunction("nkMessagePort.RegisterEvents"));
+            _fid_RegisterEvents = RegisterFunction("nkMessagePort.RegisterEvents");
+            _fid_Start = RegisterFunction("nkMessagePort.Start");
+            _fid_Close = RegisterFunction("nkMessagePort.Close");
+            _fid_PostMessagei = RegisterFunction("nkMessagePort.PostMessagei");
+            _fid_PostMessagef64 = RegisterFunction("nkMessagePort.PostMessagef64");
+            _fid_PostMessageUInt8Array = RegisterFunction("nkMessagePort.PostMessageUInt8Array");
+            _fid_UnregisterEvents = RegisterFunction("nkMessagePort.UnregisterEvents");
+            Invoke(_fid_RegisterEvents);
         }
 
         public void Start()
         {
-            Invoke(RegisterFunction("nkMessagePort.Start"));
+            Invoke(_fid_Start);
         }
 
         public void close()
         {
-            Invoke(RegisterFunction("nkMessagePort.Close"));
+            Invoke(_fid_Close);
         }
 
         public void PostMessage(int message)
         {
-            Invoke<int>(RegisterFunction("nkMessagePort.PostMessagei"), message);
+            Invoke<int>(_fid_PostMessagei, message);
         }
 
         public void PostMessage(double message)
         {
-            Invoke<double>(RegisterFunction("nkMessagePort.PostMessagef64"), message);
+            Invoke<double>(_fid_PostMessagef64, message);
         }
 
         public void PostMessage(byte[] message)
@@ -44,7 +59,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pMessage = message)
             {
-                Invoke(RegisterFunction("nkMessagePort.PostMessageUInt8Array"), (int)pMessage, index, count);
+                Invoke(_fid_PostMessageUInt8Array, (int)pMessage, index, count);
             }
         }
 
@@ -52,7 +67,7 @@ namespace nkast.Wasm.ChannelMessaging
         {
             fixed (byte* pMessage = message)
             {
-                Invoke(RegisterFunction("nkMessagePort.PostMessageUInt8Array"), (int)pMessage, 0, message.Length);
+                Invoke(_fid_PostMessageUInt8Array, (int)pMessage, 0, message.Length);
             }
         }
 
@@ -93,7 +108,7 @@ namespace nkast.Wasm.ChannelMessaging
 
             }
 
-            Invoke(RegisterFunction("nkMessagePort.UnregisterEvents"));
+            Invoke(_fid_UnregisterEvents);
 
             base.Dispose(disposing);
         }

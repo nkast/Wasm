@@ -5,18 +5,30 @@ namespace nkast.Wasm.Canvas
 {
     public class OffscreenCanvas : JSObject
     {
+        private static readonly int _fid_Create = RegisterFunction("nkOffscreenCanvas.Create");
+        private readonly int _fid_GetWidth;
+        private readonly int _fid_SetWidth;
+        private readonly int _fid_GetHeight;
+        private readonly int _fid_SetHeight;
+        private readonly int _fid_Create2DContext;
+        private readonly int _fid_CreateWebGLContext;
+        private readonly int _fid_CreateWebGL2Context;
+        private readonly int _fid_Create2DContext1;
+        private readonly int _fid_CreateWebGLContext1;
+        private readonly int _fid_CreateWebGL2Context1;
+
         //get or set the width of the OffscreenCanvas
         public int Width
         { 
-            get { return InvokeRetInt(RegisterFunction("nkOffscreenCanvas.GetWidth")); }
-            set { Invoke(RegisterFunction("nkOffscreenCanvas.SetWidth"), value); }
+            get { return InvokeRetInt(_fid_GetWidth); }
+            set { Invoke(_fid_SetWidth, value); }
         }
 
         //get or set the height of the OffscreenCanvas
         public int Height
         {
-            get { return InvokeRetInt(RegisterFunction("nkOffscreenCanvas.GetHeight")); }
-            set { Invoke(RegisterFunction("nkOffscreenCanvas.SetHeight"), value); }
+            get { return InvokeRetInt(_fid_GetHeight); }
+            set { Invoke(_fid_SetHeight, value); }
         }
 
         CanvasRenderingContext _canvasRenderingContext;
@@ -26,11 +38,21 @@ namespace nkast.Wasm.Canvas
 
         public OffscreenCanvas(int width, int height) : base(Register(width, height))
         {
+            _fid_GetWidth = RegisterFunction("nkOffscreenCanvas.GetWidth");
+            _fid_SetWidth = RegisterFunction("nkOffscreenCanvas.SetWidth");
+            _fid_GetHeight = RegisterFunction("nkOffscreenCanvas.GetHeight");
+            _fid_SetHeight = RegisterFunction("nkOffscreenCanvas.SetHeight");
+            _fid_Create2DContext = RegisterFunction("nkOffscreenCanvas.Create2DContext");
+            _fid_CreateWebGLContext = RegisterFunction("nkOffscreenCanvas.CreateWebGLContext");
+            _fid_CreateWebGL2Context = RegisterFunction("nkCanvas.CreateWebGL2Context");
+            _fid_Create2DContext1 = RegisterFunction("nkOffscreenCanvas.Create2DContext1");
+            _fid_CreateWebGLContext1 = RegisterFunction("nkOffscreenCanvas.CreateWebGLContext1");
+            _fid_CreateWebGL2Context1 = RegisterFunction("nkOffscreenCanvas.CreateWebGL2Context1");
         }
 
         private static int Register(int width, int height)
         {
-            int uid = JSObject.StaticInvokeRetInt(RegisterFunction("nkOffscreenCanvas.Create"), width, height);
+            int uid = JSObject.StaticInvokeRetInt(_fid_Create, width, height);
             return uid;
         }
 
@@ -46,7 +68,7 @@ namespace nkast.Wasm.Canvas
                 if (_canvasRenderingContext != null)
                     return (TContext)(IRenderingContext)_canvasRenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkOffscreenCanvas.Create2DContext"));
+                int uid = InvokeRetInt(_fid_Create2DContext);
 
                 _canvasRenderingContext = new CanvasRenderingContext(null, uid);
 
@@ -62,7 +84,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkOffscreenCanvas.CreateWebGLContext"));
+                int uid = InvokeRetInt(_fid_CreateWebGLContext);
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(null, uid);
 
@@ -78,7 +100,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkCanvas.CreateWebGL2Context"));
+                int uid = InvokeRetInt(_fid_CreateWebGL2Context);
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(null, uid);
 
@@ -112,7 +134,7 @@ namespace nkast.Wasm.Canvas
                 ||  attributes.XrCompatible != null)
                     throw new ArgumentException("attributes are not valid for 2d canvas context.", nameof(attributes));
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkOffscreenCanvas.Create2DContext1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_Create2DContext1, attributes.ToBit());
                 
                 _canvasRenderingContext = new CanvasRenderingContext(null, uid);
 
@@ -128,7 +150,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkOffscreenCanvas.CreateWebGLContext1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_CreateWebGLContext1, attributes.ToBit());
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(null, uid);
 
@@ -144,7 +166,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkOffscreenCanvas.CreateWebGL2Context1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_CreateWebGL2Context1, attributes.ToBit());
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(null, uid);
 

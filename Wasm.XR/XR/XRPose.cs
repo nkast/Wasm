@@ -6,9 +6,14 @@ namespace nkast.Wasm.XR
 {
     public class XRPose : JSObject
     {
+        private readonly int _fid_GetEmulatedPosition;
+        private readonly int _fid_GetAngularVelocity;
+        private readonly int _fid_GetLinearVelocity;
+        private readonly int _fid_GetTransform;
+
         public bool EmulatedPosition
         {
-            get { return InvokeRetBool(RegisterFunction("nkXRPose.GetEmulatedPosition")); }
+            get { return InvokeRetBool(_fid_GetEmulatedPosition); }
         }
 
         public unsafe Vector4? AngularVelocity
@@ -16,7 +21,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                bool valid = InvokeRetBool<IntPtr>(RegisterFunction("nkXRPose.GetAngularVelocity"), new IntPtr(&result));
+                bool valid = InvokeRetBool<IntPtr>(_fid_GetAngularVelocity, new IntPtr(&result));
 
                 if (valid)
                     return result;
@@ -30,7 +35,7 @@ namespace nkast.Wasm.XR
             get
             {
                 Vector4 result = default;
-                bool valid = InvokeRetBool<IntPtr>(RegisterFunction("nkXRPose.GetLinearVelocity"), new IntPtr(&result));
+                bool valid = InvokeRetBool<IntPtr>(_fid_GetLinearVelocity, new IntPtr(&result));
 
                 if (valid)
                     return result;
@@ -44,13 +49,17 @@ namespace nkast.Wasm.XR
             get
             {
                 XRRigidTransform result = default;
-                Invoke<IntPtr>(RegisterFunction("nkXRPose.GetTransform"), new IntPtr(&result));
+                Invoke<IntPtr>(_fid_GetTransform, new IntPtr(&result));
                 return result;
             }
         }
 
         internal XRPose(int uid) : base(uid)
         {
+            _fid_GetEmulatedPosition = RegisterFunction("nkXRPose.GetEmulatedPosition");
+            _fid_GetAngularVelocity = RegisterFunction("nkXRPose.GetAngularVelocity");
+            _fid_GetLinearVelocity = RegisterFunction("nkXRPose.GetLinearVelocity");
+            _fid_GetTransform = RegisterFunction("nkXRPose.GetTransform");
         }
 
     }

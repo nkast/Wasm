@@ -9,9 +9,14 @@ namespace nkast.Wasm.XR
         , IReadOnlyCollection<XRInputSource>
         , IReadOnlyList<XRInputSource>
     {
+        private readonly int _fid_GetItem;
+        private readonly int _fid_GetLength;
+
 
         internal XRInputSourceArray(int uid) : base(uid)
         {
+            _fid_GetItem = RegisterFunction("nkJSArray.GetItem");
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
         }
 
         #region IReadOnlyList
@@ -20,7 +25,7 @@ namespace nkast.Wasm.XR
         {
             get
             {
-                int uid = InvokeRetInt<int>(RegisterFunction("nkJSArray.GetItem"), index);
+                int uid = InvokeRetInt<int>(_fid_GetItem, index);
                 XRInputSource inputSource = XRInputSource.FromUid(uid);
                 if (inputSource != null)
                     return inputSource;
@@ -38,7 +43,7 @@ namespace nkast.Wasm.XR
 
         public int Count
         {
-            get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); }
+            get { return InvokeRetInt(_fid_GetLength); }
         }
 
         #endregion ICollection
