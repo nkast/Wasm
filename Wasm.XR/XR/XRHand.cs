@@ -8,16 +8,21 @@ namespace nkast.Wasm.XR
     public class XRHand : CachedJSObject<XRHand>
         , IReadOnlyDictionary<string, XRJointSpace>
     {
+        private readonly int _fid_Get;
+        private readonly int _fid_GetSize;
+
 
         internal XRHand(int uid) : base(uid)
         {
+            _fid_Get = RegisterFunction("nkXRHand.Get");
+            _fid_GetSize = RegisterFunction("nkXRHand.GetSize");
         }
 
         public XRJointSpace this[string key]
         {
             get
             {
-                int uid = InvokeRetInt<String>(RegisterFunction("nkXRHand.Get"), key);
+                int uid = InvokeRetInt<String>(_fid_Get, key);
                 if (uid == -1)
                     return null;
 
@@ -57,7 +62,7 @@ namespace nkast.Wasm.XR
 
         public int Count
         {
-            get { return InvokeRetInt(RegisterFunction("nkXRHand.GetSize")); }
+            get { return InvokeRetInt(_fid_GetSize); }
         }
 
         IEnumerator<KeyValuePair<string, XRJointSpace>> IEnumerable<KeyValuePair<string, XRJointSpace>>.GetEnumerator()

@@ -5,10 +5,13 @@ namespace nkast.Wasm.Audio
 {
     public class GainNode : AudioNode
     {
+        private readonly int _fid_GetGain;
+
         AudioParam _gain;
 
         internal GainNode(int uid, BaseAudioContext context) : base(uid, context)
         {
+            _fid_GetGain = RegisterFunction("nkAudioGainNode.GetGain");
         }
 
         public AudioParam Gain
@@ -17,7 +20,7 @@ namespace nkast.Wasm.Audio
             {
                 if (_gain == null)
                 {
-                    int uid = InvokeRetInt(RegisterFunction("nkAudioGainNode.GetGain"));
+                    int uid = InvokeRetInt(_fid_GetGain);
                     _gain = new AudioParam(uid, this);
                 }
 

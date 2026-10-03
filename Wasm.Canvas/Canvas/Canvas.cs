@@ -7,6 +7,19 @@ namespace nkast.Wasm.Canvas
 {
     public class Canvas : HTMLElement<Canvas>
     {
+        private readonly int _fid_GetWidth;
+        private readonly int _fid_SetWidth;
+        private readonly int _fid_GetHeight;
+        private readonly int _fid_SetHeight;
+        private readonly int _fid_RegisterEvents;
+        private readonly int _fid_Create2DContext;
+        private readonly int _fid_CreateWebGLContext;
+        private readonly int _fid_CreateWebGL2Context;
+        private readonly int _fid_Create2DContext1;
+        private readonly int _fid_CreateWebGLContext1;
+        private readonly int _fid_CreateWebGL2Context1;
+        private readonly int _fid_UnregisterEvents;
+
 
         public event EventHandler WebGLContextLost;
         public event EventHandler WebGLContextRestored;
@@ -14,15 +27,15 @@ namespace nkast.Wasm.Canvas
         //get or set the width of the canvas
         public int Width
         { 
-            get { return InvokeRetInt(RegisterFunction("nkCanvas.GetWidth")); }
-            set { Invoke(RegisterFunction("nkCanvas.SetWidth"), value); }
+            get { return InvokeRetInt(_fid_GetWidth); }
+            set { Invoke(_fid_SetWidth, value); }
         }
 
         //get or set the height of the canvas
         public int Height
         {
-            get { return InvokeRetInt(RegisterFunction("nkCanvas.GetHeight")); }
-            set { Invoke(RegisterFunction("nkCanvas.SetHeight"), value); }
+            get { return InvokeRetInt(_fid_GetHeight); }
+            set { Invoke(_fid_SetHeight, value); }
         }
 
         CanvasRenderingContext _canvasRenderingContext;
@@ -32,7 +45,19 @@ namespace nkast.Wasm.Canvas
 
         private Canvas(int uid) : base(uid)
         {
-            Invoke(RegisterFunction("nkCanvas.RegisterEvents"));
+            _fid_GetWidth = RegisterFunction("nkCanvas.GetWidth");
+            _fid_SetWidth = RegisterFunction("nkCanvas.SetWidth");
+            _fid_GetHeight = RegisterFunction("nkCanvas.GetHeight");
+            _fid_SetHeight = RegisterFunction("nkCanvas.SetHeight");
+            _fid_RegisterEvents = RegisterFunction("nkCanvas.RegisterEvents");
+            _fid_Create2DContext = RegisterFunction("nkCanvas.Create2DContext");
+            _fid_CreateWebGLContext = RegisterFunction("nkCanvas.CreateWebGLContext");
+            _fid_CreateWebGL2Context = RegisterFunction("nkCanvas.CreateWebGL2Context");
+            _fid_Create2DContext1 = RegisterFunction("nkCanvas.Create2DContext1");
+            _fid_CreateWebGLContext1 = RegisterFunction("nkCanvas.CreateWebGLContext1");
+            _fid_CreateWebGL2Context1 = RegisterFunction("nkCanvas.CreateWebGL2Context1");
+            _fid_UnregisterEvents = RegisterFunction("nkCanvas.UnregisterEvents");
+            Invoke(_fid_RegisterEvents);
         }
 
         [JSInvokable] 
@@ -71,7 +96,7 @@ namespace nkast.Wasm.Canvas
                 if (_canvasRenderingContext != null)
                     return (TContext)(IRenderingContext)_canvasRenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkCanvas.Create2DContext"));
+                int uid = InvokeRetInt(_fid_Create2DContext);
 
                 _canvasRenderingContext = new CanvasRenderingContext(this, uid);
 
@@ -87,7 +112,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkCanvas.CreateWebGLContext"));
+                int uid = InvokeRetInt(_fid_CreateWebGLContext);
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
 
@@ -103,7 +128,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRetInt(RegisterFunction("nkCanvas.CreateWebGL2Context"));
+                int uid = InvokeRetInt(_fid_CreateWebGL2Context);
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(this, uid);
 
@@ -137,7 +162,7 @@ namespace nkast.Wasm.Canvas
                 ||  attributes.XrCompatible != null)
                     throw new ArgumentException("attributes are not valid for 2d canvas context.", nameof(attributes));
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkCanvas.Create2DContext1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_Create2DContext1, attributes.ToBit());
                 
                 _canvasRenderingContext = new CanvasRenderingContext(this, uid);
 
@@ -153,7 +178,7 @@ namespace nkast.Wasm.Canvas
                 if (_webglRenderingContext != null)
                     return (TContext)(WebGL.IWebGLRenderingContext)_webglRenderingContext;
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkCanvas.CreateWebGLContext1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_CreateWebGLContext1, attributes.ToBit());
 
                 _webglRenderingContext = new WebGL.WebGLRenderingContext(this, uid);
 
@@ -169,7 +194,7 @@ namespace nkast.Wasm.Canvas
                 if (_webgl2RenderingContext != null)
                     return (TContext)(WebGL.IWebGL2RenderingContext)_webgl2RenderingContext;
 
-                int uid = InvokeRetInt<int>(RegisterFunction("nkCanvas.CreateWebGL2Context1"), attributes.ToBit());
+                int uid = InvokeRetInt<int>(_fid_CreateWebGL2Context1, attributes.ToBit());
                 if (uid > 0)
                     _webgl2RenderingContext = new WebGL.WebGL2RenderingContext(this, uid);
 
@@ -187,7 +212,7 @@ namespace nkast.Wasm.Canvas
 
             }
 
-            Invoke(RegisterFunction("nkCanvas.UnregisterEvents"));
+            Invoke(_fid_UnregisterEvents);
 
             base.Dispose(disposing);
         }

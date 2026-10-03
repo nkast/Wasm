@@ -5,6 +5,9 @@ namespace nkast.Wasm.Audio
 {
     public class AudioWorkletNode : AudioNode
     {
+        private readonly int _fid_GetPort;
+        private readonly int _fid_GetParameters;
+
         MessagePort _messagePort;
         AudioParamMap _parameters;
 
@@ -21,10 +24,12 @@ namespace nkast.Wasm.Audio
 
         internal AudioWorkletNode(int uid, BaseAudioContext context) : base(uid, context)
         {
-            int mpuid = InvokeRetInt(RegisterFunction("nkAudioWorkletNode.GetPort"));
+            _fid_GetPort = RegisterFunction("nkAudioWorkletNode.GetPort");
+            _fid_GetParameters = RegisterFunction("nkAudioWorkletNode.GetParameters");
+            int mpuid = InvokeRetInt(_fid_GetPort);
             _messagePort = new MessagePort(mpuid);
 
-            int pmuid = InvokeRetInt(RegisterFunction("nkAudioWorkletNode.GetParameters"));
+            int pmuid = InvokeRetInt(_fid_GetParameters);
             _parameters = new AudioParamMap(pmuid, this);
         }
 

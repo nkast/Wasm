@@ -9,22 +9,31 @@ namespace nkast.Wasm.Dom
 {
     public class Navigator : CachedJSObject<Navigator>
     {
+        private readonly int _fid_GetUserAgent;
+        private readonly int _fid_GetMaxTouchPoints;
+        private readonly int _fid_GetGamepads;
+        private readonly int _fid_Vibrate;
+
         private readonly Window _window;
         static Gamepad[] _emptyGamepadArray = new Gamepad[0];
         Dictionary<int,Gamepad> _prevGamepads = new Dictionary<int,Gamepad>();
 
         public string UserAgent
         {
-            get { return InvokeRetString(RegisterFunction("nkNavigator.GetUserAgent")); }
+            get { return InvokeRetString(_fid_GetUserAgent); }
         }
 
         public int MaxTouchPoints
         {
-            get { return InvokeRetInt(RegisterFunction("nkNavigator.GetMaxTouchPoints")); }
+            get { return InvokeRetInt(_fid_GetMaxTouchPoints); }
         }
 
         internal Navigator(Window window, int uid) : base(uid)
         {
+            _fid_GetUserAgent = RegisterFunction("nkNavigator.GetUserAgent");
+            _fid_GetMaxTouchPoints = RegisterFunction("nkNavigator.GetMaxTouchPoints");
+            _fid_GetGamepads = RegisterFunction("nkNavigator.GetGamepads");
+            _fid_Vibrate = RegisterFunction("nkNavigator.Vibrate");
             _window = window;
         }
 
@@ -59,7 +68,7 @@ namespace nkast.Wasm.Dom
 
         private GamepadArray GetGamepadArray()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkNavigator.GetGamepads"));
+            int uid = InvokeRetInt(_fid_GetGamepads);
 
             GamepadArray gamepadArray = GamepadArray.FromUid(uid);
             if (gamepadArray != null)
@@ -70,12 +79,12 @@ namespace nkast.Wasm.Dom
 
         public void Vibrate(int duration)
         {
-            Invoke<int>(RegisterFunction("nkNavigator.Vibrate"), duration);
+            Invoke<int>(_fid_Vibrate, duration);
         }
 
         public void Vibrate(TimeSpan duration)
         {
-            Invoke<int>(RegisterFunction("nkNavigator.Vibrate"), (int)duration.TotalMilliseconds);
+            Invoke<int>(_fid_Vibrate, (int)duration.TotalMilliseconds);
         }
     }
 }
