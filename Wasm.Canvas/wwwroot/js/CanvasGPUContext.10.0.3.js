@@ -395,6 +395,16 @@ window.nkGPUDevice =
         var encoder = dv.createCommandEncoder();
         return nkJSObject.RegisterObject(encoder);
     },
+    GetQueue: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var queue = dv.queue;
+        var qid = nkJSObject.GetUid(queue);
+        if (qid !== -1)
+            return qid;
+
+        return nkJSObject.RegisterObject(queue);
+    },
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
@@ -412,3 +422,6 @@ window.nkGPUCommandEncoder =
     },
 };
 
+window.nkGPUQueue =
+{
+};

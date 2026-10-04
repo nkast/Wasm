@@ -21,6 +21,21 @@ namespace nkast.Wasm.Canvas.WebGPU
             int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateCommandEncoder"));
             return new GPUCommandEncoder(uid, this);
         }
+
+        public GPUQueue Queue
+        {
+            get
+            {
+                int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.GetQueue"));
+
+                GPUQueue queue = GPUQueue.FromUid(uid);
+                if (queue != null)
+                    return queue;
+
+                return new GPUQueue(uid, this);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
