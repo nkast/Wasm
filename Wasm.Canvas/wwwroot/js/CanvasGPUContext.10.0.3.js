@@ -489,6 +489,18 @@ window.nkGPUQueue =
         var cb = nkJSObject.GetObject(cuid);
         qu.submit([cb]);
     },
+    WriteBuffer: function (uid, module, d)
+    {
+        var qu = nkJSObject.GetObject(uid);
+        var buid = module.HEAP32[(d+ 0)>>2];
+        var offset = module.HEAP32[(d+ 4)>>2];
+        var ptr = module.HEAP32[(d+ 8)>>2];
+        var size = module.HEAP32[(d+ 12)>>2];
+
+        var bf = nkJSObject.GetObject(buid);
+        var data = new Uint8Array(module.HEAPU8.buffer, ptr, size);
+        qu.writeBuffer(bf, offset, data);
+    },
 };
 
 window.nkGPURenderPassEncoder =

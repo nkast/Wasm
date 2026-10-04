@@ -55,7 +55,7 @@ namespace CanvasGPU.Pages
                 bufferDescriptor.Size = vertices.Length * sizeof(float);
                 bufferDescriptor.Usage = GPUBufferUsageType.Vertex | GPUBufferUsageType.CopyDst;
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
-                // TODO: upload vertices
+                device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
             // TODO: upload vertices
             // TODO: set pipeline
