@@ -35,6 +35,7 @@ namespace CanvasGPU.Pages
         private void DrawTriangle(DrawContext dc)
         {
             GPUDevice device = dc.GPUDevice;
+            GPURenderPassEncoder renderPass = dc.RenderPass;
 
             // TODO: create shader module
             // TODO: create render pipeline
