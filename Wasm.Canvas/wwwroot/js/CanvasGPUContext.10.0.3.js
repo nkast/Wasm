@@ -404,4 +404,11 @@ window.nkGPUDevice =
 
 window.nkGPUCommandEncoder =
 {
+    Finish: function (uid)
+    {
+        var encoder = nkJSObject.GetObject(uid);
+        var commandBuffer = encoder.finish();
+        return nkJSObject.RegisterObject(commandBuffer);
+    },
 };
+

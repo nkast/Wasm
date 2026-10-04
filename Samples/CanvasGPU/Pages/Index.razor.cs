@@ -102,10 +102,11 @@ namespace CanvasGPU.Pages
         private void EndFrame()
         {
             // TODO: end render pass.
-            // TODO: finish command encoder.
+            GPUCommandBuffer commandBuffer = commandEncoder.Finish();
             // TODO: and submit to queue.
 
-
+            commandBuffer.Dispose();
+            commandBuffer = null;
             commandEncoder.Dispose();
             commandEncoder = null;
             //currentTexture.Dispose();
