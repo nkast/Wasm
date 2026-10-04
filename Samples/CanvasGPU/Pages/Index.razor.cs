@@ -73,6 +73,12 @@ namespace CanvasGPU.Pages
 
             GPUTextureFormat preferredCanvasFormat = gpu.GetPreferredCanvasFormat();
             Console.WriteLine("WebGPU preferred canvas format: " + preferredCanvasFormat);
+            GPUCanvasConfiguration canvasConfiguration = new GPUCanvasConfiguration();
+            canvasConfiguration.Device = device;
+            canvasConfiguration.Format = preferredCanvasFormat;
+            canvasConfiguration.AlphaMode = GPUCanvasConfiguration.CanvasAlphaModeType.Opaque;
+            context.Configure(canvasConfiguration);
+            Console.WriteLine("WebGPU canvas context configured");
         }
 
         private void BeginFrame()

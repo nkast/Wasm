@@ -61,6 +61,17 @@ window.nkGPU =
         {
             case "rgba8unorm": return 1;
             case "bgra8unorm": return 2;
+            case "rgba16float": return 3;
+            default: throw new Error("Unknown GPUTextureFormat: " + format);
+        }
+    },    
+    GetTextureFormat: function (format)
+    {
+        switch (format)
+        {
+            case 1: return "rgba8unorm";
+            case 2: return "bgra8unorm";
+            case 3: return "rgba16float";
             default: throw new Error("Unknown GPUTextureFormat: " + format);
         }
     },
@@ -277,6 +288,45 @@ window.nkGPUAdapterInfo =
 
 window.nkGPUCanvasContext =
 {
+    Configure: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        var did = module.HEAP32[(pt+ 0)>>2];
+        var fm = module.HEAP32[(pt+ 4)>>2];
+        var am = module.HEAP32[(pt+ 8)>>2];
+        var tm = module.HEAP32[(pt+ 12)>>2];
+        var cs = module.HEAP32[(pt+ 16)>>2];
+        var us = module.HEAP32[(pt+ 20)>>2];
+
+        var dv = nkJSObject.GetObject(did);
+
+        var configuration = {};
+        configuration.device = dv;
+        configuration.format = nkGPU.GetTextureFormat(fm);
+
+        if (am === 1)
+            configuration.alphaMode = "opaque";
+        else if (am === 2)
+            configuration.alphaMode = "premultiplied";
+
+        if (tm === 1)
+            configuration.toneMappingMode = "standard";
+        else if (tm === 2)
+            configuration.toneMappingMode = "extended";
+
+        if (cs === 1)
+            configuration.colorSpace = "srgb";
+        else if (cs === 2)
+            configuration.colorSpace = "display-p3";
+
+        if (us !== -1)
+            configuration.usage = us;
+
+        gc.configure(configuration);
+    },
 };
 
 window.nkGPUDevice =
