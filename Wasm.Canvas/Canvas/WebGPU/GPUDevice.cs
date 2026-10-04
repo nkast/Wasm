@@ -40,10 +40,8 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
             if (disposing)
             {
-
+                Invoke(RegisterFunction("nkGPUDevice.Destroy"));
             }
-
-            Invoke(RegisterFunction("nkGPUDevice.Destroy"));
 
             base.Dispose(disposing);
         }
