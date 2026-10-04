@@ -98,31 +98,31 @@ window.nkGPUAdapter =
     },
     WriteLimits: function (module, pt, limits)
     {
-        module.HEAP32[(pt+ 0)>>2] = limits.maxTextureDimension1D;
-        module.HEAP32[(pt+ 4)>>2] = limits.maxTextureDimension2D;
-        module.HEAP32[(pt+ 8)>>2] = limits.maxTextureDimension3D;
-        module.HEAP32[(pt+ 12)>>2] = limits.maxTextureArrayLayers;
-        module.HEAP32[(pt+ 16)>>2] = limits.maxBindGroups;
-        module.HEAP32[(pt+ 20)>>2] = limits.maxBindingsPerBindGroup;
-        module.HEAP32[(pt+ 24)>>2] = limits.maxDynamicUniformBuffersPerPipelineLayout;
-        module.HEAP32[(pt+ 28)>>2] = limits.maxDynamicStorageBuffersPerPipelineLayout;
-        module.HEAP32[(pt+ 32)>>2] = limits.maxSampledTexturesPerShaderStage;
-        module.HEAP32[(pt+ 36)>>2] = limits.maxSamplersPerShaderStage;
-        module.HEAP32[(pt+ 40)>>2] = limits.maxStorageBuffersPerShaderStage;
-        module.HEAP32[(pt+ 44)>>2] = limits.maxStorageTexturesPerShaderStage;
-        module.HEAP32[(pt+ 48)>>2] = limits.maxUniformBuffersPerShaderStage;
-        module.HEAP32[(pt+ 52)>>2] = limits.minUniformBufferOffsetAlignment;
-        module.HEAP32[(pt+ 56)>>2] = limits.minStorageBufferOffsetAlignment;
-        module.HEAP32[(pt+ 60)>>2] = limits.maxVertexBuffers;
-        module.HEAP32[(pt+ 64)>>2] = limits.maxVertexAttributes;
-        module.HEAP32[(pt+ 68)>>2] = limits.maxVertexBufferArrayStride;
-        module.HEAP32[(pt+ 72)>>2] = limits.maxInterStageShaderVariables;
-        module.HEAP32[(pt+ 76)>>2] = limits.maxColorAttachments;
-        module.HEAP32[(pt+ 80)>>2] = limits.maxColorAttachmentBytesPerSample;
-        module.HEAP32[(pt+ 84)>>2] = limits.maxComputeWorkgroupStorageSize;
-        module.HEAP32[(pt+ 88)>>2] = limits.maxComputeInvocationsPerWorkgroup;
-        module.HEAP32[(pt+ 92)>>2] = limits.maxComputeWorkgroupSizeX;
-        module.HEAP32[(pt+ 96)>>2] = limits.maxComputeWorkgroupSizeY;
+        module.HEAP32[(pt+   0)>>2] = limits.maxTextureDimension1D;
+        module.HEAP32[(pt+   4)>>2] = limits.maxTextureDimension2D;
+        module.HEAP32[(pt+   8)>>2] = limits.maxTextureDimension3D;
+        module.HEAP32[(pt+  12)>>2] = limits.maxTextureArrayLayers;
+        module.HEAP32[(pt+  16)>>2] = limits.maxBindGroups;
+        module.HEAP32[(pt+  20)>>2] = limits.maxBindingsPerBindGroup;
+        module.HEAP32[(pt+  24)>>2] = limits.maxDynamicUniformBuffersPerPipelineLayout;
+        module.HEAP32[(pt+  28)>>2] = limits.maxDynamicStorageBuffersPerPipelineLayout;
+        module.HEAP32[(pt+  32)>>2] = limits.maxSampledTexturesPerShaderStage;
+        module.HEAP32[(pt+  36)>>2] = limits.maxSamplersPerShaderStage;
+        module.HEAP32[(pt+  40)>>2] = limits.maxStorageBuffersPerShaderStage;
+        module.HEAP32[(pt+  44)>>2] = limits.maxStorageTexturesPerShaderStage;
+        module.HEAP32[(pt+  48)>>2] = limits.maxUniformBuffersPerShaderStage;
+        module.HEAP32[(pt+  52)>>2] = limits.minUniformBufferOffsetAlignment;
+        module.HEAP32[(pt+  56)>>2] = limits.minStorageBufferOffsetAlignment;
+        module.HEAP32[(pt+  60)>>2] = limits.maxVertexBuffers;
+        module.HEAP32[(pt+  64)>>2] = limits.maxVertexAttributes;
+        module.HEAP32[(pt+  68)>>2] = limits.maxVertexBufferArrayStride;
+        module.HEAP32[(pt+  72)>>2] = limits.maxInterStageShaderVariables;
+        module.HEAP32[(pt+  76)>>2] = limits.maxColorAttachments;
+        module.HEAP32[(pt+  80)>>2] = limits.maxColorAttachmentBytesPerSample;
+        module.HEAP32[(pt+  84)>>2] = limits.maxComputeWorkgroupStorageSize;
+        module.HEAP32[(pt+  88)>>2] = limits.maxComputeInvocationsPerWorkgroup;
+        module.HEAP32[(pt+  92)>>2] = limits.maxComputeWorkgroupSizeX;
+        module.HEAP32[(pt+  96)>>2] = limits.maxComputeWorkgroupSizeY;
         module.HEAP32[(pt+ 100)>>2] = limits.maxComputeWorkgroupSizeZ;
         module.HEAP32[(pt+ 104)>>2] = limits.maxComputeWorkgroupsPerDimension;
         module.HEAP32[(pt+ 108)>>2] = limits.maxStorageBuffersInVertexStage ?? -1;
@@ -375,14 +375,14 @@ window.nkGPUTexture =
 {
     CreateView: function (uid)
     {
-        var texture = nkJSObject.GetObject(uid);
-        var view = texture.createView();
+        var tx = nkJSObject.GetObject(uid);
+        var view = tx.createView();
         return nkJSObject.RegisterObject(view);
     },
     Destroy: function (uid)
     {
-        var texture = nkJSObject.GetObject(uid);
-        texture.destroy();
+        var tx = nkJSObject.GetObject(uid);
+        tx.destroy();
     },
 };
 
@@ -422,9 +422,9 @@ window.nkGPUCommandEncoder =
 {
     Finish: function (uid)
     {
-        var encoder = nkJSObject.GetObject(uid);
-        var commandBuffer = encoder.finish();
-        return nkJSObject.RegisterObject(commandBuffer);
+        var ce = nkJSObject.GetObject(uid);
+        var cb = ce.finish();
+        return nkJSObject.RegisterObject(cb);
     },
 };
 
@@ -432,9 +432,10 @@ window.nkGPUQueue =
 {
     Submit: function (uid, module, d)
     {
-        var queue = nkJSObject.GetObject(uid);
+        var qu = nkJSObject.GetObject(uid);
         var cuid = module.HEAP32[(d+ 0)>>2];
-        var commandBuffer = nkJSObject.GetObject(cuid);
-        queue.submit([commandBuffer]);
+
+        var cb = nkJSObject.GetObject(cuid);
+        qu.submit([cb]);
     },
 };
