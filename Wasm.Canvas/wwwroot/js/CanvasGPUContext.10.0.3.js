@@ -389,9 +389,19 @@ window.nkGPUDevice =
 
         nkGPUAdapter.WriteLimits(module, pt, dv.limits);
     },
+    CreateCommandEncoder: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var encoder = dv.createCommandEncoder();
+        return nkJSObject.RegisterObject(encoder);
+    },
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
         dv.destroy();
     },
+};
+
+window.nkGPUCommandEncoder =
+{
 };

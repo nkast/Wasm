@@ -16,6 +16,11 @@ namespace nkast.Wasm.Canvas.WebGPU
             return limits;
         }
 
+        public GPUCommandEncoder CreateCommandEncoder()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateCommandEncoder"));
+            return new GPUCommandEncoder(uid, this);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
