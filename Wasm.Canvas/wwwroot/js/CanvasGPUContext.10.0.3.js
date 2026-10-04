@@ -359,6 +359,25 @@ window.nkGPUCanvasContext =
         var gc = nkJSObject.GetObject(uid);
         gc.unconfigure();
     },
+    GetCurrentTexture: function (uid)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var texture = gc.getCurrentTexture();
+        var tid = nkJSObject.GetUid(texture);
+        if (tid !== -1)
+            return tid;
+
+        return nkJSObject.RegisterObject(texture);
+    },
+};
+
+window.nkGPUTexture =
+{
+    Destroy: function (uid)
+    {
+        var texture = nkJSObject.GetObject(uid);
+        texture.destroy();
+    },
 };
 
 window.nkGPUDevice =
@@ -370,9 +389,46 @@ window.nkGPUDevice =
 
         nkGPUAdapter.WriteLimits(module, pt, dv.limits);
     },
+    CreateCommandEncoder: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var encoder = dv.createCommandEncoder();
+        return nkJSObject.RegisterObject(encoder);
+    },
+    GetQueue: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var queue = dv.queue;
+        var qid = nkJSObject.GetUid(queue);
+        if (qid !== -1)
+            return qid;
+
+        return nkJSObject.RegisterObject(queue);
+    },
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
         dv.destroy();
+    },
+};
+
+window.nkGPUCommandEncoder =
+{
+    Finish: function (uid)
+    {
+        var encoder = nkJSObject.GetObject(uid);
+        var commandBuffer = encoder.finish();
+        return nkJSObject.RegisterObject(commandBuffer);
+    },
+};
+
+window.nkGPUQueue =
+{
+    Submit: function (uid, module, d)
+    {
+        var queue = nkJSObject.GetObject(uid);
+        var cuid = module.HEAP32[(d+ 0)>>2];
+        var commandBuffer = nkJSObject.GetObject(cuid);
+        queue.submit([commandBuffer]);
     },
 };

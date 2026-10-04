@@ -44,6 +44,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             return configuration;
         }
 
+        public IGPUTexture GetCurrentTexture()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUCanvasContext.GetCurrentTexture"));
+            return new GPUCanvasTexture(uid);
+        }
+
         public void Unconfigure()
         {
             Invoke(RegisterFunction("nkGPUCanvasContext.Unconfigure"));
