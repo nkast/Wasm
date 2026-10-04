@@ -354,6 +354,11 @@ window.nkGPUCanvasContext =
         module.HEAP32[(pt+ 20)>>2] = cfg.usage;
         return true;
     },
+    Unconfigure: function (uid)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        gc.unconfigure();
+    },
 };
 
 window.nkGPUDevice =

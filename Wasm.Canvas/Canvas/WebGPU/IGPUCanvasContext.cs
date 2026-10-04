@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGPU
     {
         void Configure(GPUCanvasConfiguration configuration);
         GPUCanvasConfiguration GetConfiguration();
+        void Unconfigure();
 
     }
 }

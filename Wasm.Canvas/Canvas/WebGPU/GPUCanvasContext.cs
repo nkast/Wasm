@@ -44,6 +44,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             return configuration;
         }
 
+        public void Unconfigure()
+        {
+            Invoke(RegisterFunction("nkGPUCanvasContext.Unconfigure"));
+            _device = null;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
