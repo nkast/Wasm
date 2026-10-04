@@ -47,6 +47,23 @@ window.nkGPU =
         var pr = gpu.requestAdapter(options);
         return nkJSObject.RegisterObject(pr);
     },
+    GetPreferredCanvasFormat: function (uid)
+    {
+        var gpu = nkJSObject.GetObject(uid);
+
+        var textureFormat = gpu.getPreferredCanvasFormat();
+        return nkGPU.GetTextureFormatId(textureFormat);
+    },
+
+    GetTextureFormatId: function (format)
+    {
+        switch (format)
+        {
+            case "rgba8unorm": return 1;
+            case "bgra8unorm": return 2;
+            default: throw new Error("Unknown GPUTextureFormat: " + format);
+        }
+    },
 };
 
 window.nkGPUAdapter =

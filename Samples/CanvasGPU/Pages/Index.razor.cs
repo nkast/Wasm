@@ -71,6 +71,8 @@ namespace CanvasGPU.Pages
             Console.WriteLine("WebGPU device maxBufferSize: " + deviceLimits.MaxBufferSize);
             Console.WriteLine("WebGPU device: " + (device != null));
 
+            GPUTextureFormat preferredCanvasFormat = gpu.GetPreferredCanvasFormat();
+            Console.WriteLine("WebGPU preferred canvas format: " + preferredCanvasFormat);
         }
 
         private void BeginFrame()
