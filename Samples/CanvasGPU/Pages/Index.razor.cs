@@ -102,7 +102,13 @@ namespace CanvasGPU.Pages
             colorAttachment.LoadOp = GPULoadOpType.Clear;
             colorAttachment.StoreOp = GPUStoreOpType.Store;
             //colorAttachment.ClearValue = GPUColor.FromByte(68, 34, 136, 255);
-            colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
+            //colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
+            float t = (float)_sw.Elapsed.TotalSeconds * 0.5f;
+            colorAttachment.ClearValue = new GPUColor(
+                0.5f + 0.5f * MathF.Sin(t),
+                0.5f + 0.5f * MathF.Sin(t + 2.0f),
+                0.5f + 0.5f * MathF.Sin(t + 4.2f),
+                1f);
             GPURenderPassDescriptor renderPassDescriptor = new GPURenderPassDescriptor();
             renderPassDescriptor.ColorAttachments = new GPUColorAttachment[] { colorAttachment };
             renderPass = commandEncoder.BeginRenderPass(renderPassDescriptor);
