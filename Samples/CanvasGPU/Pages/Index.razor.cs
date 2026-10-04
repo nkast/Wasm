@@ -102,6 +102,8 @@ namespace CanvasGPU.Pages
             colorAttachment.StoreOp = GPUStoreOpType.Store;
             //colorAttachment.ClearValue = GPUColor.FromByte(68, 34, 136, 255);
             colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
+            GPURenderPassDescriptor renderPassDescriptor = new GPURenderPassDescriptor();
+            renderPassDescriptor.ColorAttachments = new GPUColorAttachment[] { colorAttachment };
             //TODO: create render pass.
 
         }
