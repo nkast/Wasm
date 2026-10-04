@@ -40,6 +40,20 @@ namespace nkast.Wasm.Canvas.WebGPU
             return promise.GetTask();
         }
 
+        /// <summary>
+        /// Returns the preferred canvas format for the current platform.
+        /// The value can be Rgba8Unorm or Bgra8Unorm.
+        /// This is the format that should be used when configuring a GPUCanvasContext.
+        /// </summary>
+        /// <returns>The preferred GPUTextureFormat for the current platform.</returns>
+        public GPUTextureFormat GetPreferredCanvasFormat()
+        {
+            int format = InvokeRetInt(RegisterFunction("nkGPU.GetPreferredCanvasFormat"));
+            GPUTextureFormat textureFormat = (GPUTextureFormat)format;
+
+            return textureFormat;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

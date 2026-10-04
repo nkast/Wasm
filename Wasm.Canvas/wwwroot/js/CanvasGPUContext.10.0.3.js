@@ -47,6 +47,34 @@ window.nkGPU =
         var pr = gpu.requestAdapter(options);
         return nkJSObject.RegisterObject(pr);
     },
+    GetPreferredCanvasFormat: function (uid)
+    {
+        var gpu = nkJSObject.GetObject(uid);
+
+        var textureFormat = gpu.getPreferredCanvasFormat();
+        return nkGPU.GetTextureFormatId(textureFormat);
+    },
+
+    GetTextureFormatId: function (format)
+    {
+        switch (format)
+        {
+            case "rgba8unorm": return 1;
+            case "bgra8unorm": return 2;
+            case "rgba16float": return 3;
+            default: throw new Error("Unknown GPUTextureFormat: " + format);
+        }
+    },    
+    GetTextureFormat: function (format)
+    {
+        switch (format)
+        {
+            case 1: return "rgba8unorm";
+            case 2: return "bgra8unorm";
+            case 3: return "rgba16float";
+            default: throw new Error("Unknown GPUTextureFormat: " + format);
+        }
+    },
 };
 
 window.nkGPUAdapter =
@@ -260,6 +288,77 @@ window.nkGPUAdapterInfo =
 
 window.nkGPUCanvasContext =
 {
+    Configure: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        var did = module.HEAP32[(pt+ 0)>>2];
+        var fm = module.HEAP32[(pt+ 4)>>2];
+        var am = module.HEAP32[(pt+ 8)>>2];
+        var tm = module.HEAP32[(pt+ 12)>>2];
+        var cs = module.HEAP32[(pt+ 16)>>2];
+        var us = module.HEAP32[(pt+ 20)>>2];
+
+        var dv = nkJSObject.GetObject(did);
+
+        var configuration = {};
+        configuration.device = dv;
+        configuration.format = nkGPU.GetTextureFormat(fm);
+
+        if (am === 1)
+            configuration.alphaMode = "opaque";
+        else if (am === 2)
+            configuration.alphaMode = "premultiplied";
+
+        if (tm === 1)
+            configuration.toneMappingMode = "standard";
+        else if (tm === 2)
+            configuration.toneMappingMode = "extended";
+
+        if (cs === 1)
+            configuration.colorSpace = "srgb";
+        else if (cs === 2)
+            configuration.colorSpace = "display-p3";
+
+        if (us !== -1)
+            configuration.usage = us;
+
+        gc.configure(configuration);
+    },
+    GetConfiguration: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        var cfg = gc.getConfiguration();
+        if (cfg === null)
+            return false;
+
+        var am = (cfg.alphaMode === "opaque") ? 1
+               : (cfg.alphaMode === "premultiplied") ? 2
+               : -1;
+        var tm = (cfg.toneMapping.mode === "standard") ? 1
+               : (cfg.toneMapping.mode === "extended") ? 2
+               : -1;
+        var cs = (cfg.colorSpace === "srgb") ? 1
+               : (cfg.colorSpace === "display-p3") ? 2
+               : -1;
+
+        module.HEAP32[(pt+ 0)>>2] = nkJSObject.GetUid(cfg.device);
+        module.HEAP32[(pt+ 4)>>2] = nkGPU.GetTextureFormatId(cfg.format);
+        module.HEAP32[(pt+ 8)>>2] = am;
+        module.HEAP32[(pt+ 12)>>2] = tm;
+        module.HEAP32[(pt+ 16)>>2] = cs;
+        module.HEAP32[(pt+ 20)>>2] = cfg.usage;
+        return true;
+    },
+    Unconfigure: function (uid)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        gc.unconfigure();
+    },
 };
 
 window.nkGPUDevice =

@@ -71,6 +71,20 @@ namespace CanvasGPU.Pages
             Console.WriteLine("WebGPU device maxBufferSize: " + deviceLimits.MaxBufferSize);
             Console.WriteLine("WebGPU device: " + (device != null));
 
+            GPUTextureFormat preferredCanvasFormat = gpu.GetPreferredCanvasFormat();
+            Console.WriteLine("WebGPU preferred canvas format: " + preferredCanvasFormat);
+            GPUCanvasConfiguration canvasConfiguration = new GPUCanvasConfiguration();
+            canvasConfiguration.Device = device;
+            canvasConfiguration.Format = preferredCanvasFormat;
+            canvasConfiguration.AlphaMode = GPUCanvasConfiguration.CanvasAlphaModeType.Opaque;
+            context.Configure(canvasConfiguration);
+            Console.WriteLine("WebGPU canvas context configured");
+            GPUCanvasConfiguration currentConfiguration = context.GetConfiguration();
+            Console.WriteLine("WebGPU canvas context format: " + currentConfiguration.Format);
+            Console.WriteLine("WebGPU canvas context alphaMode: " + currentConfiguration.AlphaMode);
+            Console.WriteLine("WebGPU canvas context toneMappingMode: " + currentConfiguration.ToneMappingMode);
+            Console.WriteLine("WebGPU canvas context colorSpace: " + currentConfiguration.ColorSpace);
+            Console.WriteLine("WebGPU canvas context usage: " + currentConfiguration.Usage);
         }
 
         private void BeginFrame()
