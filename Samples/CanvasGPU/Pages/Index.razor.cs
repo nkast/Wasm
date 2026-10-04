@@ -96,6 +96,12 @@ namespace CanvasGPU.Pages
             currentView = currentTexture.CreateView();
             commandEncoder = device.CreateCommandEncoder();
 
+            GPUColorAttachment colorAttachment = new GPUColorAttachment();
+            colorAttachment.View = currentView;
+            colorAttachment.LoadOp = GPULoadOpType.Clear;
+            colorAttachment.StoreOp = GPUStoreOpType.Store;
+            //colorAttachment.ClearValue = GPUColor.FromByte(68, 34, 136, 255);
+            colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
             //TODO: create render pass.
 
         }
