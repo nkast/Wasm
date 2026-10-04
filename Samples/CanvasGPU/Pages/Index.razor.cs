@@ -46,6 +46,7 @@ namespace CanvasGPU.Pages
         IGPUCanvasContext context;
         GPUDevice device;
         IGPUTexture currentTexture;
+        GPUTextureView currentView;
         GPUCommandEncoder commandEncoder;
 
         async void InitGPUAsync(GPU gpu)
@@ -92,9 +93,15 @@ namespace CanvasGPU.Pages
         private void BeginFrame()
         {
             currentTexture = context.GetCurrentTexture();
-            //TODO: create view.
+            currentView = currentTexture.CreateView();
             commandEncoder = device.CreateCommandEncoder();
 
+            GPUColorAttachment colorAttachment = new GPUColorAttachment();
+            colorAttachment.View = currentView;
+            colorAttachment.LoadOp = GPULoadOpType.Clear;
+            colorAttachment.StoreOp = GPUStoreOpType.Store;
+            //colorAttachment.ClearValue = GPUColor.FromByte(68, 34, 136, 255);
+            colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
             //TODO: create render pass.
 
         }
@@ -109,6 +116,8 @@ namespace CanvasGPU.Pages
             commandBuffer = null;
             commandEncoder.Dispose();
             commandEncoder = null;
+            currentView.Dispose();
+            currentView = null;
             //currentTexture.Dispose();
             currentTexture = null;
             //GC.Collect();
