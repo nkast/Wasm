@@ -483,4 +483,9 @@ window.nkGPUQueue =
 
 window.nkGPURenderPassEncoder =
 {
+    End: function (uid)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        pe.end();
+    },
 };

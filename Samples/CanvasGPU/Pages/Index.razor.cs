@@ -111,7 +111,7 @@ namespace CanvasGPU.Pages
 
         private void EndFrame()
         {
-            // TODO: end render pass.
+            renderPass.End();
             GPUCommandBuffer commandBuffer = commandEncoder.Finish();
             device.Queue.Submit(commandBuffer);
 

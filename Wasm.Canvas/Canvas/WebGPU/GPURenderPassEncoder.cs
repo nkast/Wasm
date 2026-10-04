@@ -11,6 +11,11 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
             _device = device;
         }
+
+        public void End()
+        {
+            Invoke(RegisterFunction("nkGPURenderPassEncoder.End"));
+        }
         
         protected override void Dispose(bool disposing)
         {
