@@ -420,6 +420,47 @@ window.nkGPUDevice =
 
 window.nkGPUCommandEncoder =
 {
+    BeginRenderPass: function (uid, module, d)
+    {
+        var ce = nkJSObject.GetObject(uid);
+        var mdc = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
+        var cn = module.HEAP32[(d+ 8)>>2];
+
+        var data = new Int32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
+        var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
+
+        var descriptor = {};
+        if (mdc !== -1)
+            descriptor.maxDrawCount = mdc;
+            
+        descriptor.colorAttachments = [];
+        for (var i = 0; i < cn; i++)
+        {
+            var vw = nkJSObject.GetObject(data[i*8+ 0]);
+            var lo = data[i*8+ 1];
+            var so = data[i*8+ 2];
+            var ds = data[i*8+ 7];
+
+            var colorAttachment = {};
+            colorAttachment.view = vw;
+            colorAttachment.clearValue = { r: fdata[i*8+ 3], g: fdata[i*8+ 4], b: fdata[i*8+ 5], a: fdata[i*8+ 6] };
+            if (ds !== -1)
+                colorAttachment.depthSlice = ds;
+            if (lo === 1)
+                colorAttachment.loadOp = "load";
+            else if (lo === 2)
+                colorAttachment.loadOp = "clear";
+            if (so === 1)
+                colorAttachment.storeOp = "store";
+            else if (so === 2)
+                colorAttachment.storeOp = "discard";
+            descriptor.colorAttachments.push(colorAttachment);
+        }
+
+        var rp = ce.beginRenderPass(descriptor);
+        return nkJSObject.RegisterObject(rp);
+    },
     Finish: function (uid)
     {
         var ce = nkJSObject.GetObject(uid);
@@ -438,4 +479,8 @@ window.nkGPUQueue =
         var cb = nkJSObject.GetObject(cuid);
         qu.submit([cb]);
     },
+};
+
+window.nkGPURenderPassEncoder =
+{
 };

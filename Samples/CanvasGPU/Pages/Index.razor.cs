@@ -48,6 +48,7 @@ namespace CanvasGPU.Pages
         IGPUTexture currentTexture;
         GPUTextureView currentView;
         GPUCommandEncoder commandEncoder;
+        GPURenderPassEncoder renderPass;
 
         async void InitGPUAsync(GPU gpu)
         {
@@ -104,7 +105,7 @@ namespace CanvasGPU.Pages
             colorAttachment.ClearValue = GPUColor.FromByte(100, 149, 237, 255);
             GPURenderPassDescriptor renderPassDescriptor = new GPURenderPassDescriptor();
             renderPassDescriptor.ColorAttachments = new GPUColorAttachment[] { colorAttachment };
-            //TODO: create render pass.
+            renderPass = commandEncoder.BeginRenderPass(renderPassDescriptor);
 
         }
 
@@ -116,6 +117,8 @@ namespace CanvasGPU.Pages
 
             commandBuffer.Dispose();
             commandBuffer = null;
+            renderPass.Dispose();
+            renderPass = null;
             commandEncoder.Dispose();
             commandEncoder = null;
             currentView.Dispose();
@@ -189,6 +192,7 @@ namespace CanvasGPU.Pages
             DrawContext dc = new DrawContext()
             {
                 GPUDevice = device,
+                RenderPass = renderPass,
                 Layer = 0,
                 t  = t,
                 dt = dt,

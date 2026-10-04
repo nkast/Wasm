@@ -9,6 +9,7 @@ namespace CanvasGPU.Engine
     {
         public ICanvasRenderingContext CanvasContext;
         public GPUDevice GPUDevice;
+        public GPURenderPassEncoder RenderPass;
         public int Layer;
         public TimeSpan t, dt;
 
