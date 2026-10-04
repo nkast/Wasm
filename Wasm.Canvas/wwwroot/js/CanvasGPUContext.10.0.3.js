@@ -26,7 +26,7 @@ window.nkGPU =
     },
     RequestAdapter1: function (uid, module, d)
     {
-        var a = nkJSObject.GetObject(uid);
+        var gpu = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
         var pp = (bi >> 0) & 3;
@@ -44,7 +44,7 @@ window.nkGPU =
                                  : undefined
                                  ;
 
-        var pr = a.requestAdapter(options);
+        var pr = gpu.requestAdapter(options);
         return nkJSObject.RegisterObject(pr);
     },
 };
@@ -53,8 +53,8 @@ window.nkGPUAdapter =
 {
     GetInfo: function (uid)
     {
-        var adapter = nkJSObject.GetObject(uid);
-        var info = adapter.info;
+        var ad = nkJSObject.GetObject(uid);
+        var info = ad.info;
         var iid = nkJSObject.GetUid(info);
         if (iid !== -1)
             return iid;
@@ -63,10 +63,10 @@ window.nkGPUAdapter =
     },
     GetLimits: function (uid, module, d)
     {
-        var adapter = nkJSObject.GetObject(uid);
+        var ad = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
-        nkGPUAdapter.WriteLimits(module, pt, adapter.limits);
+        nkGPUAdapter.WriteLimits(module, pt, ad.limits);
     },
     WriteLimits: function (module, pt, limits)
     {
@@ -112,19 +112,23 @@ window.nkGPUAdapterInfo =
 {
     GetDevice: function (uid)
     {
+        var ai = nkJSObject.GetObject(uid);
         return nkJSObject.GetObject(uid).device;
     },
     GetDescription: function (uid)
     {
-        return nkJSObject.GetObject(uid).description;
+        var ai = nkJSObject.GetObject(uid);
+        return ai.description;
     },
     GetVendor: function (uid)
     {
-        return nkJSObject.GetObject(uid).vendor;
+        var ai = nkJSObject.GetObject(uid);
+        return ai.vendor;
     },
     GetArchitecture: function (uid)
     {
-        return nkJSObject.GetObject(uid).architecture;
+        var ai = nkJSObject.GetObject(uid);
+        return ai.architecture;
     },
 };
 
