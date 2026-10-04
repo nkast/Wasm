@@ -103,7 +103,7 @@ namespace CanvasGPU.Pages
         {
             // TODO: end render pass.
             GPUCommandBuffer commandBuffer = commandEncoder.Finish();
-            // TODO: and submit to queue.
+            device.Queue.Submit(commandBuffer);
 
             commandBuffer.Dispose();
             commandBuffer = null;

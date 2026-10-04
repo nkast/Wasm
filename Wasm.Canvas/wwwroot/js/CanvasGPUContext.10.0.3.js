@@ -424,4 +424,11 @@ window.nkGPUCommandEncoder =
 
 window.nkGPUQueue =
 {
+    Submit: function (uid, module, d)
+    {
+        var queue = nkJSObject.GetObject(uid);
+        var cuid = module.HEAP32[(d+ 0)>>2];
+        var commandBuffer = nkJSObject.GetObject(cuid);
+        queue.submit([commandBuffer]);
+    },
 };

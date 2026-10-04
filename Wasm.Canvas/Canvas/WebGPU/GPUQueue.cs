@@ -12,6 +12,11 @@ namespace nkast.Wasm.Canvas.WebGPU
             _device = device;
         }
 
+        public void Submit(GPUCommandBuffer commandBuffer)
+        {
+            Invoke<int>(RegisterFunction("nkGPUQueue.Submit"), commandBuffer.Uid);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
