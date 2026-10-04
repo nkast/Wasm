@@ -327,6 +327,33 @@ window.nkGPUCanvasContext =
 
         gc.configure(configuration);
     },
+    GetConfiguration: function (uid, module, d)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        var cfg = gc.getConfiguration();
+        if (cfg === null)
+            return false;
+
+        var am = (cfg.alphaMode === "opaque") ? 1
+               : (cfg.alphaMode === "premultiplied") ? 2
+               : -1;
+        var tm = (cfg.toneMapping.mode === "standard") ? 1
+               : (cfg.toneMapping.mode === "extended") ? 2
+               : -1;
+        var cs = (cfg.colorSpace === "srgb") ? 1
+               : (cfg.colorSpace === "display-p3") ? 2
+               : -1;
+
+        module.HEAP32[(pt+ 0)>>2] = nkJSObject.GetUid(cfg.device);
+        module.HEAP32[(pt+ 4)>>2] = nkGPU.GetTextureFormatId(cfg.format);
+        module.HEAP32[(pt+ 8)>>2] = am;
+        module.HEAP32[(pt+ 12)>>2] = tm;
+        module.HEAP32[(pt+ 16)>>2] = cs;
+        module.HEAP32[(pt+ 20)>>2] = cfg.usage;
+        return true;
+    },
 };
 
 window.nkGPUDevice =

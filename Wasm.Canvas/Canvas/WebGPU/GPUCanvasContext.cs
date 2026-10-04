@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace nkast.Wasm.Canvas.WebGPU
 {
@@ -21,6 +22,26 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.Usage           = ((int?)configuration.Usage) ?? -1;
             Invoke<IntPtr>(RegisterFunction("nkGPUCanvasContext.Configure"), new IntPtr(&data));
             _device = configuration.Device;
+        }
+
+        public unsafe GPUCanvasConfiguration GetConfiguration()
+        {
+            GPUCanvasConfigurationData data = new GPUCanvasConfigurationData();
+            bool configured = InvokeRetBool<IntPtr>(RegisterFunction("nkGPUCanvasContext.GetConfiguration"), new IntPtr(&data));
+            if (!configured)
+                return null;
+
+            GPUCanvasConfiguration configuration = new GPUCanvasConfiguration();
+            configuration.Device          = GPUDevice.FromUid(data.DeviceUid);
+            Debug.Assert(configuration.Device == _device);
+            configuration.Format          = (GPUTextureFormat)data.Format;
+            configuration.AlphaMode       = (data.AlphaMode == -1) ? null : (GPUCanvasConfiguration.CanvasAlphaModeType)data.AlphaMode;
+            configuration.ToneMappingMode = (data.ToneMappingMode == -1) ? null : (GPUCanvasConfiguration.CanvasToneMappingModeType)data.ToneMappingMode;
+            configuration.ColorSpace      = (data.ColorSpace == -1) ? null : (GPUColorSpaceType)data.ColorSpace;
+            configuration.Usage           = (data.Usage == -1) ? null : (GPUTextureUsageType)data.Usage;
+
+            
+            return configuration;
         }
 
         protected override void Dispose(bool disposing)

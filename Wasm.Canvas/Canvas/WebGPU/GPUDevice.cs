@@ -3,7 +3,7 @@ using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Canvas.WebGPU
 {
-    public class GPUDevice : JSObject
+    public class GPUDevice : CachedJSObject<GPUDevice>
     {
         internal GPUDevice(int uid) : base(uid)
         {
