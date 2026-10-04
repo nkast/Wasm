@@ -373,6 +373,12 @@ window.nkGPUCanvasContext =
 
 window.nkGPUTexture =
 {
+    CreateView: function (uid)
+    {
+        var texture = nkJSObject.GetObject(uid);
+        var view = texture.createView();
+        return nkJSObject.RegisterObject(view);
+    },
     Destroy: function (uid)
     {
         var texture = nkJSObject.GetObject(uid);
