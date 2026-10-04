@@ -239,7 +239,7 @@ window.nkGPUAdapterInfo =
     GetDevice: function (uid)
     {
         var ai = nkJSObject.GetObject(uid);
-        return nkJSObject.GetObject(uid).device;
+        return ai.device;
     },
     GetDescription: function (uid)
     {
