@@ -45,6 +45,7 @@ namespace CanvasGPU.Pages
 
         IGPUCanvasContext context;
         GPUDevice device;
+        IGPUTexture currentTexture;
 
         async void InitGPUAsync(GPU gpu)
         {
@@ -89,9 +90,12 @@ namespace CanvasGPU.Pages
 
         private void BeginFrame()
         {
-            //TODO: get current texture from context and create view.
-            //TODO: create command encoder and render pass.
-            //
+            currentTexture = context.GetCurrentTexture();
+            //TODO: create view.
+            //TODO: create command encoder
+
+            //TODO: create render pass.
+
         }
 
         private void EndFrame()
@@ -99,7 +103,10 @@ namespace CanvasGPU.Pages
             // TODO: end render pass.
             // TODO: finish command encoder.
             // TODO: and submit to queue.
-            
+
+            //currentTexture.Dispose();
+            currentTexture = null;
+            //GC.Collect();
         }
 
         [JSInvokable]

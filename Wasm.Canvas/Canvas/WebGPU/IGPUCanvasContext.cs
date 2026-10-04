@@ -8,5 +8,6 @@ namespace nkast.Wasm.Canvas.WebGPU
         GPUCanvasConfiguration GetConfiguration();
         void Unconfigure();
 
+        IGPUTexture GetCurrentTexture();
     }
 }

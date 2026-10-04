@@ -359,6 +359,25 @@ window.nkGPUCanvasContext =
         var gc = nkJSObject.GetObject(uid);
         gc.unconfigure();
     },
+    GetCurrentTexture: function (uid)
+    {
+        var gc = nkJSObject.GetObject(uid);
+        var texture = gc.getCurrentTexture();
+        var tid = nkJSObject.GetUid(texture);
+        if (tid !== -1)
+            return tid;
+
+        return nkJSObject.RegisterObject(texture);
+    },
+};
+
+window.nkGPUTexture =
+{
+    Destroy: function (uid)
+    {
+        var texture = nkJSObject.GetObject(uid);
+        texture.destroy();
+    },
 };
 
 window.nkGPUDevice =
