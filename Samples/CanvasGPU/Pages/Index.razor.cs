@@ -44,6 +44,7 @@ namespace CanvasGPU.Pages
         TouchState prevTouchState;
 
         IGPUCanvasContext context;
+        GPUDevice device;
 
         async void InitGPUAsync(GPU gpu)
         {
@@ -61,7 +62,14 @@ namespace CanvasGPU.Pages
             Console.WriteLine("WebGPU adapter maxBufferSize: " + adapterLimits.MaxBufferSize);
             context = cs.GetContext<IGPUCanvasContext>();
             Console.WriteLine("WebGPU canvas context: " + (context != null));
-            // TODO: request device.
+
+            GPURequiredLimits requiredLimits = new GPURequiredLimits();
+            requiredLimits.MaxTextureDimension2D = adapterLimits.MaxTextureDimension2D;
+            device = await adapter.RequestDeviceAsync(requiredLimits);
+            GPUSupportedLimits deviceLimits = device.GetLimits();
+            Console.WriteLine("WebGPU device maxTextureDimension2D: " + deviceLimits.MaxTextureDimension2D);
+            Console.WriteLine("WebGPU device maxBufferSize: " + deviceLimits.MaxBufferSize);
+            Console.WriteLine("WebGPU device: " + (device != null));
 
         }
 
@@ -110,6 +118,9 @@ namespace CanvasGPU.Pages
                 _prevt = _sw.Elapsed;
             }
 
+            if (device == null)
+                return;
+
             // run gameloop tick
             TimeSpan t  = _sw.Elapsed;
             TimeSpan dt = t - _prevt;
@@ -118,6 +129,7 @@ namespace CanvasGPU.Pages
             BeginFrame();
 
             UpdateContext uc = new UpdateContext(
+                device,
                 t, dt,
                 currMouseState, prevMouseState,
                 currTouchState, prevTouchState
@@ -139,6 +151,7 @@ namespace CanvasGPU.Pages
 
             DrawContext dc = new DrawContext()
             {
+                GPUDevice = device,
                 Layer = 0,
                 t  = t,
                 dt = dt,
@@ -223,6 +236,9 @@ namespace CanvasGPU.Pages
         {
             _root?.Dispose();
             _root = null;
+
+            device?.Dispose();
+            device = null;
         }
     }
 }
