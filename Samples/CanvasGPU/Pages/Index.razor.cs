@@ -44,6 +44,7 @@ namespace CanvasGPU.Pages
         TouchState prevTouchState;
 
         IGPUCanvasContext context;
+        GPUCanvasConfiguration canvasConfiguration;
         GPUDevice device;
         IGPUTexture currentTexture;
         GPUTextureView currentView;
@@ -77,7 +78,7 @@ namespace CanvasGPU.Pages
 
             GPUTextureFormat preferredCanvasFormat = gpu.GetPreferredCanvasFormat();
             Console.WriteLine("WebGPU preferred canvas format: " + preferredCanvasFormat);
-            GPUCanvasConfiguration canvasConfiguration = new GPUCanvasConfiguration();
+            canvasConfiguration = new GPUCanvasConfiguration();
             canvasConfiguration.Device = device;
             canvasConfiguration.Format = preferredCanvasFormat;
             canvasConfiguration.AlphaMode = GPUCanvasConfiguration.CanvasAlphaModeType.Opaque;
@@ -198,7 +199,9 @@ namespace CanvasGPU.Pages
             DrawContext dc = new DrawContext()
             {
                 GPUDevice = device,
+                CanvasContext = context,
                 RenderPass = renderPass,
+                CanvasConfiguration = canvasConfiguration,
                 Layer = 0,
                 t  = t,
                 dt = dt,

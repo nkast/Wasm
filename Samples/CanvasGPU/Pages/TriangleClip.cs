@@ -36,6 +36,7 @@ namespace CanvasGPU.Pages
         {
             GPUDevice device = dc.GPUDevice;
             GPURenderPassEncoder renderPass = dc.RenderPass;
+            GPUCanvasConfiguration canvasConfiguration = dc.CanvasConfiguration;
 
             // TODO: create shader module
             // TODO: create render pipeline
