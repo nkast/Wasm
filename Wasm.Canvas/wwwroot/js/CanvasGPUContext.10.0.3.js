@@ -401,6 +401,16 @@ window.nkGPUDevice =
         var encoder = dv.createCommandEncoder();
         return nkJSObject.RegisterObject(encoder);
     },
+    CreateBuffer: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var size = module.HEAP32[(d+ 0)>>2];
+        var usage = module.HEAP32[(d+ 4)>>2];
+        var mac = module.HEAP32[(d+ 8)>>2];
+
+        var buffer = dv.createBuffer({ size: size, usage: usage, mappedAtCreation: (mac !== 0) });
+        return nkJSObject.RegisterObject(buffer);
+    },
     GetQueue: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
@@ -487,5 +497,14 @@ window.nkGPURenderPassEncoder =
     {
         var pe = nkJSObject.GetObject(uid);
         pe.end();
+    },
+};
+
+window.nkGPUBuffer =
+{
+    Destroy: function (uid)
+    {
+        var bf = nkJSObject.GetObject(uid);
+        bf.destroy();
     },
 };

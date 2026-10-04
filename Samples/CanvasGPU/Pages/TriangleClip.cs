@@ -7,6 +7,7 @@ namespace CanvasGPU.Pages
 {
     public partial class TriangleClip : Clip
     {
+        GPUBuffer _vertexBuffer;
         public TriangleClip() : base()
         {
             base.size = new Size(800, 480);
@@ -40,7 +41,22 @@ namespace CanvasGPU.Pages
 
             // TODO: create shader module
             // TODO: create render pipeline
-            // TODO: create vertex buffer
+
+            if (_vertexBuffer == null)
+            {
+                float[] vertices = new[]
+                {
+                    -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
+                     0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 0.0f,
+                     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f
+                };
+
+                GPUBufferDescriptor bufferDescriptor = new GPUBufferDescriptor();
+                bufferDescriptor.Size = vertices.Length * sizeof(float);
+                bufferDescriptor.Usage = GPUBufferUsageType.Vertex | GPUBufferUsageType.CopyDst;
+                _vertexBuffer = device.CreateBuffer(bufferDescriptor);
+                // TODO: upload vertices
+            }
             // TODO: upload vertices
             // TODO: set pipeline
             // TODO: set vertex buffer
@@ -53,7 +69,9 @@ namespace CanvasGPU.Pages
         {
             if (disposing)
             {
-                // TODO: dispose pipeline, shader module and vertex buffer
+                // TODO: dispose pipeline, shader module
+                _vertexBuffer?.Dispose();
+                _vertexBuffer = null;
             }
 
             base.Dispose(disposing);

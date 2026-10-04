@@ -22,6 +22,16 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPUCommandEncoder(uid, this);
         }
 
+        public GPUBuffer CreateBuffer(GPUBufferDescriptor descriptor)
+        {
+            int uid = InvokeRetInt(
+                RegisterFunction("nkGPUDevice.CreateBuffer"),
+                (int)descriptor.Size,
+                (int)descriptor.Usage,
+                descriptor.MappedAtCreation ? 1 : 0);
+            return new GPUBuffer(uid, this);
+        }
+
         public GPUQueue Queue
         {
             get
