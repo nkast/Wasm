@@ -12,6 +12,16 @@ namespace nkast.Wasm.Canvas.WebGPU
             _device = device;
         }
 
+        public void SetVertexBuffer(int slot, GPUBuffer buffer)
+        {
+            Invoke(RegisterFunction("nkGPURenderPassEncoder.SetVertexBuffer"), slot, buffer.Uid);
+        }
+
+        public void SetVertexBuffer(int slot, GPUBuffer buffer, long offset, long size)
+        {
+            Invoke(RegisterFunction("nkGPURenderPassEncoder.SetVertexBuffer1"), slot, buffer.Uid, (int)offset, (int)size);
+        }
+
         public void End()
         {
             Invoke(RegisterFunction("nkGPURenderPassEncoder.End"));

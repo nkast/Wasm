@@ -7,9 +7,10 @@ namespace CanvasGPU.Engine
 {
     public class DrawContext
     {
-        public ICanvasRenderingContext CanvasContext;
+        public IGPUCanvasContext CanvasContext;
         public GPUDevice GPUDevice;
         public GPURenderPassEncoder RenderPass;
+        public GPUCanvasConfiguration CanvasConfiguration;
         public int Layer;
         public TimeSpan t, dt;
 
