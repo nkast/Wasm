@@ -505,6 +505,26 @@ window.nkGPUQueue =
 
 window.nkGPURenderPassEncoder =
 {
+    SetVertexBuffer: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var slot = module.HEAP32[(d+ 0)>>2];
+        var buid = module.HEAP32[(d+ 4)>>2];
+
+        var bf = nkJSObject.GetObject(buid);
+        pe.setVertexBuffer(slot, bf);
+    },
+    SetVertexBuffer1: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var slot = module.HEAP32[(d+ 0)>>2];
+        var buid = module.HEAP32[(d+ 4)>>2];
+        var offset = module.HEAP32[(d+ 8)>>2];
+        var size = module.HEAP32[(d+ 12)>>2];
+
+        var bf = nkJSObject.GetObject(buid);
+        pe.setVertexBuffer(slot, bf, offset, size);
+    },
     End: function (uid)
     {
         var pe = nkJSObject.GetObject(uid);

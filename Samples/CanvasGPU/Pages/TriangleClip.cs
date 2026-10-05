@@ -59,7 +59,7 @@ namespace CanvasGPU.Pages
             }
             // TODO: upload vertices
             // TODO: set pipeline
-            // TODO: set vertex buffer
+            renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
             // TODO: draw triangle
         }
