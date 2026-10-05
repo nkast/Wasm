@@ -7,6 +7,7 @@ namespace CanvasGPU.Pages
 {
     public partial class TriangleClip : Clip
     {
+        GPUShaderModule _shaderModule;
         GPUBuffer _vertexBuffer;
         public TriangleClip() : base()
         {
@@ -33,13 +34,39 @@ namespace CanvasGPU.Pages
         }
 
 
+        private const string SHADER_SOURCE  = "struct VSOut"
+                                            + "{"
+                                            + "    @builtin(position) pos : vec4f,"
+                                            + "    @location(0) color : vec3f,"
+                                            + "};"
+                                            + ""
+                                            + "@vertex fn vs_main(@location(0) aPos : vec3f, @location(1) aColor : vec3f) -> VSOut"
+                                            + "{"
+                                            + "    var o : VSOut;"
+                                            + "    o.pos = vec4f(aPos, 1.0);"
+                                            + "    o.color = aColor;"
+                                            + "    return o;"
+                                            + "}"
+                                            + ""
+                                            + "@fragment fn fs_main(@location(0) vColor : vec3f) -> @location(0) vec4f"
+                                            + "{"
+                                            + "    return vec4f(vColor, 1.0);"
+                                            + "}";
+
+
         private void DrawTriangle(DrawContext dc)
         {
             GPUDevice device = dc.GPUDevice;
             GPURenderPassEncoder renderPass = dc.RenderPass;
             GPUCanvasConfiguration canvasConfiguration = dc.CanvasConfiguration;
 
-            // TODO: create shader module
+            if (_shaderModule == null)
+            {
+                GPUShaderModuleDescriptor shaderDescriptor = new GPUShaderModuleDescriptor();
+                shaderDescriptor.Code = SHADER_SOURCE;
+                _shaderModule = device.CreateShaderModule(shaderDescriptor);
+            }
+
             // TODO: create render pipeline
 
             if (_vertexBuffer == null)
@@ -69,9 +96,11 @@ namespace CanvasGPU.Pages
         {
             if (disposing)
             {
-                // TODO: dispose pipeline, shader module
+                _shaderModule?.Dispose();
+                _shaderModule = null;
                 _vertexBuffer?.Dispose();
                 _vertexBuffer = null;
+                // TODO: dispose pipeline
             }
 
             base.Dispose(disposing);

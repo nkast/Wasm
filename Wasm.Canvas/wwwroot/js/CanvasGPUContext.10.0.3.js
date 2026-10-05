@@ -411,6 +411,14 @@ window.nkGPUDevice =
         var buffer = dv.createBuffer({ size: size, usage: usage, mappedAtCreation: (mac !== 0) });
         return nkJSObject.RegisterObject(buffer);
     },
+    CreateShaderModule: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var code = nkJSObject.ReadString(module, d+ 0);
+
+        var shaderModule = dv.createShaderModule({ code: code });
+        return nkJSObject.RegisterObject(shaderModule);
+    },
     GetQueue: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
