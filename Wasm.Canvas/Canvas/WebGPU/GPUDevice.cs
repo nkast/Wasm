@@ -32,6 +32,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPUBuffer(uid, this);
         }
 
+        public GPUShaderModule CreateShaderModule(GPUShaderModuleDescriptor descriptor)
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateShaderModule"), descriptor.Code);
+            return new GPUShaderModule(uid, this);
+        }
+
         public GPUQueue Queue
         {
             get
