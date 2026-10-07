@@ -111,8 +111,11 @@ namespace CanvasGPU.Pages
                 0.5f + 0.5f * MathF.Sin(t + 4.2f),
                 1f);
             GPURenderPassDescriptor renderPassDescriptor = new GPURenderPassDescriptor();
-            renderPassDescriptor.ColorAttachments = new GPUColorAttachment[] { colorAttachment };
+            GPUColorAttachmentCollection colorAttachments = new GPUColorAttachmentCollection();
+            colorAttachments.Add(colorAttachment);
+            renderPassDescriptor.ColorAttachments = colorAttachments;
             renderPass = commandEncoder.BeginRenderPass(renderPassDescriptor);
+            colorAttachments.Dispose();
             renderPassDescriptor.Dispose();
 
         }

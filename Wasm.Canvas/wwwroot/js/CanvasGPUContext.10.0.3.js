@@ -456,35 +456,58 @@ window.nkGPURenderPassDescriptor =
     SetColorAttachments: function (uid, module, d)
     {
         var descriptor = nkJSObject.GetObject(uid);
+        var cuid = module.HEAP32[(d+ 0)>>2];
+
+        descriptor.colorAttachments = nkJSObject.GetObject(cuid);
+    },
+};
+
+window.nkGPUColorAttachmentCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var collection = [];
+        return nkJSObject.RegisterObject(collection);
+    },
+    Add: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
         var arrPtr = module.HEAP32[(d+ 0)>>2];
-        var cn = module.HEAP32[(d+ 4)>>2];
 
-        var data = new Int32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
-        var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
+        var data = new Int32Array(module.HEAPU8.buffer, arrPtr, 8);
+        var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, 8);
 
-        descriptor.colorAttachments = [];
-        for (var i = 0; i < cn; i++)
-        {
-            var vw = nkJSObject.GetObject(data[i*8+ 0]);
-            var lo = data[i*8+ 1];
-            var so = data[i*8+ 2];
-            var ds = data[i*8+ 7];
+        var vw = nkJSObject.GetObject(data[0]);
+        var lo = data[1];
+        var so = data[2];
+        var ds = data[7];
 
-            var colorAttachment = {};
-            colorAttachment.view = vw;
-            colorAttachment.clearValue = { r: fdata[i*8+ 3], g: fdata[i*8+ 4], b: fdata[i*8+ 5], a: fdata[i*8+ 6] };
-            if (ds !== -1)
-                colorAttachment.depthSlice = ds;
-            if (lo === 1)
-                colorAttachment.loadOp = "load";
-            else if (lo === 2)
-                colorAttachment.loadOp = "clear";
-            if (so === 1)
-                colorAttachment.storeOp = "store";
-            else if (so === 2)
-                colorAttachment.storeOp = "discard";
-            descriptor.colorAttachments.push(colorAttachment);
-        }
+        var colorAttachment = {};
+        colorAttachment.view = vw;
+        colorAttachment.clearValue = { r: fdata[3], g: fdata[4], b: fdata[5], a: fdata[6] };
+        if (ds !== -1)
+            colorAttachment.depthSlice = ds;
+        if (lo === 1)
+            colorAttachment.loadOp = "load";
+        else if (lo === 2)
+            colorAttachment.loadOp = "clear";
+        if (so === 1)
+            colorAttachment.storeOp = "store";
+        else if (so === 2)
+            colorAttachment.storeOp = "discard";
+        collection.push(colorAttachment);
+    },
+    RemoveAt: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+
+        collection.splice(index, 1);
+    },
+    Clear: function (uid)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        collection.length = 0;
     },
 };
 
