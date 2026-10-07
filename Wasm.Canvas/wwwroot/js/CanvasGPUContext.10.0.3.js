@@ -469,11 +469,8 @@ window.nkGPUColorAttachmentCollection =
         var collection = [];
         return nkJSObject.RegisterObject(collection);
     },
-    Add: function (uid, module, d)
+    ReadColorAttachment: function (module, arrPtr)
     {
-        var collection = nkJSObject.GetObject(uid);
-        var arrPtr = module.HEAP32[(d+ 0)>>2];
-
         var data = new Int32Array(module.HEAPU8.buffer, arrPtr, 8);
         var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, 8);
 
@@ -495,7 +492,30 @@ window.nkGPUColorAttachmentCollection =
             colorAttachment.storeOp = "store";
         else if (so === 2)
             colorAttachment.storeOp = "discard";
-        collection.push(colorAttachment);
+        return colorAttachment;
+    },
+    Add: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        var arrPtr = module.HEAP32[(d+ 0)>>2];
+
+        collection.push(nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
+    },
+    Insert: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
+
+        collection.splice(index, 0, nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
+    },
+    Set: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
+
+        collection[index] = nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr);
     },
     RemoveAt: function (uid, module, d)
     {
