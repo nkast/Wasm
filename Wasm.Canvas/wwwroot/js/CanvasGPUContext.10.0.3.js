@@ -436,22 +436,32 @@ window.nkGPUDevice =
     },
 };
 
-window.nkGPUCommandEncoder =
+window.nkGPURenderPassDescriptor =
 {
-    BeginRenderPass: function (uid, module, d)
+    Create: function (uid, module, d)
     {
-        var ce = nkJSObject.GetObject(uid);
+        var descriptor = { colorAttachments: [] };
+        return nkJSObject.RegisterObject(descriptor);
+    },
+    SetMaxDrawCount: function (uid, module, d)
+    {
+        var descriptor = nkJSObject.GetObject(uid);
         var mdc = module.HEAP32[(d+ 0)>>2];
-        var arrPtr = module.HEAP32[(d+ 4)>>2];
-        var cn = module.HEAP32[(d+ 8)>>2];
+
+        if (mdc !== -1)
+            descriptor.maxDrawCount = mdc;
+        else
+            delete descriptor.maxDrawCount;
+    },
+    SetColorAttachments: function (uid, module, d)
+    {
+        var descriptor = nkJSObject.GetObject(uid);
+        var arrPtr = module.HEAP32[(d+ 0)>>2];
+        var cn = module.HEAP32[(d+ 4)>>2];
 
         var data = new Int32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
         var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, cn * 8);
 
-        var descriptor = {};
-        if (mdc !== -1)
-            descriptor.maxDrawCount = mdc;
-            
         descriptor.colorAttachments = [];
         for (var i = 0; i < cn; i++)
         {
@@ -475,7 +485,17 @@ window.nkGPUCommandEncoder =
                 colorAttachment.storeOp = "discard";
             descriptor.colorAttachments.push(colorAttachment);
         }
+    },
+};
 
+window.nkGPUCommandEncoder =
+{
+    BeginRenderPass: function (uid, module, d)
+    {
+        var ce = nkJSObject.GetObject(uid);
+        var duid = module.HEAP32[(d+ 0)>>2];
+
+        var descriptor = nkJSObject.GetObject(duid);
         var rp = ce.beginRenderPass(descriptor);
         return nkJSObject.RegisterObject(rp);
     },

@@ -113,6 +113,7 @@ namespace CanvasGPU.Pages
             GPURenderPassDescriptor renderPassDescriptor = new GPURenderPassDescriptor();
             renderPassDescriptor.ColorAttachments = new GPUColorAttachment[] { colorAttachment };
             renderPass = commandEncoder.BeginRenderPass(renderPassDescriptor);
+            renderPassDescriptor.Dispose();
 
         }
 
