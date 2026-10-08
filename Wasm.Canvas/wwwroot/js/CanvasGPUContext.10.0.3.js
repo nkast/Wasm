@@ -517,6 +517,31 @@ window.nkGPUColorAttachmentCollection =
 
         collection[index] = nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr);
     },
+    GetCount: function (uid)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        return collection.length;
+    },
+    Get: function (uid, module, d)
+    {
+        var collection = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
+
+        var data = new Int32Array(module.HEAPU8.buffer, arrPtr, 8);
+        var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, 8);
+
+        var ca = collection[index];
+        var cv = ca.clearValue;
+        data[0] = ca.view.nkUid;
+        data[1] = (ca.loadOp === "load") ? 1 : (ca.loadOp === "clear") ? 2 : 0;
+        data[2] = (ca.storeOp === "store") ? 1 : (ca.storeOp === "discard") ? 2 : 0;
+        fdata[3] = cv.r;
+        fdata[4] = cv.g;
+        fdata[5] = cv.b;
+        fdata[6] = cv.a;
+        data[7] = (ca.depthSlice !== undefined) ? ca.depthSlice : -1;
+    },
     RemoveAt: function (uid, module, d)
     {
         var collection = nkJSObject.GetObject(uid);

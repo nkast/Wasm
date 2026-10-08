@@ -7,8 +7,6 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUColorAttachmentCollection : JSObject, IList<GPUColorAttachment>
     {
-        private readonly List<GPUColorAttachment> _items = new List<GPUColorAttachment>();
-
         public GPUColorAttachmentCollection() : base(Register())
         {
         }
@@ -18,52 +16,49 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create"));
         }
 
-        public int Count { get { return _items.Count; } }
+        public int Count { get { return InvokeRetInt(RegisterFunction("nkGPUColorAttachmentCollection.GetCount")); } }
 
         public bool IsReadOnly { get { return false; } }
 
         public GPUColorAttachment this[int index]
         {
-            get { return _items[index]; }
+            get { return GetItem(index); }
             set
             {
-                if ((uint)index >= (uint)_items.Count)
+                if ((uint)index >= (uint)Count)
                     throw new ArgumentOutOfRangeException(nameof(index));
 
                 InvokeWithData("nkGPUColorAttachmentCollection.Set", index, value);
-                _items[index] = value;
             }
         }
 
         public void Add(GPUColorAttachment item)
         {
             InvokeWithData("nkGPUColorAttachmentCollection.Add", -1, item);
-            _items.Add(item);
         }
 
         public void Insert(int index, GPUColorAttachment item)
         {
-            if ((uint)index > (uint)_items.Count)
+            if ((uint)index > (uint)Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
 
             InvokeWithData("nkGPUColorAttachmentCollection.Insert", index, item);
-            _items.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            if ((uint)index >= (uint)_items.Count)
+            if ((uint)index >= (uint)Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
 
             Invoke(RegisterFunction("nkGPUColorAttachmentCollection.RemoveAt"), index);
-            _items.RemoveAt(index);
         }
 
         public int IndexOf(GPUColorAttachment item)
         {
-            for (int i = 0; i < _items.Count; i++)
+            int count = Count;
+            for (int i = 0; i < count; i++)
             {
-                GPUColorAttachment other = _items[i];
+                GPUColorAttachment other = GetItem(i);
                 if (other.View == item.View
                     && other.LoadOp == item.LoadOp
                     && other.StoreOp == item.StoreOp
@@ -92,7 +87,6 @@ namespace nkast.Wasm.Canvas.WebGPU
         public void Clear()
         {
             Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Clear"));
-            _items.Clear();
         }
 
         public bool Contains(GPUColorAttachment item)
@@ -102,7 +96,14 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void CopyTo(GPUColorAttachment[] array, int arrayIndex)
         {
-            _items.CopyTo(array, arrayIndex);
+            int count = Count;
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+            if (arrayIndex < 0 || arrayIndex + count > array.Length)
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+
+            for (int i = 0; i < count; i++)
+                array[arrayIndex + i] = GetItem(i);
         }
 
         public bool Remove(GPUColorAttachment item)
@@ -115,23 +116,37 @@ namespace nkast.Wasm.Canvas.WebGPU
             return true;
         }
 
+        private unsafe GPUColorAttachment GetItem(int index)
+        {
+            if ((uint)index >= (uint)Count)
+                throw new ArgumentOutOfRangeException(nameof(index));
+
+            GPUColorAttachmentData data = new GPUColorAttachmentData();
+            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Get"), index, (int)&data);
+
+            GPUColorAttachment item = new GPUColorAttachment();
+            item.View = GPUTextureView.FromUid(data.ViewUid);
+            item.LoadOp = data.LoadOp;
+            item.StoreOp = data.StoreOp;
+            item.ClearValue = data.ClearValue;
+            item.DepthSlice = (data.DepthSlice != -1) ? data.DepthSlice : (int?)null;
+            return item;
+        }
+
         public IEnumerator<GPUColorAttachment> GetEnumerator()
         {
-            return _items.GetEnumerator();
+            int count = Count;
+            for (int i = 0; i < count; i++)
+                yield return GetItem(i);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _items.GetEnumerator();
+            return GetEnumerator();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                _items.Clear();
-            }
-
             base.Dispose(disposing);
         }
     }
