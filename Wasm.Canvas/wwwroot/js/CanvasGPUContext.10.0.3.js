@@ -440,25 +440,25 @@ window.nkGPURenderPassDescriptor =
 {
     Create: function (uid, module, d)
     {
-        var descriptor = { colorAttachments: [] };
-        return nkJSObject.RegisterObject(descriptor);
+        var dc = { colorAttachments: [] };
+        return nkJSObject.RegisterObject(dc);
     },
     SetMaxDrawCount: function (uid, module, d)
     {
-        var descriptor = nkJSObject.GetObject(uid);
+        var dc = nkJSObject.GetObject(uid);
         var mdc = module.HEAP32[(d+ 0)>>2];
 
         if (mdc !== -1)
-            descriptor.maxDrawCount = mdc;
+            dc.maxDrawCount = mdc;
         else
-            delete descriptor.maxDrawCount;
+            delete dc.maxDrawCount;
     },
     SetColorAttachments: function (uid, module, d)
     {
-        var descriptor = nkJSObject.GetObject(uid);
+        var dc = nkJSObject.GetObject(uid);
         var cuid = module.HEAP32[(d+ 0)>>2];
 
-        descriptor.colorAttachments = nkJSObject.GetObject(cuid);
+        dc.colorAttachments = nkJSObject.GetObject(cuid);
     },
 };
 
@@ -466,8 +466,8 @@ window.nkGPUColorAttachmentCollection =
 {
     Create: function (uid, module, d)
     {
-        var collection = [];
-        return nkJSObject.RegisterObject(collection);
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
     },
     ReadColorAttachment: function (module, arrPtr)
     {
@@ -479,59 +479,54 @@ window.nkGPUColorAttachmentCollection =
         var so = data[2];
         var ds = data[7];
 
-        var colorAttachment = {};
-        colorAttachment.view = vw;
-        colorAttachment.clearValue = { r: fdata[3], g: fdata[4], b: fdata[5], a: fdata[6] };
+        var ca = {};
+        ca.view = vw;
+        ca.clearValue = { r: fdata[3], g: fdata[4], b: fdata[5], a: fdata[6] };
         if (ds !== -1)
-            colorAttachment.depthSlice = ds;
+            ca.depthSlice = ds;
         if (lo === 1)
-            colorAttachment.loadOp = "load";
+            ca.loadOp = "load";
         else if (lo === 2)
-            colorAttachment.loadOp = "clear";
+            ca.loadOp = "clear";
         if (so === 1)
-            colorAttachment.storeOp = "store";
+            ca.storeOp = "store";
         else if (so === 2)
-            colorAttachment.storeOp = "discard";
-        return colorAttachment;
+            ca.storeOp = "discard";
+        return ca;
     },
     Add: function (uid, module, d)
     {
-        var collection = nkJSObject.GetObject(uid);
+        var ar = nkJSObject.GetObject(uid);
         var arrPtr = module.HEAP32[(d+ 0)>>2];
 
-        collection.push(nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
+        ar.push(nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
     },
     Insert: function (uid, module, d)
     {
-        var collection = nkJSObject.GetObject(uid);
+        var ar = nkJSObject.GetObject(uid);
         var index = module.HEAP32[(d+ 0)>>2];
         var arrPtr = module.HEAP32[(d+ 4)>>2];
 
-        collection.splice(index, 0, nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
+        ar.splice(index, 0, nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
     },
     Set: function (uid, module, d)
     {
-        var collection = nkJSObject.GetObject(uid);
+        var ar = nkJSObject.GetObject(uid);
         var index = module.HEAP32[(d+ 0)>>2];
         var arrPtr = module.HEAP32[(d+ 4)>>2];
 
-        collection[index] = nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr);
-    },
-    GetCount: function (uid)
-    {
-        var collection = nkJSObject.GetObject(uid);
-        return collection.length;
+        ar[index] = nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr);
     },
     Get: function (uid, module, d)
     {
-        var collection = nkJSObject.GetObject(uid);
+        var ar = nkJSObject.GetObject(uid);
         var index = module.HEAP32[(d+ 0)>>2];
         var arrPtr = module.HEAP32[(d+ 4)>>2];
 
         var data = new Int32Array(module.HEAPU8.buffer, arrPtr, 8);
         var fdata = new Float32Array(module.HEAPU8.buffer, arrPtr, 8);
 
-        var ca = collection[index];
+        var ca = ar[index];
         var cv = ca.clearValue;
         data[0] = ca.view.nkUid;
         data[1] = (ca.loadOp === "load") ? 1 : (ca.loadOp === "clear") ? 2 : 0;
@@ -544,15 +539,15 @@ window.nkGPUColorAttachmentCollection =
     },
     RemoveAt: function (uid, module, d)
     {
-        var collection = nkJSObject.GetObject(uid);
+        var ar = nkJSObject.GetObject(uid);
         var index = module.HEAP32[(d+ 0)>>2];
 
-        collection.splice(index, 1);
+        ar.splice(index, 1);
     },
     Clear: function (uid)
     {
-        var collection = nkJSObject.GetObject(uid);
-        collection.length = 0;
+        var ar = nkJSObject.GetObject(uid);
+        ar.length = 0;
     },
 };
 
@@ -561,10 +556,10 @@ window.nkGPUCommandEncoder =
     BeginRenderPass: function (uid, module, d)
     {
         var ce = nkJSObject.GetObject(uid);
-        var duid = module.HEAP32[(d+ 0)>>2];
+        var dcuid = module.HEAP32[(d+ 0)>>2];
 
-        var descriptor = nkJSObject.GetObject(duid);
-        var rp = ce.beginRenderPass(descriptor);
+        var dc = nkJSObject.GetObject(dcuid);
+        var rp = ce.beginRenderPass(dc);
         return nkJSObject.RegisterObject(rp);
     },
     Finish: function (uid)

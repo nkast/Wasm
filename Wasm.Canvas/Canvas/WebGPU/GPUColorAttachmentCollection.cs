@@ -16,7 +16,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create"));
         }
 
-        public int Count { get { return InvokeRetInt(RegisterFunction("nkGPUColorAttachmentCollection.GetCount")); } }
+        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
 
         public bool IsReadOnly { get { return false; } }
 
