@@ -7,6 +7,10 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUColorAttachmentCollection : JSObject, IList<GPUColorAttachment>
     {
+        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
+
+        public bool IsReadOnly { get { return false; } }
+
         public GPUColorAttachmentCollection() : base(Register())
         {
         }
@@ -15,10 +19,6 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create"));
         }
-
-        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
-
-        public bool IsReadOnly { get { return false; } }
 
         public GPUColorAttachment this[int index]
         {
@@ -60,10 +60,10 @@ namespace nkast.Wasm.Canvas.WebGPU
             {
                 GPUColorAttachment other = GetItem(i);
                 if (other.View == item.View
-                    && other.LoadOp == item.LoadOp
-                    && other.StoreOp == item.StoreOp
-                    && other.ClearValue.Equals(item.ClearValue)
-                    && other.DepthSlice == item.DepthSlice)
+                &&  other.LoadOp == item.LoadOp
+                &&  other.StoreOp == item.StoreOp
+                &&  other.ClearValue.Equals(item.ClearValue)
+                &&  other.DepthSlice == item.DepthSlice)
                     return i;
             }
             return -1;
@@ -147,6 +147,11 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         protected override void Dispose(bool disposing)
         {
+            if (disposing)
+            {
+
+            }
+
             base.Dispose(disposing);
         }
     }
