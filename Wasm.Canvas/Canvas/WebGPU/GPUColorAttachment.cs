@@ -7,7 +7,7 @@ namespace nkast.Wasm.Canvas.WebGPU
         public GPUTextureView View;
         public GPULoadOpType LoadOp;
         public GPUStoreOpType StoreOp;
-        public GPUColor? ClearValue;
+        public GPUColor ClearValue;
         public int? DepthSlice;
     }
 }

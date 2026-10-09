@@ -62,7 +62,7 @@ namespace nkast.Wasm.Canvas.WebGPU
                 if (other.View == item.View
                     && other.LoadOp == item.LoadOp
                     && other.StoreOp == item.StoreOp
-                    && Nullable.Equals(other.ClearValue, item.ClearValue)
+                    && other.ClearValue.Equals(item.ClearValue)
                     && other.DepthSlice == item.DepthSlice)
                     return i;
             }
@@ -75,7 +75,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.ViewUid = item.View.Uid;
             data.LoadOp = item.LoadOp;
             data.StoreOp = item.StoreOp;
-            data.ClearValue = item.ClearValue.GetValueOrDefault();
+            data.ClearValue = item.ClearValue;
             data.DepthSlice = item.DepthSlice ?? -1;
 
             if (index < 0)
