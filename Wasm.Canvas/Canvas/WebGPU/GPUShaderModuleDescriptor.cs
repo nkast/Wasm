@@ -2,7 +2,7 @@ using System;
 
 namespace nkast.Wasm.Canvas.WebGPU
 {
-    public struct GPUShaderModuleDescriptor
+    public class GPUShaderModuleDescriptor
     {
         public string Code;
     }
