@@ -450,6 +450,13 @@ window.nkGPUVertexState =
 
         vs.module = nkJSObject.GetObject(muid);
     },
+    SetEntryPoint: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var ep = nkJSObject.ReadString(module, d+ 0);
+
+        vs.entryPoint = ep;
+    },
 };
 
 window.nkGPURenderPipelineDescriptor =
