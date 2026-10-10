@@ -76,6 +76,7 @@ namespace CanvasGPU.Pages
 
                 GPUFragmentState fragmentState = new GPUFragmentState();
                 fragmentState.Module = _shaderModule;
+                fragmentState.EntryPoint = "fs_main";
 
                 GPURenderPipelineDescriptor pipelineDescriptor = new GPURenderPipelineDescriptor();
                 pipelineDescriptor.Vertex = vertexState;

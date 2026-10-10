@@ -7,6 +7,7 @@ namespace nkast.Wasm.Canvas.WebGPU
     public class GPUFragmentState : JSObject
     {
         private GPUShaderModule _module;
+        private string _entryPoint;
 
         public GPUFragmentState() : base(Register())
         {
@@ -27,11 +28,22 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public string EntryPoint
+        {
+            get { return _entryPoint; }
+            set
+            {
+                _entryPoint = value;
+                Invoke(RegisterFunction("nkGPUFragmentState.SetEntryPoint"), value ?? "");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 _module = null;
+                _entryPoint = null;
 
             }
 

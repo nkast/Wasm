@@ -473,6 +473,13 @@ window.nkGPUFragmentState =
 
         fs.module = nkJSObject.GetObject(muid);
     },
+    SetEntryPoint: function (uid, module, d)
+    {
+        var fs = nkJSObject.GetObject(uid);
+        var ep = nkJSObject.ReadString(module, d+ 0);
+
+        fs.entryPoint = ep;
+    },
 };
 
 window.nkGPURenderPipelineDescriptor =
