@@ -466,6 +466,13 @@ window.nkGPUFragmentState =
         var fs = { };
         return nkJSObject.RegisterObject(fs);
     },
+    SetModule: function (uid, module, d)
+    {
+        var fs = nkJSObject.GetObject(uid);
+        var muid = module.HEAP32[(d+ 0)>>2];
+
+        fs.module = nkJSObject.GetObject(muid);
+    },
 };
 
 window.nkGPURenderPipelineDescriptor =

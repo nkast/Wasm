@@ -6,6 +6,8 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUFragmentState : JSObject
     {
+        private GPUShaderModule _module;
+
         public GPUFragmentState() : base(Register())
         {
         }
@@ -15,10 +17,21 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUFragmentState.Create"));
         }
 
+        public GPUShaderModule Module
+        {
+            get { return _module; }
+            set
+            {
+                _module = value;
+                Invoke(RegisterFunction("nkGPUFragmentState.SetModule"), value.Uid);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                _module = null;
 
             }
 
