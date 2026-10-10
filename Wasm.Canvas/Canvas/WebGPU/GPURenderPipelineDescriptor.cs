@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPURenderPipelineDescriptor : JSObject
     {
+        private GPUVertexState _vertex;
 
         public GPURenderPipelineDescriptor() : base(Register())
         {
@@ -16,11 +17,21 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPURenderPipelineDescriptor.Create"));
         }
 
+        public GPUVertexState Vertex
+        {
+            get { return _vertex; }
+            set
+            {
+                _vertex = value;
+                Invoke(RegisterFunction("nkGPURenderPipelineDescriptor.SetVertex"), value.Uid);
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                _vertex = null;
 
             }
 

@@ -70,7 +70,10 @@ namespace CanvasGPU.Pages
             {
                 // TODO: create render pipeline
 
+                GPUVertexState vertexState = new GPUVertexState();
+
                 GPURenderPipelineDescriptor pipelineDescriptor = new GPURenderPipelineDescriptor();
+                pipelineDescriptor.Vertex = vertexState;
             }
 
             if (_vertexBuffer == null)

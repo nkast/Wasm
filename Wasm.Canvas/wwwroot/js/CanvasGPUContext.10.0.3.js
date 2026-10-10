@@ -436,6 +436,15 @@ window.nkGPUDevice =
     },
 };
 
+window.nkGPUVertexState =
+{
+    Create: function (uid, module, d)
+    {
+        var vs = { };
+        return nkJSObject.RegisterObject(vs);
+    },
+};
+
 window.nkGPURenderPipelineDescriptor =
 {
     Create: function (uid, module, d)
@@ -443,6 +452,13 @@ window.nkGPURenderPipelineDescriptor =
         var dc = { };
         dc.layout =  "auto";
         return nkJSObject.RegisterObject(dc);
+    },
+    SetVertex: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var vuid = module.HEAP32[(d+ 0)>>2];
+
+        dc.vertex = nkJSObject.GetObject(vuid);
     },
 };
 
