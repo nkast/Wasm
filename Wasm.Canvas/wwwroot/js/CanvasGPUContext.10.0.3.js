@@ -443,6 +443,13 @@ window.nkGPUVertexState =
         var vs = { };
         return nkJSObject.RegisterObject(vs);
     },
+    SetModule: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var muid = module.HEAP32[(d+ 0)>>2];
+
+        vs.module = nkJSObject.GetObject(muid);
+    },
 };
 
 window.nkGPURenderPipelineDescriptor =

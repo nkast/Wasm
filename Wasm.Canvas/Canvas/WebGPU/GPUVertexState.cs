@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUVertexState : JSObject
     {
+        private GPUShaderModule _module;
         public GPUVertexState() : base(Register())
         {
         }
@@ -15,10 +16,21 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUVertexState.Create"));
         }
 
+        public GPUShaderModule Module
+        {
+            get { return _module; }
+            set
+            {
+                _module = value;
+                Invoke(RegisterFunction("nkGPUVertexState.SetModule"), value.Uid);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                _module = null;
             }
 
             base.Dispose(disposing);
