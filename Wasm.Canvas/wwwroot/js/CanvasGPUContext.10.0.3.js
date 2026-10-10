@@ -459,6 +459,15 @@ window.nkGPUVertexState =
     },
 };
 
+window.nkGPUFragmentState =
+{
+    Create: function (uid, module, d)
+    {
+        var fs = { };
+        return nkJSObject.RegisterObject(fs);
+    },
+};
+
 window.nkGPURenderPipelineDescriptor =
 {
     Create: function (uid, module, d)
@@ -473,6 +482,16 @@ window.nkGPURenderPipelineDescriptor =
         var vuid = module.HEAP32[(d+ 0)>>2];
 
         dc.vertex = nkJSObject.GetObject(vuid);
+    },
+    SetFragment: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var fuid = module.HEAP32[(d+ 0)>>2];
+
+        if (fuid !== -1)
+            dc.fragment = nkJSObject.GetObject(fuid);
+        else
+            delete dc.fragment;
     },
 };
 

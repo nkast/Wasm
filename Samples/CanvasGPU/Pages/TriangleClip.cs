@@ -74,8 +74,11 @@ namespace CanvasGPU.Pages
                 vertexState.Module = _shaderModule;
                 vertexState.EntryPoint = "vs_main";
 
+                GPUFragmentState fragmentState = new GPUFragmentState();
+
                 GPURenderPipelineDescriptor pipelineDescriptor = new GPURenderPipelineDescriptor();
                 pipelineDescriptor.Vertex = vertexState;
+                pipelineDescriptor.Fragment = fragmentState;
             }
 
             if (_vertexBuffer == null)
