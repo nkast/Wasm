@@ -441,6 +441,7 @@ window.nkGPURenderPipelineDescriptor =
     Create: function (uid, module, d)
     {
         var dc = { };
+        dc.layout =  "auto";
         return nkJSObject.RegisterObject(dc);
     },
 };
