@@ -436,6 +436,15 @@ window.nkGPUDevice =
     },
 };
 
+window.nkGPURenderPipelineDescriptor =
+{
+    Create: function (uid, module, d)
+    {
+        var dc = { };
+        return nkJSObject.RegisterObject(dc);
+    },
+};
+
 window.nkGPURenderPassDescriptor =
 {
     Create: function (uid, module, d)
