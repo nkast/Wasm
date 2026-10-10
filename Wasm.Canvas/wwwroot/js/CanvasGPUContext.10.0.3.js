@@ -436,6 +436,79 @@ window.nkGPUDevice =
     },
 };
 
+window.nkGPUVertexState =
+{
+    Create: function (uid, module, d)
+    {
+        var vs = { };
+        return nkJSObject.RegisterObject(vs);
+    },
+    SetModule: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var muid = module.HEAP32[(d+ 0)>>2];
+
+        vs.module = nkJSObject.GetObject(muid);
+    },
+    SetEntryPoint: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var ep = nkJSObject.ReadString(module, d+ 0);
+
+        vs.entryPoint = ep;
+    },
+};
+
+window.nkGPUFragmentState =
+{
+    Create: function (uid, module, d)
+    {
+        var fs = { };
+        return nkJSObject.RegisterObject(fs);
+    },
+    SetModule: function (uid, module, d)
+    {
+        var fs = nkJSObject.GetObject(uid);
+        var muid = module.HEAP32[(d+ 0)>>2];
+
+        fs.module = nkJSObject.GetObject(muid);
+    },
+    SetEntryPoint: function (uid, module, d)
+    {
+        var fs = nkJSObject.GetObject(uid);
+        var ep = nkJSObject.ReadString(module, d+ 0);
+
+        fs.entryPoint = ep;
+    },
+};
+
+window.nkGPURenderPipelineDescriptor =
+{
+    Create: function (uid, module, d)
+    {
+        var dc = { };
+        dc.layout =  "auto";
+        return nkJSObject.RegisterObject(dc);
+    },
+    SetVertex: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var vuid = module.HEAP32[(d+ 0)>>2];
+
+        dc.vertex = nkJSObject.GetObject(vuid);
+    },
+    SetFragment: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var fuid = module.HEAP32[(d+ 0)>>2];
+
+        if (fuid !== -1)
+            dc.fragment = nkJSObject.GetObject(fuid);
+        else
+            delete dc.fragment;
+    },
+};
+
 window.nkGPURenderPassDescriptor =
 {
     Create: function (uid, module, d)
