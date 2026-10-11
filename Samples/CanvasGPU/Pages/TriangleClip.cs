@@ -127,7 +127,7 @@ namespace CanvasGPU.Pages
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
-            // TODO: draw triangle
+            renderPass.Draw(3);
         }
 
 

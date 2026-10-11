@@ -7,72 +7,72 @@ window.nkGPU =
         var nv = nkJSObject.GetObject(nid);
         if ("gpu" in nv)
         {
-            var gpu = nv.gpu;
-            var uid = nkJSObject.GetUid(gpu);
+            var gp = nv.gpu;
+            var uid = nkJSObject.GetUid(gp);
             if (uid !== -1)
                 return uid;
 
-            return nkJSObject.RegisterObject(gpu);
+            return nkJSObject.RegisterObject(gp);
         }
         else
             return nkJSObject.RegisterObject(null);
     },
     RequestAdapter: function (uid, module, d)
     {
-        var gpu = nkJSObject.GetObject(uid);
+        var gp = nkJSObject.GetObject(uid);
 
-        var pr = gpu.requestAdapter();
+        var pr = gp.requestAdapter();
         return nkJSObject.RegisterObject(pr);
     },
     RequestAdapter1: function (uid, module, d)
     {
-        var gpu = nkJSObject.GetObject(uid);
+        var gp = nkJSObject.GetObject(uid);
         var bi = module.HEAP32[(d+ 0)>>2];
 
         var pp = (bi >> 0) & 3;
         var fl = (bi >> 2) & 3;
 
-        var options = {};
+        var op = {};
         if (pp !== 3)
-            options.powerPreference = (pp === 1) ? 'high-performance'
+            op.powerPreference = (pp === 1) ? 'high-performance'
                                     : (pp === 2) ? 'low-power'
                                     : undefined
                                     ;
         if (fl !== 3)
-            options.featureLevel = (fl === 1) ? 'core'
+            op.featureLevel = (fl === 1) ? 'core'
                                  : (fl === 2) ? 'compatibility'
                                  : undefined
                                  ;
 
-        var pr = gpu.requestAdapter(options);
+        var pr = gp.requestAdapter(op);
         return nkJSObject.RegisterObject(pr);
     },
     GetPreferredCanvasFormat: function (uid)
     {
-        var gpu = nkJSObject.GetObject(uid);
+        var gp = nkJSObject.GetObject(uid);
 
-        var textureFormat = gpu.getPreferredCanvasFormat();
-        return nkGPU.GetTextureFormatId(textureFormat);
+        var tf = gp.getPreferredCanvasFormat();
+        return nkGPU.GetTextureFormatId(tf);
     },
 
-    GetTextureFormatId: function (format)
+    GetTextureFormatId: function (fm)
     {
-        switch (format)
+        switch (fm)
         {
             case "rgba8unorm": return 1;
             case "bgra8unorm": return 2;
             case "rgba16float": return 3;
-            default: throw new Error("Unknown GPUTextureFormat: " + format);
+            default: throw new Error("Unknown GPUTextureFormat: " + fm);
         }
     },    
-    GetTextureFormat: function (format)
+    GetTextureFormat: function (fm)
     {
-        switch (format)
+        switch (fm)
         {
             case 1: return "rgba8unorm";
             case 2: return "bgra8unorm";
             case 3: return "rgba16float";
-            default: throw new Error("Unknown GPUTextureFormat: " + format);
+            default: throw new Error("Unknown GPUTextureFormat: " + fm);
         }
     },
 };
@@ -82,12 +82,12 @@ window.nkGPUAdapter =
     GetInfo: function (uid)
     {
         var ad = nkJSObject.GetObject(uid);
-        var info = ad.info;
-        var iid = nkJSObject.GetUid(info);
+        var ai = ad.info;
+        var iid = nkJSObject.GetUid(ai);
         if (iid !== -1)
             return iid;
 
-        return nkJSObject.RegisterObject(info);
+        return nkJSObject.RegisterObject(ai);
     },
     GetLimits: function (uid, module, d)
     {
@@ -96,44 +96,44 @@ window.nkGPUAdapter =
 
         nkGPUAdapter.WriteLimits(module, pt, ad.limits);
     },
-    WriteLimits: function (module, pt, limits)
+    WriteLimits: function (module, pt, lm)
     {
-        module.HEAP32[(pt+   0)>>2] = limits.maxTextureDimension1D;
-        module.HEAP32[(pt+   4)>>2] = limits.maxTextureDimension2D;
-        module.HEAP32[(pt+   8)>>2] = limits.maxTextureDimension3D;
-        module.HEAP32[(pt+  12)>>2] = limits.maxTextureArrayLayers;
-        module.HEAP32[(pt+  16)>>2] = limits.maxBindGroups;
-        module.HEAP32[(pt+  20)>>2] = limits.maxBindingsPerBindGroup;
-        module.HEAP32[(pt+  24)>>2] = limits.maxDynamicUniformBuffersPerPipelineLayout;
-        module.HEAP32[(pt+  28)>>2] = limits.maxDynamicStorageBuffersPerPipelineLayout;
-        module.HEAP32[(pt+  32)>>2] = limits.maxSampledTexturesPerShaderStage;
-        module.HEAP32[(pt+  36)>>2] = limits.maxSamplersPerShaderStage;
-        module.HEAP32[(pt+  40)>>2] = limits.maxStorageBuffersPerShaderStage;
-        module.HEAP32[(pt+  44)>>2] = limits.maxStorageTexturesPerShaderStage;
-        module.HEAP32[(pt+  48)>>2] = limits.maxUniformBuffersPerShaderStage;
-        module.HEAP32[(pt+  52)>>2] = limits.minUniformBufferOffsetAlignment;
-        module.HEAP32[(pt+  56)>>2] = limits.minStorageBufferOffsetAlignment;
-        module.HEAP32[(pt+  60)>>2] = limits.maxVertexBuffers;
-        module.HEAP32[(pt+  64)>>2] = limits.maxVertexAttributes;
-        module.HEAP32[(pt+  68)>>2] = limits.maxVertexBufferArrayStride;
-        module.HEAP32[(pt+  72)>>2] = limits.maxInterStageShaderVariables;
-        module.HEAP32[(pt+  76)>>2] = limits.maxColorAttachments;
-        module.HEAP32[(pt+  80)>>2] = limits.maxColorAttachmentBytesPerSample;
-        module.HEAP32[(pt+  84)>>2] = limits.maxComputeWorkgroupStorageSize;
-        module.HEAP32[(pt+  88)>>2] = limits.maxComputeInvocationsPerWorkgroup;
-        module.HEAP32[(pt+  92)>>2] = limits.maxComputeWorkgroupSizeX;
-        module.HEAP32[(pt+  96)>>2] = limits.maxComputeWorkgroupSizeY;
-        module.HEAP32[(pt+ 100)>>2] = limits.maxComputeWorkgroupSizeZ;
-        module.HEAP32[(pt+ 104)>>2] = limits.maxComputeWorkgroupsPerDimension;
-        module.HEAP32[(pt+ 108)>>2] = limits.maxStorageBuffersInVertexStage ?? -1;
-        module.HEAP32[(pt+ 112)>>2] = limits.maxStorageBuffersInFragmentStage ?? -1;
-        module.HEAP32[(pt+ 116)>>2] = limits.maxStorageTexturesInVertexStage ?? -1;
-        module.HEAP32[(pt+ 120)>>2] = limits.maxStorageTexturesInFragmentStage ?? -1;
+        module.HEAP32[(pt+   0)>>2] = lm.maxTextureDimension1D;
+        module.HEAP32[(pt+   4)>>2] = lm.maxTextureDimension2D;
+        module.HEAP32[(pt+   8)>>2] = lm.maxTextureDimension3D;
+        module.HEAP32[(pt+  12)>>2] = lm.maxTextureArrayLayers;
+        module.HEAP32[(pt+  16)>>2] = lm.maxBindGroups;
+        module.HEAP32[(pt+  20)>>2] = lm.maxBindingsPerBindGroup;
+        module.HEAP32[(pt+  24)>>2] = lm.maxDynamicUniformBuffersPerPipelineLayout;
+        module.HEAP32[(pt+  28)>>2] = lm.maxDynamicStorageBuffersPerPipelineLayout;
+        module.HEAP32[(pt+  32)>>2] = lm.maxSampledTexturesPerShaderStage;
+        module.HEAP32[(pt+  36)>>2] = lm.maxSamplersPerShaderStage;
+        module.HEAP32[(pt+  40)>>2] = lm.maxStorageBuffersPerShaderStage;
+        module.HEAP32[(pt+  44)>>2] = lm.maxStorageTexturesPerShaderStage;
+        module.HEAP32[(pt+  48)>>2] = lm.maxUniformBuffersPerShaderStage;
+        module.HEAP32[(pt+  52)>>2] = lm.minUniformBufferOffsetAlignment;
+        module.HEAP32[(pt+  56)>>2] = lm.minStorageBufferOffsetAlignment;
+        module.HEAP32[(pt+  60)>>2] = lm.maxVertexBuffers;
+        module.HEAP32[(pt+  64)>>2] = lm.maxVertexAttributes;
+        module.HEAP32[(pt+  68)>>2] = lm.maxVertexBufferArrayStride;
+        module.HEAP32[(pt+  72)>>2] = lm.maxInterStageShaderVariables;
+        module.HEAP32[(pt+  76)>>2] = lm.maxColorAttachments;
+        module.HEAP32[(pt+  80)>>2] = lm.maxColorAttachmentBytesPerSample;
+        module.HEAP32[(pt+  84)>>2] = lm.maxComputeWorkgroupStorageSize;
+        module.HEAP32[(pt+  88)>>2] = lm.maxComputeInvocationsPerWorkgroup;
+        module.HEAP32[(pt+  92)>>2] = lm.maxComputeWorkgroupSizeX;
+        module.HEAP32[(pt+  96)>>2] = lm.maxComputeWorkgroupSizeY;
+        module.HEAP32[(pt+ 100)>>2] = lm.maxComputeWorkgroupSizeZ;
+        module.HEAP32[(pt+ 104)>>2] = lm.maxComputeWorkgroupsPerDimension;
+        module.HEAP32[(pt+ 108)>>2] = lm.maxStorageBuffersInVertexStage ?? -1;
+        module.HEAP32[(pt+ 112)>>2] = lm.maxStorageBuffersInFragmentStage ?? -1;
+        module.HEAP32[(pt+ 116)>>2] = lm.maxStorageTexturesInVertexStage ?? -1;
+        module.HEAP32[(pt+ 120)>>2] = lm.maxStorageTexturesInFragmentStage ?? -1;
 
         var dv = new DataView(module.HEAPU8.buffer);
-        dv.setBigInt64(pt+ 124, BigInt(limits.maxUniformBufferBindingSize), true);
-        dv.setBigInt64(pt+ 132, BigInt(limits.maxStorageBufferBindingSize), true);
-        dv.setBigInt64(pt+ 140, BigInt(limits.maxBufferSize), true);
+        dv.setBigInt64(pt+ 124, BigInt(lm.maxUniformBufferBindingSize), true);
+        dv.setBigInt64(pt+ 132, BigInt(lm.maxStorageBufferBindingSize), true);
+        dv.setBigInt64(pt+ 140, BigInt(lm.maxBufferSize), true);
     },
     RequestDevice: function (uid, module, d)
     {
@@ -147,117 +147,117 @@ window.nkGPUAdapter =
         var ad = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
-        var requiredLimits = {};
+        var rl = {};
         var v;
 
         v = module.HEAP32[(pt+ 0)>>2];
         if (v >= 0)
-            requiredLimits.maxTextureDimension1D = v;
+            rl.maxTextureDimension1D = v;
         v = module.HEAP32[(pt+ 4)>>2];
         if (v >= 0)
-            requiredLimits.maxTextureDimension2D = v;
+            rl.maxTextureDimension2D = v;
         v = module.HEAP32[(pt+ 8)>>2];
         if (v >= 0)
-            requiredLimits.maxTextureDimension3D = v;
+            rl.maxTextureDimension3D = v;
         v = module.HEAP32[(pt+ 12)>>2];
         if (v >= 0)
-            requiredLimits.maxTextureArrayLayers = v;
+            rl.maxTextureArrayLayers = v;
         v = module.HEAP32[(pt+ 16)>>2];
         if (v >= 0)
-            requiredLimits.maxBindGroups = v;
+            rl.maxBindGroups = v;
         v = module.HEAP32[(pt+ 20)>>2];
         if (v >= 0)
-            requiredLimits.maxBindingsPerBindGroup = v;
+            rl.maxBindingsPerBindGroup = v;
         v = module.HEAP32[(pt+ 24)>>2];
         if (v >= 0)
-            requiredLimits.maxDynamicUniformBuffersPerPipelineLayout = v;
+            rl.maxDynamicUniformBuffersPerPipelineLayout = v;
         v = module.HEAP32[(pt+ 28)>>2];
         if (v >= 0)
-            requiredLimits.maxDynamicStorageBuffersPerPipelineLayout = v;
+            rl.maxDynamicStorageBuffersPerPipelineLayout = v;
         v = module.HEAP32[(pt+ 32)>>2];
         if (v >= 0)
-            requiredLimits.maxSampledTexturesPerShaderStage = v;
+            rl.maxSampledTexturesPerShaderStage = v;
         v = module.HEAP32[(pt+ 36)>>2];
         if (v >= 0)
-            requiredLimits.maxSamplersPerShaderStage = v;
+            rl.maxSamplersPerShaderStage = v;
         v = module.HEAP32[(pt+ 40)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageBuffersPerShaderStage = v;
+            rl.maxStorageBuffersPerShaderStage = v;
         v = module.HEAP32[(pt+ 44)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageTexturesPerShaderStage = v;
+            rl.maxStorageTexturesPerShaderStage = v;
         v = module.HEAP32[(pt+ 48)>>2];
         if (v >= 0)
-            requiredLimits.maxUniformBuffersPerShaderStage = v;
+            rl.maxUniformBuffersPerShaderStage = v;
         v = module.HEAP32[(pt+ 52)>>2];
         if (v >= 0)
-            requiredLimits.minUniformBufferOffsetAlignment = v;
+            rl.minUniformBufferOffsetAlignment = v;
         v = module.HEAP32[(pt+ 56)>>2];
         if (v >= 0)
-            requiredLimits.minStorageBufferOffsetAlignment = v;
+            rl.minStorageBufferOffsetAlignment = v;
         v = module.HEAP32[(pt+ 60)>>2];
         if (v >= 0)
-            requiredLimits.maxVertexBuffers = v;
+            rl.maxVertexBuffers = v;
         v = module.HEAP32[(pt+ 64)>>2];
         if (v >= 0)
-            requiredLimits.maxVertexAttributes = v;
+            rl.maxVertexAttributes = v;
         v = module.HEAP32[(pt+ 68)>>2];
         if (v >= 0)
-            requiredLimits.maxVertexBufferArrayStride = v;
+            rl.maxVertexBufferArrayStride = v;
         v = module.HEAP32[(pt+ 72)>>2];
         if (v >= 0)
-            requiredLimits.maxInterStageShaderVariables = v;
+            rl.maxInterStageShaderVariables = v;
         v = module.HEAP32[(pt+ 76)>>2];
         if (v >= 0)
-            requiredLimits.maxColorAttachments = v;
+            rl.maxColorAttachments = v;
         v = module.HEAP32[(pt+ 80)>>2];
         if (v >= 0)
-            requiredLimits.maxColorAttachmentBytesPerSample = v;
+            rl.maxColorAttachmentBytesPerSample = v;
         v = module.HEAP32[(pt+ 84)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeWorkgroupStorageSize = v;
+            rl.maxComputeWorkgroupStorageSize = v;
         v = module.HEAP32[(pt+ 88)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeInvocationsPerWorkgroup = v;
+            rl.maxComputeInvocationsPerWorkgroup = v;
         v = module.HEAP32[(pt+ 92)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeWorkgroupSizeX = v;
+            rl.maxComputeWorkgroupSizeX = v;
         v = module.HEAP32[(pt+ 96)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeWorkgroupSizeY = v;
+            rl.maxComputeWorkgroupSizeY = v;
         v = module.HEAP32[(pt+ 100)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeWorkgroupSizeZ = v;
+            rl.maxComputeWorkgroupSizeZ = v;
         v = module.HEAP32[(pt+ 104)>>2];
         if (v >= 0)
-            requiredLimits.maxComputeWorkgroupsPerDimension = v;
+            rl.maxComputeWorkgroupsPerDimension = v;
         v = module.HEAP32[(pt+ 108)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageBuffersInVertexStage = v;
+            rl.maxStorageBuffersInVertexStage = v;
         v = module.HEAP32[(pt+ 112)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageBuffersInFragmentStage = v;
+            rl.maxStorageBuffersInFragmentStage = v;
         v = module.HEAP32[(pt+ 116)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageTexturesInVertexStage = v;
+            rl.maxStorageTexturesInVertexStage = v;
         v = module.HEAP32[(pt+ 120)>>2];
         if (v >= 0)
-            requiredLimits.maxStorageTexturesInFragmentStage = v;
+            rl.maxStorageTexturesInFragmentStage = v;
 
         var dv = new DataView(module.HEAPU8.buffer);
         var l;
 
         l = dv.getBigInt64(pt+ 124, true);
         if (l >= 0)
-            requiredLimits.maxUniformBufferBindingSize = Number(l);
+            rl.maxUniformBufferBindingSize = Number(l);
         l = dv.getBigInt64(pt+ 132, true);
         if (l >= 0)
-            requiredLimits.maxStorageBufferBindingSize = Number(l);
+            rl.maxStorageBufferBindingSize = Number(l);
         l = dv.getBigInt64(pt+ 140, true);
         if (l >= 0)
-            requiredLimits.maxBufferSize = Number(l);
+            rl.maxBufferSize = Number(l);
 
-        var pr = ad.requestDevice({ requiredLimits: requiredLimits });
+        var pr = ad.requestDevice({ requiredLimits: rl });
 
         return nkJSObject.RegisterObject(pr);
     },
@@ -303,29 +303,29 @@ window.nkGPUCanvasContext =
 
         var dv = nkJSObject.GetObject(did);
 
-        var configuration = {};
-        configuration.device = dv;
-        configuration.format = nkGPU.GetTextureFormat(fm);
+        var cn = {};
+        cn.device = dv;
+        cn.format = nkGPU.GetTextureFormat(fm);
 
         if (am === 1)
-            configuration.alphaMode = "opaque";
+            cn.alphaMode = "opaque";
         else if (am === 2)
-            configuration.alphaMode = "premultiplied";
+            cn.alphaMode = "premultiplied";
 
         if (tm === 1)
-            configuration.toneMappingMode = "standard";
+            cn.toneMappingMode = "standard";
         else if (tm === 2)
-            configuration.toneMappingMode = "extended";
+            cn.toneMappingMode = "extended";
 
         if (cs === 1)
-            configuration.colorSpace = "srgb";
+            cn.colorSpace = "srgb";
         else if (cs === 2)
-            configuration.colorSpace = "display-p3";
+            cn.colorSpace = "display-p3";
 
         if (us !== -1)
-            configuration.usage = us;
+            cn.usage = us;
 
-        gc.configure(configuration);
+        gc.configure(cn);
     },
     GetConfiguration: function (uid, module, d)
     {
@@ -362,12 +362,12 @@ window.nkGPUCanvasContext =
     GetCurrentTexture: function (uid)
     {
         var gc = nkJSObject.GetObject(uid);
-        var texture = gc.getCurrentTexture();
-        var tid = nkJSObject.GetUid(texture);
+        var tx = gc.getCurrentTexture();
+        var tid = nkJSObject.GetUid(tx);
         if (tid !== -1)
             return tid;
 
-        return nkJSObject.RegisterObject(texture);
+        return nkJSObject.RegisterObject(tx);
     },
 };
 
@@ -376,8 +376,8 @@ window.nkGPUTexture =
     CreateView: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
-        var view = tx.createView();
-        return nkJSObject.RegisterObject(view);
+        var vw = tx.createView();
+        return nkJSObject.RegisterObject(vw);
     },
     Destroy: function (uid)
     {
@@ -398,8 +398,8 @@ window.nkGPUDevice =
     CreateCommandEncoder: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
-        var encoder = dv.createCommandEncoder();
-        return nkJSObject.RegisterObject(encoder);
+        var ce = dv.createCommandEncoder();
+        return nkJSObject.RegisterObject(ce);
     },
     CreateBuffer: function (uid, module, d)
     {
@@ -408,16 +408,16 @@ window.nkGPUDevice =
         var usage = module.HEAP32[(d+ 4)>>2];
         var mac = module.HEAP32[(d+ 8)>>2];
 
-        var buffer = dv.createBuffer({ size: size, usage: usage, mappedAtCreation: (mac !== 0) });
-        return nkJSObject.RegisterObject(buffer);
+        var bf = dv.createBuffer({ size: size, usage: usage, mappedAtCreation: (mac !== 0) });
+        return nkJSObject.RegisterObject(bf);
     },
     CreateShaderModule: function (uid, module, d)
     {
         var dv = nkJSObject.GetObject(uid);
         var code = nkJSObject.ReadString(module, d+ 0);
 
-        var shaderModule = dv.createShaderModule({ code: code });
-        return nkJSObject.RegisterObject(shaderModule);
+        var sm = dv.createShaderModule({ code: code });
+        return nkJSObject.RegisterObject(sm);
     },
     CreateRenderPipeline: function (uid, module, d)
     {
@@ -431,12 +431,12 @@ window.nkGPUDevice =
     GetQueue: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
-        var queue = dv.queue;
-        var qid = nkJSObject.GetUid(queue);
+        var qu = dv.queue;
+        var qid = nkJSObject.GetUid(qu);
         if (qid !== -1)
             return qid;
 
-        return nkJSObject.RegisterObject(queue);
+        return nkJSObject.RegisterObject(qu);
     },
     Destroy: function (uid)
     {
@@ -963,22 +963,22 @@ window.nkGPURenderPassEncoder =
     SetVertexBuffer: function (uid, module, d)
     {
         var pe = nkJSObject.GetObject(uid);
-        var slot = module.HEAP32[(d+ 0)>>2];
+        var sl = module.HEAP32[(d+ 0)>>2];
         var buid = module.HEAP32[(d+ 4)>>2];
 
         var bf = nkJSObject.GetObject(buid);
-        pe.setVertexBuffer(slot, bf);
+        pe.setVertexBuffer(sl, bf);
     },
     SetVertexBuffer1: function (uid, module, d)
     {
         var pe = nkJSObject.GetObject(uid);
-        var slot = module.HEAP32[(d+ 0)>>2];
+        var sl = module.HEAP32[(d+ 0)>>2];
         var buid = module.HEAP32[(d+ 4)>>2];
-        var offset = module.HEAP32[(d+ 8)>>2];
-        var size = module.HEAP32[(d+ 12)>>2];
+        var of = module.HEAP32[(d+ 8)>>2];
+        var sz = module.HEAP32[(d+ 12)>>2];
 
         var bf = nkJSObject.GetObject(buid);
-        pe.setVertexBuffer(slot, bf, offset, size);
+        pe.setVertexBuffer(sl, bf, of, sz);
     },
     SetPipeline: function (uid, module, d)
     {
@@ -987,6 +987,16 @@ window.nkGPURenderPassEncoder =
 
         var pl = nkJSObject.GetObject(puid);
         pe.setPipeline(pl);
+    },
+    Draw: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var vc = module.HEAP32[(d+ 0)>>2];
+        var ic = module.HEAP32[(d+ 4)>>2];
+        var fv = module.HEAP32[(d+ 8)>>2];
+        var fi = module.HEAP32[(d+ 12)>>2];
+
+        pe.draw(vc, ic, fv, fi);
     },
     End: function (uid)
     {
