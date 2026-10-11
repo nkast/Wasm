@@ -138,6 +138,10 @@ namespace CanvasGPU.Pages
             }
 
             {
+                GPUBindGroupEntry entry = new GPUBindGroupEntry();
+                entry.Binding = 0;
+                entry.Resource = _uniformBuffer;
+
                 GPUBindGroupLayout layout = _pipeline.GetBindGroupLayout(0);
             }
 
