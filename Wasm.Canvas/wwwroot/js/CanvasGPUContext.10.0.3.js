@@ -1019,9 +1019,13 @@ window.nkGPURenderPipeline =
     GetBindGroupLayout: function (uid, module, d)
     {
         var pl = nkJSObject.GetObject(uid);
-        var index = module.HEAP32[(d+ 0)>>2];
+        var id = module.HEAP32[(d+ 0)>>2];
 
-        var layout = pl.getBindGroupLayout(index);
-        return nkJSObject.RegisterObject(layout);
+        var lo = pl.getBindGroupLayout(id);
+        var loid = nkJSObject.GetUid(lo);
+        if (loid !== -1)
+            return loid;
+
+        return nkJSObject.RegisterObject(lo);
     },
 };
