@@ -97,9 +97,13 @@ namespace CanvasGPU.Pages
                 fragmentState.EntryPoint = "fs_main";
                 fragmentState.Targets = targets;
 
+                GPUPrimitiveState primitiveState = new GPUPrimitiveState();
+                primitiveState.Topology = GPUPrimitiveTopologyType.TriangleList;
+
                 GPURenderPipelineDescriptor pipelineDescriptor = new GPURenderPipelineDescriptor();
                 pipelineDescriptor.Vertex = vertexState;
                 pipelineDescriptor.Fragment = fragmentState;
+                pipelineDescriptor.Primitive = primitiveState;
             }
 
             if (_vertexBuffer == null)

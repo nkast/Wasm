@@ -644,6 +644,38 @@ window.nkGPURenderPipelineDescriptor =
         else
             delete dc.fragment;
     },
+    SetPrimitive: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        if (pt === 0)
+        {
+            delete dc.primitive;
+            return;
+        }
+
+        var tp = module.HEAP32[(pt+ 0)>>2];
+        var ff = module.HEAP32[(pt+ 4)>>2];
+        var cm = module.HEAP32[(pt+ 8)>>2];
+        var ud = module.HEAP32[(pt+ 12)>>2];
+        var si = module.HEAP32[(pt+ 16)>>2];
+
+        var tps = ["triangle-list", "line-list", "point-list", "triangle-strip", "line-strip"];
+        var ffs = ["ccw", "cw"];
+        var cms = ["none", "front", "back"];
+        var sis = [undefined, "uint16", "uint32"];
+
+        var pr = { };
+        pr.topology = tps[tp];
+        pr.frontFace = ffs[ff];
+        pr.cullMode = cms[cm];
+        pr.unclippedDepth = (ud !== 0);
+        if (si !== 0)
+            pr.stripIndexFormat = sis[si];
+
+        dc.primitive = pr;
+    },
 };
 
 window.nkGPURenderPassDescriptor =
