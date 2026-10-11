@@ -988,6 +988,16 @@ window.nkGPURenderPassEncoder =
         var pl = nkJSObject.GetObject(puid);
         pe.setPipeline(pl);
     },
+    Draw: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var vc = module.HEAP32[(d+ 0)>>2];
+        var ic = module.HEAP32[(d+ 4)>>2];
+        var fv = module.HEAP32[(d+ 8)>>2];
+        var fi = module.HEAP32[(d+ 12)>>2];
+
+        pe.draw(vc, ic, fv, fi);
+    },
     End: function (uid)
     {
         var pe = nkJSObject.GetObject(uid);

@@ -32,6 +32,11 @@ namespace nkast.Wasm.Canvas.WebGPU
             Invoke<int>(RegisterFunction("nkGPURenderPassEncoder.SetPipeline"), pipeline.Uid);
         }
 
+        public void Draw(int vertexCount, int instanceCount = 1, int firstVertex = 0, int firstInstance = 0)
+        {
+            Invoke(RegisterFunction("nkGPURenderPassEncoder.Draw"), vertexCount, instanceCount, firstVertex, firstInstance);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
