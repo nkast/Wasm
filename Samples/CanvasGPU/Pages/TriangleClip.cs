@@ -10,6 +10,7 @@ namespace CanvasGPU.Pages
         GPUShaderModule _shaderModule;
         GPUBuffer _vertexBuffer;
         GPURenderPipeline _pipeline;
+        GPUBuffer _uniformBuffer;
 
         public TriangleClip() : base()
         {
@@ -124,6 +125,15 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
+
+            if (_uniformBuffer == null)
+            {
+                GPUBufferDescriptor uniformDescriptor = new GPUBufferDescriptor();
+                uniformDescriptor.Size = 16 * sizeof(float);
+                uniformDescriptor.Usage = GPUBufferUsageType.Uniform | GPUBufferUsageType.CopyDst;
+                _uniformBuffer = device.CreateBuffer(uniformDescriptor);
+            }
+
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
@@ -141,6 +151,8 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = null;
                 _pipeline?.Dispose();
                 _pipeline = null;
+                _uniformBuffer?.Dispose();
+                _uniformBuffer = null;
             }
 
             base.Dispose(disposing);
