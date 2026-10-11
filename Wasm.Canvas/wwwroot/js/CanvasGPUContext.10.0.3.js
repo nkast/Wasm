@@ -777,6 +777,15 @@ window.nkGPUVertexAttributeCollection =
     },
 };
 
+window.nkGPUVertexBufferLayoutCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+};
+
 window.nkGPUColorAttachmentCollection =
 {
     Create: function (uid, module, d)
