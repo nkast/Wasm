@@ -117,7 +117,6 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
-            // TODO: upload vertices
             // TODO: set pipeline
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
