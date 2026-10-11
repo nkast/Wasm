@@ -17,6 +17,22 @@ namespace nkast.Wasm.Canvas.WebGPU
             set { Invoke(RegisterFunction("nkGPUVertexBufferLayout.SetStepMode"), (int)value); }
         }
 
+        public GPUVertexAttributeCollection Attributes
+        {
+            get
+            {
+                int uid = InvokeRetInt(RegisterFunction("nkGPUVertexBufferLayout.GetAttributes"));
+                GPUVertexAttributeCollection attributes = GPUVertexAttributeCollection.FromUid(uid);
+                if (attributes == null)
+                    attributes = new GPUVertexAttributeCollection(uid);
+                return attributes;
+            }
+            set
+            {
+                Invoke(RegisterFunction("nkGPUVertexBufferLayout.SetAttributes"), value.Uid);
+            }
+        }
+
         public GPUVertexBufferLayout() : base(Register())
         {
         }

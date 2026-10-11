@@ -672,6 +672,7 @@ window.nkGPUVertexBufferLayout =
         var vl = { };
         vl.arrayStride = 0;
         vl.stepMode = nkGPUVertexBufferLayout.stepModes[0];
+        vl.attributes = [];
         return nkJSObject.RegisterObject(vl);
     },
     SetStepMode: function (uid, module, d)
@@ -699,6 +700,23 @@ window.nkGPUVertexBufferLayout =
         var vl = nkJSObject.GetObject(uid);
 
         return vl.arrayStride;
+    },
+    SetAttributes: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var auid = module.HEAP32[(d+ 0)>>2];
+
+        vl.attributes = nkJSObject.GetObject(auid);
+    },
+    GetAttributes: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        var auid = nkJSObject.GetUid(vl.attributes);
+        if (auid !== -1)
+            return auid;
+
+        return nkJSObject.RegisterObject(vl.attributes);
     },
 };
 
