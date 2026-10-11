@@ -459,11 +459,131 @@ window.nkGPUVertexState =
     },
 };
 
+window.nkGPUColorTargetStateCollection =
+{
+    BlendOperations: [undefined, 'add', 'subtract', 'reverse-subtract', 'min', 'max'],
+    BlendFactors: [undefined, 'zero', 'one', 'src', 'one-minus-src', 'src-alpha', 'one-minus-src-alpha', 'dst', 'one-minus-dst', 'dst-alpha', 'one-minus-dst-alpha', 'src-alpha-saturated', 'constant', 'one-minus-constant'],
+
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+
+    ReadTarget: function (module, pt)
+    {
+        var tf = module.HEAP32[(pt+ 0)>>2];
+        var wm = module.HEAP32[(pt+ 4)>>2];
+        var hb = module.HEAP32[(pt+ 8)>>2];
+
+        var tg = { format: nkGPU.GetTextureFormat(tf) };
+        if (wm !== -1)
+            tg.writeMask = wm;
+        if (hb !== 0)
+        {
+            tg.blend =
+            {
+                color: nkGPUColorTargetStateCollection.ReadBlendComponent(module, pt + 12),
+                alpha: nkGPUColorTargetStateCollection.ReadBlendComponent(module, pt + 24),
+            };
+        }
+        return tg;
+    },
+    WriteTarget: function (module, pt, tg)
+    {
+        var wm = (tg.writeMask === undefined) ? -1 : tg.writeMask;
+
+        module.HEAP32[(pt+ 0)>>2] = nkGPU.GetTextureFormatId(tg.format);
+        module.HEAP32[(pt+ 4)>>2] = wm;
+        if (tg.blend === undefined)
+        {
+            module.HEAP32[(pt+ 8)>>2] = 0;
+            nkGPUColorTargetStateCollection.WriteBlendComponent(module, pt + 12, { });
+            nkGPUColorTargetStateCollection.WriteBlendComponent(module, pt + 24, { });
+        }
+        else
+        {
+            module.HEAP32[(pt+ 8)>>2] = 1;
+            nkGPUColorTargetStateCollection.WriteBlendComponent(module, pt + 12, tg.blend.color);
+            nkGPUColorTargetStateCollection.WriteBlendComponent(module, pt + 24, tg.blend.alpha);
+        }
+    },
+    ReadBlendComponent: function (module, pt)
+    {
+        var op = module.HEAP32[(pt+ 0)>>2];
+        var sb = module.HEAP32[(pt+ 4)>>2];
+        var db = module.HEAP32[(pt+ 8)>>2];
+
+        var component = { };
+        if (op !== 0)
+            component.operation = nkGPUColorTargetStateCollection.BlendOperations[op];
+        if (sb !== 0)
+            component.srcFactor = nkGPUColorTargetStateCollection.BlendFactors[sb];
+        if (db !== 0)
+            component.dstFactor = nkGPUColorTargetStateCollection.BlendFactors[db];
+        return component;
+    },
+    WriteBlendComponent: function (module, pt, component)
+    {
+        var op = (component.operation === undefined) ? 0 : nkGPUColorTargetStateCollection.BlendOperations.indexOf(component.operation);
+        var sb = (component.srcFactor === undefined) ? 0 : nkGPUColorTargetStateCollection.BlendFactors.indexOf(component.srcFactor);
+        var db = (component.dstFactor === undefined) ? 0 : nkGPUColorTargetStateCollection.BlendFactors.indexOf(component.dstFactor);
+
+        module.HEAP32[(pt+ 0)>>2] = op;
+        module.HEAP32[(pt+ 4)>>2] = sb;
+        module.HEAP32[(pt+ 8)>>2] = db;
+    },
+    Add: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        ar.push(nkGPUColorTargetStateCollection.ReadTarget(module, pt));
+    },
+    Insert: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        ar.splice(id, 0, nkGPUColorTargetStateCollection.ReadTarget(module, pt));
+    },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        ar[id] = nkGPUColorTargetStateCollection.ReadTarget(module, pt);
+    },
+    Get: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        nkGPUColorTargetStateCollection.WriteTarget(module, pt, ar[id]);
+    },
+    RemoveAt: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+
+        ar.splice(id, 1);
+    },
+    Clear: function (uid)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        ar.length = 0;
+    },
+};
+
 window.nkGPUFragmentState =
 {
     Create: function (uid, module, d)
     {
         var fs = { };
+        fs.targets = [];
         return nkJSObject.RegisterObject(fs);
     },
     SetModule: function (uid, module, d)
@@ -479,6 +599,13 @@ window.nkGPUFragmentState =
         var ep = nkJSObject.ReadString(module, d+ 0);
 
         fs.entryPoint = ep;
+    },
+    SetTargets: function (uid, module, d)
+    {
+        var fs = nkJSObject.GetObject(uid);
+        var tuid = module.HEAP32[(d+ 0)>>2];
+
+        fs.targets = nkJSObject.GetObject(tuid);
     },
 };
 

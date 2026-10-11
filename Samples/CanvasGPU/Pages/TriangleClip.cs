@@ -74,9 +74,16 @@ namespace CanvasGPU.Pages
                 vertexState.Module = _shaderModule;
                 vertexState.EntryPoint = "vs_main";
 
+                GPUColorTargetState colorTarget = new GPUColorTargetState();
+                colorTarget.Format = canvasConfiguration.Format;
+
+                GPUColorTargetStateCollection targets = new GPUColorTargetStateCollection();
+                targets.Add(colorTarget);
+
                 GPUFragmentState fragmentState = new GPUFragmentState();
                 fragmentState.Module = _shaderModule;
                 fragmentState.EntryPoint = "fs_main";
+                fragmentState.Targets = targets;
 
                 GPURenderPipelineDescriptor pipelineDescriptor = new GPURenderPipelineDescriptor();
                 pipelineDescriptor.Vertex = vertexState;
