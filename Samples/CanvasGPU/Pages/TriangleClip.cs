@@ -70,6 +70,7 @@ namespace CanvasGPU.Pages
             {
                 // TODO: create render pipeline
                 GPUVertexBufferLayout vertexBufferLayout = new GPUVertexBufferLayout();
+                vertexBufferLayout.ArrayStride = 6 * sizeof(float);
 
                 GPUVertexState vertexState = new GPUVertexState();
                 vertexState.Module = _shaderModule;

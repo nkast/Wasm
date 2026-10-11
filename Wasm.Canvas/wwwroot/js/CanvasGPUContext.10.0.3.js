@@ -664,10 +664,39 @@ window.nkGPURenderPassDescriptor =
 
 window.nkGPUVertexBufferLayout =
 {
+    stepModes: ["vertex", "instance"],
     Create: function (uid, module, d)
     {
         var vl = { };
+        vl.arrayStride = 0;
+        vl.stepMode = nkGPUVertexBufferLayout.stepModes[0];
         return nkJSObject.RegisterObject(vl);
+    },
+    SetStepMode: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var sm = module.HEAP32[(d+ 0)>>2];
+
+        vl.stepMode = nkGPUVertexBufferLayout.stepModes[sm];
+    },
+    GetStepMode: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        return nkGPUVertexBufferLayout.stepModes.indexOf(vl.stepMode);
+    },
+    SetArrayStride: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var stride = module.HEAP32[(d+ 0)>>2];
+
+        vl.arrayStride = stride;
+    },
+    GetArrayStride: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        return vl.arrayStride;
     },
 };
 

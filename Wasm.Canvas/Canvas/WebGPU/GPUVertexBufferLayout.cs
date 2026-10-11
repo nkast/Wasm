@@ -5,6 +5,17 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUVertexBufferLayout : CachedJSObject<GPUVertexBufferLayout>
     {
+        public long ArrayStride
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUVertexBufferLayout.GetArrayStride")); }
+            set { Invoke(RegisterFunction("nkGPUVertexBufferLayout.SetArrayStride"), (int)value); }
+        }
+
+        public GPUVertexStepMode StepMode
+        {
+            get { return (GPUVertexStepMode)InvokeRetInt(RegisterFunction("nkGPUVertexBufferLayout.GetStepMode")); }
+            set { Invoke(RegisterFunction("nkGPUVertexBufferLayout.SetStepMode"), (int)value); }
+        }
 
         public GPUVertexBufferLayout() : base(Register())
         {
