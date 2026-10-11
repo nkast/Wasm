@@ -1013,3 +1013,15 @@ window.nkGPUBuffer =
         bf.destroy();
     },
 };
+
+window.nkGPURenderPipeline =
+{
+    GetBindGroupLayout: function (uid, module, d)
+    {
+        var pl = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+
+        var layout = pl.getBindGroupLayout(index);
+        return nkJSObject.RegisterObject(layout);
+    },
+};
