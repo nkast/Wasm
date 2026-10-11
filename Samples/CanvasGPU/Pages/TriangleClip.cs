@@ -11,6 +11,7 @@ namespace CanvasGPU.Pages
         GPUBuffer _vertexBuffer;
         GPURenderPipeline _pipeline;
         GPUBuffer _uniformBuffer;
+        float _angleY;
 
         public TriangleClip() : base()
         {
@@ -21,6 +22,8 @@ namespace CanvasGPU.Pages
         public override void Update(UpdateContext uc)
         {
             float dt = (float)uc.dt.TotalSeconds;
+
+            _angleY += dt;
 
             base.Update(uc);
         }
@@ -134,6 +137,9 @@ namespace CanvasGPU.Pages
                 _uniformBuffer = device.CreateBuffer(uniformDescriptor);
             }
 
+
+            Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;
+            Matrix4x4 worldViewProj = world * dc.view * dc.proj;
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
