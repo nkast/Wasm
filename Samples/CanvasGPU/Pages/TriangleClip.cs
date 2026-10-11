@@ -79,6 +79,8 @@ namespace CanvasGPU.Pages
                 vertexBufferLayout.Attributes = attributes;
 
                 GPUVertexBufferLayoutCollection buffers = new GPUVertexBufferLayoutCollection();
+                buffers.Add(vertexBufferLayout);
+
                 GPUVertexState vertexState = new GPUVertexState();
                 vertexState.Module = _shaderModule;
                 vertexState.EntryPoint = "vs_main";
