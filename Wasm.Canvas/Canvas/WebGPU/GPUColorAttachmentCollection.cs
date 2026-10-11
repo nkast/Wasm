@@ -50,7 +50,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             if ((uint)index >= (uint)Count)
                 throw new ArgumentOutOfRangeException(nameof(index));
 
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.RemoveAt"), index);
+            Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
         }
 
         public int IndexOf(GPUColorAttachment item)

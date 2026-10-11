@@ -610,13 +610,6 @@ window.nkGPUColorAttachmentCollection =
         fdata[6] = cv.a;
         data[7] = (ca.depthSlice !== undefined) ? ca.depthSlice : -1;
     },
-    RemoveAt: function (uid, module, d)
-    {
-        var ar = nkJSObject.GetObject(uid);
-        var index = module.HEAP32[(d+ 0)>>2];
-
-        ar.splice(index, 1);
-    },
 };
 
 window.nkGPUCommandEncoder =

@@ -180,6 +180,13 @@ window.nkJSArray =
         var ar = nkJSObject.GetObject(uid);
         ar.length = 0;
     },
+    RemoveAt: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d + 0) >> 2];
+
+        ar.splice(id, 1);
+    },
     GetItem: function(uid, module, d)
     {
         var ar = nkJSObject.GetObject(uid);
