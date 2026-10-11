@@ -84,6 +84,7 @@ namespace CanvasGPU.Pages
                 GPUVertexState vertexState = new GPUVertexState();
                 vertexState.Module = _shaderModule;
                 vertexState.EntryPoint = "vs_main";
+                vertexState.Buffers = buffers;
 
                 GPUColorTargetState colorTarget = new GPUColorTargetState();
                 colorTarget.Format = canvasConfiguration.Format;

@@ -457,6 +457,16 @@ window.nkGPUVertexState =
 
         vs.entryPoint = ep;
     },
+    SetBuffers: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var buid = module.HEAP32[(d+ 0)>>2];
+
+        if (buid !== -1)
+            vs.buffers = nkJSObject.GetObject(buid);
+        else
+            delete vs.buffers;
+    },
 };
 
 window.nkGPUColorTargetStateCollection =
