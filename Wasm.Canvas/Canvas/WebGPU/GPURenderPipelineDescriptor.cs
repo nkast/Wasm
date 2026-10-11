@@ -8,6 +8,7 @@ namespace nkast.Wasm.Canvas.WebGPU
     {
         private GPUVertexState _vertex;
         private GPUFragmentState _fragment;
+        private GPUPrimitiveState? _primitive;
 
         public GPURenderPipelineDescriptor() : base(Register())
         {
@@ -38,6 +39,24 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public GPUPrimitiveState? Primitive
+        {
+            get { return _primitive; }
+            set
+            {
+                _primitive = value;
+                unsafe
+                {
+                    if (value.HasValue)
+                    {
+                        GPUPrimitiveState data = value.Value;
+                        Invoke<IntPtr>(RegisterFunction("nkGPURenderPipelineDescriptor.SetPrimitive"), new IntPtr(&data));
+                    }
+                    else
+                        Invoke<IntPtr>(RegisterFunction("nkGPURenderPipelineDescriptor.SetPrimitive"), IntPtr.Zero);
+                }
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {
