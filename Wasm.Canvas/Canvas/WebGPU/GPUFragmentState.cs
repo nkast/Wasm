@@ -38,6 +38,15 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public GPUColorTargetStateCollection Targets
+        {
+            get { throw new NotImplementedException(); }
+            set
+            {
+                Invoke(RegisterFunction("nkGPUFragmentState.SetTargets"), value.Uid);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
