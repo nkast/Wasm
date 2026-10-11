@@ -10,6 +10,8 @@ namespace CanvasGPU.Pages
         GPUShaderModule _shaderModule;
         GPUBuffer _vertexBuffer;
         GPURenderPipeline _pipeline;
+        GPUBuffer _uniformBuffer;
+        float _angleY;
 
         public TriangleClip() : base()
         {
@@ -20,6 +22,8 @@ namespace CanvasGPU.Pages
         public override void Update(UpdateContext uc)
         {
             float dt = (float)uc.dt.TotalSeconds;
+
+            _angleY += dt;
 
             base.Update(uc);
         }
@@ -124,12 +128,38 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
+
+            if (_uniformBuffer == null)
+            {
+                GPUBufferDescriptor uniformDescriptor = new GPUBufferDescriptor();
+                uniformDescriptor.Size = 16 * sizeof(float);
+                uniformDescriptor.Usage = GPUBufferUsageType.Uniform | GPUBufferUsageType.CopyDst;
+                _uniformBuffer = device.CreateBuffer(uniformDescriptor);
+            }
+
+
+            Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;
+            Matrix4x4 worldViewProj = world * dc.view * dc.proj;
+            float[] wvparray = MatrixToArray(worldViewProj);
+            device.Queue.WriteBuffer<float>(_uniformBuffer, 0, wvparray);
+
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
             renderPass.Draw(3);
         }
 
+
+        private float[] MatrixToArray(Matrix4x4 matrix)
+        {
+            return new float[]
+            {
+                matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+                matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+                matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+                matrix.M41, matrix.M42, matrix.M43, matrix.M44
+            };
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -141,6 +171,8 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = null;
                 _pipeline?.Dispose();
                 _pipeline = null;
+                _uniformBuffer?.Dispose();
+                _uniformBuffer = null;
             }
 
             base.Dispose(disposing);
