@@ -628,6 +628,15 @@ window.nkGPUFragmentState =
     },
 };
 
+window.nkGPUBindGroupEntryCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+};
+
 window.nkGPURenderPipelineDescriptor =
 {
     Create: function (uid, module, d)
