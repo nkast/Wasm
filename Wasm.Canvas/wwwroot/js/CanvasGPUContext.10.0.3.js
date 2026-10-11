@@ -650,7 +650,8 @@ window.nkGPURenderPassDescriptor =
 {
     Create: function (uid, module, d)
     {
-        var dc = { colorAttachments: [] };
+        var dc = { };
+        dc.colorAttachments = [];
         return nkJSObject.RegisterObject(dc);
     },
     SetMaxDrawCount: function (uid, module, d)
