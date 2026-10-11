@@ -635,6 +635,46 @@ window.nkGPUBindGroupEntryCollection =
         var ar = [];
         return nkJSObject.RegisterObject(ar);
     },
+    ReadEntry: function (module, ptr)
+    {
+        var bg = module.HEAP32[(ptr+ 0)>>2];
+        var re = nkJSObject.GetObject(module.HEAP32[(ptr+ 4)>>2]);
+
+        return { binding: bg, resource: re };
+    },
+    Add: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var ptr = module.HEAP32[(d+ 0)>>2];
+
+        ar.push(nkGPUBindGroupEntryCollection.ReadEntry(module, ptr));
+    },
+    Insert: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        ar.splice(id, 0, nkGPUBindGroupEntryCollection.ReadEntry(module, ptr));
+    },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        ar[id] = nkGPUBindGroupEntryCollection.ReadEntry(module, ptr);
+    },
+    Get: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        var en = ar[id];
+        module.HEAP32[(ptr+ 0)>>2] = en.binding;
+        module.HEAP32[(ptr+ 4)>>2] = en.resource.nkUid;
+    },
 };
 
 window.nkGPURenderPipelineDescriptor =
