@@ -20,37 +20,39 @@ namespace nkast.Wasm.Canvas.WebGPU
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create"));
         }
 
-        public GPUColorAttachment this[int index]
+        public unsafe GPUColorAttachment this[int index]
         {
             get { return GetItem(index); }
-            set
-            {
-                if ((uint)index >= (uint)Count)
-                    throw new ArgumentOutOfRangeException(nameof(index));
-
-                InvokeWithData("nkGPUColorAttachmentCollection.Set", index, value);
-            }
+            set { Insert(index, value); }
         }
 
-        public void Add(GPUColorAttachment item)
+        public unsafe void Add(GPUColorAttachment item)
         {
-            InvokeWithData("nkGPUColorAttachmentCollection.Add", -1, item);
+            GPUColorAttachmentData data = new GPUColorAttachmentData();
+            data.ViewUid = item.View.Uid;
+            data.LoadOp = item.LoadOp;
+            data.StoreOp = item.StoreOp;
+            data.ClearValue = item.ClearValue;
+            data.DepthSlice = item.DepthSlice ?? -1;
+
+            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Add"), (int)&data);
         }
 
-        public void Insert(int index, GPUColorAttachment item)
+        public unsafe void Insert(int index, GPUColorAttachment item)
         {
-            if ((uint)index > (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
+            GPUColorAttachmentData data = new GPUColorAttachmentData();
+            data.ViewUid = item.View.Uid;
+            data.LoadOp = item.LoadOp;
+            data.StoreOp = item.StoreOp;
+            data.ClearValue = item.ClearValue;
+            data.DepthSlice = item.DepthSlice ?? -1;
 
-            InvokeWithData("nkGPUColorAttachmentCollection.Insert", index, item);
+            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Insert"), index, (int)&data);
         }
 
         public void RemoveAt(int index)
         {
-            if ((uint)index >= (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.RemoveAt"), index);
+            Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
         }
 
         public int IndexOf(GPUColorAttachment item)
@@ -69,24 +71,9 @@ namespace nkast.Wasm.Canvas.WebGPU
             return -1;
         }
 
-        private unsafe void InvokeWithData(string function, int index, GPUColorAttachment item)
-        {
-            GPUColorAttachmentData data = new GPUColorAttachmentData();
-            data.ViewUid = item.View.Uid;
-            data.LoadOp = item.LoadOp;
-            data.StoreOp = item.StoreOp;
-            data.ClearValue = item.ClearValue;
-            data.DepthSlice = item.DepthSlice ?? -1;
-
-            if (index < 0)
-                Invoke(RegisterFunction(function), (int)&data);
-            else
-                Invoke(RegisterFunction(function), index, (int)&data);
-        }
-
         public void Clear()
         {
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Clear"));
+            Invoke(RegisterFunction("nkJSArray.Clear"));
         }
 
         public bool Contains(GPUColorAttachment item)
@@ -118,9 +105,6 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         private unsafe GPUColorAttachment GetItem(int index)
         {
-            if ((uint)index >= (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
             GPUColorAttachmentData data = new GPUColorAttachmentData();
             Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Get"), index, (int)&data);
 
