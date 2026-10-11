@@ -617,11 +617,6 @@ window.nkGPUColorAttachmentCollection =
 
         ar.splice(index, 1);
     },
-    Clear: function (uid)
-    {
-        var ar = nkJSObject.GetObject(uid);
-        ar.length = 0;
-    },
 };
 
 window.nkGPUCommandEncoder =

@@ -86,7 +86,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Clear()
         {
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Clear"));
+            Invoke(RegisterFunction("nkJSArray.Clear"));
         }
 
         public bool Contains(GPUColorAttachment item)

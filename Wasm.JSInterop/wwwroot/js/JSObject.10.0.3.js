@@ -175,6 +175,11 @@ window.nkJSArray =
         var ar = nkJSObject.GetObject(uid);
         return ar.length;
     },
+    Clear: function (uid)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        ar.length = 0;
+    },
     GetItem: function(uid, module, d)
     {
         var ar = nkJSObject.GetObject(uid);
