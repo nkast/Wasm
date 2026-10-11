@@ -180,6 +180,29 @@ window.nkJSArray =
         var ar = nkJSObject.GetObject(uid);
         ar.length = 0;
     },
+    Add: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var iuid = module.HEAP32[(d + 0) >> 2];
+
+        ar.push(nkJSObject.GetObject(iuid));
+    },
+    Insert: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d + 0) >> 2];
+        var iuid = module.HEAP32[(d + 4) >> 2];
+
+        ar.splice(id, 0, nkJSObject.GetObject(iuid));
+    },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d + 0) >> 2];
+        var iuid = module.HEAP32[(d + 4) >> 2];
+
+        ar[id] = nkJSObject.GetObject(iuid);
+    },
     RemoveAt: function (uid, module, d)
     {
         var ar = nkJSObject.GetObject(uid);

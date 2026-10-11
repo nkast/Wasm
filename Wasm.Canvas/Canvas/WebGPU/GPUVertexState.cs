@@ -8,6 +8,8 @@ namespace nkast.Wasm.Canvas.WebGPU
     {
         private GPUShaderModule _module;
         private string _entryPoint;
+        private GPUVertexBufferLayoutCollection _buffers;
+
         public GPUVertexState() : base(Register())
         {
         }
@@ -37,6 +39,15 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public GPUVertexBufferLayoutCollection Buffers
+        {
+            get { return _buffers; }
+            set
+            {
+                _buffers = value;
+                Invoke(RegisterFunction("nkGPUVertexState.SetBuffers"), (value != null) ? value.Uid : -1);
+            }
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -44,6 +55,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             {
                 _module = null;
                 _entryPoint = null;
+                _buffers = null;
             }
 
             base.Dispose(disposing);

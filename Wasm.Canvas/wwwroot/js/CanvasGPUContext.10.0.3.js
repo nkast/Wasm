@@ -457,6 +457,16 @@ window.nkGPUVertexState =
 
         vs.entryPoint = ep;
     },
+    SetBuffers: function (uid, module, d)
+    {
+        var vs = nkJSObject.GetObject(uid);
+        var buid = module.HEAP32[(d+ 0)>>2];
+
+        if (buid !== -1)
+            vs.buffers = nkJSObject.GetObject(buid);
+        else
+            delete vs.buffers;
+    },
 };
 
 window.nkGPUColorTargetStateCollection =
@@ -640,7 +650,8 @@ window.nkGPURenderPassDescriptor =
 {
     Create: function (uid, module, d)
     {
-        var dc = { colorAttachments: [] };
+        var dc = { };
+        dc.colorAttachments = [];
         return nkJSObject.RegisterObject(dc);
     },
     SetMaxDrawCount: function (uid, module, d)
@@ -659,6 +670,130 @@ window.nkGPURenderPassDescriptor =
         var cuid = module.HEAP32[(d+ 0)>>2];
 
         dc.colorAttachments = nkJSObject.GetObject(cuid);
+    },
+};
+
+window.nkGPUVertexBufferLayout =
+{
+    stepModes: ["vertex", "instance"],
+    vertexFormats: [null, "float32", "float32x2", "float32x3", "float32x4"],
+
+    Create: function (uid, module, d)
+    {
+        var vl = { };
+        vl.arrayStride = 0;
+        vl.stepMode = nkGPUVertexBufferLayout.stepModes[0];
+        vl.attributes = [];
+        return nkJSObject.RegisterObject(vl);
+    },
+    SetStepMode: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var sm = module.HEAP32[(d+ 0)>>2];
+
+        vl.stepMode = nkGPUVertexBufferLayout.stepModes[sm];
+    },
+    GetStepMode: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        return nkGPUVertexBufferLayout.stepModes.indexOf(vl.stepMode);
+    },
+    SetArrayStride: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var stride = module.HEAP32[(d+ 0)>>2];
+
+        vl.arrayStride = stride;
+    },
+    GetArrayStride: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        return vl.arrayStride;
+    },
+    SetAttributes: function (uid, module, d)
+    {
+        var vl = nkJSObject.GetObject(uid);
+        var auid = module.HEAP32[(d+ 0)>>2];
+
+        vl.attributes = nkJSObject.GetObject(auid);
+    },
+    GetAttributes: function (uid)
+    {
+        var vl = nkJSObject.GetObject(uid);
+
+        var auid = nkJSObject.GetUid(vl.attributes);
+        if (auid !== -1)
+            return auid;
+
+        return nkJSObject.RegisterObject(vl.attributes);
+    },
+};
+
+window.nkGPUVertexAttributeCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+    ReadAttribute: function (module, pt)
+    {
+        var fm = module.HEAP32[(pt+ 0)>>2];
+        var sl = module.HEAP32[(pt+ 4)>>2];
+        var dv = new DataView(module.HEAPU8.buffer);
+        var of = dv.getBigInt64(pt+ 8, true);
+
+        var at = { };
+        at.format = nkGPUVertexBufferLayout.vertexFormats[fm];
+        at.shaderLocation = sl;
+        at.offset = Number(of);
+        return at;
+    },
+    Add: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var pt = module.HEAP32[(d+ 0)>>2];
+
+        ar.push(nkGPUVertexAttributeCollection.ReadAttribute(module, pt));
+    },
+    Insert: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        ar.splice(id, 0, nkGPUVertexAttributeCollection.ReadAttribute(module, pt));
+    },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        ar[id] = nkGPUVertexAttributeCollection.ReadAttribute(module, pt);
+    },
+    Get: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var pt = module.HEAP32[(d+ 4)>>2];
+
+        var at = ar[id];
+        var dv = new DataView(module.HEAPU8.buffer);
+        module.HEAP32[(pt+ 0)>>2] = nkGPUVertexBufferLayout.vertexFormats.indexOf(at.format);
+        module.HEAP32[(pt+ 4)>>2] = at.shaderLocation;
+        dv.setBigInt64(pt+ 8, BigInt(at.offset), true);
+    },
+};
+
+window.nkGPUVertexBufferLayoutCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
     },
 };
 

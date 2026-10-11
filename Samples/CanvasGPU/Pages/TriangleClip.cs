@@ -69,10 +69,22 @@ namespace CanvasGPU.Pages
 
             {
                 // TODO: create render pipeline
+                GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection()
+                {
+                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 },
+                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 3 * sizeof(float), ShaderLocation = 1 },
+                };
+                GPUVertexBufferLayout vertexBufferLayout = new GPUVertexBufferLayout();
+                vertexBufferLayout.ArrayStride = 6 * sizeof(float);
+                vertexBufferLayout.Attributes = attributes;
+
+                GPUVertexBufferLayoutCollection buffers = new GPUVertexBufferLayoutCollection();
+                buffers.Add(vertexBufferLayout);
 
                 GPUVertexState vertexState = new GPUVertexState();
                 vertexState.Module = _shaderModule;
                 vertexState.EntryPoint = "vs_main";
+                vertexState.Buffers = buffers;
 
                 GPUColorTargetState colorTarget = new GPUColorTargetState();
                 colorTarget.Format = canvasConfiguration.Format;
@@ -105,7 +117,6 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
-            // TODO: upload vertices
             // TODO: set pipeline
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
