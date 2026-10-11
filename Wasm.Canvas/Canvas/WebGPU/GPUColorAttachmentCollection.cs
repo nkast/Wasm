@@ -23,7 +23,17 @@ namespace nkast.Wasm.Canvas.WebGPU
         public unsafe GPUColorAttachment this[int index]
         {
             get { return GetItem(index); }
-            set { Insert(index, value); }
+            set
+            {
+                GPUColorAttachmentData data = new GPUColorAttachmentData();
+                data.ViewUid = value.View.Uid;
+                data.LoadOp = value.LoadOp;
+                data.StoreOp = value.StoreOp;
+                data.ClearValue = value.ClearValue;
+                data.DepthSlice = value.DepthSlice ?? -1;
+
+                Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Set"), index, (int)&data);
+            }
         }
 
         public unsafe void Add(GPUColorAttachment item)

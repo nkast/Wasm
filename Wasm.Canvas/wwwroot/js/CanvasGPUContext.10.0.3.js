@@ -582,6 +582,14 @@ window.nkGPUColorAttachmentCollection =
 
         ar.splice(id, 0, nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr));
     },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var arrPtr = module.HEAP32[(d+ 4)>>2];
+
+        ar[id] = nkGPUColorAttachmentCollection.ReadColorAttachment(module, arrPtr);
+    },
     Get: function (uid, module, d)
     {
         var ar = nkJSObject.GetObject(uid);
