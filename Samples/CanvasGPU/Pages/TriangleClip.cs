@@ -137,6 +137,9 @@ namespace CanvasGPU.Pages
                 _uniformBuffer = device.CreateBuffer(uniformDescriptor);
             }
 
+            {
+                GPUBindGroupLayout layout = _pipeline.GetBindGroupLayout(0);
+            }
 
             Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;
             Matrix4x4 worldViewProj = world * dc.view * dc.proj;

@@ -12,6 +12,17 @@ namespace nkast.Wasm.Canvas.WebGPU
             _device = device;
         }
 
+        public GPUBindGroupLayout GetBindGroupLayout(int index)
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPURenderPipeline.GetBindGroupLayout"), index);
+
+            GPUBindGroupLayout layout = GPUBindGroupLayout.FromUid(uid);
+            if (layout != null)
+                return layout;
+
+            return new GPUBindGroupLayout(uid, _device);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
