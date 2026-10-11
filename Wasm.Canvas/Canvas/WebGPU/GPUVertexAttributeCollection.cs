@@ -13,10 +13,10 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public GPUVertexAttribute this[int index]
         {
-            get { throw new NotImplementedException(); }
+            get { return GetItem(index); }
             set
             {
-                throw new NotImplementedException();
+                unsafe { Invoke<int, IntPtr>(RegisterFunction("nkGPUVertexAttributeCollection.Set"), index, new IntPtr(&value)); }
             }
         }
 
@@ -35,12 +35,12 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Add(GPUVertexAttribute item)
         {
-            throw new NotImplementedException();
+            unsafe { Invoke<IntPtr>(RegisterFunction("nkGPUVertexAttributeCollection.Add"), new IntPtr(&item)); }
         }
 
         public void Insert(int index, GPUVertexAttribute item)
         {
-            throw new NotImplementedException();
+            unsafe { Invoke<int, IntPtr>(RegisterFunction("nkGPUVertexAttributeCollection.Insert"), index, new IntPtr(&item)); }
         }
 
         public void RemoveAt(int index)
@@ -55,7 +55,16 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public int IndexOf(GPUVertexAttribute item)
         {
-            throw new NotImplementedException();
+            int count = Count;
+            for (int i = 0; i < count; i++)
+            {
+                GPUVertexAttribute other = GetItem(i);
+                if (other.Format == item.Format
+                    && other.Offset == item.Offset
+                    && other.ShaderLocation == item.ShaderLocation)
+                    return i;
+            }
+            return -1;
         }
 
         public bool Contains(GPUVertexAttribute item)
@@ -75,13 +84,24 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void CopyTo(GPUVertexAttribute[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int count = Count;
+
+            for (int i = 0; i < count; i++)
+                array[arrayIndex + i] = GetItem(i);
         }
 
+        private unsafe GPUVertexAttribute GetItem(int index)
+        {
+            GPUVertexAttribute item = new GPUVertexAttribute();
+            Invoke<int, IntPtr>(RegisterFunction("nkGPUVertexAttributeCollection.Get"), index, new IntPtr(&item));
+            return item;
+        }
 
         public IEnumerator<GPUVertexAttribute> GetEnumerator()
         {
-            throw new NotImplementedException();
+            int count = Count;
+            for (int i = 0; i < count; i++)
+                yield return GetItem(i);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

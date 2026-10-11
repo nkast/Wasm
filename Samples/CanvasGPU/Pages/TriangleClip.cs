@@ -69,7 +69,11 @@ namespace CanvasGPU.Pages
 
             {
                 // TODO: create render pipeline
-                GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection();
+                GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection()
+                {
+                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 },
+                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 3 * sizeof(float), ShaderLocation = 1 },
+                };
                 GPUVertexBufferLayout vertexBufferLayout = new GPUVertexBufferLayout();
                 vertexBufferLayout.ArrayStride = 6 * sizeof(float);
 

@@ -7,7 +7,7 @@ namespace nkast.Wasm.Canvas.WebGPU
     public struct GPUVertexAttribute
     {
         public GPUVertexFormatType Format;
-        public long Offset;
         public int ShaderLocation;
+        public long Offset;
     }
 }
