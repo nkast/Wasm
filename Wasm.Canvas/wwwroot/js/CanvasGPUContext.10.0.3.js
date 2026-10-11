@@ -662,6 +662,15 @@ window.nkGPURenderPassDescriptor =
     },
 };
 
+window.nkGPUVertexBufferLayout =
+{
+    Create: function (uid, module, d)
+    {
+        var vl = { };
+        return nkJSObject.RegisterObject(vl);
+    },
+};
+
 window.nkGPUColorAttachmentCollection =
 {
     Create: function (uid, module, d)
