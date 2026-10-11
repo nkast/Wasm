@@ -140,12 +140,26 @@ namespace CanvasGPU.Pages
 
             Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;
             Matrix4x4 worldViewProj = world * dc.view * dc.proj;
+            float[] wvparray = MatrixToArray(worldViewProj);
+            device.Queue.WriteBuffer<float>(_uniformBuffer, 0, wvparray);
+
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
             renderPass.Draw(3);
         }
 
+
+        private float[] MatrixToArray(Matrix4x4 matrix)
+        {
+            return new float[]
+            {
+                matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+                matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+                matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+                matrix.M41, matrix.M42, matrix.M43, matrix.M44
+            };
+        }
 
         protected override void Dispose(bool disposing)
         {
