@@ -419,6 +419,15 @@ window.nkGPUDevice =
         var shaderModule = dv.createShaderModule({ code: code });
         return nkJSObject.RegisterObject(shaderModule);
     },
+    CreateRenderPipeline: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var duid = module.HEAP32[(d+ 0)>>2];
+        var dc = nkJSObject.GetObject(duid);
+
+        var pl = dv.createRenderPipeline(dc);
+        return nkJSObject.RegisterObject(pl);
+    },
     GetQueue: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
@@ -970,6 +979,14 @@ window.nkGPURenderPassEncoder =
 
         var bf = nkJSObject.GetObject(buid);
         pe.setVertexBuffer(slot, bf, offset, size);
+    },
+    SetPipeline: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var puid = module.HEAP32[(d+ 0)>>2];
+
+        var pl = nkJSObject.GetObject(puid);
+        pe.setPipeline(pl);
     },
     End: function (uid)
     {

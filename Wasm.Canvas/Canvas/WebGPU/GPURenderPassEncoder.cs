@@ -26,7 +26,12 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
             Invoke(RegisterFunction("nkGPURenderPassEncoder.End"));
         }
-        
+
+        public void SetPipeline(GPURenderPipeline pipeline)
+        {
+            Invoke<int>(RegisterFunction("nkGPURenderPassEncoder.SetPipeline"), pipeline.Uid);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
