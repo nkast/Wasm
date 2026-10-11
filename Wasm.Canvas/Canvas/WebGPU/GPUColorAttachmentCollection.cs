@@ -40,9 +40,6 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public unsafe void Insert(int index, GPUColorAttachment item)
         {
-            if ((uint)index > (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
             GPUColorAttachmentData data = new GPUColorAttachmentData();
             data.ViewUid = item.View.Uid;
             data.LoadOp = item.LoadOp;
@@ -55,9 +52,6 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void RemoveAt(int index)
         {
-            if ((uint)index >= (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
             Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
         }
 
@@ -111,9 +105,6 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         private unsafe GPUColorAttachment GetItem(int index)
         {
-            if ((uint)index >= (uint)Count)
-                throw new ArgumentOutOfRangeException(nameof(index));
-
             GPUColorAttachmentData data = new GPUColorAttachmentData();
             Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Get"), index, (int)&data);
 
