@@ -9,6 +9,8 @@ namespace CanvasGPU.Pages
     {
         GPUShaderModule _shaderModule;
         GPUBuffer _vertexBuffer;
+        GPURenderPipeline _pipeline;
+
         public TriangleClip() : base()
         {
             base.size = new Size(800, 480);
@@ -67,8 +69,8 @@ namespace CanvasGPU.Pages
                 _shaderModule = device.CreateShaderModule(shaderDescriptor);
             }
 
+            if (_pipeline == null)
             {
-                // TODO: create render pipeline
                 GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection()
                 {
                     new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 },
@@ -104,6 +106,7 @@ namespace CanvasGPU.Pages
                 pipelineDescriptor.Vertex = vertexState;
                 pipelineDescriptor.Fragment = fragmentState;
                 pipelineDescriptor.Primitive = primitiveState;
+                _pipeline = device.CreateRenderPipeline(pipelineDescriptor);
             }
 
             if (_vertexBuffer == null)
@@ -121,7 +124,7 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = device.CreateBuffer(bufferDescriptor);
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
-            // TODO: set pipeline
+            renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
             // TODO: set uniforms (worldViewProj)
             // TODO: draw triangle
@@ -136,7 +139,8 @@ namespace CanvasGPU.Pages
                 _shaderModule = null;
                 _vertexBuffer?.Dispose();
                 _vertexBuffer = null;
-                // TODO: dispose pipeline
+                _pipeline?.Dispose();
+                _pipeline = null;
             }
 
             base.Dispose(disposing);
