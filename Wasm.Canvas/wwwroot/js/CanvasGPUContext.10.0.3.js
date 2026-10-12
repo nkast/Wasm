@@ -636,6 +636,13 @@ window.nkGPUBindGroupDescriptor =
         dc.entries = [];
         return nkJSObject.RegisterObject(dc);
     },
+    SetLayout: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var luid = module.HEAP32[(d+ 0)>>2];
+
+        dc.layout = nkJSObject.GetObject(luid);
+    },
 };
 
 window.nkGPUBindGroupEntryCollection =
