@@ -11,6 +11,7 @@ namespace CanvasGPU.Pages
         GPUBuffer _vertexBuffer;
         GPURenderPipeline _pipeline;
         GPUBuffer _uniformBuffer;
+        GPUBindGroup _bindGroup;
         float _angleY;
 
         public TriangleClip() : base()
@@ -137,6 +138,7 @@ namespace CanvasGPU.Pages
                 _uniformBuffer = device.CreateBuffer(uniformDescriptor);
             }
 
+            if (_bindGroup == null)
             {
                 GPUBindGroupEntry entry = new GPUBindGroupEntry();
                 entry.Binding = 0;
@@ -150,6 +152,7 @@ namespace CanvasGPU.Pages
                 GPUBindGroupDescriptor bindGroupDescriptor = new GPUBindGroupDescriptor();
                 bindGroupDescriptor.Layout = layout;
                 bindGroupDescriptor.Entries = entries;
+                _bindGroup = device.CreateBindGroup(bindGroupDescriptor);
             }
 
             Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;
@@ -185,6 +188,8 @@ namespace CanvasGPU.Pages
                 _vertexBuffer = null;
                 _pipeline?.Dispose();
                 _pipeline = null;
+                _bindGroup?.Dispose();
+                _bindGroup = null;
                 _uniformBuffer?.Dispose();
                 _uniformBuffer = null;
             }

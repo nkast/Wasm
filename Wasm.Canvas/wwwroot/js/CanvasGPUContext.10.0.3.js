@@ -419,6 +419,16 @@ window.nkGPUDevice =
         var sm = dv.createShaderModule({ code: code });
         return nkJSObject.RegisterObject(sm);
     },
+
+    CreateBindGroup: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var duid = module.HEAP32[(d+ 0)>>2];
+        var dc = nkJSObject.GetObject(duid);
+
+        var bindGroup = dv.createBindGroup(dc);
+        return nkJSObject.RegisterObject(bindGroup);
+    },
     CreateRenderPipeline: function (uid, module, d)
     {
         var dv = nkJSObject.GetObject(uid);
