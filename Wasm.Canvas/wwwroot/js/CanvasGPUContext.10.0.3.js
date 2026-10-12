@@ -419,6 +419,16 @@ window.nkGPUDevice =
         var sm = dv.createShaderModule({ code: code });
         return nkJSObject.RegisterObject(sm);
     },
+
+    CreateBindGroup: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var duid = module.HEAP32[(d+ 0)>>2];
+        var dc = nkJSObject.GetObject(duid);
+
+        var bindGroup = dv.createBindGroup(dc);
+        return nkJSObject.RegisterObject(bindGroup);
+    },
     CreateRenderPipeline: function (uid, module, d)
     {
         var dv = nkJSObject.GetObject(uid);
@@ -625,6 +635,79 @@ window.nkGPUFragmentState =
         var tuid = module.HEAP32[(d+ 0)>>2];
 
         fs.targets = nkJSObject.GetObject(tuid);
+    },
+};
+
+window.nkGPUBindGroupDescriptor =
+{
+    Create: function (uid, module, d)
+    {
+        var dc = { };
+        dc.entries = [];
+        return nkJSObject.RegisterObject(dc);
+    },
+    SetLayout: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var luid = module.HEAP32[(d+ 0)>>2];
+
+        dc.layout = nkJSObject.GetObject(luid);
+    },
+    SetEntries: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var euid = module.HEAP32[(d+ 0)>>2];
+
+        dc.entries = nkJSObject.GetObject(euid);
+    }
+};
+
+window.nkGPUBindGroupEntryCollection =
+{
+    Create: function (uid, module, d)
+    {
+        var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+    ReadEntry: function (module, ptr)
+    {
+        var bg = module.HEAP32[(ptr+ 0)>>2];
+        var re = nkJSObject.GetObject(module.HEAP32[(ptr+ 4)>>2]);
+
+        return { binding: bg, resource: re };
+    },
+    Add: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var ptr = module.HEAP32[(d+ 0)>>2];
+
+        ar.push(nkGPUBindGroupEntryCollection.ReadEntry(module, ptr));
+    },
+    Insert: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        ar.splice(id, 0, nkGPUBindGroupEntryCollection.ReadEntry(module, ptr));
+    },
+    Set: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        ar[id] = nkGPUBindGroupEntryCollection.ReadEntry(module, ptr);
+    },
+    Get: function (uid, module, d)
+    {
+        var ar = nkJSObject.GetObject(uid);
+        var id = module.HEAP32[(d+ 0)>>2];
+        var ptr = module.HEAP32[(d+ 4)>>2];
+
+        var en = ar[id];
+        module.HEAP32[(ptr+ 0)>>2] = en.binding;
+        module.HEAP32[(ptr+ 4)>>2] = en.resource.nkUid;
     },
 };
 
@@ -987,6 +1070,15 @@ window.nkGPURenderPassEncoder =
 
         var pl = nkJSObject.GetObject(puid);
         pe.setPipeline(pl);
+    },
+    SetBindGroup: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+        var buid = module.HEAP32[(d+ 4)>>2];
+
+        var bg = nkJSObject.GetObject(buid);
+        pe.setBindGroup(index, bg);
     },
     Draw: function (uid, module, d)
     {

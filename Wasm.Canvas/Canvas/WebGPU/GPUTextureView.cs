@@ -3,7 +3,7 @@ using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Canvas.WebGPU
 {
-    public class GPUTextureView : CachedJSObject<GPUTextureView>
+    public class GPUTextureView : CachedJSObject<GPUTextureView>, IGPUBindingResource
     {
         public GPUDevice _device;
 

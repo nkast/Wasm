@@ -44,6 +44,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPURenderPipeline(uid, this);
         }
 
+        public GPUBindGroup CreateBindGroup(GPUBindGroupDescriptor descriptor)
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateBindGroup"), descriptor.Uid);
+            return new GPUBindGroup(uid, this);
+        }
+
         public GPUQueue Queue
         {
             get
