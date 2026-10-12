@@ -41,7 +41,8 @@ namespace CanvasGPU.Pages
         }
 
 
-        private const string SHADER_SOURCE  = "struct VSOut"
+        private const string SHADER_SOURCE  = "@group(0) @binding(0) var<uniform> uWorldViewProj : mat4x4f;"
+                                            + "struct VSOut"
                                             + "{"
                                             + "    @builtin(position) pos : vec4f,"
                                             + "    @location(0) color : vec3f,"
@@ -50,7 +51,7 @@ namespace CanvasGPU.Pages
                                             + "@vertex fn vs_main(@location(0) aPos : vec3f, @location(1) aColor : vec3f) -> VSOut"
                                             + "{"
                                             + "    var o : VSOut;"
-                                            + "    o.pos = vec4f(aPos, 1.0);"
+                                            + "    o.pos = uWorldViewProj * vec4f(aPos, 1.0);"
                                             + "    o.color = aColor;"
                                             + "    return o;"
                                             + "}"
@@ -162,7 +163,7 @@ namespace CanvasGPU.Pages
 
             renderPass.SetPipeline(_pipeline);
             renderPass.SetVertexBuffer(0, _vertexBuffer);
-            // TODO: set uniforms (worldViewProj)
+            renderPass.SetBindGroup(0, _bindGroup);
             renderPass.Draw(3);
         }
 

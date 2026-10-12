@@ -1071,6 +1071,15 @@ window.nkGPURenderPassEncoder =
         var pl = nkJSObject.GetObject(puid);
         pe.setPipeline(pl);
     },
+    SetBindGroup: function (uid, module, d)
+    {
+        var pe = nkJSObject.GetObject(uid);
+        var index = module.HEAP32[(d+ 0)>>2];
+        var buid = module.HEAP32[(d+ 4)>>2];
+
+        var bg = nkJSObject.GetObject(buid);
+        pe.setBindGroup(index, bg);
+    },
     Draw: function (uid, module, d)
     {
         var pe = nkJSObject.GetObject(uid);
