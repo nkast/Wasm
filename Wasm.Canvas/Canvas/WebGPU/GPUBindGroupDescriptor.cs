@@ -6,6 +6,7 @@ namespace nkast.Wasm.Canvas.WebGPU
     public class GPUBindGroupDescriptor : JSObject
     {
         private GPUBindGroupLayout _layout;
+        private GPUBindGroupEntryCollection _entries;
 
         public GPUBindGroupDescriptor() : base(Register())
         {
@@ -26,12 +27,22 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public GPUBindGroupEntryCollection Entries
+        {
+            get { return _entries; }
+            set
+            {
+                _entries = value;
+                Invoke(RegisterFunction("nkGPUBindGroupDescriptor.SetEntries"), value.Uid);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
                 _layout = null;
-
+                _entries = null;
             }
 
             base.Dispose(disposing);

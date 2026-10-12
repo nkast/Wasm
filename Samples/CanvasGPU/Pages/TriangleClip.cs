@@ -149,6 +149,7 @@ namespace CanvasGPU.Pages
 
                 GPUBindGroupDescriptor bindGroupDescriptor = new GPUBindGroupDescriptor();
                 bindGroupDescriptor.Layout = layout;
+                bindGroupDescriptor.Entries = entries;
             }
 
             Matrix4x4 world = Matrix4x4.CreateRotationY(_angleY) * dc.world;

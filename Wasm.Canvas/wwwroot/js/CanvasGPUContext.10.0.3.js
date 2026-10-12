@@ -643,6 +643,13 @@ window.nkGPUBindGroupDescriptor =
 
         dc.layout = nkJSObject.GetObject(luid);
     },
+    SetEntries: function (uid, module, d)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var euid = module.HEAP32[(d+ 0)>>2];
+
+        dc.entries = nkJSObject.GetObject(euid);
+    }
 };
 
 window.nkGPUBindGroupEntryCollection =
