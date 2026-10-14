@@ -131,6 +131,16 @@ namespace CanvasGPU.Pages
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
 
+            {
+                const int TEXTURE_SIZE = 8;
+                GPUTextureDescriptor textureDescriptor = new GPUTextureDescriptor();
+                textureDescriptor.Format = GPUTextureFormat.Rgba8Unorm;
+                textureDescriptor.Usage = GPUTextureUsageType.TextureBinding | GPUTextureUsageType.CopyDst;
+                textureDescriptor.Size.Width = TEXTURE_SIZE;
+                textureDescriptor.Size.Height = TEXTURE_SIZE;
+
+            }
+
             if (_uniformBuffer == null)
             {
                 GPUBufferDescriptor uniformDescriptor = new GPUBufferDescriptor();
