@@ -373,6 +373,8 @@ window.nkGPUCanvasContext =
 
 window.nkGPUTexture =
 {
+    Dimensions: [undefined, '1d', '2d', '3d'],
+
     CreateView: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
@@ -383,6 +385,15 @@ window.nkGPUTexture =
     {
         var tx = nkJSObject.GetObject(uid);
         tx.destroy();
+    },
+
+    ReadSize: function (module, pt)
+    {
+        var wh = module.HEAP32[(pt + 0) >> 2];
+        var ht = module.HEAP32[(pt + 4) >> 2];
+        var dp = module.HEAP32[(pt + 8) >> 2];
+
+        return [wh, ht, dp];
     },
 };
 
@@ -448,6 +459,28 @@ window.nkGPUDevice =
 
         return nkJSObject.RegisterObject(qu);
     },
+    CreateTexture: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var fm = module.HEAP32[(d+ 0)>>2];
+        var us = module.HEAP32[(d+ 4)>>2];
+        var ps = module.HEAP32[(d+ 8)>>2];
+        var ml = module.HEAP32[(d+12)>>2];
+        var sc = module.HEAP32[(d+16)>>2];
+        var dm = module.HEAP32[(d+20)>>2];
+
+        var descriptor = {};
+        descriptor.size = nkGPUTexture.ReadSize(module, ps);
+        descriptor.format = nkGPU.GetTextureFormat(fm);
+        descriptor.usage = us;
+        descriptor.mipLevelCount = ml;
+        descriptor.sampleCount = sc;
+        descriptor.dimension = nkGPUTexture.Dimensions[dm];
+
+        var tx = dv.createTexture(descriptor);
+        return nkJSObject.RegisterObject(tx);
+    },
+        
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);

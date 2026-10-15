@@ -12,6 +12,7 @@ namespace CanvasGPU.Pages
         GPURenderPipeline _pipeline;
         GPUBuffer _uniformBuffer;
         GPUBindGroup _bindGroup;
+        GPUTexture _texture;
         float _angleY;
 
         public TriangleClip() : base()
@@ -131,6 +132,7 @@ namespace CanvasGPU.Pages
                 device.Queue.WriteBuffer<float>(_vertexBuffer, 0, vertices);
             }
 
+            if (_texture == null)
             {
                 const int TEXTURE_SIZE = 8;
                 GPUTextureDescriptor textureDescriptor = new GPUTextureDescriptor();
@@ -138,6 +140,7 @@ namespace CanvasGPU.Pages
                 textureDescriptor.Usage = GPUTextureUsageType.TextureBinding | GPUTextureUsageType.CopyDst;
                 textureDescriptor.Size.Width = TEXTURE_SIZE;
                 textureDescriptor.Size.Height = TEXTURE_SIZE;
+                _texture = device.CreateTexture(textureDescriptor);
 
             }
 
@@ -201,6 +204,8 @@ namespace CanvasGPU.Pages
                 _pipeline = null;
                 _bindGroup?.Dispose();
                 _bindGroup = null;
+                _texture?.Dispose();
+                _texture = null;
                 _uniformBuffer?.Dispose();
                 _uniformBuffer = null;
             }
