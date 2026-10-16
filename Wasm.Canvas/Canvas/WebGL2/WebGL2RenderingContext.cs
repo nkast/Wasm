@@ -130,7 +130,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
 
-        public unsafe void GetBufferSubData<TData>(WebGLBufferType target, int offset, Span<TData> dstData) where TData : struct
+        public unsafe void GetBufferSubData<TData>(WebGLBufferType target, int offset, Span<TData> dstData) where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pDstData = dstData)
@@ -188,7 +188,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void TexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pPixels = pixels)
@@ -219,7 +219,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void TexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, WebGLTexelType type, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
@@ -251,7 +251,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void CompressedTexImage3D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, int depth, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pPixels = pixels)
@@ -282,7 +282,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void CompressedTexSubImage3D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int depth, WebGLFormat format, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int, int>(xoffset, yoffset, zoffset);
