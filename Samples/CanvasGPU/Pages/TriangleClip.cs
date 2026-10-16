@@ -158,6 +158,10 @@ namespace CanvasGPU.Pages
                 entry.Binding = 0;
                 entry.Resource = _uniformBuffer;
 
+                GPUBindGroupEntry textureEntry = new GPUBindGroupEntry();
+                textureEntry.Binding = 1;
+                textureEntry.Resource = _texture.CreateView();
+
                 GPUBindGroupEntryCollection entries = new GPUBindGroupEntryCollection();
                 entries.Add(entry);
 

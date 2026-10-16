@@ -3,13 +3,19 @@ using nkast.Wasm.JSInterop;
 
 namespace nkast.Wasm.Canvas.WebGPU
 {
-    public class GPUTexture : JSObject
+    public class GPUTexture : JSObject, IGPUTexture
     {
         public GPUDevice _device;
 
         internal GPUTexture(int uid, GPUDevice device) : base(uid)
         {
             _device = device;
+        }
+
+        public GPUTextureView CreateView()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUTexture.CreateView"));
+            return new GPUTextureView(uid, _device);
         }
 
         protected override void Dispose(bool disposing)
