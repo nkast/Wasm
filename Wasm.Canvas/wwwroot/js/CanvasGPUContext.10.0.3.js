@@ -374,11 +374,44 @@ window.nkGPUCanvasContext =
 window.nkGPUTexture =
 {
     Dimensions: [undefined, '1d', '2d', '3d'],
+    Aspects: ['all', 'stencil-only', 'depth-only'],
+    Swizzles: [undefined, 'r', 'g', 'b', 'a', '0', '1'],
+    ViewDimensions: [undefined, '1d', '2d', '3d', 'cube', '2d-array', 'cube-array'],
 
     CreateView: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
         var vw = tx.createView();
+        return nkJSObject.RegisterObject(vw);
+    },
+    CreateView1: function (uid, module, d)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        var bl = module.HEAP32[(d+ 0)>>2];
+        var bm = module.HEAP32[(d+ 4)>>2];
+        var as = module.HEAP32[(d+ 8)>>2];
+        var sw = module.HEAP32[(d+12)>>2];
+        var lc = module.HEAP32[(d+16)>>2];
+        var dm = module.HEAP32[(d+20)>>2];
+        var fm = module.HEAP32[(d+24)>>2];
+        var mc = module.HEAP32[(d+28)>>2];
+        var us = module.HEAP32[(d+32)>>2];
+
+        var ds = { baseArrayLayer: bl, baseMipLevel: bm, aspect: nkGPUTexture.Aspects[as] };
+        if (lc !== -1) ds.arrayLayerCount = lc;
+        if (dm !== -1) ds.dimension = nkGPUTexture.ViewDimensions[dm];
+        if (fm !== -1) ds.format = nkGPU.GetTextureFormat(fm);
+        if (mc !== -1) ds.mipLevelCount = mc;
+        if (us !== -1) ds.usage = us;
+
+        if (sw !== -1)
+        {
+            var sz = '';
+            for (var i = 0; i < 4; i++)
+                sz += nkGPUTexture.Swizzles[(sw >> (i * 4)) & 0xF];
+            ds.swizzle = sz;
+        }
+        var vw = tx.createView(ds);
         return nkJSObject.RegisterObject(vw);
     },
     Destroy: function (uid)

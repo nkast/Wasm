@@ -18,6 +18,22 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPUTextureView(uid, _device);
         }
 
+        public GPUTextureView CreateView(GPUTextureViewDescriptor descriptor)
+        {
+            int uid = InvokeRetInt<int, int, int, int, int, int, int, int, int>(
+                RegisterFunction("nkGPUTexture.CreateView1"),
+                descriptor.BaseArrayLayer,
+                descriptor.BaseMipLevel,
+                (int)descriptor.Aspect,
+                descriptor.Swizzle?.Pack() ?? -1,
+                descriptor.ArrayLayerCount ?? -1,
+                (int?)descriptor.Dimension ?? -1,
+                (int?)descriptor.Format ?? -1,
+                descriptor.MipLevelCount ?? -1,
+                (int?)descriptor.Usage ?? -1);
+            return new GPUTextureView(uid, _device);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
