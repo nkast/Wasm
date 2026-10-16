@@ -5,11 +5,19 @@ namespace nkast.Wasm.Dom
 {
     public class Input : HTMLElement<Input>
     {
+        private static readonly int _fid_Create = RegisterFunction("nkInput.Create");
+        private readonly int _fid_GetType;
+        private readonly int _fid_SetType;
+        private readonly int _fid_GetValue;
+        private readonly int _fid_SetValue;
+        private readonly int _fid_GetValueAsNumber;
+        private readonly int _fid_SetValueAsNumber;
+
         public HTMLInputType Type
         {
             get 
             { 
-                int type = InvokeRetInt(RegisterFunction("nkInput.GetType"));
+                int type = InvokeRetInt(_fid_GetType);
                 switch(type)
                 {
                     case 1: return HTMLInputType.Button;
@@ -38,33 +46,45 @@ namespace nkast.Wasm.Dom
 
                     default: throw new NotSupportedException($"Unknown input type {value}");
                 }
-                Invoke(RegisterFunction("nkInput.SetType"), type);
+                Invoke(_fid_SetType, type);
             }
         }
 
         public string Value
         {
-            get { return InvokeRetString(RegisterFunction("nkInput.GetValue")); }
-            set { Invoke<string>(RegisterFunction("nkInput.SetValue"),value); }
+            get { return InvokeRetString(_fid_GetValue); }
+            set { Invoke<string>(_fid_SetValue,value); }
         }
 
         public double ValueAsNumber
         {
-            get { return InvokeRetDouble(RegisterFunction("nkInput.GetValueAsNumber")); }
-            set { Invoke<double>(RegisterFunction("nkInput.SetValueAsNumber"), value); }
+            get { return InvokeRetDouble(_fid_GetValueAsNumber); }
+            set { Invoke<double>(_fid_SetValueAsNumber, value); }
         }
 
         private Input(int uid) : base(uid)
         {
+            _fid_GetType = RegisterFunction("nkInput.GetType");
+            _fid_SetType = RegisterFunction("nkInput.SetType");
+            _fid_GetValue = RegisterFunction("nkInput.GetValue");
+            _fid_SetValue = RegisterFunction("nkInput.SetValue");
+            _fid_GetValueAsNumber = RegisterFunction("nkInput.GetValueAsNumber");
+            _fid_SetValueAsNumber = RegisterFunction("nkInput.SetValueAsNumber");
         }
 
         public Input() : base(Register())
         {
+            _fid_GetType = RegisterFunction("nkInput.GetType");
+            _fid_SetType = RegisterFunction("nkInput.SetType");
+            _fid_GetValue = RegisterFunction("nkInput.GetValue");
+            _fid_SetValue = RegisterFunction("nkInput.SetValue");
+            _fid_GetValueAsNumber = RegisterFunction("nkInput.GetValueAsNumber");
+            _fid_SetValueAsNumber = RegisterFunction("nkInput.SetValueAsNumber");
         }
 
         private static int Register()
         {
-            int uid = JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkInput.Create"));
+            int uid = JSObject.StaticInvokeRetInt(_fid_Create);
             return uid;
         }
     }

@@ -8,8 +8,12 @@ namespace nkast.Wasm.JSInterop
     {
         public int Uid { get; private set; }
 
+        private readonly int _fid_DisposeObject;
+
         public JSObject(int uid)
         {
+            _fid_DisposeObject = RegisterFunction("nkJSObject.DisposeObject");
+
             if (uid >= 0)
             {
                 Uid = uid;
@@ -47,7 +51,7 @@ namespace nkast.Wasm.JSInterop
 
                 }
 
-                Invoke(RegisterFunction("nkJSObject.DisposeObject"), Uid);
+                Invoke(_fid_DisposeObject, Uid);
                 Uid = -1;
 
                 _isDisposed = true;

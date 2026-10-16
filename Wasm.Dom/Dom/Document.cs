@@ -8,6 +8,11 @@ namespace nkast.Wasm.Dom
 {
     public class Document : JSObject
     {
+        private readonly int _fid_GetTitle;
+        private readonly int _fid_SetTitle;
+        private readonly int _fid_GetElementById;
+        private readonly int _fid_HasFocus;
+
         private readonly Window _window;
         private readonly Dictionary<string, WeakReference<JSObject>> _elementsCache = new Dictionary<string, WeakReference<JSObject>>();
 
@@ -15,12 +20,16 @@ namespace nkast.Wasm.Dom
 
         public string Title
         {
-            get { return InvokeRetString(RegisterFunction("nkDocument.GetTitle")); }
-            set { Invoke(RegisterFunction("nkDocument.SetTitle"), value); }
+            get { return InvokeRetString(_fid_GetTitle); }
+            set { Invoke(_fid_SetTitle, value); }
         }
 
         internal Document(Window window, int uid) : base(uid)
         {
+            _fid_GetTitle = RegisterFunction("nkDocument.GetTitle");
+            _fid_SetTitle = RegisterFunction("nkDocument.SetTitle");
+            _fid_GetElementById = RegisterFunction("nkDocument.GetElementById");
+            _fid_HasFocus = RegisterFunction("nkDocument.HasFocus");
             _window = window;
         }
 
@@ -44,7 +53,7 @@ namespace nkast.Wasm.Dom
             if (element != null)
                 return element;
 
-            int uid = InvokeRetInt<string>(RegisterFunction("nkDocument.GetElementById"), id);
+            int uid = InvokeRetInt<string>(_fid_GetElementById, id);
             if (uid != -1)
             {
                 element = CreateInstance<TElement>(uid);
@@ -68,7 +77,7 @@ namespace nkast.Wasm.Dom
 
         public bool HasFocus()
         {
-            return InvokeRetBool(RegisterFunction("nkDocument.HasFocus"));
+            return InvokeRetBool(_fid_HasFocus);
         }
     }
 }

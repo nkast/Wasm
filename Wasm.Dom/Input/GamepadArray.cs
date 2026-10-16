@@ -9,8 +9,13 @@ namespace nkast.Wasm.Input
         , IReadOnlyCollection<Gamepad>
         , IReadOnlyList<Gamepad>
     {
+        private readonly int _fid_GetItem;
+        private readonly int _fid_GetLength;
+
         internal GamepadArray(int uid) : base(uid)
         {
+            _fid_GetItem = RegisterFunction("nkJSArray.GetItem");
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
         }
 
         #region IReadOnlyList
@@ -19,7 +24,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int uid = InvokeRetInt<int>(RegisterFunction("nkJSArray.GetItem"), index);
+                int uid = InvokeRetInt<int>(_fid_GetItem, index);
                 Gamepad gamepad = Gamepad.FromUid(uid);
                 if (gamepad != null)
                     return gamepad;
@@ -39,7 +44,7 @@ namespace nkast.Wasm.Input
         {
             get
             {
-                int count = InvokeRetInt(RegisterFunction("nkJSArray.GetLength"));
+                int count = InvokeRetInt(_fid_GetLength);
                 return count;
             }
         }
