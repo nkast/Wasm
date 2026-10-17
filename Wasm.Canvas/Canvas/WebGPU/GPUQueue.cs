@@ -38,6 +38,15 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public unsafe void WriteBuffer<TData>(GPUBuffer buffer, long bufferOffset, ReadOnlySpan<TData> data) where TData : unmanaged
+        {
+            int stride = sizeof(TData);
+            fixed (TData* pData = data)
+            {
+                Invoke(RegisterFunction("nkGPUQueue.WriteBuffer"), buffer.Uid, (int)bufferOffset, (int)pData, data.Length * stride);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
