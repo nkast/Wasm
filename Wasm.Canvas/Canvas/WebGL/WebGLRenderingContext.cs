@@ -257,7 +257,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void TexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, WebGLFormat format, WebGLTexelType type, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pPixels = pixels)
@@ -293,7 +293,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void TexSubImage2D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int width, int height, WebGLFormat format, WebGLTexelType type, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int>(xoffset, yoffset);
@@ -325,7 +325,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void CompressedTexImage2D<TData>(WebGLTextureTarget target, int level, WebGLInternalFormat internalFormat, int width, int height, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pPixels = pixels)
@@ -356,7 +356,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void CompressedTexSubImage2D<TData>(WebGLTextureTarget target, int level, int xoffset, int yoffset, int width, int height, WebGLFormat format, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             var position = ValueTuple.Create<int, int>(xoffset, yoffset);
@@ -388,7 +388,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void ReadPixels<TData>(int x, int y, int width, int height, WebGLFormat format, WebGLTexelType type, Span<TData> pixels)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pPixels = pixels)
@@ -551,7 +551,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform1iv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -569,7 +569,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform2iv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -587,7 +587,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform3iv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -605,7 +605,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform4iv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -624,7 +624,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform1fv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -642,7 +642,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform2fv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -660,7 +660,7 @@ namespace nkast.Wasm.Canvas.WebGL
             }
         }
         public unsafe void Uniform3fv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -679,7 +679,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
         
         public unsafe void Uniform4fv<TData>(WebGLUniformLocation location, Span<TData> value)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -699,7 +699,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void UniformMatrix2fv<TData>(WebGLUniformLocation location, Span<TData> value) 
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -719,7 +719,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void UniformMatrix3fv<TData>(WebGLUniformLocation location, Span<TData> value) 
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -739,7 +739,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void UniformMatrix4fv<TData>(WebGLUniformLocation location, Span<TData> value) 
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pValue = value)
@@ -769,7 +769,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void BufferData<TData>(WebGLBufferType type, Span<TData> data, WebGLBufferUsageHint usage)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pData = data)
@@ -789,7 +789,7 @@ namespace nkast.Wasm.Canvas.WebGL
         }
 
         public unsafe void BufferSubData<TData>(WebGLBufferType target, int offset, Span<TData> srcData)
-            where TData : struct
+            where TData : unmanaged
         {
             int stride = Marshal.SizeOf<TData>();
             fixed (TData* pSrcData = srcData)
