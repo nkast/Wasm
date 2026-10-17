@@ -12,6 +12,45 @@ namespace nkast.Wasm.Canvas.WebGPU
             _device = device;
         }
 
+        public int Width
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUTexture.GetWidth")); }
+        }
+
+        public int Height
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUTexture.GetHeight")); }
+        }
+
+        public int DepthOrArrayLayers
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUTexture.GetDepthOrArrayLayers")); }
+        }
+
+        public int MipLevelCount
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUTexture.GetMipLevelCount")); }
+        }
+
+        public int SampleCount
+        {
+            get { return InvokeRetInt(RegisterFunction("nkGPUTexture.GetSampleCount")); }
+        }
+
+        public GPUTextureDimensionType Dimension
+        {
+            get { return (GPUTextureDimensionType)InvokeRetInt(RegisterFunction("nkGPUTexture.GetDimension")); }
+        }
+
+        public GPUTextureFormat Format
+        {
+            get { return (GPUTextureFormat)InvokeRetInt(RegisterFunction("nkGPUTexture.GetFormat")); }
+        }
+
+        public GPUTextureUsageType Usage
+        {
+            get { return (GPUTextureUsageType)InvokeRetInt(RegisterFunction("nkGPUTexture.GetUsage")); }
+        }
         public GPUTextureView CreateView()
         {
             int uid = InvokeRetInt(RegisterFunction("nkGPUTexture.CreateView"));

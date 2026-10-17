@@ -378,6 +378,46 @@ window.nkGPUTexture =
     Swizzles: [undefined, 'r', 'g', 'b', 'a', '0', '1'],
     ViewDimensions: [undefined, '1d', '2d', '3d', 'cube', '2d-array', 'cube-array'],
 
+    GetWidth: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.width;
+    },
+    GetHeight: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.height;
+    },
+    GetDepthOrArrayLayers: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.depthOrArrayLayers;
+    },
+    GetMipLevelCount: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.mipLevelCount;
+    },
+    GetSampleCount: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.sampleCount;
+    },
+    GetDimension: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return nkGPUTexture.Dimensions.indexOf(tx.dimension);
+    },
+    GetFormat: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return nkGPU.GetTextureFormatId(tx.format);
+    },
+    GetUsage: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.usage;
+    },
     CreateView: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
