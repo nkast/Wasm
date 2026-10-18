@@ -1145,6 +1145,42 @@ window.nkGPUQueue =
         var data = new Uint8Array(module.HEAPU8.buffer, ptr, size);
         qu.writeBuffer(bf, offset, data);
     },
+    WriteTexture: function (uid, module, d)
+    {
+        var qu = nkJSObject.GetObject(uid);
+        var tuid = module.HEAP32[(d+ 0)>>2];
+        var mip = module.HEAP32[(d+ 4)>>2];
+        var asp = module.HEAP32[(d+ 8)>>2];
+        var po = module.HEAP32[(d+12)>>2];
+        var ptr = module.HEAP32[(d+16)>>2];
+        var size = module.HEAP32[(d+20)>>2];
+        var offset = module.HEAP32[(d+24)>>2];
+        var bpr = module.HEAP32[(d+28)>>2];
+        var rpi = module.HEAP32[(d+32)>>2];
+        var ps = module.HEAP32[(d+36)>>2];
+
+        var ox = module.HEAP32[(po+ 0)>>2];
+        var oy = module.HEAP32[(po+ 4)>>2];
+        var oz = module.HEAP32[(po+ 8)>>2];
+
+        var tx = nkJSObject.GetObject(tuid);
+        var data = new Uint8Array(module.HEAPU8.buffer, ptr, size);
+
+        var destination = {};
+        destination.texture = tx;
+        destination.mipLevel = mip;
+        destination.origin = [ox, oy, oz];
+        destination.aspect = nkGPUTexture.Aspects[asp];
+
+        var layout = {};
+        layout.offset = offset;
+        if (bpr !== -1) layout.bytesPerRow = bpr;
+        if (rpi !== -1) layout.rowsPerImage = rpi;
+
+        var size = nkGPUTexture.ReadSize(module, ps);
+
+        qu.writeTexture(destination, data, layout, size);
+    },
 };
 
 window.nkGPURenderPassEncoder =

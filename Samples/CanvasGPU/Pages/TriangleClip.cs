@@ -142,6 +142,24 @@ namespace CanvasGPU.Pages
                 textureDescriptor.Size.Height = TEXTURE_SIZE;
                 _texture = device.CreateTexture(textureDescriptor);
 
+                byte[] pixels = new byte[TEXTURE_SIZE * TEXTURE_SIZE * 4];
+                for (int y = 0; y < TEXTURE_SIZE; y++)
+                {
+                    for (int x = 0; x < TEXTURE_SIZE; x++)
+                    {
+                        int i = (y * TEXTURE_SIZE + x) * 4;
+                        bool checker = ((x / 2) + (y / 2)) % 2 == 0;
+                        pixels[i + 0] = (byte)(x * 255 / (TEXTURE_SIZE - 1));
+                        pixels[i + 1] = (byte)(y * 255 / (TEXTURE_SIZE - 1));
+                        pixels[i + 2] = checker ? (byte)255 : (byte)0;
+                        pixels[i + 3] = 255;
+                    }
+                }
+                device.Queue.WriteTexture<byte>(
+                    new GPUTextureCopyLocation { Texture = _texture },
+                    pixels,
+                    new GPUTextureDataLayout { BytesPerRow = TEXTURE_SIZE * 4 },
+                    new GPUTextureSize(TEXTURE_SIZE, TEXTURE_SIZE));
             }
 
             if (_uniformBuffer == null)
