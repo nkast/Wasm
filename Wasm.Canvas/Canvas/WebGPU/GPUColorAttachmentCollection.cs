@@ -15,9 +15,18 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public GPUColorAttachmentCollection(int count) : base(Register(count))
+        {
+        }
+
         private static int Register()
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create"));
+        }
+
+        private static int Register(int count)
+        {
+            return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorAttachmentCollection.Create1"), count);
         }
 
         public unsafe GPUColorAttachment this[int index]

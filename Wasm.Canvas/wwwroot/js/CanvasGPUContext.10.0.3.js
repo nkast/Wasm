@@ -649,6 +649,12 @@ window.nkGPUColorTargetStateCollection =
         var ar = [];
         return nkJSObject.RegisterObject(ar);
     },
+    Create1: function (uid, module, d)
+    {
+        var ct = module.HEAP32[(d + 0) >> 2];
+        var ar = new Array(ct);
+        return nkJSObject.RegisterObject(ar);
+    },
 
     ReadTarget: function (module, pt)
     {
@@ -818,6 +824,12 @@ window.nkGPUBindGroupEntryCollection =
     Create: function (uid, module, d)
     {
         var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+    Create1: function (uid, module, d)
+    {
+        var ct = module.HEAP32[(d + 0) >> 2];
+        var ar = new Array(ct);
         return nkJSObject.RegisterObject(ar);
     },
     ReadEntry: function (module, ptr)
@@ -1013,6 +1025,12 @@ window.nkGPUVertexAttributeCollection =
         var ar = [];
         return nkJSObject.RegisterObject(ar);
     },
+    Create1: function (uid, module, d)
+    {
+        var ct = module.HEAP32[(d + 0) >> 2];
+        var ar = new Array(ct);
+        return nkJSObject.RegisterObject(ar);
+    },
     ReadAttribute: function (module, pt)
     {
         var fm = module.HEAP32[(pt+ 0)>>2];
@@ -1070,6 +1088,12 @@ window.nkGPUVertexBufferLayoutCollection =
         var ar = [];
         return nkJSObject.RegisterObject(ar);
     },
+    Create1: function (uid, module, d)
+    {
+        var ct = module.HEAP32[(d + 0) >> 2];
+        var ar = new Array(ct);
+        return nkJSObject.RegisterObject(ar);
+    },
 };
 
 window.nkGPUColorAttachmentCollection =
@@ -1077,6 +1101,12 @@ window.nkGPUColorAttachmentCollection =
     Create: function (uid, module, d)
     {
         var ar = [];
+        return nkJSObject.RegisterObject(ar);
+    },
+    Create1: function (uid, module, d)
+    {
+        var ct = module.HEAP32[(d + 0) >> 2];
+        var ar = new Array(ct);
         return nkJSObject.RegisterObject(ar);
     },
     ReadColorAttachment: function (module, arrPtr)

@@ -15,9 +15,18 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public GPUVertexBufferLayoutCollection(int count) : base(Register(count))
+        {
+        }
+
         private static int Register()
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUVertexBufferLayoutCollection.Create"));
+        }
+
+        private static int Register(int count)
+        {
+            return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUVertexBufferLayoutCollection.Create1"), count);
         }
 
         public GPUVertexBufferLayout this[int index]

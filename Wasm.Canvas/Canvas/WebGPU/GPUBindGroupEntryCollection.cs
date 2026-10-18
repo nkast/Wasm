@@ -28,9 +28,18 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public GPUBindGroupEntryCollection(int count) : base(Register(count))
+        {
+        }
+
         private static int Register()
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUBindGroupEntryCollection.Create"));
+        }
+
+        private static int Register(int count)
+        {
+            return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUBindGroupEntryCollection.Create1"), count);
         }
 
 

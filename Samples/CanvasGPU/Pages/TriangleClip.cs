@@ -83,18 +83,16 @@ namespace CanvasGPU.Pages
 
             if (_pipeline == null)
             {
-                GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection()
-                {
-                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 },
-                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 3 * sizeof(float), ShaderLocation = 1 },
-                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x2, Offset = 6 * sizeof(float), ShaderLocation = 2 },
-                };
+                GPUVertexAttributeCollection attributes = new GPUVertexAttributeCollection(3);
+                attributes[0] = new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 };
+                attributes[1] = new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 3 * sizeof(float), ShaderLocation = 1 };
+                attributes[2] = new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x2, Offset = 6 * sizeof(float), ShaderLocation = 2 };
                 GPUVertexBufferLayout vertexBufferLayout = new GPUVertexBufferLayout();
                 vertexBufferLayout.ArrayStride = 8 * sizeof(float);
                 vertexBufferLayout.Attributes = attributes;
 
-                GPUVertexBufferLayoutCollection buffers = new GPUVertexBufferLayoutCollection();
-                buffers.Add(vertexBufferLayout);
+                GPUVertexBufferLayoutCollection buffers = new GPUVertexBufferLayoutCollection(1);
+                buffers[0] = vertexBufferLayout;
 
                 GPUVertexState vertexState = new GPUVertexState();
                 vertexState.Module = _shaderModule;
@@ -104,8 +102,8 @@ namespace CanvasGPU.Pages
                 GPUColorTargetState colorTarget = new GPUColorTargetState();
                 colorTarget.Format = canvasConfiguration.Format;
 
-                GPUColorTargetStateCollection targets = new GPUColorTargetStateCollection();
-                targets.Add(colorTarget);
+                GPUColorTargetStateCollection targets = new GPUColorTargetStateCollection(1);
+                targets[0] = colorTarget;
 
                 GPUFragmentState fragmentState = new GPUFragmentState();
                 fragmentState.Module = _shaderModule;
@@ -200,10 +198,10 @@ namespace CanvasGPU.Pages
                 samplerEntry.Binding = 2;
                 samplerEntry.Resource = _sampler;
 
-                GPUBindGroupEntryCollection entries = new GPUBindGroupEntryCollection();
-                entries.Add(entry);
-                entries.Add(textureEntry);
-                entries.Add(samplerEntry);
+                GPUBindGroupEntryCollection entries = new GPUBindGroupEntryCollection(3);
+                entries[0] = entry;
+                entries[1] = textureEntry;
+                entries[2] = samplerEntry;
 
                 GPUBindGroupLayout layout = _pipeline.GetBindGroupLayout(0);
 
