@@ -44,23 +44,27 @@ namespace CanvasGPU.Pages
 
 
         private const string SHADER_SOURCE  = "@group(0) @binding(0) var<uniform> uWorldViewProj : mat4x4f;"
+                                            + "@group(0) @binding(1) var uTexture : texture_2d<f32>;"
+                                            + "@group(0) @binding(2) var uSampler : sampler;"
                                             + "struct VSOut"
                                             + "{"
                                             + "    @builtin(position) pos : vec4f,"
                                             + "    @location(0) color : vec3f,"
+                                            + "    @location(1) uv : vec2f,"
                                             + "};"
                                             + ""
-                                            + "@vertex fn vs_main(@location(0) aPos : vec3f, @location(1) aColor : vec3f) -> VSOut"
+                                            + "@vertex fn vs_main(@location(0) aPos : vec3f, @location(1) aColor : vec3f, @location(2) aUV : vec2f) -> VSOut"
                                             + "{"
                                             + "    var o : VSOut;"
                                             + "    o.pos = uWorldViewProj * vec4f(aPos, 1.0);"
                                             + "    o.color = aColor;"
+                                            + "    o.uv = aUV;"
                                             + "    return o;"
                                             + "}"
                                             + ""
-                                            + "@fragment fn fs_main(@location(0) vColor : vec3f) -> @location(0) vec4f"
+                                            + "@fragment fn fs_main(@location(0) vColor : vec3f, @location(1) vUV : vec2f) -> @location(0) vec4f"
                                             + "{"
-                                            + "    return vec4f(vColor, 1.0);"
+                                            + "    return vec4f(vColor, 1.0) * textureSample(uTexture, uSampler, vUV);"
                                             + "}";
 
 
@@ -83,9 +87,10 @@ namespace CanvasGPU.Pages
                 {
                     new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 0, ShaderLocation = 0 },
                     new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x3, Offset = 3 * sizeof(float), ShaderLocation = 1 },
+                    new GPUVertexAttribute { Format = GPUVertexFormatType.Float32x2, Offset = 6 * sizeof(float), ShaderLocation = 2 },
                 };
                 GPUVertexBufferLayout vertexBufferLayout = new GPUVertexBufferLayout();
-                vertexBufferLayout.ArrayStride = 6 * sizeof(float);
+                vertexBufferLayout.ArrayStride = 8 * sizeof(float);
                 vertexBufferLayout.Attributes = attributes;
 
                 GPUVertexBufferLayoutCollection buffers = new GPUVertexBufferLayoutCollection();
@@ -121,9 +126,9 @@ namespace CanvasGPU.Pages
             {
                 float[] vertices = new[]
                 {
-                    -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
-                     0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 0.0f,
-                     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f
+                    -0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   0.0f, 1.0f,
+                     0.0f,  0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   0.5f, 0.0f,
+                     0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 1.0f,   1.0f, 1.0f
                 };
 
                 GPUBufferDescriptor bufferDescriptor = new GPUBufferDescriptor();
@@ -191,8 +196,14 @@ namespace CanvasGPU.Pages
                 textureEntry.Binding = 1;
                 textureEntry.Resource = _texture.CreateView();
 
+                GPUBindGroupEntry samplerEntry = new GPUBindGroupEntry();
+                samplerEntry.Binding = 2;
+                samplerEntry.Resource = _sampler;
+
                 GPUBindGroupEntryCollection entries = new GPUBindGroupEntryCollection();
                 entries.Add(entry);
+                entries.Add(textureEntry);
+                entries.Add(samplerEntry);
 
                 GPUBindGroupLayout layout = _pipeline.GetBindGroupLayout(0);
 
