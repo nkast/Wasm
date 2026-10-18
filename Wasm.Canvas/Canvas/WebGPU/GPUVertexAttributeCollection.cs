@@ -24,13 +24,22 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
-        internal GPUVertexAttributeCollection(int uid) : base(uid)
+        public GPUVertexAttributeCollection(int count) : base(Register(count))
+        {
+        }
+
+        internal GPUVertexAttributeCollection(int uid, bool existing) : base(uid)
         {
         }
 
         private static int Register()
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUVertexAttributeCollection.Create"));
+        }
+
+        private static int Register(int count)
+        {
+            return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUVertexAttributeCollection.Create1"), count);
         }
 
         public void Add(GPUVertexAttribute item)

@@ -35,9 +35,18 @@ namespace nkast.Wasm.Canvas.WebGPU
         {
         }
 
+        public GPUColorTargetStateCollection(int count) : base(Register(count))
+        {
+        }
+
         private static int Register()
         {
             return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorTargetStateCollection.Create"));
+        }
+
+        private static int Register(int count)
+        {
+            return JSObject.StaticInvokeRetInt(JSObject.RegisterFunction("nkGPUColorTargetStateCollection.Create1"), count);
         }
 
         public void Add(GPUColorTargetState item)

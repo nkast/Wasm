@@ -24,7 +24,7 @@ namespace nkast.Wasm.Canvas.WebGPU
                 int uid = InvokeRetInt(RegisterFunction("nkGPUVertexBufferLayout.GetAttributes"));
                 GPUVertexAttributeCollection attributes = GPUVertexAttributeCollection.FromUid(uid);
                 if (attributes == null)
-                    attributes = new GPUVertexAttributeCollection(uid);
+                    new GPUVertexAttributeCollection(uid, true);
                 return attributes;
             }
             set
