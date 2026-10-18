@@ -559,12 +559,51 @@ window.nkGPUDevice =
         var sp = dv.createSampler();
         return nkJSObject.RegisterObject(sp);
     },
+    CreateSampler1: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var au = module.HEAP32[(d+ 0)>>2];
+        var av = module.HEAP32[(d+ 4)>>2];
+        var aw = module.HEAP32[(d+ 8)>>2];
+        var mg = module.HEAP32[(d+12)>>2];
+        var mn = module.HEAP32[(d+16)>>2];
+        var mp = module.HEAP32[(d+20)>>2];
+        var lo = module.HEAPF32[(d+24)>>2];
+        var cp = module.HEAP32[(d+28)>>2];
+        var hi = module.HEAPF32[(d+32)>>2];
+        var ma = module.HEAP32[(d+36)>>2];
+
+        var ds = {};
+        ds.addressModeU = nkGPUSampler.AddressModes[au];
+        ds.addressModeV = nkGPUSampler.AddressModes[av];
+        ds.addressModeW = nkGPUSampler.AddressModes[aw];
+        ds.magFilter = nkGPUSampler.FilterModes[mg];
+        ds.minFilter = nkGPUSampler.FilterModes[mn];
+        ds.mipmapFilter = nkGPUSampler.FilterModes[mp];
+        ds.lodMinClamp = lo;
+        if (cp !== -1)
+            ds.compare = nkGPUSampler.CompareFunctions[cp];
+        if (hi !== -1)
+            ds.lodMaxClamp = hi;
+        if (ma !== -1)
+            ds.maxAnisotropy = ma;
+
+        var sp = dv.createSampler(ds);
+        return nkJSObject.RegisterObject(sp);
+    },
         
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
         dv.destroy();
     },
+};
+
+window.nkGPUSampler =
+{
+    AddressModes: ['clamp-to-edge', 'repeat', 'mirror-repeat'],
+    FilterModes: ['nearest', 'linear'],
+    CompareFunctions: [undefined, 'never', 'less', 'equal', 'less-equal', 'greater', 'not-equal', 'greater-equal', 'always'],
 };
 
 window.nkGPUVertexState =

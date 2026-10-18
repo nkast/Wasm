@@ -165,7 +165,12 @@ namespace CanvasGPU.Pages
 
             if (_sampler == null)
             {
-                _sampler = device.CreateSampler();
+                GPUSamplerDescriptor samplerDescriptor = new GPUSamplerDescriptor();
+                samplerDescriptor.MagFilter = GPUFilterType.Nearest;
+                samplerDescriptor.MinFilter = GPUFilterType.Nearest;
+                samplerDescriptor.LodMaxClamp = 32f;
+                samplerDescriptor.MaxAnisotropy = 1;
+                _sampler = device.CreateSampler(samplerDescriptor);
             }
 
             if (_uniformBuffer == null)
