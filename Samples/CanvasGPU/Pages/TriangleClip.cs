@@ -13,6 +13,7 @@ namespace CanvasGPU.Pages
         GPUBuffer _uniformBuffer;
         GPUBindGroup _bindGroup;
         GPUTexture _texture;
+        GPUSampler _sampler;
         float _angleY;
 
         public TriangleClip() : base()
@@ -162,6 +163,11 @@ namespace CanvasGPU.Pages
                     new GPUTextureSize(TEXTURE_SIZE, TEXTURE_SIZE));
             }
 
+            if (_sampler == null)
+            {
+                _sampler = device.CreateSampler();
+            }
+
             if (_uniformBuffer == null)
             {
                 GPUBufferDescriptor uniformDescriptor = new GPUBufferDescriptor();
@@ -228,6 +234,8 @@ namespace CanvasGPU.Pages
                 _bindGroup = null;
                 _texture?.Dispose();
                 _texture = null;
+                _sampler?.Dispose();
+                _sampler = null;
                 _uniformBuffer?.Dispose();
                 _uniformBuffer = null;
             }

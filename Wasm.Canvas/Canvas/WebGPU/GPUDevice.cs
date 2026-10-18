@@ -46,6 +46,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPUTexture(uid, this);
         }
 
+        public GPUSampler CreateSampler()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateSampler"));
+            return new GPUSampler(uid, this);
+        }
+
         public GPUShaderModule CreateShaderModule(GPUShaderModuleDescriptor descriptor)
         {
             int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateShaderModule"), descriptor.Code);

@@ -553,6 +553,12 @@ window.nkGPUDevice =
         var tx = dv.createTexture(descriptor);
         return nkJSObject.RegisterObject(tx);
     },
+    CreateSampler: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var sp = dv.createSampler();
+        return nkJSObject.RegisterObject(sp);
+    },
         
     Destroy: function (uid)
     {
