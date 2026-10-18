@@ -32,6 +32,43 @@ namespace nkast.Wasm.Canvas.WebGPU
             return new GPUBuffer(uid, this);
         }
 
+        public unsafe GPUTexture CreateTexture(GPUTextureDescriptor descriptor)
+        {
+            GPUTextureSize size = descriptor.Size;
+            int uid = InvokeRetInt(
+                RegisterFunction("nkGPUDevice.CreateTexture"),
+                (int)descriptor.Format,
+                (int)descriptor.Usage,
+                (int)&size,
+                descriptor.MipLevelCount,
+                descriptor.SampleCount,
+                (int)descriptor.Dimension);
+            return new GPUTexture(uid, this);
+        }
+
+        public GPUSampler CreateSampler()
+        {
+            int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateSampler"));
+            return new GPUSampler(uid, this);
+        }
+
+        public GPUSampler CreateSampler(GPUSamplerDescriptor descriptor)
+        {
+            int uid = InvokeRetInt(
+                RegisterFunction("nkGPUDevice.CreateSampler1"),
+                (int)descriptor.AddressModeU,
+                (int)descriptor.AddressModeV,
+                (int)descriptor.AddressModeW,
+                (int)descriptor.MagFilter,
+                (int)descriptor.MinFilter,
+                (int)descriptor.MipmapFilter,
+                descriptor.LodMinClamp,
+                descriptor.Compare.HasValue ? (int)descriptor.Compare.Value : -1,
+                descriptor.LodMaxClamp ?? -1f,
+                descriptor.MaxAnisotropy ?? -1);
+            return new GPUSampler(uid, this);
+        }
+
         public GPUShaderModule CreateShaderModule(GPUShaderModuleDescriptor descriptor)
         {
             int uid = InvokeRetInt(RegisterFunction("nkGPUDevice.CreateShaderModule"), descriptor.Code);

@@ -47,6 +47,28 @@ namespace nkast.Wasm.Canvas.WebGPU
             }
         }
 
+        public unsafe void WriteTexture<TData>(
+            GPUTextureCopyLocation destination,
+            ReadOnlySpan<TData> data,
+            GPUTextureDataLayout dataLayout, 
+            GPUTextureSize size) where TData : unmanaged
+        {
+            GPUTextureOrigin origin = destination.Origin;
+            fixed (TData* pData = data)
+            {
+                Invoke(RegisterFunction("nkGPUQueue.WriteTexture"),
+                    destination.Texture.Uid,
+                    destination.MipLevel,
+                    (int)destination.Aspect,
+                    (int)&origin,
+                    (int)pData,
+                    data.Length * sizeof(TData),
+                    (int)dataLayout.Offset,
+                    dataLayout.BytesPerRow ?? -1,
+                    dataLayout.RowsPerImage ?? -1,
+                    (int)&size);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

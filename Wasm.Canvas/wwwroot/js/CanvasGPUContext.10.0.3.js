@@ -373,16 +373,100 @@ window.nkGPUCanvasContext =
 
 window.nkGPUTexture =
 {
+    Dimensions: [undefined, '1d', '2d', '3d'],
+    Aspects: ['all', 'stencil-only', 'depth-only'],
+    Swizzles: [undefined, 'r', 'g', 'b', 'a', '0', '1'],
+    ViewDimensions: [undefined, '1d', '2d', '3d', 'cube', '2d-array', 'cube-array'],
+
+    GetWidth: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.width;
+    },
+    GetHeight: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.height;
+    },
+    GetDepthOrArrayLayers: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.depthOrArrayLayers;
+    },
+    GetMipLevelCount: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.mipLevelCount;
+    },
+    GetSampleCount: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.sampleCount;
+    },
+    GetDimension: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return nkGPUTexture.Dimensions.indexOf(tx.dimension);
+    },
+    GetFormat: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return nkGPU.GetTextureFormatId(tx.format);
+    },
+    GetUsage: function (uid)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        return tx.usage;
+    },
     CreateView: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
         var vw = tx.createView();
         return nkJSObject.RegisterObject(vw);
     },
+    CreateView1: function (uid, module, d)
+    {
+        var tx = nkJSObject.GetObject(uid);
+        var bl = module.HEAP32[(d+ 0)>>2];
+        var bm = module.HEAP32[(d+ 4)>>2];
+        var as = module.HEAP32[(d+ 8)>>2];
+        var sw = module.HEAP32[(d+12)>>2];
+        var lc = module.HEAP32[(d+16)>>2];
+        var dm = module.HEAP32[(d+20)>>2];
+        var fm = module.HEAP32[(d+24)>>2];
+        var mc = module.HEAP32[(d+28)>>2];
+        var us = module.HEAP32[(d+32)>>2];
+
+        var ds = { baseArrayLayer: bl, baseMipLevel: bm, aspect: nkGPUTexture.Aspects[as] };
+        if (lc !== -1) ds.arrayLayerCount = lc;
+        if (dm !== -1) ds.dimension = nkGPUTexture.ViewDimensions[dm];
+        if (fm !== -1) ds.format = nkGPU.GetTextureFormat(fm);
+        if (mc !== -1) ds.mipLevelCount = mc;
+        if (us !== -1) ds.usage = us;
+
+        if (sw !== -1)
+        {
+            var sz = '';
+            for (var i = 0; i < 4; i++)
+                sz += nkGPUTexture.Swizzles[(sw >> (i * 4)) & 0xF];
+            ds.swizzle = sz;
+        }
+        var vw = tx.createView(ds);
+        return nkJSObject.RegisterObject(vw);
+    },
     Destroy: function (uid)
     {
         var tx = nkJSObject.GetObject(uid);
         tx.destroy();
+    },
+
+    ReadSize: function (module, pt)
+    {
+        var wh = module.HEAP32[(pt + 0) >> 2];
+        var ht = module.HEAP32[(pt + 4) >> 2];
+        var dp = module.HEAP32[(pt + 8) >> 2];
+
+        return [wh, ht, dp];
     },
 };
 
@@ -448,11 +532,78 @@ window.nkGPUDevice =
 
         return nkJSObject.RegisterObject(qu);
     },
+    CreateTexture: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var fm = module.HEAP32[(d+ 0)>>2];
+        var us = module.HEAP32[(d+ 4)>>2];
+        var ps = module.HEAP32[(d+ 8)>>2];
+        var ml = module.HEAP32[(d+12)>>2];
+        var sc = module.HEAP32[(d+16)>>2];
+        var dm = module.HEAP32[(d+20)>>2];
+
+        var descriptor = {};
+        descriptor.size = nkGPUTexture.ReadSize(module, ps);
+        descriptor.format = nkGPU.GetTextureFormat(fm);
+        descriptor.usage = us;
+        descriptor.mipLevelCount = ml;
+        descriptor.sampleCount = sc;
+        descriptor.dimension = nkGPUTexture.Dimensions[dm];
+
+        var tx = dv.createTexture(descriptor);
+        return nkJSObject.RegisterObject(tx);
+    },
+    CreateSampler: function (uid)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var sp = dv.createSampler();
+        return nkJSObject.RegisterObject(sp);
+    },
+    CreateSampler1: function (uid, module, d)
+    {
+        var dv = nkJSObject.GetObject(uid);
+        var au = module.HEAP32[(d+ 0)>>2];
+        var av = module.HEAP32[(d+ 4)>>2];
+        var aw = module.HEAP32[(d+ 8)>>2];
+        var mg = module.HEAP32[(d+12)>>2];
+        var mn = module.HEAP32[(d+16)>>2];
+        var mp = module.HEAP32[(d+20)>>2];
+        var lo = module.HEAPF32[(d+24)>>2];
+        var cp = module.HEAP32[(d+28)>>2];
+        var hi = module.HEAPF32[(d+32)>>2];
+        var ma = module.HEAP32[(d+36)>>2];
+
+        var ds = {};
+        ds.addressModeU = nkGPUSampler.AddressModes[au];
+        ds.addressModeV = nkGPUSampler.AddressModes[av];
+        ds.addressModeW = nkGPUSampler.AddressModes[aw];
+        ds.magFilter = nkGPUSampler.FilterModes[mg];
+        ds.minFilter = nkGPUSampler.FilterModes[mn];
+        ds.mipmapFilter = nkGPUSampler.FilterModes[mp];
+        ds.lodMinClamp = lo;
+        if (cp !== -1)
+            ds.compare = nkGPUSampler.CompareFunctions[cp];
+        if (hi !== -1)
+            ds.lodMaxClamp = hi;
+        if (ma !== -1)
+            ds.maxAnisotropy = ma;
+
+        var sp = dv.createSampler(ds);
+        return nkJSObject.RegisterObject(sp);
+    },
+        
     Destroy: function (uid)
     {
         var dv = nkJSObject.GetObject(uid);
         dv.destroy();
     },
+};
+
+window.nkGPUSampler =
+{
+    AddressModes: ['clamp-to-edge', 'repeat', 'mirror-repeat'],
+    FilterModes: ['nearest', 'linear'],
+    CompareFunctions: [undefined, 'never', 'less', 'equal', 'less-equal', 'greater', 'not-equal', 'greater-equal', 'always'],
 };
 
 window.nkGPUVertexState =
@@ -1038,6 +1189,42 @@ window.nkGPUQueue =
         var bf = nkJSObject.GetObject(buid);
         var data = new Uint8Array(module.HEAPU8.buffer, ptr, size);
         qu.writeBuffer(bf, offset, data);
+    },
+    WriteTexture: function (uid, module, d)
+    {
+        var qu = nkJSObject.GetObject(uid);
+        var tuid = module.HEAP32[(d+ 0)>>2];
+        var mip = module.HEAP32[(d+ 4)>>2];
+        var asp = module.HEAP32[(d+ 8)>>2];
+        var po = module.HEAP32[(d+12)>>2];
+        var ptr = module.HEAP32[(d+16)>>2];
+        var size = module.HEAP32[(d+20)>>2];
+        var offset = module.HEAP32[(d+24)>>2];
+        var bpr = module.HEAP32[(d+28)>>2];
+        var rpi = module.HEAP32[(d+32)>>2];
+        var ps = module.HEAP32[(d+36)>>2];
+
+        var ox = module.HEAP32[(po+ 0)>>2];
+        var oy = module.HEAP32[(po+ 4)>>2];
+        var oz = module.HEAP32[(po+ 8)>>2];
+
+        var tx = nkJSObject.GetObject(tuid);
+        var data = new Uint8Array(module.HEAPU8.buffer, ptr, size);
+
+        var destination = {};
+        destination.texture = tx;
+        destination.mipLevel = mip;
+        destination.origin = [ox, oy, oz];
+        destination.aspect = nkGPUTexture.Aspects[asp];
+
+        var layout = {};
+        layout.offset = offset;
+        if (bpr !== -1) layout.bytesPerRow = bpr;
+        if (rpi !== -1) layout.rowsPerImage = rpi;
+
+        var size = nkGPUTexture.ReadSize(module, ps);
+
+        qu.writeTexture(destination, data, layout, size);
     },
 };
 
