@@ -691,6 +691,7 @@ window.nkXRRigidTransform =
         module.HEAPF32[(pt+28)>>2] = ps.w;
     },
 };
+
 window.nkXRHand =
 {
     GetSize: function(uid)
