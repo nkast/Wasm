@@ -495,18 +495,8 @@ window.nkXRPose =
         var ps = nkJSObject.GetObject(uid);
         var pt = module.HEAP32[(d+ 0)>>2];
 
-        var tf = ps.transform;
-        
-        var or = tf.orientation;
-        module.HEAPF32[(pt+ 0)>>2] = or.x;
-        module.HEAPF32[(pt+ 4)>>2] = or.y;
-        module.HEAPF32[(pt+ 8)>>2] = or.z;
-        module.HEAPF32[(pt+12)>>2] = or.w;            
-        var ps = tf.position;
-        module.HEAPF32[(pt+16)>>2] = ps.x;
-        module.HEAPF32[(pt+20)>>2] = ps.y;
-        module.HEAPF32[(pt+24)>>2] = ps.z;
-        module.HEAPF32[(pt+28)>>2] = ps.w;
+        var tf = ps.transform;        
+        nkXRRigidTransform.Write(module, pt, tf);
     },
 };
 
@@ -550,17 +540,7 @@ window.nkXRView =
         var pt = module.HEAP32[(d+ 0)>>2];
 
         var tf = ve.transform;
-
-        var or = tf.orientation;
-        module.HEAPF32[(pt+ 0)>>2] = or.x;
-        module.HEAPF32[(pt+ 4)>>2] = or.y;
-        module.HEAPF32[(pt+ 8)>>2] = or.z;
-        module.HEAPF32[(pt+12)>>2] = or.w;            
-        var ps = tf.position;
-        module.HEAPF32[(pt+16)>>2] = ps.x;
-        module.HEAPF32[(pt+20)>>2] = ps.y;
-        module.HEAPF32[(pt+24)>>2] = ps.z;
-        module.HEAPF32[(pt+28)>>2] = ps.w;
+        nkXRRigidTransform.Write(module, pt, tf);
     },
     GetProjectionMatrix: function(uid, module, d)
     {
@@ -695,6 +675,22 @@ window.nkXRAnchor =
     },
 };
 
+window.nkXRRigidTransform =
+{
+    Write: function (module, pt, tf)
+    {
+        var or = tf.orientation;
+        module.HEAPF32[(pt+ 0)>>2] = or.x;
+        module.HEAPF32[(pt+ 4)>>2] = or.y;
+        module.HEAPF32[(pt+ 8)>>2] = or.z;
+        module.HEAPF32[(pt+12)>>2] = or.w;
+        var ps = tf.position;
+        module.HEAPF32[(pt+16)>>2] = ps.x;
+        module.HEAPF32[(pt+20)>>2] = ps.y;
+        module.HEAPF32[(pt+24)>>2] = ps.z;
+        module.HEAPF32[(pt+28)>>2] = ps.w;
+    },
+};
 window.nkXRHand =
 {
     GetSize: function(uid)
