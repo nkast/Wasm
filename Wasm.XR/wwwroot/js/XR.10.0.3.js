@@ -694,6 +694,13 @@ window.nkXRRigidTransform =
 
 window.nkXRHand =
 {
+    JointMap: ["wrist",
+               "thumb-metacarpal", "thumb-phalanx-proximal", "thumb-phalanx-distal", "thumb-tip",
+               "index-finger-metacarpal", "index-finger-phalanx-proximal", "index-finger-phalanx-intermediate", "index-finger-phalanx-distal", "index-finger-tip",
+               "middle-finger-metacarpal", "middle-finger-phalanx-proximal", "middle-finger-phalanx-intermediate", "middle-finger-phalanx-distal", "middle-finger-tip",
+               "ring-finger-metacarpal", "ring-finger-phalanx-proximal", "ring-finger-phalanx-intermediate", "ring-finger-phalanx-distal", "ring-finger-tip",
+               "pinky-finger-metacarpal", "pinky-finger-phalanx-proximal", "pinky-finger-phalanx-intermediate", "pinky-finger-phalanx-distal", "pinky-finger-tip"],
+
     GetSize: function(uid)
     {
         var hd = nkJSObject.GetObject(uid);
@@ -705,6 +712,19 @@ window.nkXRHand =
         var ky = nkJSObject.ReadString(module, d+ 0);
 
         var js = hd.get(ky);
+
+        var uid = nkJSObject.GetUid(js);
+        if (uid !== -1)
+            return uid;
+
+        return nkJSObject.RegisterObject(js);
+    },
+    Get1: function(uid, module, d)
+    {
+        var hd = nkJSObject.GetObject(uid);
+        var ji = module.HEAP32[(d + 0) >> 2];
+
+        var js = hd.get(nkXRHand.JointMap[ji]);
 
         var uid = nkJSObject.GetUid(js);
         if (uid !== -1)
