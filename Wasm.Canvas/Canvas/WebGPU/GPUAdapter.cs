@@ -6,13 +6,22 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUAdapter : JSObject
     {
+        private readonly int _fid_GetInfo;
+        private readonly int _fid_GetLimits;
+        private readonly int _fid_RequestDevice;
+        private readonly int _fid_RequestDevice1;
+
         internal GPUAdapter(int uid) : base(uid)
         {
+            _fid_GetInfo = RegisterFunction("nkGPUAdapter.GetInfo");
+            _fid_GetLimits = RegisterFunction("nkGPUAdapter.GetLimits");
+            _fid_RequestDevice = RegisterFunction("nkGPUAdapter.RequestDevice");
+            _fid_RequestDevice1 = RegisterFunction("nkGPUAdapter.RequestDevice1");
         }
 
         public GPUAdapterInfo GetInfo()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkGPUAdapter.GetInfo"));
+            int uid = InvokeRetInt(_fid_GetInfo);
 
             GPUAdapterInfo info = GPUAdapterInfo.FromUid(uid);
             if (info != null)
@@ -24,13 +33,13 @@ namespace nkast.Wasm.Canvas.WebGPU
         public unsafe GPUSupportedLimits GetLimits()
         {
             GPUSupportedLimits limits = new GPUSupportedLimits();
-            Invoke<IntPtr>(RegisterFunction("nkGPUAdapter.GetLimits"), new IntPtr(&limits));
+            Invoke<IntPtr>(_fid_GetLimits, new IntPtr(&limits));
             return limits;
         }
 
         public Task<GPUDevice> RequestDeviceAsync()
         {
-            int uid = InvokeRetInt(RegisterFunction("nkGPUAdapter.RequestDevice"));
+            int uid = InvokeRetInt(_fid_RequestDevice);
 
             PromiseJSObject<GPUDevice> promise = new PromiseJSObject<GPUDevice>(uid, (int newuid) => new GPUDevice(newuid));
             return promise.GetTask();
@@ -74,7 +83,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             limits.MaxStorageBufferBindingSize = requiredLimits.MaxStorageBufferBindingSize ?? -1;
             limits.MaxBufferSize = requiredLimits.MaxBufferSize ?? -1;
 
-            int uid = InvokeRetInt<IntPtr>(RegisterFunction("nkGPUAdapter.RequestDevice1"), new IntPtr(&limits));
+            int uid = InvokeRetInt<IntPtr>(_fid_RequestDevice1, new IntPtr(&limits));
 
             PromiseJSObject<GPUDevice> promise = new PromiseJSObject<GPUDevice>(uid, (int newuid) => new GPUDevice(newuid));
             return promise.GetTask();

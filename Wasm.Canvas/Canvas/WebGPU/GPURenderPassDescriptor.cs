@@ -5,11 +5,16 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPURenderPassDescriptor : JSObject
     {
+        private readonly int _fid_SetMaxDrawCount;
+        private readonly int _fid_SetColorAttachments;
+
         private int? _maxDrawCount;
         private GPUColorAttachmentCollection _colorAttachments;
 
         public GPURenderPassDescriptor() : base(Register())
         {
+            _fid_SetMaxDrawCount = RegisterFunction("nkGPURenderPassDescriptor.SetMaxDrawCount");
+            _fid_SetColorAttachments = RegisterFunction("nkGPURenderPassDescriptor.SetColorAttachments");
         }
 
         private static int Register()
@@ -23,7 +28,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _maxDrawCount = value;
-                Invoke(RegisterFunction("nkGPURenderPassDescriptor.SetMaxDrawCount"), value ?? -1);
+                Invoke(_fid_SetMaxDrawCount, value ?? -1);
             }
         }
 
@@ -33,7 +38,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _colorAttachments = value;
-                Invoke(RegisterFunction("nkGPURenderPassDescriptor.SetColorAttachments"), value.Uid);
+                Invoke(_fid_SetColorAttachments, value.Uid);
             }
         }
 

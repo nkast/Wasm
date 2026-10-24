@@ -5,6 +5,7 @@ namespace nkast.Wasm.Dom
 {
     public class Audio : HTMLMediaElement, IHTMLMediaElement
     {
+
         private Audio(int uid) : base(uid)
         {
         }

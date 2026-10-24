@@ -6,11 +6,16 @@ namespace nkast.Wasm.Audio
 {
     public class AudioParamMap : JSObject
     {
+        private readonly int _fid_Get;
+        private readonly int _fid_GetSize;
+
         private AudioNode _audioNode;
         private Dictionary<string, AudioParam> _paramMap = new Dictionary<string, AudioParam>();
 
         public AudioParamMap(int uid, AudioNode audioNode) : base(uid)
         {
+            _fid_Get = RegisterFunction("nkAudioParamMap.Get");
+            _fid_GetSize = RegisterFunction("nkAudioParamMap.GetSize");
             _audioNode = audioNode;
         }
 
@@ -21,7 +26,7 @@ namespace nkast.Wasm.Audio
                 if (_paramMap.TryGetValue(key, out AudioParam param))
                     return param;
 
-                int uid = InvokeRetInt<string>(RegisterFunction("nkAudioParamMap.Get"), key);
+                int uid = InvokeRetInt<string>(_fid_Get, key);
                 if (uid == -1)
                     return null;
 
@@ -36,7 +41,7 @@ namespace nkast.Wasm.Audio
         {
             get
             {
-                int count = InvokeRetInt(RegisterFunction("nkAudioParamMap.GetSize"));
+                int count = InvokeRetInt(_fid_GetSize);
                 return count;
             }
         }

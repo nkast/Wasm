@@ -6,11 +6,18 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUFragmentState : JSObject
     {
+        private readonly int _fid_SetModule;
+        private readonly int _fid_SetEntryPoint;
+        private readonly int _fid_SetTargets;
+
         private GPUShaderModule _module;
         private string _entryPoint;
 
         public GPUFragmentState() : base(Register())
         {
+            _fid_SetModule = RegisterFunction("nkGPUFragmentState.SetModule");
+            _fid_SetEntryPoint = RegisterFunction("nkGPUFragmentState.SetEntryPoint");
+            _fid_SetTargets = RegisterFunction("nkGPUFragmentState.SetTargets");
         }
 
         private static int Register()
@@ -24,7 +31,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _module = value;
-                Invoke(RegisterFunction("nkGPUFragmentState.SetModule"), value.Uid);
+                Invoke(_fid_SetModule, value.Uid);
             }
         }
 
@@ -34,7 +41,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _entryPoint = value;
-                Invoke(RegisterFunction("nkGPUFragmentState.SetEntryPoint"), value ?? "");
+                Invoke(_fid_SetEntryPoint, value ?? "");
             }
         }
 
@@ -43,7 +50,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             get { throw new NotImplementedException(); }
             set
             {
-                Invoke(RegisterFunction("nkGPUFragmentState.SetTargets"), value.Uid);
+                Invoke(_fid_SetTargets, value.Uid);
             }
         }
 

@@ -7,16 +7,38 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUVertexBufferLayoutCollection : JSObject, IList<GPUVertexBufferLayout>
     {
-        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
+        private readonly int _fid_GetLength;
+        private readonly int _fid_Set;
+        private readonly int _fid_Add;
+        private readonly int _fid_Insert;
+        private readonly int _fid_RemoveAt;
+        private readonly int _fid_Clear;
+        private readonly int _fid_GetItem;
+
+        public int Count { get { return InvokeRetInt(_fid_GetLength); } }
 
         public bool IsReadOnly { get { return false; } }
 
         public GPUVertexBufferLayoutCollection() : base(Register())
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkJSArray.Set");
+            _fid_Add = RegisterFunction("nkJSArray.Add");
+            _fid_Insert = RegisterFunction("nkJSArray.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_GetItem = RegisterFunction("nkJSArray.GetItem");
         }
 
         public GPUVertexBufferLayoutCollection(int count) : base(Register(count))
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkJSArray.Set");
+            _fid_Add = RegisterFunction("nkJSArray.Add");
+            _fid_Insert = RegisterFunction("nkJSArray.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_GetItem = RegisterFunction("nkJSArray.GetItem");
         }
 
         private static int Register()
@@ -32,22 +54,22 @@ namespace nkast.Wasm.Canvas.WebGPU
         public GPUVertexBufferLayout this[int index]
         {
             get { return GetItem(index); }
-            set { Invoke(RegisterFunction("nkJSArray.Set"), index, value.Uid); }
+            set { Invoke(_fid_Set, index, value.Uid); }
         }
 
         public void Add(GPUVertexBufferLayout item)
         {
-            Invoke(RegisterFunction("nkJSArray.Add"), item.Uid);
+            Invoke(_fid_Add, item.Uid);
         }
 
         public void Insert(int index, GPUVertexBufferLayout item)
         {
-            Invoke(RegisterFunction("nkJSArray.Insert"), index, item.Uid);
+            Invoke(_fid_Insert, index, item.Uid);
         }
 
         public void RemoveAt(int index)
         {
-            Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
+            Invoke(_fid_RemoveAt, index);
         }
 
         public int IndexOf(GPUVertexBufferLayout item)
@@ -63,7 +85,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Clear()
         {
-            Invoke(RegisterFunction("nkJSArray.Clear"));
+            Invoke(_fid_Clear);
         }
 
         public bool Contains(GPUVertexBufferLayout item)
@@ -90,7 +112,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         private GPUVertexBufferLayout GetItem(int index)
         {
-            int uid = InvokeRetInt(RegisterFunction("nkJSArray.GetItem"), index);
+            int uid = InvokeRetInt(_fid_GetItem, index);
             GPUVertexBufferLayout item = GPUVertexBufferLayout.FromUid(uid);
             if (item == null)
                 item = new GPUVertexBufferLayout(uid);

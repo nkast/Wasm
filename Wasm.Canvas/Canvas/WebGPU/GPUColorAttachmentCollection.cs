@@ -7,16 +7,38 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUColorAttachmentCollection : JSObject, IList<GPUColorAttachment>
     {
-        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
+        private readonly int _fid_GetLength;
+        private readonly int _fid_Set;
+        private readonly int _fid_Add;
+        private readonly int _fid_Insert;
+        private readonly int _fid_RemoveAt;
+        private readonly int _fid_Clear;
+        private readonly int _fid_Get;
+
+        public int Count { get { return InvokeRetInt(_fid_GetLength); } }
 
         public bool IsReadOnly { get { return false; } }
 
         public GPUColorAttachmentCollection() : base(Register())
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUColorAttachmentCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUColorAttachmentCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUColorAttachmentCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_Get = RegisterFunction("nkGPUColorAttachmentCollection.Get");
         }
 
         public GPUColorAttachmentCollection(int count) : base(Register(count))
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUColorAttachmentCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUColorAttachmentCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUColorAttachmentCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_Get = RegisterFunction("nkGPUColorAttachmentCollection.Get");
         }
 
         private static int Register()
@@ -41,7 +63,7 @@ namespace nkast.Wasm.Canvas.WebGPU
                 data.ClearValue = value.ClearValue;
                 data.DepthSlice = value.DepthSlice ?? -1;
 
-                Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Set"), index, (int)&data);
+                Invoke(_fid_Set, index, (int)&data);
             }
         }
 
@@ -54,7 +76,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.ClearValue = item.ClearValue;
             data.DepthSlice = item.DepthSlice ?? -1;
 
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Add"), (int)&data);
+            Invoke(_fid_Add, (int)&data);
         }
 
         public unsafe void Insert(int index, GPUColorAttachment item)
@@ -66,12 +88,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.ClearValue = item.ClearValue;
             data.DepthSlice = item.DepthSlice ?? -1;
 
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Insert"), index, (int)&data);
+            Invoke(_fid_Insert, index, (int)&data);
         }
 
         public void RemoveAt(int index)
         {
-            Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
+            Invoke(_fid_RemoveAt, index);
         }
 
         public int IndexOf(GPUColorAttachment item)
@@ -92,7 +114,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Clear()
         {
-            Invoke(RegisterFunction("nkJSArray.Clear"));
+            Invoke(_fid_Clear);
         }
 
         public bool Contains(GPUColorAttachment item)
@@ -125,7 +147,7 @@ namespace nkast.Wasm.Canvas.WebGPU
         private unsafe GPUColorAttachment GetItem(int index)
         {
             GPUColorAttachmentData data = new GPUColorAttachmentData();
-            Invoke(RegisterFunction("nkGPUColorAttachmentCollection.Get"), index, (int)&data);
+            Invoke(_fid_Get, index, (int)&data);
 
             GPUColorAttachment item = new GPUColorAttachment();
             item.View = GPUTextureView.FromUid(data.ViewUid);

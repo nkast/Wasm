@@ -5,6 +5,7 @@ namespace nkast.Wasm.Dom
 {
     public class Video : HTMLMediaElement, IHTMLMediaElement
     {
+
         private Video(int uid) : base(uid)
         {
         }

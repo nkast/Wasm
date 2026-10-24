@@ -7,7 +7,15 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUBindGroupEntryCollection : JSObject, IList<GPUBindGroupEntry>
     {
-        public int Count { get { return InvokeRetInt(RegisterFunction("nkJSArray.GetLength")); } }
+        private readonly int _fid_GetLength;
+        private readonly int _fid_Set;
+        private readonly int _fid_Add;
+        private readonly int _fid_Insert;
+        private readonly int _fid_RemoveAt;
+        private readonly int _fid_Clear;
+        private readonly int _fid_Get;
+
+        public int Count { get { return InvokeRetInt(_fid_GetLength); } }
 
         public bool IsReadOnly { get { return false; } }
 
@@ -20,16 +28,30 @@ namespace nkast.Wasm.Canvas.WebGPU
                 data.Binding = value.Binding;
                 data.ResourceUid = value.Resource.Uid;
 
-                Invoke(RegisterFunction("nkGPUBindGroupEntryCollection.Set"), index, (int)&data);
+                Invoke(_fid_Set, index, (int)&data);
             }
         }
 
         public GPUBindGroupEntryCollection() : base(Register())
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUBindGroupEntryCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUBindGroupEntryCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUBindGroupEntryCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_Get = RegisterFunction("nkGPUBindGroupEntryCollection.Get");
         }
 
         public GPUBindGroupEntryCollection(int count) : base(Register(count))
         {
+            _fid_GetLength = RegisterFunction("nkJSArray.GetLength");
+            _fid_Set = RegisterFunction("nkGPUBindGroupEntryCollection.Set");
+            _fid_Add = RegisterFunction("nkGPUBindGroupEntryCollection.Add");
+            _fid_Insert = RegisterFunction("nkGPUBindGroupEntryCollection.Insert");
+            _fid_RemoveAt = RegisterFunction("nkJSArray.RemoveAt");
+            _fid_Clear = RegisterFunction("nkJSArray.Clear");
+            _fid_Get = RegisterFunction("nkGPUBindGroupEntryCollection.Get");
         }
 
         private static int Register()
@@ -49,7 +71,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.Binding = item.Binding;
             data.ResourceUid = item.Resource.Uid;
 
-            Invoke(RegisterFunction("nkGPUBindGroupEntryCollection.Add"), (int)&data);
+            Invoke(_fid_Add, (int)&data);
         }
 
         public unsafe void Insert(int index, GPUBindGroupEntry item)
@@ -58,12 +80,12 @@ namespace nkast.Wasm.Canvas.WebGPU
             data.Binding = item.Binding;
             data.ResourceUid = item.Resource.Uid;
 
-            Invoke(RegisterFunction("nkGPUBindGroupEntryCollection.Insert"), index, (int)&data);
+            Invoke(_fid_Insert, index, (int)&data);
         }
 
         public void RemoveAt(int index)
         {
-            Invoke(RegisterFunction("nkJSArray.RemoveAt"), index);
+            Invoke(_fid_RemoveAt, index);
         }
 
         public int IndexOf(GPUBindGroupEntry item)
@@ -81,7 +103,7 @@ namespace nkast.Wasm.Canvas.WebGPU
 
         public void Clear()
         {
-            Invoke(RegisterFunction("nkJSArray.Clear"));
+            Invoke(_fid_Clear);
         }
 
         public bool Contains(GPUBindGroupEntry item)
@@ -114,7 +136,7 @@ namespace nkast.Wasm.Canvas.WebGPU
         private unsafe GPUBindGroupEntry GetItem(int index)
         {
             GPUBindGroupEntryData data = new GPUBindGroupEntryData();
-            Invoke(RegisterFunction("nkGPUBindGroupEntryCollection.Get"), index, (int)&data);
+            Invoke(_fid_Get, index, (int)&data);
 
             GPUBindGroupEntry item = new GPUBindGroupEntry();
             item.Binding = data.Binding;

@@ -6,12 +6,19 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPURenderPipelineDescriptor : JSObject
     {
+        private readonly int _fid_SetVertex;
+        private readonly int _fid_SetFragment;
+        private readonly int _fid_SetPrimitive;
+
         private GPUVertexState _vertex;
         private GPUFragmentState _fragment;
         private GPUPrimitiveState? _primitive;
 
         public GPURenderPipelineDescriptor() : base(Register())
         {
+            _fid_SetVertex = RegisterFunction("nkGPURenderPipelineDescriptor.SetVertex");
+            _fid_SetFragment = RegisterFunction("nkGPURenderPipelineDescriptor.SetFragment");
+            _fid_SetPrimitive = RegisterFunction("nkGPURenderPipelineDescriptor.SetPrimitive");
         }
 
         private static int Register()
@@ -25,7 +32,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _vertex = value;
-                Invoke(RegisterFunction("nkGPURenderPipelineDescriptor.SetVertex"), value.Uid);
+                Invoke(_fid_SetVertex, value.Uid);
             }
         }
 
@@ -35,7 +42,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             set
             {
                 _fragment = value;
-                Invoke(RegisterFunction("nkGPURenderPipelineDescriptor.SetFragment"), value?.Uid ?? -1);
+                Invoke(_fid_SetFragment, value?.Uid ?? -1);
             }
         }
 
@@ -50,10 +57,10 @@ namespace nkast.Wasm.Canvas.WebGPU
                     if (value.HasValue)
                     {
                         GPUPrimitiveState data = value.Value;
-                        Invoke<IntPtr>(RegisterFunction("nkGPURenderPipelineDescriptor.SetPrimitive"), new IntPtr(&data));
+                        Invoke<IntPtr>(_fid_SetPrimitive, new IntPtr(&data));
                     }
                     else
-                        Invoke<IntPtr>(RegisterFunction("nkGPURenderPipelineDescriptor.SetPrimitive"), IntPtr.Zero);
+                        Invoke<IntPtr>(_fid_SetPrimitive, IntPtr.Zero);
                 }
             }
         }

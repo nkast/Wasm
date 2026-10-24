@@ -5,16 +5,23 @@ namespace nkast.Wasm.Canvas.WebGPU
 {
     public class GPUQueue : CachedJSObject<GPUQueue>
     {
+        private readonly int _fid_Submit;
+        private readonly int _fid_WriteBuffer;
+        private readonly int _fid_WriteTexture;
+
         public GPUDevice _device;
 
         internal GPUQueue(int uid, GPUDevice device) : base(uid)
         {
+            _fid_Submit = RegisterFunction("nkGPUQueue.Submit");
+            _fid_WriteBuffer = RegisterFunction("nkGPUQueue.WriteBuffer");
+            _fid_WriteTexture = RegisterFunction("nkGPUQueue.WriteTexture");
             _device = device;
         }
 
         public void Submit(GPUCommandBuffer commandBuffer)
         {
-            Invoke<int>(RegisterFunction("nkGPUQueue.Submit"), commandBuffer.Uid);
+            Invoke<int>(_fid_Submit, commandBuffer.Uid);
         }
 
         public unsafe void WriteBuffer<TData>(GPUBuffer buffer, long bufferOffset, TData[] data) where TData : unmanaged
@@ -22,7 +29,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             int stride = sizeof(TData);
             fixed (TData* pData = data)
             {
-                Invoke(RegisterFunction("nkGPUQueue.WriteBuffer"), buffer.Uid, (int)bufferOffset, (int)pData, data.Length * stride);
+                Invoke(_fid_WriteBuffer, buffer.Uid, (int)bufferOffset, (int)pData, data.Length * stride);
             }
         }
 
@@ -34,7 +41,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             int stride = sizeof(TData);
             fixed (TData* pData = data)
             {
-                Invoke(RegisterFunction("nkGPUQueue.WriteBuffer"), buffer.Uid, (int)bufferOffset, (int)(pData + dataOffset), size * stride);
+                Invoke(_fid_WriteBuffer, buffer.Uid, (int)bufferOffset, (int)(pData + dataOffset), size * stride);
             }
         }
 
@@ -43,7 +50,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             int stride = sizeof(TData);
             fixed (TData* pData = data)
             {
-                Invoke(RegisterFunction("nkGPUQueue.WriteBuffer"), buffer.Uid, (int)bufferOffset, (int)pData, data.Length * stride);
+                Invoke(_fid_WriteBuffer, buffer.Uid, (int)bufferOffset, (int)pData, data.Length * stride);
             }
         }
 
@@ -56,7 +63,7 @@ namespace nkast.Wasm.Canvas.WebGPU
             GPUTextureOrigin origin = destination.Origin;
             fixed (TData* pData = data)
             {
-                Invoke(RegisterFunction("nkGPUQueue.WriteTexture"),
+                Invoke(_fid_WriteTexture,
                     destination.Texture.Uid,
                     destination.MipLevel,
                     (int)destination.Aspect,
