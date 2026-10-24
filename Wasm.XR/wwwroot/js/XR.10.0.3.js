@@ -732,5 +732,41 @@ window.nkXRHand =
 
         return nkJSObject.RegisterObject(js);
     },
+    LocateJoints: function (uid, module, d)
+    {
+        var hd = nkJSObject.GetObject(uid);
+        var fruid = module.HEAP32[(d + 0) >> 2];
+        var rsuid = module.HEAP32[(d + 4) >> 2];
+        var pl = module.HEAP32[(d+ 8)>>2];
+
+        var fr = nkJSObject.GetObject(fruid);
+        var rs = nkJSObject.GetObject(rsuid);
+
+        for (var i = 0; i < 25; i++)
+        {
+            var js = hd.get(nkXRHand.JointMap[i]);
+
+            var pose = fr.getJointPose(js, rs);
+            if (pose)
+            {
+                nkXRRigidTransform.Write(module, pl + i*40, pose.transform);
+                module.HEAPF32[((pl+32+i*40)>>2)] = pose.radius;
+                module.HEAPU8[(pl+36+i*40)] = 1;
+            }
+            else
+            {
+                module.HEAPF32[(pl+ 0+i*40)>>2] = 0;
+                module.HEAPF32[(pl+ 4+i*40)>>2] = 0;
+                module.HEAPF32[(pl+ 8+i*40)>>2] = 0;
+                module.HEAPF32[(pl+12+i*40)>>2] = 1;
+                module.HEAPF32[(pl+16+i*40)>>2] = 0;
+                module.HEAPF32[(pl+20+i*40)>>2] = 0;
+                module.HEAPF32[(pl+24+i*40)>>2] = 0;
+                module.HEAPF32[(pl+28+i*40)>>2] = 1;
+                module.HEAPF32[(pl+32+i*40)>>2] = 0;
+                module.HEAPU8[ (pl+36+i*40)] = 0;
+            }
+        }
+    }
 };
 

@@ -10,6 +10,7 @@ namespace nkast.Wasm.XR
     {
         private readonly int _fid_Get;
         private readonly int _fid_Get1;
+        private readonly int _fid_LocateJoints;
         private readonly int _fid_GetSize;
 
 
@@ -17,6 +18,7 @@ namespace nkast.Wasm.XR
         {
             _fid_Get = RegisterFunction("nkXRHand.Get");
             _fid_Get1 = RegisterFunction("nkXRHand.Get1");
+            _fid_LocateJoints = RegisterFunction("nkXRHand.LocateJoints");
             _fid_GetSize = RegisterFunction("nkXRHand.GetSize");
         }
 
@@ -51,6 +53,16 @@ namespace nkast.Wasm.XR
                 return new XRJointSpace(uid);
             }
         }
+
+        public unsafe void LocateJoints(XRFrame frame, XRReferenceSpace referenceSpace, 
+                                        Span<XRJointLocation> jointLocations)
+        {
+            fixed (XRJointLocation* pJointLocations = jointLocations)
+            {
+                Invoke(_fid_LocateJoints, frame.Uid, referenceSpace.Uid, (int)pJointLocations);
+            }
+        }
+
         IEnumerable<string> IReadOnlyDictionary<string, XRJointSpace>.Keys
         {
             get
