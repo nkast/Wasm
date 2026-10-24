@@ -569,18 +569,18 @@ window.nkXRView =
 
         var mt = ve.projectionMatrix;
 
-        module.HEAPF32[(pt+ 0)>>2] = mt[00];
-        module.HEAPF32[(pt+ 4)>>2] = mt[01];
-        module.HEAPF32[(pt+ 8)>>2] = mt[02];
-        module.HEAPF32[(pt+12)>>2] = mt[03];
+        module.HEAPF32[(pt+ 0)>>2] = mt[ 0];
+        module.HEAPF32[(pt+ 4)>>2] = mt[ 1];
+        module.HEAPF32[(pt+ 8)>>2] = mt[ 2];
+        module.HEAPF32[(pt+12)>>2] = mt[ 3];
 
-        module.HEAPF32[(pt+16)>>2] = mt[04];
-        module.HEAPF32[(pt+20)>>2] = mt[05];
-        module.HEAPF32[(pt+24)>>2] = mt[06];
-        module.HEAPF32[(pt+28)>>2] = mt[07];
+        module.HEAPF32[(pt+16)>>2] = mt[ 4];
+        module.HEAPF32[(pt+20)>>2] = mt[ 5];
+        module.HEAPF32[(pt+24)>>2] = mt[ 6];
+        module.HEAPF32[(pt+28)>>2] = mt[ 7];
 
-        module.HEAPF32[(pt+32)>>2] = mt[08];
-        module.HEAPF32[(pt+36)>>2] = mt[09];
+        module.HEAPF32[(pt+32)>>2] = mt[ 8];
+        module.HEAPF32[(pt+36)>>2] = mt[ 9];
         module.HEAPF32[(pt+40)>>2] = mt[10];
         module.HEAPF32[(pt+44)>>2] = mt[11];
 
