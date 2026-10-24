@@ -63,7 +63,7 @@ namespace nkast.Wasm.JSInterop
         protected override void OnError()
         {
             string message = InvokeRetString(RegisterFunction("nkPromise.GetErrorMessage"));
-            int errorType = InvokeRetInt(RegisterFunction("nkPromise.GetErrorType)"));
+            int errorType = InvokeRetInt(RegisterFunction("nkPromise.GetErrorType"));
 
             Exception ex;
             switch (errorType)
