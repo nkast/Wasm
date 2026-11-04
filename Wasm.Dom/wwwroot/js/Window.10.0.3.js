@@ -176,6 +176,42 @@
         w.removeEventListener('devicemotion', w.nkRegisteredEventDeviceMotion);
         w.nkRegisteredEventDeviceMotion = null;
     },
+
+    IsDeviceOrientationEventDefined: function(uid)
+    {
+        var de = typeof DeviceOrientationEvent !== 'undefined';
+        return de;
+    },
+    DeviceOrientationEventRequestPermission: function(uid)
+    {
+        if (typeof DeviceOrientationEvent?.requestPermission === "function")
+        {
+            var pr = DeviceOrientationEvent.requestPermission();
+            return nkJSObject.RegisterObject(pr);
+        }
+        else
+        {
+            var pr = Promise.resolve('granted');
+            return nkJSObject.RegisterObject(pr);
+        }
+    },
+    RegisterDeviceOrientationEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.nkRegisteredEventDeviceOrientation = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowDeviceOrientation', uid,
+                event.alpha, event.beta, event.gamma);
+        };
+        w.addEventListener("deviceorientation", w.nkRegisteredEventDeviceOrientation);
+    },
+    UnregisterDeviceOrientationEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.removeEventListener("deviceorientation", w.nkRegisteredEventDeviceOrientation);
+        w.nkRegisteredEventDeviceOrientation = null;
+    },
+
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
