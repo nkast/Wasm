@@ -141,6 +141,41 @@
         w.clearInterval(hd);
     },
 
+    IsDeviceMotionEventDefined: function(uid)
+    {
+        var de = typeof DeviceMotionEvent !== 'undefined';
+        return de;
+    },
+    DeviceMotionEventRequestPermission: function(uid)
+    {
+        if (typeof DeviceMotionEvent?.requestPermission === "function")
+        {
+            var pr = DeviceMotionEvent.requestPermission();
+            return nkJSObject.RegisterObject(pr);
+        }
+        else
+        {
+            var pr = Promise.resolve('granted');
+            return nkJSObject.RegisterObject(pr);
+        }
+    },
+    RegisterDeviceMotionEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.nkRegisteredEventDeviceMotion = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowDeviceMotion', uid,
+                event.accelerationIncludingGravity.x, event.accelerationIncludingGravity.y, event.accelerationIncludingGravity.z,
+                event.interval);
+        };
+        w.addEventListener("devicemotion", w.nkRegisteredEventDeviceMotion);
+    },
+    UnregisterDeviceMotionEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.removeEventListener('devicemotion', w.nkRegisteredEventDeviceMotion);
+        w.nkRegisteredEventDeviceMotion = null;
+    },
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
