@@ -11,6 +11,28 @@
         var tl = nkJSObject.ReadString(module, d+ 0);
         dc.title = tl;
     },
+    GetFullscreenEnabled: function(uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        if (dc.fullscreenEnabled === undefined)
+            return false;
+        return dc.fullscreenEnabled;
+    },
+    GetFullscreenElementUid: function(uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        if (dc.fullscreenElement)
+        {
+            var fe = dc.fullscreenElement;
+
+            var feuid = nkJSObject.GetUid(fe);
+            if (feuid !== -1)
+                return feuid;
+
+            return nkJSObject.RegisterObject(fe);
+        }
+        return -1;
+    },
     GetElementById: function(uid, module, d)
     {
         var dc = nkJSObject.GetObject(uid);
@@ -22,7 +44,40 @@
     {
         var dc = nkJSObject.GetObject(uid);
         return dc.hasFocus();
+    },
+    ExitFullscreen: function(uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+        var pr = dc.exitFullscreen();
+        return nkJSObject.RegisterObject(pr);
+    },
+
+    RegisterEvents: function(uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+
+        dc.nkRegisteredEventFullscreenChange = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsDocumentOnFullscreenChange', uid);
+        }
+        dc.addEventListener('fullscreenchange', dc.nkRegisteredEventFullscreenChange);
+
+        dc.nkRegisteredEventFullscreenError = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsDocumentOnFullscreenError', uid);
     }
+        dc.addEventListener('fullscreenerror', dc.nkRegisteredEventFullscreenError);
+    },
+    UnregisterEvents: function(uid)
+    {
+        var dc = nkJSObject.GetObject(uid);
+
+        dc.removeEventListener('fullscreenchange', dc.nkRegisteredEventFullscreenChange);
+        dc.nkRegisteredEventFullscreenChange = null;
+
+        dc.removeEventListener('fullscreenerror', dc.nkRegisteredEventFullscreenError);
+        dc.nkRegisteredEventFullscreenError = null;
+    },
 };
 
 window.nkElement =
