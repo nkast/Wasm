@@ -65,7 +65,7 @@
         dc.nkRegisteredEventFullscreenError = function(event)
         {
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsDocumentOnFullscreenError', uid);
-    }
+        }
         dc.addEventListener('fullscreenerror', dc.nkRegisteredEventFullscreenError);
     },
     UnregisterEvents: function(uid)
@@ -111,6 +111,12 @@ window.nkElement =
         module.HEAPF64[(pt + 8) >> 3] = r.y;
         module.HEAPF64[(pt + 16) >> 3] = r.width;
         module.HEAPF64[(pt + 24) >> 3] = r.height;
+    },
+    RequestFullscreen: function(uid)
+    {
+        var e = nkJSObject.GetObject(uid);
+        var pr = e.requestFullscreen();
+        return nkJSObject.RegisterObject(pr);
     },
 };
 
