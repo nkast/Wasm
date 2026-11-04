@@ -73,7 +73,7 @@ namespace nkast.Wasm.Dom
         public delegate void OnGamepadDisconnectedDelegate(object sender, int index);
 
         public delegate void OnDeviceMotionDelegate(object sender, float? x, float? y, float? z, float interval);
-        public delegate void OnDeviceOrientationDelegate(object sender, float? alpha, float? beta, float? gamma);
+        public delegate void OnDeviceOrientationDelegate(object sender, float? alpha, float? beta, float? gamma, bool absolute, float? webkitCompassHeading);
 
 
         public OnResizeDelegate OnResize;
@@ -400,9 +400,9 @@ namespace nkast.Wasm.Dom
             Invoke(_fid_UnregisterDeviceMotionEvent);
         }
 
-        public Task<string> DeviceOrientationEventRequestPermissionAsync()
+        public Task<string> DeviceOrientationEventRequestPermissionAsync(bool absolute)
         {
-            int uid = InvokeRetInt(_fid_DeviceOrientationEventRequestPermission);
+            int uid = InvokeRetInt(_fid_DeviceOrientationEventRequestPermission, absolute);
 
             PromiseString promise = new PromiseString(uid);
             return promise.GetTask();
@@ -563,12 +563,12 @@ namespace nkast.Wasm.Dom
         }
 
         [JSInvokable]
-        public static void JsWindowDeviceOrientation(int uid, float? alpha, float? beta, float? gamma)
+        public static void JsWindowDeviceOrientation(int uid, float? alpha, float? beta, float? gamma, bool absolute, float? webkitCompassHeading)
         {
             Window wnd = WindowFromUid(uid);
             var handler = wnd.OnDeviceOrientation;
             if (handler != null)
-                handler(wnd, alpha, beta, gamma);
+                handler(wnd, alpha, beta, gamma, absolute, webkitCompassHeading);
         }
     }
 }

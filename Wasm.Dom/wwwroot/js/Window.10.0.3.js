@@ -182,11 +182,12 @@
         var de = typeof DeviceOrientationEvent !== 'undefined';
         return de;
     },
-    DeviceOrientationEventRequestPermission: function(uid)
+    DeviceOrientationEventRequestPermission: function(uid, module, d)
     {
+        var ab = module.HEAP32[(d+ 0)>>2] !== 0;
         if (typeof DeviceOrientationEvent?.requestPermission === "function")
         {
-            var pr = DeviceOrientationEvent.requestPermission();
+            var pr = DeviceOrientationEvent.requestPermission(ab);
             return nkJSObject.RegisterObject(pr);
         }
         else
@@ -200,15 +201,18 @@
         var w = nkJSObject.GetObject(uid);
         w.nkRegisteredEventDeviceOrientation = function(event)
         {
+            var wkc = event.webkitCompassHeading ? event.webkitCompassHeading : null;
             DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowDeviceOrientation', uid,
-                event.alpha, event.beta, event.gamma);
+                event.alpha, event.beta, event.gamma, event.absolute, wkc);
         };
-        w.addEventListener("deviceorientation", w.nkRegisteredEventDeviceOrientation);
+        var t = ('ondeviceorientationabsolute' in w) ? "deviceorientationabsolute" : "deviceorientation";
+        w.addEventListener(t, w.nkRegisteredEventDeviceOrientation);
     },
     UnregisterDeviceOrientationEvent: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
-        w.removeEventListener("deviceorientation", w.nkRegisteredEventDeviceOrientation);
+        var t = ('ondeviceorientationabsolute' in w) ? "deviceorientationabsolute" : "deviceorientation";
+        w.removeEventListener(t, w.nkRegisteredEventDeviceOrientation);
         w.nkRegisteredEventDeviceOrientation = null;
     },
 
