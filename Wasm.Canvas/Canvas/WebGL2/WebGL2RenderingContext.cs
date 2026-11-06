@@ -95,6 +95,11 @@ namespace nkast.Wasm.Canvas.WebGL
             base.FramebufferTexture2D((WebGLFramebufferType)target, attachment, texturetarget, texture);
         }
 
+        public void FramebufferTexture2D(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture, int level)
+        {
+            base.FramebufferTexture2D((WebGLFramebufferType)target, attachment, texturetarget, texture, level);
+        }
+
         public unsafe void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments)
         {
             fixed (WebGLFramebufferAttachmentPoint* pAttachments = attachments)
