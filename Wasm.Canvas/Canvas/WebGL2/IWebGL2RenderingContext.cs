@@ -11,6 +11,7 @@ namespace nkast.Wasm.Canvas.WebGL
         void BindFramebuffer(WebGL2FramebufferType target, WebGLFramebuffer framebuffer);
         void FramebufferRenderbuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLRenderbufferType renderbuffertarget, WebGLRenderbuffer renderbuffer);
         void FramebufferTexture2D(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture);
+        void FramebufferTexture2D(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint attachment, WebGLTextureTarget texturetarget, WebGLTexture texture, int level);
         void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments);
         void InvalidateFramebuffer(WebGL2FramebufferType target, Span<WebGLFramebufferAttachmentPoint> attachments);
         void InvalidateFramebuffer(WebGL2FramebufferType target, WebGLFramebufferAttachmentPoint[] attachments, int startIndex, int length);
