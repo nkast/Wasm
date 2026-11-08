@@ -154,20 +154,28 @@
     {
         var c = nkJSObject.GetObject(uid);
 
-        c.onwebglcontextlost = function (event)
+        c.nkRegisteredEventContextLost = function(event)
         {
+            event.preventDefault();
             DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsCanvasOnWebGLContextLost', uid);
         };
-        c.onwebglcontextrestored = function (event)
+        c.addEventListener('webglcontextlost', c.nkRegisteredEventContextLost);
+
+        c.nkRegisteredEventContextRestored = function(event)
         {
             DotNet.invokeMethod('nkast.Wasm.Canvas', 'JsCanvasOnWebGLContextRestored', uid);
         };
+        c.addEventListener('webglcontextrestored', c.nkRegisteredEventContextRestored);
     },
     UnregisterEvents: function(uid)
     {
         var c = nkJSObject.GetObject(uid);
-        c.onwebglcontextlost = null;
-        c.onwebglcontextrestored = null;
+
+        c.removeEventListener('webglcontextlost', c.nkRegisteredEventContextLost);
+        c.nkRegisteredEventContextLost = null;
+
+        c.removeEventListener('webglcontextrestored', c.nkRegisteredEventContextRestored);
+        c.nkRegisteredEventContextRestored = null;
     }
 };
 
