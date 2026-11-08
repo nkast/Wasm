@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using nkast.Wasm.Input;
 using nkast.Wasm.JSInterop;
@@ -24,6 +25,14 @@ namespace nkast.Wasm.Dom
         private readonly int _fid_ClearTimeout;
         private readonly int _fid_SetInterval;
         private readonly int _fid_ClearInterval;
+        private readonly int _fid_IsDeviceMotionEventDefined;
+        private readonly int _fid_DeviceMotionEventRequestPermission;
+        private readonly int _fid_RegisterDeviceMotionEvent;
+        private readonly int _fid_UnregisterDeviceMotionEvent;
+        private readonly int _fid_IsDeviceOrientationEventDefined;
+        private readonly int _fid_DeviceOrientationEventRequestPermission;
+        private readonly int _fid_RegisterDeviceOrientationEvent;
+        private readonly int _fid_UnregisterDeviceOrientationEvent;
 
         static Window _current;
         private Document _document;
@@ -63,6 +72,9 @@ namespace nkast.Wasm.Dom
         public delegate void OnGamepadConnectedDelegate(object sender, int index);
         public delegate void OnGamepadDisconnectedDelegate(object sender, int index);
 
+        public delegate void OnDeviceMotionDelegate(object sender, float? x, float? y, float? z, float interval);
+        public delegate void OnDeviceOrientationDelegate(object sender, float? alpha, float? beta, float? gamma, bool absolute, float? webkitCompassHeading);
+
 
         public OnResizeDelegate OnResize;
         public OnResizeDelegate OnFocus;
@@ -81,6 +93,9 @@ namespace nkast.Wasm.Dom
 
         public OnGamepadConnectedDelegate OnGamepadConnected;
         public OnGamepadDisconnectedDelegate OnGamepadDisconnected;
+
+        public OnDeviceMotionDelegate OnDeviceMotion;
+        public OnDeviceOrientationDelegate OnDeviceOrientation;
 
         public static Window Current
         { 
@@ -176,6 +191,16 @@ namespace nkast.Wasm.Dom
             }
         }
 
+        public bool IsDeviceMotionEventDefined
+        {
+            get { return InvokeRetBool(_fid_IsDeviceMotionEventDefined); }
+        }
+
+        public bool IsDeviceOrientationEventDefined
+        {
+            get { return InvokeRetBool(_fid_IsDeviceOrientationEventDefined); }
+        }
+
         private Window(int uid) : base(uid)
         {
             _fid_GetDocument = RegisterFunction("nkWindow.GetDocument");
@@ -193,6 +218,14 @@ namespace nkast.Wasm.Dom
             _fid_ClearTimeout = RegisterFunction("nkWindow.ClearTimeout");
             _fid_SetInterval = RegisterFunction("nkWindow.SetInterval");
             _fid_ClearInterval = RegisterFunction("nkWindow.ClearInterval");
+            _fid_IsDeviceMotionEventDefined = RegisterFunction("nkWindow.IsDeviceMotionEventDefined");
+            _fid_DeviceMotionEventRequestPermission = RegisterFunction("nkWindow.DeviceMotionEventRequestPermission");
+            _fid_RegisterDeviceMotionEvent = RegisterFunction("nkWindow.RegisterDeviceMotionEvent");
+            _fid_UnregisterDeviceMotionEvent = RegisterFunction("nkWindow.UnregisterDeviceMotionEvent");
+            _fid_IsDeviceOrientationEventDefined = RegisterFunction("nkWindow.IsDeviceOrientationEventDefined");
+            _fid_DeviceOrientationEventRequestPermission = RegisterFunction("nkWindow.DeviceOrientationEventRequestPermission");
+            _fid_RegisterDeviceOrientationEvent = RegisterFunction("nkWindow.RegisterDeviceOrientationEvent");
+            _fid_UnregisterDeviceOrientationEvent = RegisterFunction("nkWindow.UnregisterDeviceOrientationEvent");
             Invoke(_fid_RegisterEvents);
         }
         
@@ -349,6 +382,42 @@ namespace nkast.Wasm.Dom
             Invoke<int>(_fid_ClearInterval, intervalID);
         }
 
+        public Task<string> DeviceMotionEventRequestPermissionAsync()
+        {
+            int uid = InvokeRetInt(_fid_DeviceMotionEventRequestPermission);
+
+            PromiseString promise = new PromiseString(uid);
+            return promise.GetTask();
+        }
+
+        public void RegisterDeviceMotionEvent()
+        {
+            InvokeRetInt(_fid_RegisterDeviceMotionEvent);
+        }
+
+        public void UnregisterDeviceMotionEvent()
+        {
+            Invoke(_fid_UnregisterDeviceMotionEvent);
+        }
+
+        public Task<string> DeviceOrientationEventRequestPermissionAsync(bool absolute)
+        {
+            int uid = InvokeRetInt(_fid_DeviceOrientationEventRequestPermission, absolute);
+
+            PromiseString promise = new PromiseString(uid);
+            return promise.GetTask();
+        }
+
+        public void RegisterDeviceOrientationEvent()
+        {
+            InvokeRetInt(_fid_RegisterDeviceOrientationEvent);
+        }
+
+        public void UnregisterDeviceOrientationEvent()
+        {
+            Invoke(_fid_UnregisterDeviceOrientationEvent);
+        }
+
         [JSInvokable]
         public static void JsWindowOnResize(int uid)
         {
@@ -482,6 +551,24 @@ namespace nkast.Wasm.Dom
             var handler = wnd.OnGamepadDisconnected;
             if (handler != null)
                 handler(wnd, index);
+        }
+
+        [JSInvokable]
+        public static void JsWindowDeviceMotion(int uid, float? x, float? y, float? z, float interval)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnDeviceMotion;
+            if (handler != null)
+                handler(wnd, x, y, z, interval);
+        }
+
+        [JSInvokable]
+        public static void JsWindowDeviceOrientation(int uid, float? alpha, float? beta, float? gamma, bool absolute, float? webkitCompassHeading)
+        {
+            Window wnd = WindowFromUid(uid);
+            var handler = wnd.OnDeviceOrientation;
+            if (handler != null)
+                handler(wnd, alpha, beta, gamma, absolute, webkitCompassHeading);
         }
     }
 }

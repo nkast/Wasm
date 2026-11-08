@@ -141,6 +141,81 @@
         w.clearInterval(hd);
     },
 
+    IsDeviceMotionEventDefined: function(uid)
+    {
+        var de = typeof DeviceMotionEvent !== 'undefined';
+        return de;
+    },
+    DeviceMotionEventRequestPermission: function(uid)
+    {
+        if (typeof DeviceMotionEvent?.requestPermission === "function")
+        {
+            var pr = DeviceMotionEvent.requestPermission();
+            return nkJSObject.RegisterObject(pr);
+        }
+        else
+        {
+            var pr = Promise.resolve('granted');
+            return nkJSObject.RegisterObject(pr);
+        }
+    },
+    RegisterDeviceMotionEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.nkRegisteredEventDeviceMotion = function(event)
+        {
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowDeviceMotion', uid,
+                event.accelerationIncludingGravity.x, event.accelerationIncludingGravity.y, event.accelerationIncludingGravity.z,
+                event.interval);
+        };
+        w.addEventListener("devicemotion", w.nkRegisteredEventDeviceMotion);
+    },
+    UnregisterDeviceMotionEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.removeEventListener('devicemotion', w.nkRegisteredEventDeviceMotion);
+        w.nkRegisteredEventDeviceMotion = null;
+    },
+
+    IsDeviceOrientationEventDefined: function(uid)
+    {
+        var de = typeof DeviceOrientationEvent !== 'undefined';
+        return de;
+    },
+    DeviceOrientationEventRequestPermission: function(uid, module, d)
+    {
+        var ab = module.HEAP32[(d+ 0)>>2] !== 0;
+        if (typeof DeviceOrientationEvent?.requestPermission === "function")
+        {
+            var pr = DeviceOrientationEvent.requestPermission(ab);
+            return nkJSObject.RegisterObject(pr);
+        }
+        else
+        {
+            var pr = Promise.resolve('granted');
+            return nkJSObject.RegisterObject(pr);
+        }
+    },
+    RegisterDeviceOrientationEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        w.nkRegisteredEventDeviceOrientation = function(event)
+        {
+            var wkc = event.webkitCompassHeading ? event.webkitCompassHeading : null;
+            DotNet.invokeMethod('nkast.Wasm.Dom', 'JsWindowDeviceOrientation', uid,
+                event.alpha, event.beta, event.gamma, event.absolute, wkc);
+        };
+        var t = ('ondeviceorientationabsolute' in w) ? "deviceorientationabsolute" : "deviceorientation";
+        w.addEventListener(t, w.nkRegisteredEventDeviceOrientation);
+    },
+    UnregisterDeviceOrientationEvent: function(uid)
+    {
+        var w = nkJSObject.GetObject(uid);
+        var t = ('ondeviceorientationabsolute' in w) ? "deviceorientationabsolute" : "deviceorientation";
+        w.removeEventListener(t, w.nkRegisteredEventDeviceOrientation);
+        w.nkRegisteredEventDeviceOrientation = null;
+    },
+
     RegisterEvents: function(uid)
     {
         var w = nkJSObject.GetObject(uid);
