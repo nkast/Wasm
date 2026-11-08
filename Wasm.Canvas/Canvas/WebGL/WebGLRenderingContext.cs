@@ -1078,6 +1078,12 @@ namespace nkast.Wasm.Canvas.WebGL
             where TExtension : WebGLExtension
         {
             int uid = InvokeRetInt<string>(_fid_GetExtension1, name);
+            if (uid == -1)
+                return null;
+
+            WebGLExtension extension = WebGLExtension.FromUid(uid);
+            if (extension != null)
+                return (TExtension)extension;
 
             switch (name)
             {

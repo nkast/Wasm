@@ -2,7 +2,7 @@
 
 namespace nkast.Wasm.Canvas.WebGL
 {
-    public class WebGLExtension : JSObject
+    public class WebGLExtension : CachedJSObject<WebGLExtension>
     {
         public WebGLExtension(int uid) : base(uid)
         {

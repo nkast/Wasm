@@ -1061,6 +1061,10 @@ window.nkCanvasGLContext =
         
         var ex = gc.getExtension(nm);
 
+        var exuid = nkJSObject.GetUid(ex);
+        if (exuid !== -1)
+            return exuid;
+
         return nkJSObject.RegisterObject(ex);
     },
 
