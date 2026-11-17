@@ -12,6 +12,7 @@
         MAX_RENDERBUFFER_SIZE            = 0x84E8,
         MAX_VARYING_VECTORS              = 0x8DFC,
         MAX_VERTEX_UNIFORM_VECTORS       = 0x8DFB,
+        SAMPLES                          = 0x80A9,
 
         MAX_TEXTURE_MAX_ANISOTROPY_EXT   = 0x84FF,
     }
